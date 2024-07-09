@@ -98,6 +98,7 @@ nav:
   - "Laborok":
       - seminar/01-test/index.md
   - "Házi feladatok":
+      - homework/pontrendszer.md
       - homework/01-hw/index.md
   - "Jegyzetek":
       - lecture-notes/01-topic/index.md
