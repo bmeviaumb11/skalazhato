@@ -1,0 +1,103 @@
+site_name: COURSE CODE - COURSE NAME
+site_author: Tóth Tibor
+copyright: Copyright &copy; BME VIK AUT
+repo_name: bmeaut/mkdocs-course-materials-template
+repo_url: https://github.com/bmeaut/mkdocs-course-materials-template
+site_url: https://bmeaut.github.io/mkdocs-course-materials-template/
+
+theme:
+  name: material
+  custom_dir: overrides
+  icon:
+    repo: fontawesome/brands/github
+  language: hu
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: aut
+      primary: aut
+      accent: red
+      toggle:
+        icon: material/lightbulb-outline
+        name: Váltás sötét témára
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: red
+      toggle:
+        icon: material/lightbulb
+        name: Váltás világos témára
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.tabs
+    - navigation.top
+    - search.suggest
+    - content.action.edit
+    - toc.follow
+  logo: logo-bme-aut.png
+  favicon: favicon.ico
+
+extra_css:
+  - extra-material-theme.css
+
+extra:
+  generator: false
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed
+  - pymdownx.tilde
+  - pymdownx.keys
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+
+
+plugins:
+  - search
+  - glightbox
+  - git-revision-date-localized:
+      # override from docker environment variables
+      # not a vanilla yaml syntax, only works with mkdocs.yaml because of pyyaml_env_tag
+      enabled: !ENV [IsRevisionDatePluginEnabled, false]
+      enable_creation_date: false
+      type: timeago
+      timezone: Europe/Budapest
+      locale: hu
+  - git-committers:
+      # override from docker environment variables
+      # not a vanilla yaml syntax, only works with mkdocs.yaml because of pyyaml_env_tag
+      enabled: !ENV [IsAuthorsPluginEnabled, false]
+      github_token: !ENV [GITHUB_TOKEN, '']
+      repository: bmeaut/mkdocs-course-materials-template
+      branch: master
+
+nav:
+  - index.md
+  - "Tudnivalók":
+      - information/contributing.md
+  - "Laborok":
+      - seminar/01-test/index.md
+  - "Házi feladatok":
+      - homework/01-hw/index.md
+  - "Jegyzetek":
+      - lecture-notes/01-topic/index.md
