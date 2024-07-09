@@ -1,9 +1,9 @@
-site_name: COURSE CODE - COURSE NAME
-site_author: Tóth Tibor
+site_name: BMEVIAUMB11 - Skálázható szoftverek
+site_author: Tóth Tibor, Simon Gábor
 copyright: Copyright &copy; BME VIK AUT
-repo_name: bmeaut/mkdocs-course-materials-template
-repo_url: https://github.com/bmeaut/mkdocs-course-materials-template
-site_url: https://bmeaut.github.io/mkdocs-course-materials-template/
+repo_name: bmeviaumb11/skalazhato
+repo_url: https://github.com/bmeviaumb11/skalazhato
+site_url: https://bmeviaumb11.github.io/skalazhato/
 
 theme:
   name: material
