@@ -12,7 +12,7 @@ A labor célja megismerni a Docker konténerek használatának alapjait és a le
     - Csak Linux esetén szükséges [külön telepíteni](https://docs.docker.com/compose/install/)
 - Microsoft Visual Studio Code
     - Javasolt: [Docker extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
-- Visual Studio 2022 (min 17.10)
+- Visual Studio 2022 (min 17.10) vagy .NET SDK CLI
     - A _ASP.NET and Web Development_ nevű [workload](https://learn.microsoft.com/en-us/visualstudio/install/modify-visual-studio?view=vs-2022) szükséges
 - Alap Linux parancsok ismerete. Érdemes átnézni pl.:
     - <http://bmeaut.github.io/snippets/snippets/0700_LinuxBev/>
@@ -611,7 +611,7 @@ A Microsoft Visual Studio támogatja és megkönnyíti a konténer alapú szoftv
 
 1. Indítsuk el a Visual Studio-t (nem a Code-ot!).
 
-2. Készítsünk egy új _ASP.NET Core Web App (Razor Pages)_ típusú projektet `Neptum.WebApp` néven a házi repositorynkba, és engedélyezzük a Linux-alapú konténer támogatást a projekt létrehozásakor
+2. Készítsünk egy új _ASP.NET Core Web App (Razor Pages)_ típusú projektet (.NET 8) `Neptun.WebApp` néven a házi repositorynkba, és engedélyezzük a Linux-alapú konténer támogatást a projekt létrehozásakor
 
     ![VS Linux konténer támogatás](images/vs-linux-container.png)
 
