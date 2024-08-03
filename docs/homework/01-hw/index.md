@@ -618,7 +618,7 @@ A Microsoft Visual Studio támogatja és megkönnyíti a konténer alapú szoftv
     Ez a lépés létrehoz egy `Dockerfile`-t a projektben, ami ráadásul multi-stage build megoldást tartalmaz, ami a fordítási, publikálási és futtatási fázisokat különválasztja (több `FROM` utasítás amik egymásra hivatkoznak).
     Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálható legyen egy szeparált .NET SDK-t tartalmazó konténerben. A publikálás pedig egy kisebb méretű image-be történik, ami már csak a .NET futtatókörnyezetet tartalmazza.
 
-3. Engedélyezzük a docker-compose használatát a projektben: Jobb gomb / Add / Orchestration Support / Docker Compose. Ez létrehoz egy docker-compose alapú projektet a Visual Studio Solution-ban és beállítja azt kiinduló projektnek.
+3. Engedélyezzük a docker-compose használatát a projektben: Jobb gomb / Add / Container Orchestrator Support / Docker Compose / Linux. Ez létrehoz egy docker-compose alapú projektet a Visual Studio Solution-ban és beállítja azt kiinduló projektnek.
 
 4. Futtassuk le a projektet a Visual Studio-ból. A projekt a `docker-compose`-ban definiált konténerekben fog futni.
 
