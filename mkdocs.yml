@@ -98,5 +98,6 @@ nav:
       - information/GitHub.md
       - information/GitHub-Actions.md
   - "Házi feladatok / Laborok":
-      - homework/01-hw/index.md
+      - homework/01-docker/index.md
+      - homework/02-kubernetes/index.md
       - homework/pontrendszer.md
