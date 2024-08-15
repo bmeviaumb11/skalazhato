@@ -8,6 +8,7 @@ A labor célja megismerni a Docker konténerek használatának alapjait és a le
 
 - Docker Desktop
     - A házi leírásban Windows platformot használunk, azonban a feladatok Linuxon és Mac-en is megoldhatóak (a könyvtár elérési útvonalakat megfelelően átírva).
+    - Docker Hub login
 - Docker-compose
     - Csak Linux esetén szükséges [külön telepíteni](https://docs.docker.com/compose/install/)
 - Microsoft Visual Studio Code
@@ -274,7 +275,7 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
       - `ubuntu` image neve (lehet többszintű is)
       - `:latest` tag neve
 
-    Jogosultság szempontból két fajta registry létezhet: publikus (pl. Docker Hub) és privát. Privát registry esetén: `docker login <url>` és `docker logout <url>` szükséges az authentikációhoz.
+    Jogosultság szempontból két fajta registry létezhet: publikus (pl. Docker Hub) és privát. **TODO login kell** Privát registry esetén: `docker login <url>` és `docker logout <url>` szükséges az authentikációhoz.
 
     Letöltés a registry-ből: `docker pull mcr.microsoft.com/dotnet/aspnet:8.0`
     
@@ -422,9 +423,8 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
     Redis
     ```
 
-1. Készíts egy `Dockerfile` nevű fájt (kiterjesztés nélkül!) az alábbi tartalommal. 
+1. Készíts egy `Dockerfile` nevű fájt (kiterjesztés nélkül!) az alábbi tartalommal.
    A Dockerfile egy szöveges fájl, ami tartalmazza az image létrehozásának lépéseit, mint egy recept.
-   
 
     ```dockerfile
     FROM python:3.12-slim
@@ -433,31 +433,32 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
     COPY . /app
     
     RUN pip install --trusted-host pypi.python.org -r requirements.txt
-  1. Készítsd el a fenti fájlokból az image-et. Konzolból a munkakönyvtárban add ki a következő parancsot:
+    EXPOSE 80
 
-    ```cmd
-    docker build -t python-neptun:v1 .
+    # Ide a saját Neptun kódodat írd
+    ENV NAME=NEPTUN 
+
+    CMD ["python", "app.py"]
     ```
-    Ez a parancs létrehoz egy image-et a Dockerfile alapján. A végén egy pont van, az is a parancs része, ami a build kontextust jelenti.3.12 alapú image, de a lehető l1. Indíts el egy új konténert ebből az image-ből:
-
-    ```cmd1. Indíts el egy új kontén1. Indíts el egy új konténert ebből az image-ből:
-
-    ```cmd
-    docker run -it --rm -p 8085:80 python-neptun:v1
-    ```l a konténerbe másoljuk a fájlokat. A `.` jelenti a build kontextus mappáját, esetünkben a `pythonweb` mappát.
-    - `RUN`: a build/image készítés során lefuttatandó parancsok. Itt a `requirements.txt` fájlban felsorolt Python csomagokat telepítjük a python (pip) csomagkezelővel.
-    - `EXPOSE`: a konténer által kiajánlott portokat jelzi. Mi most webalkalmazást készítünk, ezért a 80-as portot jelöljük ki.
-    - `ENV`: környezeti változó beállítása. A `NAME` környezeti változó értéke a saját Neptun kódod legyen.
-    - `CMD`: a konténer indításakor lefuttatandó parancs és argumentumai. Ebben az esetben a Python alkalmazásunkat indítjuk el.  
 
 1. Készítsd el a fenti fájlokból az image-et. Konzolból a munkakönyvtárban add ki a következő parancsot:
 
     ```cmd
     docker build -t python-neptun:v1 .
     ```
-    Ez a parancs létrehoz egy image-et a Dockerfile alapján. A végén egy pont van, az is a parancs része, ami a build kontextust jelenti.
+
+    Ez a parancs létrehoz egy image-et a Dockerfile alapján. A végén egy pont van, az is a parancs része, ami a build kontextust jelenti
+
+    - `FROM`: az alap image, amire építjük a sajátunkat. Mi most a Python 3.12-slim image-et használjuk.
+    - `WORKDIR`: a konténerben a munkakönyvtár, a további műveletek ebben a könyvtárban lesznek.
+    - `COPY`: a host gépről a konténerbe másoljuk a fájlokat. A `.` jelenti a build kontextus mappáját, esetünkben a `pythonweb` mappát.
+    - `RUN`: a build/image készítés során lefuttatandó parancsok. Itt a `requirements.txt` fájlban felsorolt Python csomagokat telepítjük a python (pip) csomagkezelővel.
+    - `EXPOSE`: a konténer által kiajánlott portokat jelzi. Mi most webalkalmazást készítünk, ezért a 80-as portot jelöljük ki.
+    - `ENV`: környezeti változó beállítása. A `NAME` környezeti változó értéke a saját Neptun kódod legyen.
+    - `CMD`: a konténer indításakor lefuttatandó parancs és argumentumai. Ebben az esetben a Python alkalmazásunkat indítjuk el.  
 
 1. Ellenőrizd, hogy tényleg létrejött-e az image.
+
 1. Indíts el egy új konténert ebből az image-ből:
 
     ```cmd
