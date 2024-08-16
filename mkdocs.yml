@@ -95,10 +95,8 @@ nav:
   - index.md
   - "Tudnivalók":
       - information/contributing.md
-  - "Laborok":
-      - seminar/01-test/index.md
-  - "Házi feladatok":
-      - homework/pontrendszer.md
+      - information/GitHub.md
+      - information/GitHub-Actions.md
+  - "Házi feladatok / Laborok":
       - homework/01-hw/index.md
-  - "Jegyzetek":
-      - lecture-notes/01-topic/index.md
+      - homework/pontrendszer.md
