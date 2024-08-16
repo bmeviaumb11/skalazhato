@@ -41,25 +41,24 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
 Teszteljük a Docker telepítésünket a `hello-world` image futtatásával.
 
 Nyissunk egy konzolt, és adjuk ki a következő parancsokat.
+Ezzel ellenőrizhetjük, hogy a docker CLI elérhető-e.
 
 ```cmd
 docker --version
 ```
 
-Ezzel ellenőrizhetjük, hogy a docker CLI elérhető-e.
+Futtassunk egy egyszerű előre elkészített konténert, ami kiír egy példa szöveget a konzolra.
 
 ```cmd
 docker run hello-world
 ```
 
-- _hello-word_ egy image neve: <https://hub.docker.com/_/hello-world>
+- _hello-word_ az image neve: <https://hub.docker.com/_/hello-world>
 - Image letöltődik, elindul, lefut a benne leírt program.
 
 ### Konténer futtatása interaktív módon
 
-Futtassunk egy pucér ubuntu konténert interaktív módon, így a futó konténerben egy shell-en keresztül tudunk tetszőleges parancsokat futtatni.
-
-- Add ki a következő parancsot:
+- Futtassunk egy natúr `ubuntu` konténert interaktív módon (`-it` kapcsolóval), így a futó konténerben egy shell-en keresztül tudunk tetszőleges parancsokat futtatni.
 
     ```cmd
     docker run -it ubuntu
@@ -91,10 +90,13 @@ Futtassunk egy pucér ubuntu konténert interaktív módon, így a futó kontén
 - Távolítsuk el a két konténert, amit mi indítottunk:
 
     ```cmd
-    docker rm <id1> <id2>
+    docker rm <id1|name> <id2|name>
     ```
 
-??? tip "Gyakoribb Docker parancsok"
+    !!! tip 
+        ID helyett a konténer nevét is megadhatjuk. Az automatikusan generált nevek helyett pedig a `run` parancs `--name` kapcsolójával adhatunk nevet a konténernek.
+
+??? note "Gyakoribb Docker parancsok"
     - Adjuk ki a `docker` parancsot a help-hez.
     - Adminisztratív parancsok: _mivel mit_, pl. `docker image ls`
     - Kezelő parancsok: _parancs argumentumok_, pl. `docker rmi <id>`
@@ -128,16 +130,18 @@ Futtassunk egy pucér ubuntu konténert interaktív módon, így a futó kontén
 Gyakran szeretnénk a host gépről elérni a konténerben lévő fájlokat, vagy éppen a konténerben lévő fájlokat szeretnénk a host gépen tárolni.
 Erre megoldás a _volume_ csatolás, amikor a host gép egy könyvtárát csatoljuk a konténerbe.
 
-- Hozzunk létre egy munkakönyvtárat tetszőleges helyen a neptun kódunkkal `c:\work\neptun`
-    - :exclamation: A példákban a neptun helyett a saját neptunkódunkat helyettesítsük be :exclamation:
+!!! danger "NEPTUN"
+    :exclamation: A példákban a `neptun` helyett a **saját neptunkódunkat** helyettesítsük be :exclamation:
 
-- Indítsunk el egy konténert úgy, hogy ezt a könyvtárat felcsatoljuk
+- Hozzunk létre egy munkakönyvtárat tetszőleges helyen a neptun kódunkkal `c:\work\neptun`
+    
+- Indítsunk el egy konténert úgy, hogy ezt a könyvtárat felcsatoljuk a `-v` kapcsolóval:
 
     ```cmd
     docker run -it --rm -v c:\work\neptun:/neptun ubuntu
     ```
 
-    Szintaktika: helyi teljes elérési útvonal _kettőspont_ konténeren belüli teljes elérési útvonal 
+    Szintaktika: helyi teljes elérési útvonal _kettőspont_ konténeren belüli teljes elérési útvonal
 
 - Konténeren belül listázzuk ki a könyvtárat:
 
@@ -177,26 +181,27 @@ Erre megoldás a _volume_ csatolás, amikor a host gép egy könyvtárát csatol
 
 Docker konténerek esetében gyakran webalkalmazásokat futtatunk, amiket a host gépről szeretnénk elérni. Ezt a port mappeléssel érhetjük el, ahol a host gép egy portját mappeljük a konténer egy portjára.
 
-- Indítsunk el egy _nginx_ webszervert:
+- Indítsunk el egy _nginx_ webszervert tartalmazó konténert:
 
     ```cmd
     docker run -d -p 8085:80 nginx
     ```
 
-    - `-d` opció: háttérben fut, a konzolt "visszakaptunk", amint elindult a konténer, és kiírja az image id-t
-    - `-p` helyi port _kettőspont_ konténeren belüli port
+    - `-d` (detach): háttérben fut, a konzolt "visszakaptunk", amint elindult a konténer, és kiírja az image id-t
+    - `-p` (port): helyi port _kettőspont_ konténeren belüli port
 
-- Nyissuk meg böngészőben ezt a címet: <http://localhost:8085/index.html?student=i6rxee>
+- Nyissuk meg böngészőben a címet a neptun kódunkkal: <http://localhost:8085/index.html?student=NEPTUN>
+
 - Nézzük meg a konténer logjait:
 
     ```cmd
-    docker logs <id>
+    docker logs <id|name>
     ```
 
 - Állítsuk le a konténert:
 
     ```cmd
-    docker stop <id>
+    docker stop <id|name>
     ```
 
 !!! example "BEADANDÓ"
@@ -218,7 +223,7 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
 - Futtassunk le egy parancsot a konténerben:
 
     ```cmd
-    docker exec <id> ls /
+    docker exec <id|name> ls /
     ```
 
     A parancs kilistázta a konténer fájlrendszerének gyökerét.
@@ -226,7 +231,7 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
 - Kérhetünk egy shell-t is a konténerbe ily módon:
 
     ```cmd
-    docker exec -it <id> /bin/bash
+    docker exec -it <id|name> /bin/bash
     ```
   
     - Az `-it` opció az interaktivitásra utal, azaz a konzolunkat "hozzáköti" a konténerben futó shellhez.
@@ -245,17 +250,25 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
     echo "hello NEPTUN from nginx" > /usr/share/nginx/html/index.html
     ```
 
-- Nyissuk meg böngészőben ezt a címet: <http://localhost:8085/index.html>
+- Nyissuk meg böngészőben ezt a címet: <http://localhost:8085/index.html> és ellenőrizzük, hogy a módosított tartalom látszik-e.
+
 - Lépjünk ki az `exit` utasítással. Ez csak a "második" shellt állítja le, a konténer még fut, mert az eredeti indítási pont is még fut.
 
 - Ha szükségünk van egy fájlra, akkor azt kimásolhatjuk a futó konténerből:
 
     ```cmd
-    docker cp <id>:/etc/nginx/conf.d/default.conf c:\work\neptun\nginx.conf
+    docker cp <id|name>:/etc/nginx/conf.d/default.conf c:\work\neptun\nginx.conf
     ```
     
-    - Szintaktikája: `docker cp <id>:</full/path> <cél/hely>`
+    - Szintaktikája: `docker cp <id|name>:</full/path> <cél/hely>`
     - A másolás az ellenkező irányba is működik, helyi gépről a konténerbe.
+
+- Állítsuk le és töröljük a konténert.
+
+    ```cmd
+    docker stop <id|name>
+    docker rm <id|name>
+    ```
 
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (f1.3.png) és commitold azt be a házi feladat repó gyökerébe, amin a fenti weboldal látszik a böngészőben.
@@ -275,65 +288,27 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
       - `ubuntu` image neve (lehet többszintű is)
       - `:latest` tag neve
 
-    Jogosultság szempontból két fajta registry létezhet: publikus (pl. Docker Hub) és privát. **TODO login kell** Privát registry esetén: `docker login <url>` és `docker logout <url>` szükséges az authentikációhoz.
+    Jogosultság szempontból két fajta registry létezhet: publikus (pl. Docker Hub) és privát. Privát registry esetén: `docker login <url>` és `docker logout <url>` szükséges az authentikációhoz.
 
     Letöltés a registry-ből: `docker pull mcr.microsoft.com/dotnet/aspnet:8.0`
     
     Ugyan a _run_ parancs is letölti, de csak akkor, ha még nem létezik. Nem ellenőrzi viszont, hogy nincs-e újabb image verzió publikálva. A _pull_ mindig frisset szed le.
 
 Készítünk egy saját image-et, ami egy módosított `nginx` image-et fog tartalmazni a saját tartalmunkkal.
-Ehhez az előző feladatban lévő lépéseket fogjuk elvégetni, de most nem lépünk ki a konténerből, hanem a konténer állapotát fogjuk menteni egy új image-be, ami az nginx-re épít, és egy új [image layer](https://docs.docker.com/v17.09/engine/userguide/storagedriver/imagesandcontainers/)-t tartalmaz a saját tartalmunkkal.
+Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most ne lépj ki a konténerből, hanem a konténer állapotát mentsd egy új image-be, ami az nginx-re épít, és egy új [image layer](https://docs.docker.com/v17.09/engine/userguide/storagedriver/imagesandcontainers/)-t tartalmaz a saját tartalmunkkal.
 
-1. Indíts el egy nginx image-et:
-
-    ```cmd
-    docker run -d -p 8085:80 nginx
-    ```
-
-    Jegyezd meg az image id-t, alább többször is használni fogjuk.
-
-1. "Lépj be" a futó konténerbe egy interaktív bash shellben:
-
-    ```cmd
-    docker exec -it <id> /bin/bash
-    ```
-
-1. A bash shellben lépj be az nginx által kiszolgált index html-t tartalmazó mappába:
-
-    ```cmd
-    cd /usr/share/nginx/html/
-    ```
-
-1. Nézd meg a mappa tartalmát:
-
-    ```cmd
-    ls
-    ```
-
-1. Írd felül az `index.html` tartalmát:
-
-    ```cmd
-    echo "hello NEPTUN from nginx" > /usr/share/nginx/html/index.html
-    ```
-
-1. Lépj ki a shellből:
-
-    ```cmd
-    exit
-    ```
-
-1. Ellenőrizd meg, hogy a konténer még fut:
-
-    ```cmd
-    docker ps
-    ```
-
-1. Nyisd meg böngészőből a <http://localhost:8085> címet, ellenőrizd, hogy megjelenik a saját tartalom
+1. Az előző feladat alapján futtass egy nginx konténert, amiben módosítod az `index.html` tartalmát.
 
 1. Készíts egy pillanatmentést a konténer jelenlegi állapotáról:
 
     ```cmd
-    docker commit <id>
+    docker commit <id|name>
+    ```
+
+1. Állítsd le a háttérben futó konténert:
+
+    ```cmd
+    docker stop <id|name>
     ```
 
 1. Az előbbi parancs készített egy image-et, aminek kiírta a hash-ét. Ellenőrizd, hogy tényleg létezik-e ez az image:
@@ -342,19 +317,13 @@ Ehhez az előző feladatban lévő lépéseket fogjuk elvégetni, de most nem l�
     docker images
     ```
 
-1. Állítsd le a háttérben futó konténert:
-
-    ```cmd
-    docker stop <id>
-    ```
-
 1. Taggeld meg az image-et:
 
     ```cmd
     docker tag <imageid> nginx-neptun
     ```
 
-    !!! warning 
+    !!! warning
         Itt már az image id-ja kell az images listából!
 
 1. Indíts el egy új konténert az előbb létrehozott saját image-ből:
@@ -363,8 +332,8 @@ Ehhez az előző feladatban lévő lépéseket fogjuk elvégetni, de most nem l�
     docker run -it --rm -p 8086:80 nginx-neptun
     ```
 
-    !!! warning 
-        A portszám szándékosan más, hogy biztosan legyünk 1enne, nem a korábban futóhoz csatlakozunk - ha mégse állítottuk volna azt le.
+    !!! warning
+        A portszám szándékosan más, hogy biztosan legyünk 1enne, nem a korábban futóhoz csatlakozunk - ha mégsem állítottuk volna azt le.
 
 1. Nyisd meg böngészőből a <http://localhost:8086> címet. Látható, hogy ez a módosított tartalmat jeleníti meg. Tehát `mynginx` néven létrehoztunk egy saját image-et.
 
@@ -373,20 +342,23 @@ Ehhez az előző feladatban lévő lépéseket fogjuk elvégetni, de most nem l�
 
 !!! tip "Takarítás"
     Fejlesztés közben sok ideiglenes image keletkezik, és konténereket hagyunk hátra.
-    Add ki a következő parancsot a nem futó konténerek törléséhez és az ideiglenes (címke nélküli) image-ek törléséhez: `docker system prune`
+    Add ki a következő parancsot a nem futó konténerek törléséhez és az ideiglenes (címke nélküli) image-ek törléséhez:
+
+    ```cmd
+    docker system prune
+    ```
 
 ### 2.2 Dockerfile
 
 Az előző feladatban az image készítését manuálisan végeztük el, ami nem jól verziózható, és reprodukálhatósági problémákat okozhat.
 
-Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszerrel, ami egy REST végpontot definiál és szolgál. Az adatokat (egy számláló) egy Redis adatbázisból olvassa és írja, és egy üdvözlő üzenetet ad vissza környezeti változó alapján.
+Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszerrel, ami egy REST végpontot definiál és szolgál ki. Az adatokat (egy számláló) Redis adatbázisból olvassa és írja, és egy üdvözlő üzenetet ad vissza környezeti változó alapján.
 
 1. Nyisd meg a házi repositorydat Visual Studio Code-ban.
 
-1. Készíts a repositoryd mappájába egy almappát `pythonweb` néven. A továbbiakban ennek a kontextusában dolgozz.
+1. Készíts a repository mappájába egy almappát `pythonweb` néven. A továbbiakban ennek a kontextusában dolgozz.
 
 1. Készíts egy `app.py` fájlt az alábbi tartalommal.
-
 
     ```Python
     from flask import Flask
@@ -449,6 +421,7 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
 
     Ez a parancs létrehoz egy image-et a Dockerfile alapján. A végén egy pont van, az is a parancs része, ami a build kontextust jelenti
 
+    A Dockerfile lépései:
     - `FROM`: az alap image, amire építjük a sajátunkat. Mi most a Python 3.12-slim image-et használjuk.
     - `WORKDIR`: a konténerben a munkakönyvtár, a további műveletek ebben a könyvtárban lesznek.
     - `COPY`: a host gépről a konténerbe másoljuk a fájlokat. A `.` jelenti a build kontextus mappáját, esetünkben a `pythonweb` mappát.
@@ -471,7 +444,7 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
     A weboldal ki kell írja a neptun kódodat, és egy hibaüzenetet a Redis-szel kapcsolatban.
 
 !!! example "BEADANDÓ"
-    Készíts egy képernyőképet (f2.2.png) és commitold azt be a házi feladat repó gyökerébe, amin a fenti weboldal látszik a böngészőben.
+    Készíts egy képernyőképet (f2.2.png) és commitold azt be a házi feladat repó gyökerébe, amin a fenti weboldal látszik a böngészőben és a konténer futtatás parancsa és logjai.
 
 ??? tip "Kitekintés: Dockerignore és build kontextus"
 
@@ -492,7 +465,8 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
         !!! warning "Elérhető fájlok"
             Ennek következménye az is, hogy csak a build kontextusban levő fájlokra tudunk hivatkozni. Tehát nem lehet pl. `COPY ..\..\file` használatával tetszőleges fájlt felmásolni a build közben.
 
-    3. Ha a build kontextusból szeretnénk kihagyni fájlokat, hogy a build ne tartson sokáig, akkor egy `.dockerignore` fájlra lesz szükségünk (a `.gitignore` mintájára). Ide szokás például a build környezet saját könyvtárait (`obj`, `bin`, `.vs`, `node_modules`, stb.) is felvenni.
+    3. Ha a build kontextusból szeretnénk kihagyni fájlokat, hogy a build ne tartson sokáig, akkor egy `.dockerignore` fájlra lesz szükségünk (a `.gitignore` mintájára). 
+       Ide szokás például a build környezet saját könyvtárait (`obj`, `bin`, `.vs`, `node_modules`, stb.) is felvenni.
 
         Készítsünk egy `.dockerignore`-t az alábbi tartalommal
 
@@ -506,9 +480,9 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
 
 ### 3.1 Docker-compose
 
-A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett egy Redis-re is szükségünk lenne. Futtassunk több konténert egyszerre.
+A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett egy Redis-re is szükségünk lenne. Futtassunk több konténert egyszerre a docker compose segítségével.
 
-1. Dolgozzunk a repository-n gyökerébe (tehát nem az előzőleg használt almappa) és Készítsünk ide egy `docker-compose.yaml` nevű fájlt az alábbi tartalommal.
+1. Dolgozzunk a repository-n gyökerébe (tehát ne az előzőleg használt almappába) és Készítsünk ide egy `docker-compose.yaml` nevű fájlt az alábbi tartalommal.
 
     ```yaml
     services:
@@ -549,6 +523,7 @@ A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett 
     Két lépésben a parancs: `docker-compose build` és `docker-compose up`
 
 3. Nyisd meg böngészőben a <http://localhost:5000> oldalt.
+
 4. Egy új konzolban nézd meg a futó konténereket.
 
     ```cmd
@@ -560,6 +535,8 @@ A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett 
 
 !!! note "docker-compose üzemeltetéshez"
     A docker-compose alkalmas üzemeltetésre is. A `docker-compose.yaml` fájl nem csak fejlesztői környezetet ír le, hanem üzemeltetéshez szükséges környezetet is. Ha a compose fájlt megfelelően írjuk meg (pl. használjuk a [`restart` direktívát](https://docs.docker.com/compose/compose-file/#restart) is), az elindított szolgáltatások automatikusan újraindulnak a rendszer indulásakor.
+
+    Ugyanakkor a docker-compose nem helyettesíti a Kubernetes-t vagy más konténer orkesztrációs megoldásokat, mert azok sokkal komplexebb feladatokat is meg tudnak oldani (pl. skálázás, load balancing, stb.).
 
 ### 3.2 Több compose yaml fájl
 
@@ -582,6 +559,7 @@ A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon.
     A redis konténer részletesebben fog naplózni a `command` direktívában megadott utasítás szerint. Állítsd le a rendszert.
 
 1. Nevezd át az előbbi override fájlt `docker-compose.debug.yaml`-re. 
+
 1. Készíts egy új `docker-compose.prod.yaml` fájlt a többi yaml mellé az alábbi tartalommal
 
     ```yaml
@@ -593,7 +571,7 @@ A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon.
 1. Indítsuk el a rendszert az alábbi paranccsal
 
     ```cmd
-    docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up
+    docker-compose -f docker-compose.yaml -f docker-compose.debug.yaml up
     ```
 
     A `-f` kapcsolóval tudjuk kérni a megadott yaml fájlok összefésülését.
@@ -619,7 +597,7 @@ A Microsoft Visual Studio támogatja és megkönnyíti a konténer alapú szoftv
     Ez a lépés létrehoz egy `Dockerfile`-t a projektben, ami ráadásul multi-stage build megoldást tartalmaz, ami a fordítási, publikálási és futtatási fázisokat különválasztja (több `FROM` utasítás amik egymásra hivatkoznak).
     Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálható legyen egy szeparált .NET SDK-t tartalmazó konténerben. A publikálás pedig egy kisebb méretű image-be történik, ami már csak a .NET futtatókörnyezetet tartalmazza.
 
-3. Engedélyezzük a docker-compose használatát a projektben: Jobb gomb / Add / Container Orchestrator Support / Docker Compose / Linux. Ez létrehoz egy docker-compose alapú projektet a Visual Studio Solution-ban és beállítja azt kiinduló projektnek.
+3. Engedélyezzük a docker-compose használatát a projektben: _Jobb gomb / Add / Container Orchestrator Support / Docker Compose / Linux_. Ez létrehoz egy docker-compose alapú projektet a Visual Studio Solution-ban és beállítja azt kiinduló projektnek.
 
 4. Futtassuk le a projektet a Visual Studio-ból. A projekt a `docker-compose`-ban definiált konténerekben fog futni.
 
