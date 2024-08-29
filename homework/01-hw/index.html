@@ -1540,14 +1540,16 @@ Redis
 <div class="highlight"><pre><span></span><code>docker build -t python-neptun:v1 .
 </code></pre></div>
 <p>Ez a parancs létrehoz egy image-et a Dockerfile alapján. A végén egy pont van, az is a parancs része, ami a build kontextust jelenti</p>
-<p>A Dockerfile lépései:
-- <code>FROM</code>: az alap image, amire építjük a sajátunkat. Mi most a Python 3.12-slim image-et használjuk.
-- <code>WORKDIR</code>: a konténerben a munkakönyvtár, a további műveletek ebben a könyvtárban lesznek.
-- <code>COPY</code>: a host gépről a konténerbe másoljuk a fájlokat. A <code>.</code> jelenti a build kontextus mappáját, esetünkben a <code>pythonweb</code> mappát.
-- <code>RUN</code>: a build/image készítés során lefuttatandó parancsok. Itt a <code>requirements.txt</code> fájlban felsorolt Python csomagokat telepítjük a python (pip) csomagkezelővel.
-- <code>EXPOSE</code>: a konténer által kiajánlott portokat jelzi. Mi most webalkalmazást készítünk, ezért a 80-as portot jelöljük ki.
-- <code>ENV</code>: környezeti változó beállítása. A <code>NAME</code> környezeti változó értéke a saját Neptun kódod legyen.
-- <code>CMD</code>: a konténer indításakor lefuttatandó parancs és argumentumai. Ebben az esetben a Python alkalmazásunkat indítjuk el.  </p>
+<p>A Dockerfile lépései:</p>
+<ul>
+<li><code>FROM</code>: az alap image, amire építjük a sajátunkat. Mi most a Python 3.12-slim image-et használjuk.</li>
+<li><code>WORKDIR</code>: a konténerben a munkakönyvtár, a további műveletek ebben a könyvtárban lesznek.</li>
+<li><code>COPY</code>: a host gépről a konténerbe másoljuk a fájlokat. A <code>.</code> jelenti a build kontextus mappáját, esetünkben a <code>pythonweb</code> mappát.</li>
+<li><code>RUN</code>: a build/image készítés során lefuttatandó parancsok. Itt a <code>requirements.txt</code> fájlban felsorolt Python csomagokat telepítjük a python (pip) csomagkezelővel.</li>
+<li><code>EXPOSE</code>: a konténer által kiajánlott portokat jelzi. Mi most webalkalmazást készítünk, ezért a 80-as portot jelöljük ki.</li>
+<li><code>ENV</code>: környezeti változó beállítása. A <code>NAME</code> környezeti változó értéke a saját Neptun kódod legyen.</li>
+<li><code>CMD</code>: a konténer indításakor lefuttatandó parancs és argumentumai. Ebben az esetben a Python alkalmazásunkat indítjuk el.  </li>
+</ul>
 </li>
 <li>
 <p>Ellenőrizd, hogy tényleg létrejött-e az image.</p>
@@ -1822,8 +1824,8 @@ Amikor a környezeti változó már nem elegendő a testreszabáshoz, ez a javas
           </path>
         </svg>
       </span>
-      <span title="2024. augusztus 16. 10:40:42">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-08-16T10:40:42+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-08-16</span>
+      <span title="2024. augusztus 29. 16:21:08">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-08-29T16:21:08+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-08-29</span>
       </span>
     </span>
 
