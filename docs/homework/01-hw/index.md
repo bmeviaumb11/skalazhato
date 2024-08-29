@@ -422,6 +422,7 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
     Ez a parancs létrehoz egy image-et a Dockerfile alapján. A végén egy pont van, az is a parancs része, ami a build kontextust jelenti
 
     A Dockerfile lépései:
+   
     - `FROM`: az alap image, amire építjük a sajátunkat. Mi most a Python 3.12-slim image-et használjuk.
     - `WORKDIR`: a konténerben a munkakönyvtár, a további műveletek ebben a könyvtárban lesznek.
     - `COPY`: a host gépről a konténerbe másoljuk a fájlokat. A `.` jelenti a build kontextus mappáját, esetünkben a `pythonweb` mappát.
