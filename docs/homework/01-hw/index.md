@@ -343,7 +343,7 @@ Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most 
     !!! warning
         A portszám szándékosan más, hogy biztosan legyünk 1enne, nem a korábban futóhoz csatlakozunk - ha mégsem állítottuk volna azt le.
 
-1. Nyisd meg böngészőből a <http://localhost:8086> címet. Látható, hogy ez a módosított tartalmat jeleníti meg. Tehát `mynginx` néven létrehoztunk egy saját image-et.
+1. Nyisd meg böngészőből a <http://localhost:8086> címet. Látható, hogy ez a módosított tartalmat jeleníti meg. Tehát `nginx-neptun` néven létrehoztunk egy saját image-et.
 
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (f2.1.png) és commitold azt be a házi feladat repó gyökerébe, amin a fenti weboldal látszik a böngészőben és a konténert futtató parancs a terminálban és annak a logjai.
@@ -461,8 +461,12 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
 
     1. Készítsünk az aktuális könyvtárunkba, az `app.py` mellé egy nagy fájlt. PowerShell-ben addjuk ki a következő parancsot.
 
-        ```powershell
+        ```powershell title="Windows - powershell"
         $out = new-object byte[] 134217728; (new-object Random).NextBytes($out); [IO.File]::WriteAllBytes("$pwd\file.bin", $out)
+        ```
+
+        ```bash title="Linux - bash"
+        dd if=/dev/urandom of=./file.bin bs=1M count=1024
         ```
 
     2. Buildeljük le ismét a fenti image-et: `docker build -t python-neptun:v1 .`
