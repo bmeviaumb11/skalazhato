@@ -1275,8 +1275,8 @@ Erre megoldás a <em>volume</em> csatolás, amikor a host gép egy könyvtárát
 <p>Indítsunk el egy konténert úgy, hogy ezt a könyvtárat felcsatoljuk a <code>-v</code> kapcsolóval:</p>
 <div class="highlight"><span class="filename">Windows</span><pre><span></span><code>docker run -it --rm -v c:\work\neptun:/neptun ubuntu
 </code></pre></div>
-<p><code>cmd title="Linux"
-docker run -it --rm -v ~/work/neptun:/neptun ubuntu</code></p>
+<div class="highlight"><span class="filename">Linux</span><pre><span></span><code>docker run -it --rm -v ~/work/neptun:/neptun ubuntu
+</code></pre></div>
 <p>Szintaktika: helyi teljes elérési útvonal <em>kettőspont</em> konténeren belüli teljes elérési útvonal</p>
 </li>
 <li>
@@ -1388,8 +1388,8 @@ Ehhez a <code>docker exec</code> és <code>docker cp</code> parancsot használju
 <p>Ha szükségünk van egy fájlra, akkor azt kimásolhatjuk a futó konténerből:</p>
 <div class="highlight"><span class="filename">Windows</span><pre><span></span><code>docker cp &lt;id|name&gt;:/etc/nginx/conf.d/default.conf c:\work\neptun\nginx.conf
 </code></pre></div>
-<p><code>cmd title="Linux"
-docker cp &lt;id|name&gt;:/etc/nginx/conf.d/default.conf ~/work/neptun/nginx.conf</code></p>
+<div class="highlight"><span class="filename">Linux</span><pre><span></span><code>docker cp &lt;id|name&gt;:/etc/nginx/conf.d/default.conf ~/work/neptun/nginx.conf
+</code></pre></div>
 <ul>
 <li>Szintaktikája: <code>docker cp &lt;id|name&gt;:&lt;/full/path&gt; &lt;cél/hely&gt;</code></li>
 <li>A másolás az ellenkező irányba is működik, helyi gépről a konténerbe.</li>
@@ -1828,8 +1828,8 @@ Amikor a környezeti változó már nem elegendő a testreszabáshoz, ez a javas
           </path>
         </svg>
       </span>
-      <span title="2024. szeptember 1. 14:18:59">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-01T14:18:59+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-01</span>
+      <span title="2024. szeptember 1. 14:25:41">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-01T14:25:41+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-01</span>
       </span>
     </span>
 
