@@ -141,7 +141,7 @@ Erre megoldás a _volume_ csatolás, amikor a host gép egy könyvtárát csatol
     docker run -it --rm -v c:\work\neptun:/neptun ubuntu
     ```
 
-     ```cmd title="Linux"
+    ```cmd title="Linux"
     docker run -it --rm -v ~/work/neptun:/neptun ubuntu
     ```
 
@@ -264,7 +264,7 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
     docker cp <id|name>:/etc/nginx/conf.d/default.conf c:\work\neptun\nginx.conf
     ```
 
-     ```cmd title="Linux"
+    ```cmd title="Linux"
     docker cp <id|name>:/etc/nginx/conf.d/default.conf ~/work/neptun/nginx.conf
     ```
     
