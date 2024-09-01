@@ -133,12 +133,16 @@ Erre megoldás a _volume_ csatolás, amikor a host gép egy könyvtárát csatol
 !!! danger "NEPTUN"
     :exclamation: A példákban a `neptun` helyett a **saját neptunkódunkat** helyettesítsük be :exclamation:
 
-- Hozzunk létre egy munkakönyvtárat tetszőleges helyen a neptun kódunkkal `c:\work\neptun`
+- Hozzunk létre egy munkakönyvtárat tetszőleges helyen a neptun kódunkkal, például `c:\work\neptun` (windows) `~/work/neptun` (linux)
     
 - Indítsunk el egy konténert úgy, hogy ezt a könyvtárat felcsatoljuk a `-v` kapcsolóval:
 
-    ```cmd
+    ```cmd title="Windows"
     docker run -it --rm -v c:\work\neptun:/neptun ubuntu
+    ```
+
+     ```cmd title="Linux"
+    docker run -it --rm -v ~/work/neptun:/neptun ubuntu
     ```
 
     Szintaktika: helyi teljes elérési útvonal _kettőspont_ konténeren belüli teljes elérési útvonal
@@ -172,7 +176,7 @@ Erre megoldás a _volume_ csatolás, amikor a host gép egy könyvtárát csatol
 - Nézzük meg a munkakönyvtárunkat.
 
 !!! tip "`--rm`"
-    A `--rm` opció törli a konténert leállás után; pl. teszteléshez hasznos, mint most.
+    A `docker run` `--rm` opciója törli a konténert leállás után; pl. teszteléshez hasznos, mint most.
 
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (f1.1.png) és commitold azt be a házi feladat repó gyökerébe, amin a fenti _Volume csatolás_ feladatok parancsainak eredményei láthatóak.
@@ -235,7 +239,7 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
     ```
   
     - Az `-it` opció az interaktivitásra utal, azaz a konzolunkat "hozzáköti" a konténerben futó shellhez.
-    - Tipikusan vagy `/bin/bash` vagy `/bin/sh` a Linux konténerekben a shell. Utóbbi az _alpine_ alapú konténerekben gyakori.
+    - Tipikusan vagy `/bin/bash` vagy `/bin/sh` a Linux konténerekben a shell. Utóbbi az [_alpine_](https://alpinelinux.org/) alapú konténerekben gyakori.
     - Ebben az interaktív shell-ben bármit csinálhatunk, beléphetünk könyvtárakba, megnézhetünk fájlokat, stb. Arra viszont ügyeljünk, hogy az így végzett módosításaink **elvesznek**, amikor a konténer törlésre kerül!
 
 - Például nézzük meg az nginx konfigurációját:
@@ -256,8 +260,12 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
 
 - Ha szükségünk van egy fájlra, akkor azt kimásolhatjuk a futó konténerből:
 
-    ```cmd
+    ```cmd title="Windows"
     docker cp <id|name>:/etc/nginx/conf.d/default.conf c:\work\neptun\nginx.conf
+    ```
+
+     ```cmd title="Linux"
+    docker cp <id|name>:/etc/nginx/conf.d/default.conf ~/work/neptun/nginx.conf
     ```
     
     - Szintaktikája: `docker cp <id|name>:</full/path> <cél/hely>`
