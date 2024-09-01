@@ -1463,7 +1463,7 @@ Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most 
 </div>
 </li>
 <li>
-<p>Nyisd meg böngészőből a <a href="http://localhost:8086">http://localhost:8086</a> címet. Látható, hogy ez a módosított tartalmat jeleníti meg. Tehát <code>mynginx</code> néven létrehoztunk egy saját image-et.</p>
+<p>Nyisd meg böngészőből a <a href="http://localhost:8086">http://localhost:8086</a> címet. Látható, hogy ez a módosított tartalmat jeleníti meg. Tehát <code>nginx-neptun</code> néven létrehoztunk egy saját image-et.</p>
 </li>
 </ol>
 <div class="admonition example">
@@ -1580,7 +1580,9 @@ Redis
 <ol>
 <li>
 <p>Készítsünk az aktuális könyvtárunkba, az <code>app.py</code> mellé egy nagy fájlt. PowerShell-ben addjuk ki a következő parancsot.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">$out</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">byte</span><span class="p">[]</span> <span class="n">134217728</span><span class="p">;</span> <span class="p">(</span><span class="nb">new-object</span> <span class="n">Random</span><span class="p">).</span><span class="n">NextBytes</span><span class="p">(</span><span class="nv">$out</span><span class="p">);</span> <span class="no">[IO.File]</span><span class="p">::</span><span class="n">WriteAllBytes</span><span class="p">(</span><span class="s2">&quot;$pwd\file.bin&quot;</span><span class="p">,</span> <span class="nv">$out</span><span class="p">)</span>
+<div class="highlight"><span class="filename">Windows - powershell</span><pre><span></span><code><span class="nv">$out</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">byte</span><span class="p">[]</span> <span class="n">134217728</span><span class="p">;</span> <span class="p">(</span><span class="nb">new-object</span> <span class="n">Random</span><span class="p">).</span><span class="n">NextBytes</span><span class="p">(</span><span class="nv">$out</span><span class="p">);</span> <span class="no">[IO.File]</span><span class="p">::</span><span class="n">WriteAllBytes</span><span class="p">(</span><span class="s2">&quot;$pwd\file.bin&quot;</span><span class="p">,</span> <span class="nv">$out</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">Linux - bash</span><pre><span></span><code>dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/urandom<span class="w"> </span><span class="nv">of</span><span class="o">=</span>./file.bin<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>1M<span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="m">1024</span>
 </code></pre></div>
 </li>
 <li>
@@ -1828,8 +1830,8 @@ Amikor a környezeti változó már nem elegendő a testreszabáshoz, ez a javas
           </path>
         </svg>
       </span>
-      <span title="2024. szeptember 1. 14:25:41">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-01T14:25:41+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-01</span>
+      <span title="2024. szeptember 1. 14:51:45">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-01T14:51:45+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-01</span>
       </span>
     </span>
 
