@@ -493,6 +493,9 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
 
 ### 3.1 Docker-compose
 
+!!! warning "Linux eltérés"
+    Linuxon a _compose_ nem egy külön parancs, hanem a docker parancs [kiterjesztése](https://docs.docker.com/compose/install/linux/). Emiatt nem `docker-compose` helyett `docker compose`-ként kell hívnunk.
+
 A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett egy Redis-re is szükségünk lenne. Futtassunk több konténert egyszerre a docker compose segítségével.
 
 1. Dolgozzunk a repository-n gyökerébe (tehát ne az előzőleg használt almappába) és Készítsünk ide egy `docker-compose.yaml` nevű fájlt az alábbi tartalommal.
@@ -527,7 +530,7 @@ A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett 
         - `depends_on`: a konténer indításának sorrendjét jelzi. A `web` konténer csak akkor indul, ha a `redis` konténer már fut.
     - `networks`: a konténerek közötti hálózatokat definiálja. A `homework_network` nevű hálózatot használjuk, bridge módban, ami a konténerek közötti hálózatot jelenti. Ezt adtuk meg a konténerek `networks` tulajdonságában is.
 
-2. Nyiss egy _PowerShell_ konzolt ugyanebbe a mappába. Indítsd el az alkalmazásokat az alábbi paranccsal:
+2. Nyiss egy konzolt ugyanebbe a mappába. Indítsd el az alkalmazásokat az alábbi paranccsal:
 
     ```cmd
     docker-compose up --build
