@@ -36,7 +36,7 @@ Amennyiben hibát találsz az anyagban, vagy szeretnéd bővíteni, de nem áll 
 
 !!! warning
 
-    A github issues nem a laborfeladatok megoldásával kapcsolatos problémák helye, így a "Nem tudom megoldani hogy az értesítés megérkezzen" jellegű problémákat ne itt jelezzétek, erre vannak a laboralkalmak.
+    A github issues nem a laborfeladatok megoldásával kapcsolatos problémák helye, így a "Nem tudom megoldani hogy az értesítés megérkezzen" jellegű problémákat ne itt jelezzétek, erre van a tárgy hivatalos Teams csoportja.
 
 ## Változtatások javaslása
 
