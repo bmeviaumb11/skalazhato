@@ -598,7 +598,7 @@ A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon.
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (f3.2.png) és commitold azt be a házi feladat repó gyökerébe, amin a fenti weboldal látszik a böngészőben és a részletesebb redis naplóbejegyzések.
 
-## 4. Feladat
+## Opcionális: 4. Feladat
 
 ### 4.1 Microsoft Visual Studio támogatás Docker-alapú fejlesztéshez
 
