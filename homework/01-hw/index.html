@@ -1269,12 +1269,14 @@ Erre megoldás a <em>volume</em> csatolás, amikor a host gép egy könyvtárát
 </div>
 <ul>
 <li>
-<p>Hozzunk létre egy munkakönyvtárat tetszőleges helyen a neptun kódunkkal <code>c:\work\neptun</code></p>
+<p>Hozzunk létre egy munkakönyvtárat tetszőleges helyen a neptun kódunkkal, például <code>c:\work\neptun</code> (windows) <code>~/work/neptun</code> (linux)</p>
 </li>
 <li>
 <p>Indítsunk el egy konténert úgy, hogy ezt a könyvtárat felcsatoljuk a <code>-v</code> kapcsolóval:</p>
-<div class="highlight"><pre><span></span><code>docker run -it --rm -v c:\work\neptun:/neptun ubuntu
+<div class="highlight"><span class="filename">Windows</span><pre><span></span><code>docker run -it --rm -v c:\work\neptun:/neptun ubuntu
 </code></pre></div>
+<p><code>cmd title="Linux"
+docker run -it --rm -v ~/work/neptun:/neptun ubuntu</code></p>
 <p>Szintaktika: helyi teljes elérési útvonal <em>kettőspont</em> konténeren belüli teljes elérési útvonal</p>
 </li>
 <li>
@@ -1304,7 +1306,7 @@ Erre megoldás a <em>volume</em> csatolás, amikor a host gép egy könyvtárát
 </ul>
 <div class="admonition tip">
 <p class="admonition-title"><code>--rm</code></p>
-<p>A <code>--rm</code> opció törli a konténert leállás után; pl. teszteléshez hasznos, mint most.</p>
+<p>A <code>docker run</code> <code>--rm</code> opciója törli a konténert leállás után; pl. teszteléshez hasznos, mint most.</p>
 </div>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
@@ -1362,7 +1364,7 @@ Ehhez a <code>docker exec</code> és <code>docker cp</code> parancsot használju
 </code></pre></div>
 <ul>
 <li>Az <code>-it</code> opció az interaktivitásra utal, azaz a konzolunkat "hozzáköti" a konténerben futó shellhez.</li>
-<li>Tipikusan vagy <code>/bin/bash</code> vagy <code>/bin/sh</code> a Linux konténerekben a shell. Utóbbi az <em>alpine</em> alapú konténerekben gyakori.</li>
+<li>Tipikusan vagy <code>/bin/bash</code> vagy <code>/bin/sh</code> a Linux konténerekben a shell. Utóbbi az <a href="https://alpinelinux.org/"><em>alpine</em></a> alapú konténerekben gyakori.</li>
 <li>Ebben az interaktív shell-ben bármit csinálhatunk, beléphetünk könyvtárakba, megnézhetünk fájlokat, stb. Arra viszont ügyeljünk, hogy az így végzett módosításaink <strong>elvesznek</strong>, amikor a konténer törlésre kerül!</li>
 </ul>
 </li>
@@ -1384,8 +1386,10 @@ Ehhez a <code>docker exec</code> és <code>docker cp</code> parancsot használju
 </li>
 <li>
 <p>Ha szükségünk van egy fájlra, akkor azt kimásolhatjuk a futó konténerből:</p>
-<div class="highlight"><pre><span></span><code>docker cp &lt;id|name&gt;:/etc/nginx/conf.d/default.conf c:\work\neptun\nginx.conf
+<div class="highlight"><span class="filename">Windows</span><pre><span></span><code>docker cp &lt;id|name&gt;:/etc/nginx/conf.d/default.conf c:\work\neptun\nginx.conf
 </code></pre></div>
+<p><code>cmd title="Linux"
+docker cp &lt;id|name&gt;:/etc/nginx/conf.d/default.conf ~/work/neptun/nginx.conf</code></p>
 <ul>
 <li>Szintaktikája: <code>docker cp &lt;id|name&gt;:&lt;/full/path&gt; &lt;cél/hely&gt;</code></li>
 <li>A másolás az ellenkező irányba is működik, helyi gépről a konténerbe.</li>
@@ -1824,8 +1828,8 @@ Amikor a környezeti változó már nem elegendő a testreszabáshoz, ez a javas
           </path>
         </svg>
       </span>
-      <span title="2024. augusztus 29. 16:21:08">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-08-29T16:21:08+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-08-29</span>
+      <span title="2024. szeptember 1. 14:18:59">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-01T14:18:59+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-01</span>
       </span>
     </span>
 
