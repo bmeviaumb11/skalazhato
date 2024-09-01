@@ -1608,6 +1608,10 @@ Redis
 </details>
 <h2 id="3-feladat">3. Feladat<a class="headerlink" href="#3-feladat" title="Permanent link">&para;</a></h2>
 <h3 id="31-docker-compose">3.1 Docker-compose<a class="headerlink" href="#31-docker-compose" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Linux eltérés</p>
+<p>Linuxon a <em>compose</em> nem egy külön parancs, hanem a docker parancs <a href="https://docs.docker.com/compose/install/linux/">kiterjesztése</a>. Emiatt nem <code>docker-compose</code> helyett <code>docker compose</code>-ként kell hívnunk.</p>
+</div>
 <p>A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett egy Redis-re is szükségünk lenne. Futtassunk több konténert egyszerre a docker compose segítségével.</p>
 <ol>
 <li>
@@ -1644,7 +1648,7 @@ Redis
 </ul>
 </li>
 <li>
-<p>Nyiss egy <em>PowerShell</em> konzolt ugyanebbe a mappába. Indítsd el az alkalmazásokat az alábbi paranccsal:</p>
+<p>Nyiss egy konzolt ugyanebbe a mappába. Indítsd el az alkalmazásokat az alábbi paranccsal:</p>
 <div class="highlight"><pre><span></span><code>docker-compose up --build
 </code></pre></div>
 <p>Két lépésben a parancs: <code>docker-compose build</code> és <code>docker-compose up</code></p>
@@ -1830,8 +1834,8 @@ Amikor a környezeti változó már nem elegendő a testreszabáshoz, ez a javas
           </path>
         </svg>
       </span>
-      <span title="2024. szeptember 1. 14:51:45">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-01T14:51:45+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-01</span>
+      <span title="2024. szeptember 1. 15:28:52">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-01T15:28:52+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-01</span>
       </span>
     </span>
 
