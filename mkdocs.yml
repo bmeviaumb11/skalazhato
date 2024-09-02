@@ -34,6 +34,7 @@ theme:
     - search.suggest
     - content.action.edit
     - toc.follow
+    - content.code.copy
   logo: logo-bme-aut.png
   favicon: favicon.ico
 
