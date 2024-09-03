@@ -130,7 +130,7 @@ Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló
 
     ![GitHub create pull request](images/github-create-pull-request-1.png)
 
-    A _pull request_-et a fenti menüben is létrehozhatod. Fontos, hogy a megfelelő brancheket válaszd ki: `master`-be megy a `megoldas` ág.
+    A _pull request_-et a fenti menüben is létrehozhatod. Fontos, hogy a megfelelő brancheket válaszd ki: `main`-be megy a `megoldas` ág. NE a kiinduló repository main ágára mutasson a PR, hanem a saját fork-od `main` ágára!
 
     ![GitHub create pull request](images/github-create-pull-request-2.png)
 
