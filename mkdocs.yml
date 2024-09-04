@@ -98,6 +98,7 @@ nav:
       - information/contributing.md
       - information/GitHub.md
       - information/GitHub-Actions.md
+      - information/certification.md
   - "Házi feladatok / Laborok":
       - homework/01-hw/index.md
       - homework/pontrendszer.md
