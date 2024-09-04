@@ -72,4 +72,4 @@ Véglegesítés után is fenntartjuk a jogot
 - egyéb változtatásra egyetemi szabályok változása miatt (pl. járványhelyzet miatt)
 
 Ezen változtatásokat hallgatók is kezdeményezhetik *pull request* küldésével.
-A változásokat a [github history-ban](https://github.com/bmeaut/cloud/commits/master/gyakpontrendszer.md) követhetitek.
+A változásokat a [github history-ban](https://github.com/bmeviaumb11/skalazhato/commits/master/docs/homework/mslearning.md) követhetitek.
