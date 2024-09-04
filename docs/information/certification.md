@@ -24,4 +24,4 @@ Véglegesítés után is fenntartjuk a jogot
 - egyéb változtatásra a Micropsoft vizsgarendszer változása miatt
 - egyéb változtatásra egyetemi szabályok változása miatt (pl. járványhelyzet miatt)
 
-A változásokat a [github history-ban](https://github.com/bmeaut/cloud/commits/master/minosites.md) követhetitek.
+A változásokat a [github history-ban](https://github.com/bmeviaumb11/skalazhato/commits/master/docs/information/certification.md) követhetitek.
