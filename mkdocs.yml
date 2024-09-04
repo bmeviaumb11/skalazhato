@@ -99,6 +99,8 @@ nav:
       - information/GitHub.md
       - information/GitHub-Actions.md
       - information/certification.md
-  - "Házi feladatok / Laborok":
-      - homework/01-hw/index.md
+  - "Gyakorlatok / Laborok":
+      - homework/01-hw/index.md      
+  - "Nagyházi":      
       - homework/pontrendszer.md
+      - homework/mslearning.md
