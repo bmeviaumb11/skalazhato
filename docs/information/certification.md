@@ -1,7 +1,7 @@
 # Megajánlott jegyként elfogadott Microsoft minősítések - 2024. ősz
 Még nincs véglegesítve 2024. őszi félévre
 
-A [Microsoft Certified: DevOps Engineer Expert](https://learn.microsoft.com/en-us/credentials/certifications/devops-engineer) minősítés jelest ér a tárgyból. Ez a minősítés két (gép előtti) vizsga letételével szerezhető meg.
+A [Microsoft Certified: DevOps Engineer Expert](https://learn.microsoft.com/en-us/credentials/certifications/devops-engineer) minősítés jelest ér a tárgyból. Ez a minősítés két (gép előtti) vizsga letételével szerezhető meg. A vizsgák otthonról (online), illetve bármely akkreditált vizsgaközpontban is letehetők.
 
 ## Költségek, tippek, trükkök
 
