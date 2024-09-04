@@ -341,7 +341,7 @@ Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most 
     ```
 
     !!! warning
-        A portszám szándékosan más, hogy biztosan legyünk 1enne, nem a korábban futóhoz csatlakozunk - ha mégsem állítottuk volna azt le.
+        A portszám szándékosan más, hogy biztosan legyünk benne, nem a korábban futóhoz csatlakozunk - ha mégsem állítottuk volna azt le.
 
 1. Nyisd meg böngészőből a <http://localhost:8086> címet. Látható, hogy ez a módosított tartalmat jeleníti meg. Tehát `nginx-neptun` néven létrehoztunk egy saját image-et.
 
