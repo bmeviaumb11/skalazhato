@@ -24,7 +24,7 @@
     
     
       
-        <title>Házi feladat pontrendszer - BMEVIAUMB11 - Skálázható szoftverek</title>
+        <title>Pontrendszer - BMEVIAUMB11 - Skálázható szoftverek</title>
       
     
     
@@ -89,7 +89,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#hazi-feladat-pontrendszer" class="md-skip">
+        <a href="#pontrendszer" class="md-skip">
           Kihagyás
         </a>
       
@@ -122,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Házi feladat pontrendszer
+              Pontrendszer
             
           </span>
         </div>
@@ -621,7 +621,7 @@
           
   
   <span class="md-ellipsis">
-    Házi feladat pontrendszer
+    Pontrendszer
   </span>
   
 
@@ -632,7 +632,7 @@
         
   
   <span class="md-ellipsis">
-    Házi feladat pontrendszer
+    Pontrendszer
   </span>
   
 
@@ -663,7 +663,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pontrendszer" class="md-nav__link">
+  <a href="#pontrendszer_1" class="md-nav__link">
     <span class="md-ellipsis">
       Pontrendszer
     </span>
@@ -682,18 +682,27 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#on-premise-kontener-es-orkesztracios-technikak" class="md-nav__link">
+  <a href="#on-premise-futo-rendszerekhez" class="md-nav__link">
     <span class="md-ellipsis">
-      On-premise konténer és orkesztrációs technikák
+      On-premise futó rendszerekhez
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#azure-es-serverless" class="md-nav__link">
+  <a href="#azure-alapon-futo-rendszerekhez" class="md-nav__link">
     <span class="md-ellipsis">
-      Azure és serverless
+      Azure alapon futó rendszerekhez
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#egyeb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Egyéb
     </span>
   </a>
   
@@ -795,7 +804,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pontrendszer" class="md-nav__link">
+  <a href="#pontrendszer_1" class="md-nav__link">
     <span class="md-ellipsis">
       Pontrendszer
     </span>
@@ -814,18 +823,27 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#on-premise-kontener-es-orkesztracios-technikak" class="md-nav__link">
+  <a href="#on-premise-futo-rendszerekhez" class="md-nav__link">
     <span class="md-ellipsis">
-      On-premise konténer és orkesztrációs technikák
+      On-premise futó rendszerekhez
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#azure-es-serverless" class="md-nav__link">
+  <a href="#azure-alapon-futo-rendszerekhez" class="md-nav__link">
     <span class="md-ellipsis">
-      Azure és serverless
+      Azure alapon futó rendszerekhez
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#egyeb" class="md-nav__link">
+    <span class="md-ellipsis">
+      Egyéb
     </span>
   </a>
   
@@ -877,14 +895,19 @@
   
 
 
-<h1 id="hazi-feladat-pontrendszer">Házi feladat pontrendszer<a class="headerlink" href="#hazi-feladat-pontrendszer" title="Permanent link">&para;</a></h1>
+<h1 id="pontrendszer">Pontrendszer<a class="headerlink" href="#pontrendszer" title="Permanent link">&para;</a></h1>
 <p><em>Még nincs véglegesítve 2024. őszi félévre</em></p>
 <p>A házi feladat otthon, önállóan elkészítendő mikroszolgáltatások architektúrára épülő és konténertechnológiát használó szoftverrendszer elkészítése és működőképes állapotban való bemutatása.</p>
 <h2 id="minimum-elvarasok">Minimum elvárások<a class="headerlink" href="#minimum-elvarasok" title="Permanent link">&para;</a></h2>
 <ul>
 <li>a rendszer kifelé egy jól körülhatárolható funkcióhalmazzal rendelkező (pl. könyvtári nyilvántartás) egységes szolgáltatást (backend) valósít meg,</li>
-<li>de belül (logikailag) funkciók szerint több szolgáltatásra van darabolva</li>
-<li>a szolgáltatás minden része valamely orkesztrációs vagy serverless platformon fut. Docker compose is elfogadható.</li>
+<li>de belül több részre (mikroszolgáltatás) van darabolva. A mikroszolgáltatások külön-külön API-val rendelkeznek, mely hálózaton keresztül (pl. más mikroszolgáltatásokból) hívható.</li>
+<li>a szolgáltatás minden része valamely orkesztrációs vagy serverless platformon fut. Választható platformok: </li>
+<li>saját gépen futó (on-premise) K8S</li>
+<li>saját gépen futó (on-premise) docker compose</li>
+<li>Azure Kubernetes Services (AKS)</li>
+<li>Azure Functions</li>
+<li>Azure Container Apps (ACA)</li>
 <li>felhasználói felület (kliens) készítése nem elvárás, de enélkül is tudni kell demonstrálni a működést, például Postman klienssel hívva a REST API-t. Az esetleges felületet, klienst nem értékeljük, pontozzuk.</li>
 </ul>
 <div class="admonition tip">
@@ -895,21 +918,196 @@
 <p class="admonition-title">Tip</p>
 <p>Az órai demókban vagy mintaalkalmazásban megvalósított funkciók átvételéért pont nem adható, de azok tovább átdolgozhatóak saját implementációnak.</p>
 </div>
-<h2 id="pontrendszer">Pontrendszer<a class="headerlink" href="#pontrendszer" title="Permanent link">&para;</a></h2>
+<h2 id="pontrendszer_1">Pontrendszer<a class="headerlink" href="#pontrendszer_1" title="Permanent link">&para;</a></h2>
 <p>Az elkészített rendszer egyes képességeire az alábbiak szerint pontok kaphatóak. A végső jegy az összpontszámból adódik. </p>
 <p>További szabályok:</p>
 <ul>
-<li>részpontszám csak különleges esetben kapható.</li>
+<li>ahol egy pontszám van feltüntetve, ott részpontszám alapesetben nem kapható. Tól-ig-es megadásnál, ahol alesetekre van bontva a jogcím, ott az alesetekre részpontszám nem kapható. Ahol csak maximum van feltüntetve, ott részpontszám kapható. </li>
 <li>egy jogcímen csak egyszer szerezhető pont, kivéve ahol ezt külön jelezzük</li>
 </ul>
 <h3 id="altalanos-es-cross-technologia">Általános és cross-technológia<a class="headerlink" href="#altalanos-es-cross-technologia" title="Permanent link">&para;</a></h3>
 <ul>
-<li>A szolgáltatás két különféle orkesztrációs/platformon fut, egymástól függetlenül, tehát a teljes szolgáltatás két egymástól független telepítéssel rendelkezik: <strong>X</strong> pont</li>
-</ul>
-<h3 id="on-premise-kontener-es-orkesztracios-technikak">On-premise konténer és orkesztrációs technikák<a class="headerlink" href="#on-premise-kontener-es-orkesztracios-technikak" title="Permanent link">&para;</a></h3>
-<h3 id="azure-es-serverless">Azure és serverless<a class="headerlink" href="#azure-es-serverless" title="Permanent link">&para;</a></h3>
+<li>
+<p>A szolgáltatás két különféle orkesztrációs/platformon fut, egymástól függetlenül, tehát a teljes szolgáltatás két egymástól független telepítéssel rendelkezik (pl. on-premise K8S és AKS). Nem kell, hogy minden nem-üzleti funkció (pl. authentikáció) ugyanolyan komplex legyen a két telepítésben, csak az üzleti funkciók képességei egyezzennek. Legalább az egyik platformnak Azure-ban kell futnia: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Több implementációs nyelv használata. A backend szolgáltatások legalább két különböző programozási nyelven készültek. (A frontend ebbe nem számít bele!): <strong>X</strong> pont</p>
+</li>
+<li>
+<p>gRPC alapú kommunikáció használata legalább egy mikroszolgáltatás esetében: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Hibatűrést növelő kommunikációs minták alkalmazása külső komponensek segítségével (pl. <a href="https://www.pollydocs.org/">Polly</a>, <a href="https://github.com/resilience4j/resilience4j">Resilience4j</a>, <a href="https://github.com/jd/tenacity">Tenacity</a>). Saját minta implementációért nem jár pont. Ha az API gateway valósítja meg, szintén nem jár pont. <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Saját telepítésű API gateway használata: <strong>X-Y</strong> pont</p>
+</li>
+<li>Traefik használata útvonalválasztásra: X pont</li>
+<li>
+<p>Más, saját telepítésű API gateway használata: Z pont</p>
+</li>
+<li>
+<p>A szolgáltatás authentikációjának kiszervezése az API gateway-be forward authentikáció használatával: <strong>X-Y</strong> pont</p>
+</li>
+<li>OAuth proxy használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (KeyCloak, Entra) felé továbbítva: X pont</li>
+<li>
+<p>Egyéb egyszerű saját dummy authentikációs szolgáltatás felé továbbítva: Z pont</p>
+</li>
+<li>
+<p>Üzenetsor alapú kommunikáció mikroszolgáltatások között saját telepítésű (pl. RabbitMQ konténer) üzenetsor, üzenetkezelő (messaging) szolgáltatással</p>
+</li>
+<li>
+<p>Saját telepítésű (pl. Redis konténer) használata kifejezetten cache-elésre legalább egy művelet esetén: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>A szolgáltatás kubernetes-en belül futó része Helm chart-on keresztül telepíthető. Szükséges demonstrálni a rendszer frissítését a chart segítségével: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Legalább egy saját konténer build-elése Azure Container Registry-ben: <strong>X-Y</strong> pont</p>
 <ul>
-<li>Azure tananyagok elsajátítása, kizárólag a <a href="../mslearning/">külön leírt követelmények</a> szerint: <strong>X</strong> pont</li>
+<li>ad-hoc build saját gépről feltöltött context alapján: <strong>X</strong> pont</li>
+<li>build valamilyen triggerre (pl. commit egy adott git ágra): <strong>Y</strong> pont</li>
+</ul>
+</li>
+<li>
+<p>Kubernetes Job objektum használata, lefuttatása védéskor: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Kubernetes CronJob objektum használata, korábbi lefutás demonstrálása védéskor: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Kubernetes ConfigMap objektum használata valamely konfigurációs beállítás tárolására: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Kubernetes Secret objektum használata titok tárolására: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Titkok lekérése saját Azure Key Vault-ból Akv2k8s-re építve: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>OpenTelemetry alkalmazása különféle célokra: naplózásra, metrikák monitorozásra, elosztott nyomkövetésre. Open Telemetry Collector komponens és valamilyen aggregátor felület használata kötelező (pl. Jaeger, Grafana, Azure Monitor), amin védéskor a naplókat, metrikákat, elosztott nyomkövetést be kell tudni mutatni: <strong>X-Z</strong> pont</p>
+</li>
+<li>egyfajta célra <strong>X</strong> pont </li>
+<li>kétfajta célra <strong>Y</strong> pont</li>
+<li>mindhárom célra <strong>Z</strong> pont</li>
+<li>
+<p><a href="https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/azuremonitorexporter/README.md">exportálás <em>Azure Monitor</em>-ba</a> <strong>W</strong> pont</p>
+</li>
+<li>
+<p>Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell <strong>X-Y</strong> pont</p>
+<ul>
+<li>Horizontal Pod AutoScaler alapú: <strong>X</strong> pont </li>
+<li><a href="https://keda.sh/">KEDA</a> alapú, valamilyen adat, esemény alapján: <strong>Y</strong> pont</li>
+</ul>
+</li>
+<li>
+<p>Több példány (verzió) telepítése ugyanabba a környezetbe K8S namespace-ek vagy Azure Function <a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal">deployemnet slot</a>-ok használatával. <em>Azure Container Apps</em> platform esetén külön <em>Container Apps</em> példány használható.</p>
+</li>
+<li>
+<p>CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója elkészül és kitelepül: <strong>X-Y</strong> pont</p>
+</li>
+<li>Egy platformra telepít: <strong>X</strong> pont </li>
+<li>
+<p>Két platformra telepít <strong>Y</strong> pont</p>
+</li>
+<li>
+<p>Saga minta implementálása legalább egy folyamat esetén <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Event Sourcing, CQRS?</p>
+</li>
+<li>
+<p>Chaos engineering eszköz alkalmazása (pl. <a href="https://chaos-mesh.org/docs/">chaos mesh</a>). Védésen szemléltetés káosz teszt futtatással. <strong>X</strong> pont</p>
+</li>
+</ul>
+<h3 id="on-premise-futo-rendszerekhez">On-premise futó rendszerekhez<a class="headerlink" href="#on-premise-futo-rendszerekhez" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Legalább két fajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure Container Registry-ből: <strong>X-Y</strong> pont</p>
+</li>
+<li>anonim eléréssel: <strong>X</strong> pont</li>
+<li>
+<p>image pull secret-tel: <strong>Y</strong> pont</p>
+</li>
+<li>
+<p>On-premise Kubernetes bekötése Azure Arc-ba: <strong>X-Y</strong> pont</p>
+<ul>
+<li>A szolgáltatás on-premise <a href="https://learn.microsoft.com/en-us/azure/app-service/overview-arc-integration">Azure Function engine</a>-en fut (<strong>preview!</strong>) <strong>+Y</strong> pont</li>
+</ul>
+</li>
+<li>
+<p>Tartós tár, pl. lokális mappa csatolása klaszterbe. <strong>X</strong> pont</p>
+</li>
+</ul>
+<h3 id="azure-alapon-futo-rendszerekhez">Azure alapon futó rendszerekhez<a class="headerlink" href="#azure-alapon-futo-rendszerekhez" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Legalább két fajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, CosmosDB). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: <strong>X</strong> pont</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>30 napig ingyenes (többször is aktiválható!) <a href="https://cosmos.azure.com/try/">Cosmos DB</a></p>
+</div>
+<ul>
+<li>
+<p><a href="https://azure.microsoft.com/en-us/products/cache">Azure Redis</a> szolgáltatás használata kifejezetten cache-elésre saját telepítésű cache helyett, legalább egy művelet esetén: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Valamely <a href="https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options">hivatalosan támogatott AKS ingress opció</a> használata saját telepítésű ingress / api gateway helyett: <strong>X</strong> pont</p>
+</li>
+<li>
+<p><em>Azure API Management</em> használata gateway-ként. A kliensről jövő kérés előbb az API Management gateway-be fut be, aki az Azure-os klaszterben futó ingress vagy <a href="https://azure.microsoft.com/en-us/blog/benefits-of-using-azure-api-management-with-microservices/">Azure Function-ök</a> felé továbbít: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Authentikáció kiszervezése <em>Azure API Management</em> szolgáltatásba (<a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad">példa</a>): <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Konténerek vagy helm chart(ok) letöltése Azure-beli klaszterbe vagy <em>Azure Function</em>-be saját <em>Azure Container Registry</em>-ből: <strong>X-Y</strong> pont</p>
+</li>
+<li>ACR admin felhasználó nevében: <strong>X</strong> pont</li>
+<li>
+<p>managed identity alapú hozzáféréssel: <strong>Y</strong> pont</p>
+</li>
+<li>
+<p>Titkok lekérése saját <em>Azure Key Vault</em>-ból managed identity alapú hozzáféréssel: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>A mikroszolgáltatások közötti kommunikáció kiszervezése valamely <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services">Azure üzenetkezelő szolgáltatásba</a> (pl. Service Bus) managed identity alapú hozzáféréssel: <strong>X</strong> pont</p>
+</li>
+<li>
+<p><em>Azure Container Apps</em> skálázása szabály alapján: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Metrikák bekötése <em>Azure Managed Prometheus</em>-ba: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Naplók bekötése <em>Azure Application Insights</em>-ba: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Különféle telemetriák - naplók, metrikák, elosztott nyomkövetés bekötése <em>Azure Managed Grafana</em>-ba vagy <em>Azure Monitor (Application Insights-ba)</em>. Védésen szemléltetés a telemetriának megfelelő vizualizációkon, vagy naplók esetén lekérdezésken, keresztül: <strong>X-Z</strong> pont</p>
+<ul>
+<li>Egyféle telemetria: <strong>X</strong> pont</li>
+<li>Kétféle telemetria: <strong>Y</strong> pont</li>
+<li>Háromféle telemetria: <strong>Z</strong> pont</li>
+</ul>
+</li>
+<li>
+<p><em>Azure Chaos Studio</em> használata káosz teszt futtatására: <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Tartós tár, például Azure Disk, Azure Files csatolása AKS, ACA klaszterbe vagy <a href="https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares">Azure Function-be</a>: <strong>X</strong> pont</p>
+</li>
+</ul>
+<h3 id="egyeb">Egyéb<a class="headerlink" href="#egyeb" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Azure tananyagok elsajátítása, kizárólag a <a href="../mslearning/">külön leírt követelmények</a> szerint: max. <strong>X</strong> pont</p>
+</li>
+<li>
+<p>Visszacsatolás. A véglegesített pontrendszer vagy tananyag javítása, bővítése, módosítása pull request-tel. Helyesírási hiba is lehet, de az oktatók döntenek, hogy pontot ér-e a módosítás. Többször is megszerezhető. <strong>X-Y</strong> pont, összesen max. <strong>Z</strong> pont</p>
+</li>
 </ul>
 <h2 id="ponthatarok">Ponthatárok<a class="headerlink" href="#ponthatarok" title="Permanent link">&para;</a></h2>
 <h2 id="a-szabalyrendszer-valtozasa">A szabályrendszer változása<a class="headerlink" href="#a-szabalyrendszer-valtozasa" title="Permanent link">&para;</a></h2>
@@ -921,7 +1119,7 @@
 <li>egyéb változtatásra egyetemi szabályok változása miatt (pl. járványhelyzet miatt)</li>
 </ul>
 <p>A pontrendszer, véglegesítés után is, általatok is módosítható/bővíthető. Ezt Pull Request formájában egy megfelelő indoklással nyújthatjátok be, de a PR benyújtása nem jelenti annak az automatikus elfogadását, arról minden esetben a tárgy oktatói döntenek.</p>
-<p>A változásokat a <a href="https://github.com/bmeviaumb11/skalazhato/commits/master/docs/information/certification.md">github history-ban</a> követhetitek.</p>
+<p>A változásokat a <a href="https://github.com/bmeviaumb11/skalazhato/commits/master/docs/homework/pontrendszer.md">github history-ban</a> követhetitek.</p>
   <hr>
   <div class="md-source-file">
     <span class="md-source-file__fact"> <span class="md-icon" title="Utolsó frissítés"> <svg
@@ -931,8 +1129,8 @@
           </path>
         </svg>
       </span>
-      <span title="2024. szeptember 4. 15:38:49">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-04T15:38:49+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-04</span>
+      <span title="2024. szeptember 5. 17:26:12">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-05T17:26:12+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-05</span>
       </span>
     </span>
 
