@@ -8,7 +8,7 @@ A házi feladat otthon, önállóan elkészítendő mikroszolgáltatások archit
 - a rendszer kifelé egy jól körülhatárolható funkcióhalmazzal rendelkező (pl. könyvtári nyilvántartás) egységes szolgáltatást (backend) valósít meg,
 - de belül több részre (mikroszolgáltatás) van darabolva. A mikroszolgáltatások külön-külön API-val rendelkeznek, mely hálózaton keresztül (pl. más mikroszolgáltatásokból) hívható.
 - a szolgáltatás minden része valamely orkesztrációs vagy serverless platformon fut. Választható platformok: 
-  - saját gépen futó (on-premise) K8S
+  - saját gépen futó (on-premise) Kubernetes (K8S)
   - saját gépen futó (on-premise) docker compose
   - Azure Kubernetes Services (AKS)
   - Azure Functions
@@ -73,26 +73,31 @@ További szabályok:
 - Titkok lekérése saját Azure Key Vault-ból Akv2k8s-re építve: **X** pont
 
 - OpenTelemetry alkalmazása különféle célokra: naplózásra, metrikák monitorozásra, elosztott nyomkövetésre. Open Telemetry Collector komponens és valamilyen aggregátor felület használata kötelező (pl. Jaeger, Grafana, Azure Monitor), amin védéskor a naplókat, metrikákat, elosztott nyomkövetést be kell tudni mutatni: **X-Z** pont
+
   - egyfajta célra **X** pont 
   - kétfajta célra **Y** pont
   - mindhárom célra **Z** pont
   - [exportálás *Azure Monitor*-ba](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/azuremonitorexporter/README.md) **W** pont
 
 - Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell **X-Y** pont
+
     - Horizontal Pod AutoScaler alapú: **X** pont 
     - [KEDA](https://keda.sh/) alapú, valamilyen adat, esemény alapján: **Y** pont
 
-- Több példány (verzió) telepítése ugyanabba a környezetbe K8S namespace-ek vagy Azure Function [deployemnet slot](https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal)-ok használatával. *Azure Container Apps* platform esetén külön *Container Apps* példány használható.
+- Több példány (verzió) telepítése ugyanabba a környezetbe K8S namespace-ek vagy Azure Function [deployemnet slot](https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal)-ok használatával. *Azure Container Apps* platform esetén külön *Container Apps* példány használható: **X** pont
 
 - CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója elkészül és kitelepül: **X-Y** pont
-  - Egy platformra telepít: **X** pont 
-  - Két platformra telepít **Y** pont
 
+  - egy platformra telepít: **X** pont 
+  - két platformra telepít **Y** pont
+  
 - Saga minta implementálása legalább egy folyamat esetén **X** pont
+
+- Chaos engineering eszköz alkalmazása (pl. [chaos mesh](https://chaos-mesh.org/docs/)). Védésen szemléltetés káosz teszt futtatással: **X** pont
 
 - Event Sourcing, CQRS?
 
-- Chaos engineering eszköz alkalmazása (pl. [chaos mesh](https://chaos-mesh.org/docs/)). Védésen szemléltetés káosz teszt futtatással. **X** pont
+- Környezetkezelés?
 
 
 ### On-premise futó rendszerekhez
@@ -100,6 +105,7 @@ További szabályok:
 - Legalább két fajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: **X** pont
 
 - Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure Container Registry-ből: **X-Y** pont
+
   - anonim eléréssel: **X** pont
   - image pull secret-tel: **Y** pont
 
@@ -126,6 +132,7 @@ További szabályok:
 - Authentikáció kiszervezése *Azure API Management* szolgáltatásba ([példa](https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad)): **X** pont
 
 - Konténerek vagy helm chart(ok) letöltése Azure-beli klaszterbe vagy *Azure Function*-be saját *Azure Container Registry*-ből: **X-Y** pont
+
   - ACR admin felhasználó nevében: **X** pont
   - managed identity alapú hozzáféréssel: **Y** pont
 
@@ -140,11 +147,12 @@ További szabályok:
 - Naplók bekötése *Azure Application Insights*-ba: **X** pont
 
 - Különféle telemetriák - naplók, metrikák, elosztott nyomkövetés bekötése *Azure Managed Grafana*-ba vagy *Azure Monitor (Application Insights-ba)*. Védésen szemléltetés a telemetriának megfelelő vizualizációkon, vagy naplók esetén lekérdezésken, keresztül: **X-Z** pont
+
     - Egyféle telemetria: **X** pont
     - Kétféle telemetria: **Y** pont
     - Háromféle telemetria: **Z** pont
 
-- *Azure Chaos Studio* használata káosz teszt futtatására: **X** pont
+- [*Azure Chaos Studio*](https://learn.microsoft.com/en-us/azure/chaos-studio/) használata káosz teszt futtatására: **X** pont
 
 - Tartós tár, például Azure Disk, Azure Files csatolása AKS, ACA klaszterbe vagy [Azure Function-be](https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares): **X** pont
 
@@ -168,6 +176,6 @@ Véglegesítés után is fenntartjuk a jogot
 - pontosításra, helyesírási hibák javítására
 - egyéb változtatásra egyetemi szabályok változása miatt (pl. járványhelyzet miatt)
 
-A pontrendszer, véglegesítés után is, általatok is módosítható/bővíthető. Ezt Pull Request formájában egy megfelelő indoklással nyújthatjátok be, de a PR benyújtása nem jelenti annak az automatikus elfogadását, arról minden esetben a tárgy oktatói döntenek.
+A pontrendszer, véglegesítés után is, általatok is módosítható/bővíthető. Ezt pull request formájában egy megfelelő indoklással nyújthatjátok be, de a PR benyújtása nem jelenti annak az automatikus elfogadását, arról minden esetben a tárgy oktatói döntenek.
 
 A változásokat a [github history-ban](https://github.com/bmeviaumb11/skalazhato/commits/master/docs/homework/pontrendszer.md) követhetitek.
