@@ -903,7 +903,7 @@
 <li>a rendszer kifelé egy jól körülhatárolható funkcióhalmazzal rendelkező (pl. könyvtári nyilvántartás) egységes szolgáltatást (backend) valósít meg,</li>
 <li>de belül több részre (mikroszolgáltatás) van darabolva. A mikroszolgáltatások külön-külön API-val rendelkeznek, mely hálózaton keresztül (pl. más mikroszolgáltatásokból) hívható.</li>
 <li>a szolgáltatás minden része valamely orkesztrációs vagy serverless platformon fut. Választható platformok: </li>
-<li>saját gépen futó (on-premise) K8S</li>
+<li>saját gépen futó (on-premise) Kubernetes (K8S)</li>
 <li>saját gépen futó (on-premise) docker compose</li>
 <li>Azure Kubernetes Services (AKS)</li>
 <li>Azure Functions</li>
@@ -988,7 +988,9 @@
 <li>
 <p>OpenTelemetry alkalmazása különféle célokra: naplózásra, metrikák monitorozásra, elosztott nyomkövetésre. Open Telemetry Collector komponens és valamilyen aggregátor felület használata kötelező (pl. Jaeger, Grafana, Azure Monitor), amin védéskor a naplókat, metrikákat, elosztott nyomkövetést be kell tudni mutatni: <strong>X-Z</strong> pont</p>
 </li>
-<li>egyfajta célra <strong>X</strong> pont </li>
+<li>
+<p>egyfajta célra <strong>X</strong> pont </p>
+</li>
 <li>kétfajta célra <strong>Y</strong> pont</li>
 <li>mindhárom célra <strong>Z</strong> pont</li>
 <li>
@@ -1002,23 +1004,28 @@
 </ul>
 </li>
 <li>
-<p>Több példány (verzió) telepítése ugyanabba a környezetbe K8S namespace-ek vagy Azure Function <a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal">deployemnet slot</a>-ok használatával. <em>Azure Container Apps</em> platform esetén külön <em>Container Apps</em> példány használható.</p>
+<p>Több példány (verzió) telepítése ugyanabba a környezetbe K8S namespace-ek vagy Azure Function <a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal">deployemnet slot</a>-ok használatával. <em>Azure Container Apps</em> platform esetén külön <em>Container Apps</em> példány használható: <strong>X</strong> pont</p>
 </li>
 <li>
 <p>CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója elkészül és kitelepül: <strong>X-Y</strong> pont</p>
 </li>
-<li>Egy platformra telepít: <strong>X</strong> pont </li>
 <li>
-<p>Két platformra telepít <strong>Y</strong> pont</p>
+<p>egy platformra telepít: <strong>X</strong> pont </p>
+</li>
+<li>
+<p>két platformra telepít <strong>Y</strong> pont</p>
 </li>
 <li>
 <p>Saga minta implementálása legalább egy folyamat esetén <strong>X</strong> pont</p>
 </li>
 <li>
+<p>Chaos engineering eszköz alkalmazása (pl. <a href="https://chaos-mesh.org/docs/">chaos mesh</a>). Védésen szemléltetés káosz teszt futtatással: <strong>X</strong> pont</p>
+</li>
+<li>
 <p>Event Sourcing, CQRS?</p>
 </li>
 <li>
-<p>Chaos engineering eszköz alkalmazása (pl. <a href="https://chaos-mesh.org/docs/">chaos mesh</a>). Védésen szemléltetés káosz teszt futtatással. <strong>X</strong> pont</p>
+<p>Környezetkezelés?</p>
 </li>
 </ul>
 <h3 id="on-premise-futo-rendszerekhez">On-premise futó rendszerekhez<a class="headerlink" href="#on-premise-futo-rendszerekhez" title="Permanent link">&para;</a></h3>
@@ -1029,7 +1036,9 @@
 <li>
 <p>Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure Container Registry-ből: <strong>X-Y</strong> pont</p>
 </li>
-<li>anonim eléréssel: <strong>X</strong> pont</li>
+<li>
+<p>anonim eléréssel: <strong>X</strong> pont</p>
+</li>
 <li>
 <p>image pull secret-tel: <strong>Y</strong> pont</p>
 </li>
@@ -1067,7 +1076,9 @@
 <li>
 <p>Konténerek vagy helm chart(ok) letöltése Azure-beli klaszterbe vagy <em>Azure Function</em>-be saját <em>Azure Container Registry</em>-ből: <strong>X-Y</strong> pont</p>
 </li>
-<li>ACR admin felhasználó nevében: <strong>X</strong> pont</li>
+<li>
+<p>ACR admin felhasználó nevében: <strong>X</strong> pont</p>
+</li>
 <li>
 <p>managed identity alapú hozzáféréssel: <strong>Y</strong> pont</p>
 </li>
@@ -1095,7 +1106,7 @@
 </ul>
 </li>
 <li>
-<p><em>Azure Chaos Studio</em> használata káosz teszt futtatására: <strong>X</strong> pont</p>
+<p><a href="https://learn.microsoft.com/en-us/azure/chaos-studio/"><em>Azure Chaos Studio</em></a> használata káosz teszt futtatására: <strong>X</strong> pont</p>
 </li>
 <li>
 <p>Tartós tár, például Azure Disk, Azure Files csatolása AKS, ACA klaszterbe vagy <a href="https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares">Azure Function-be</a>: <strong>X</strong> pont</p>
@@ -1122,7 +1133,7 @@
 <li>pontosításra, helyesírási hibák javítására</li>
 <li>egyéb változtatásra egyetemi szabályok változása miatt (pl. járványhelyzet miatt)</li>
 </ul>
-<p>A pontrendszer, véglegesítés után is, általatok is módosítható/bővíthető. Ezt Pull Request formájában egy megfelelő indoklással nyújthatjátok be, de a PR benyújtása nem jelenti annak az automatikus elfogadását, arról minden esetben a tárgy oktatói döntenek.</p>
+<p>A pontrendszer, véglegesítés után is, általatok is módosítható/bővíthető. Ezt pull request formájában egy megfelelő indoklással nyújthatjátok be, de a PR benyújtása nem jelenti annak az automatikus elfogadását, arról minden esetben a tárgy oktatói döntenek.</p>
 <p>A változásokat a <a href="https://github.com/bmeviaumb11/skalazhato/commits/master/docs/homework/pontrendszer.md">github history-ban</a> követhetitek.</p>
   <hr>
   <div class="md-source-file">
@@ -1133,8 +1144,8 @@
           </path>
         </svg>
       </span>
-      <span title="2024. szeptember 5. 17:52:21">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-05T17:52:21+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-05</span>
+      <span title="2024. szeptember 5. 18:06:05">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-05T18:06:05+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-05</span>
       </span>
     </span>
 
