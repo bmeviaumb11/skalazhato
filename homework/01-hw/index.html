@@ -24,7 +24,7 @@
     
     
       
-        <title>Konténerizáció - BMEVIAUMB11 - Skálázható szoftverek</title>
+        <title>01 - Konténerizáció - BMEVIAUMB11 - Skálázható szoftverek</title>
       
     
     
@@ -89,7 +89,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#kontenerizacio" class="md-skip">
+        <a href="#01-kontenerizacio" class="md-skip">
           Kihagyás
         </a>
       
@@ -122,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Konténerizáció
+              01 - Konténerizáció
             
           </span>
         </div>
@@ -555,7 +555,7 @@
           
   
   <span class="md-ellipsis">
-    Konténerizáció
+    01 - Konténerizáció
   </span>
   
 
@@ -566,7 +566,7 @@
         
   
   <span class="md-ellipsis">
-    Konténerizáció
+    01 - Konténerizáció
   </span>
   
 
@@ -781,9 +781,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#41-microsoft-visual-studio-tamogatas-docker-alapu-fejleszteshez" class="md-nav__link">
+  <a href="#docker-init" class="md-nav__link">
     <span class="md-ellipsis">
-      4.1 Microsoft Visual Studio támogatás Docker-alapú fejlesztéshez
+      Docker init
     </span>
   </a>
   
@@ -1159,9 +1159,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#41-microsoft-visual-studio-tamogatas-docker-alapu-fejleszteshez" class="md-nav__link">
+  <a href="#docker-init" class="md-nav__link">
     <span class="md-ellipsis">
-      4.1 Microsoft Visual Studio támogatás Docker-alapú fejlesztéshez
+      Docker init
     </span>
   </a>
   
@@ -1237,7 +1237,7 @@
   
 
 
-<h1 id="kontenerizacio">Konténerizáció<a class="headerlink" href="#kontenerizacio" title="Permanent link">&para;</a></h1>
+<h1 id="01-kontenerizacio">01 - Konténerizáció<a class="headerlink" href="#01-kontenerizacio" title="Permanent link">&para;</a></h1>
 <h2 id="cel">Cél<a class="headerlink" href="#cel" title="Permanent link">&para;</a></h2>
 <p>A labor célja megismerni a Docker konténerek használatának alapjait és a leggyakrabban használt Docker CLI parancsokat.</p>
 <h2 id="elokovetelmenyek">Előkövetelmények<a class="headerlink" href="#elokovetelmenyek" title="Permanent link">&para;</a></h2>
@@ -1253,10 +1253,6 @@
 </li>
 <li>Microsoft Visual Studio Code<ul>
 <li>Javasolt: <a href="https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker">Docker extension</a></li>
-</ul>
-</li>
-<li>Visual Studio 2022 (min 17.10) vagy .NET SDK CLI<ul>
-<li>A <em>ASP.NET and Web Development</em> nevű <a href="https://learn.microsoft.com/en-us/visualstudio/install/modify-visual-studio?view=vs-2022">workload</a> szükséges</li>
 </ul>
 </li>
 <li>Alap Linux parancsok ismerete. Érdemes átnézni pl.:<ul>
@@ -1817,26 +1813,30 @@ Redis
 <p>Készíts egy képernyőképet (f3.2.png) és commitold azt be a házi feladat repó gyökerébe, amin a fenti weboldal látszik a böngészőben és a részletesebb redis naplóbejegyzések.</p>
 </div>
 <h2 id="opcionalis-4-feladat">Opcionális: 4. Feladat<a class="headerlink" href="#opcionalis-4-feladat" title="Permanent link">&para;</a></h2>
-<h3 id="41-microsoft-visual-studio-tamogatas-docker-alapu-fejleszteshez">4.1 Microsoft Visual Studio támogatás Docker-alapú fejlesztéshez<a class="headerlink" href="#41-microsoft-visual-studio-tamogatas-docker-alapu-fejleszteshez" title="Permanent link">&para;</a></h3>
-<p>A Microsoft Visual Studio támogatja és megkönnyíti a konténer alapú szoftverfejlesztést. Segíti a fejlesztőt a fejlesztett alkalmazás konténerizálásában, és támogatja a konténerben való debuggolást is.</p>
+<h3 id="docker-init">Docker init<a class="headerlink" href="#docker-init" title="Permanent link">&para;</a></h3>
+<p>A <code>docker init</code> paranccsal egy megadott technológiához tartozó, docker alapú fejlesztéshez szükséges-hasznos fájlokat generáltathatjuk. A fájlok az adott technológiához illeszkedően készülnek, például ASP .NET Core esetén a megfelelő .NET alap lemezképekre hivatkozik a generált Dockerfile.</p>
 <ol>
 <li>
-<p>Indítsuk el a Visual Studio-t (nem a Code-ot!).</p>
+<p>Készíts a repository mappájába egy almappát <code>aspnetweb</code> néven. A továbbiakban ennek az új mappának a kontextusában dolgozz.</p>
 </li>
 <li>
-<p>Készítsünk egy új <em>ASP.NET Core Web App (Razor Pages)</em> típusú projektet (.NET 8) <code>Neptun.WebApp</code> néven a házi repositorynkba, és engedélyezzük a Linux-alapú konténer támogatást a projekt létrehozásakor</p>
-<p><a class="glightbox" href="images/vs-linux-container.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="VS Linux konténer támogatás" src="images/vs-linux-container.png" /></a></p>
-<p>Ez a lépés létrehoz egy <code>Dockerfile</code>-t a projektben, ami ráadásul multi-stage build megoldást tartalmaz, ami a fordítási, publikálási és futtatási fázisokat különválasztja (több <code>FROM</code> utasítás amik egymásra hivatkoznak).
+<p>Generálj egy ASP.NET Core alapú kiinduló projektet</p>
+<div class="highlight"><pre><span></span><code>dotnet new webapp
+</code></pre></div>
+</li>
+<li>
+<p>Generáld az ASP.NET Core-hoz tartozó docker fájlokat</p>
+<p><div class="highlight"><pre><span></span><code>docker init
+</code></pre></div>
+Ez a lépés létrehoz egy <code>Dockerfile</code>-t a projektben, ami ráadásul multi-stage build megoldást tartalmaz, ami a fordítási, publikálási és futtatási fázisokat különválasztja (több <code>FROM</code> utasítás amik egymásra hivatkoznak).
 Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálható legyen egy szeparált .NET SDK-t tartalmazó konténerben. A publikálás pedig egy kisebb méretű image-be történik, ami már csak a .NET futtatókörnyezetet tartalmazza.</p>
+<p>Ezen felül létrejön még .dockerignore fájl is, valamint egy egy service-t hivatkozó Docker compose is.</p>
 </li>
 <li>
-<p>Engedélyezzük a docker-compose használatát a projektben: <em>Jobb gomb / Add / Container Orchestrator Support / Docker Compose / Linux</em>. Ez létrehoz egy docker-compose alapú projektet a Visual Studio Solution-ban és beállítja azt kiinduló projektnek.</p>
+<p>Futtassuk a docker compose configurációt (<code>docker-compose up</code> - Windows vagy <code>docker compose up</code> - Linux). Az alapértelmezett felkínál lehetőségek általában megfelelőek, csak végig kell +enter+ -ezni. Böngészőben nyissuk meg a localhost címen a docker init-nek megadott portot pl. <a href="http://localhost:8080">http://localhost:8080</a>.</p>
 </li>
 <li>
-<p>Futtassuk le a projektet a Visual Studio-ból. A projekt a <code>docker-compose</code>-ban definiált konténerekben fog futni.</p>
-</li>
-<li>
-<p>Egy konzolból listázzuk ki a futó konténereket:</p>
+<p>Listázzuk ki a futó konténereket egy külön konzolablakban:</p>
 <div class="highlight"><pre><span></span><code>docker ps
 </code></pre></div>
 </li>
@@ -1939,8 +1939,8 @@ Amikor a környezeti változó már nem elegendő a testreszabáshoz, ez a javas
           </path>
         </svg>
       </span>
-      <span title="2024. szeptember 1. 20:51:05">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-01T20:51:05+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-01</span>
+      <span title="2024. szeptember 6. 11:47:55">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-06T11:47:55+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-06</span>
       </span>
     </span>
 
