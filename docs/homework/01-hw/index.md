@@ -1,4 +1,4 @@
-# Konténerizáció
+# 01 - Konténerizáció
 
 ## Cél
 
@@ -600,24 +600,31 @@ A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon.
 
 ## Opcionális: 4. Feladat
 
-### 4.1 Microsoft Visual Studio támogatás Docker-alapú fejlesztéshez
+### Docker init
 
-A Microsoft Visual Studio támogatja és megkönnyíti a konténer alapú szoftverfejlesztést. Segíti a fejlesztőt a fejlesztett alkalmazás konténerizálásában, és támogatja a konténerben való debuggolást is.
+A `docker init` paranccsal egy megadott technológiához tartozó, docker alapú fejlesztéshez szükséges-hasznos fájlokat generáltathatjuk. A fájlok az adott technológiához illeszkedően készülnek, például ASP .NET Core esetén a megfelelő .NET alap lemezképekre hivatkozik a generált Dockerfile.
 
-1. Indítsuk el a Visual Studio-t (nem a Code-ot!).
+1. Készíts a repository mappájába egy almappát `aspnetweb` néven. A továbbiakban ennek az új mappának a kontextusában dolgozz.
 
-2. Készítsünk egy új _ASP.NET Core Web App (Razor Pages)_ típusú projektet (.NET 8) `Neptun.WebApp` néven a házi repositorynkba, és engedélyezzük a Linux-alapú konténer támogatást a projekt létrehozásakor
+1. Generálj egy ASP.NET Core alapú kiinduló projektet
 
-    ![VS Linux konténer támogatás](images/vs-linux-container.png)
+    ```cmd
+    dotnet new webapp
+    ```
 
+1. Generáld az ASP.NET Core-hoz tartozó docker fájlokat
+
+    ```cmd
+    docker init
+    ```
     Ez a lépés létrehoz egy `Dockerfile`-t a projektben, ami ráadásul multi-stage build megoldást tartalmaz, ami a fordítási, publikálási és futtatási fázisokat különválasztja (több `FROM` utasítás amik egymásra hivatkoznak).
     Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálható legyen egy szeparált .NET SDK-t tartalmazó konténerben. A publikálás pedig egy kisebb méretű image-be történik, ami már csak a .NET futtatókörnyezetet tartalmazza.
 
-3. Engedélyezzük a docker-compose használatát a projektben: _Jobb gomb / Add / Container Orchestrator Support / Docker Compose / Linux_. Ez létrehoz egy docker-compose alapú projektet a Visual Studio Solution-ban és beállítja azt kiinduló projektnek.
+    Ezen felül létrejön még .dockerignore fájl is, valamint egy egy service-t hivatkozó Docker compose is.
 
-4. Futtassuk le a projektet a Visual Studio-ból. A projekt a `docker-compose`-ban definiált konténerekben fog futni.
+4. Futtassuk a docker compose configurációt (`docker-compose up` - Windows vagy `docker compose up` - Linux). Az alapértelmezett felkínál lehetőségek általában megfelelőek, csak végig kell +enter+ -ezni. Böngészőben nyissuk meg a localhost címen a docker init-nek megadott portot pl. http://localhost:8080.
 
-5. Egy konzolból listázzuk ki a futó konténereket:
+5. Listázzuk ki a futó konténereket egy külön konzolablakban:
 
     ```cmd
     docker ps
