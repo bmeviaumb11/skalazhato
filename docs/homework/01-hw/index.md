@@ -13,8 +13,6 @@ A labor célja megismerni a Docker konténerek használatának alapjait és a le
     - Csak Linux esetén szükséges [külön telepíteni](https://docs.docker.com/compose/install/)
 - Microsoft Visual Studio Code
     - Javasolt: [Docker extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
-- Visual Studio 2022 (min 17.10) vagy .NET SDK CLI
-    - A _ASP.NET and Web Development_ nevű [workload](https://learn.microsoft.com/en-us/visualstudio/install/modify-visual-studio?view=vs-2022) szükséges
 - Alap Linux parancsok ismerete. Érdemes átnézni pl.:
     - <http://bmeaut.github.io/snippets/snippets/0700_LinuxBev/>
     - <https://maker.pro/linux/tutorial/basic-linux-commands-for-beginners>

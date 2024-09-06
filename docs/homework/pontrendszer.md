@@ -8,6 +8,7 @@ A házi feladat otthon, önállóan elkészítendő mikroszolgáltatások archit
 - a rendszer kifelé egy jól körülhatárolható funkcióhalmazzal rendelkező (pl. könyvtári nyilvántartás) egységes szolgáltatást (backend) valósít meg,
 - de belül több részre (mikroszolgáltatás) van darabolva. A mikroszolgáltatások külön-külön API-val rendelkeznek, mely hálózaton keresztül (pl. más mikroszolgáltatásokból) hívható.
 - a szolgáltatás minden része valamely orkesztrációs vagy serverless platformon fut. Választható platformok: 
+
   - saját gépen futó (on-premise) Kubernetes (K8S)
   - saját gépen futó (on-premise) docker compose
   - Azure Kubernetes Services (AKS)
