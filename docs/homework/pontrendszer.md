@@ -35,7 +35,6 @@ További szabályok:
  - ahol egy pontszám van feltüntetve, ott részpontszám alapesetben nem kapható. Tól-ig-es megadásnál, ahol alesetekre van bontva a jogcím, ott az alesetekre részpontszám nem kapható. Ahol csak maximum van feltüntetve, ott részpontszám kapható. 
  - egy jogcímen csak egyszer szerezhető pont, kivéve ahol ezt külön jelezzük
 
-
 ### Általános és cross-technológia
 
 - A szolgáltatás két különféle orkesztrációs/platformon fut, egymástól függetlenül, tehát a teljes szolgáltatás két egymástól független telepítéssel rendelkezik (pl. on-premise K8S és AKS). Nem kell, hogy minden nem-üzleti funkció (pl. authentikáció) ugyanolyan komplex legyen a két telepítésben, csak az üzleti funkciók képességei egyezzennek. Legalább az egyik platformnak Azure-ban kell futnia: **X** pont
@@ -73,9 +72,10 @@ További szabályok:
 
 - Kubernetes ConfigMap objektum használata valamely konfigurációs beállítás tárolására: **X** pont
 
-- Kubernetes Secret objektum használata titok tárolására: **X** pont
-
-- Titkok lekérése saját Azure Key Vault-ból Akv2k8s-re építve: **X** pont
+- Kubernetes Secret objektum használata titok tárolására: **X-Y** pont
+    
+    - titok közvetlen feltöltése Secret objektumba: **X** pont
+    - titkok leképezése saját Azure Key Vault-ból Akv2k8s-re építve: **Y** pont
 
 - OpenTelemetry alkalmazása különféle célokra: naplózásra, metrikák monitorozásra, elosztott nyomkövetésre. Open Telemetry Collector komponens és valamilyen aggregátor felület használata kötelező (pl. Jaeger, Grafana, Azure Monitor), amin védéskor a naplókat, metrikákat, elosztott nyomkövetést be kell tudni mutatni: **X-Z** pont
 
@@ -104,7 +104,6 @@ További szabályok:
 
 - Környezetkezelés?
 
-
 ### On-premise futó rendszerekhez
 
 - Legalább két fajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: **X** pont
@@ -119,7 +118,6 @@ További szabályok:
     - A szolgáltatás on-premise [Azure Function engine](https://learn.microsoft.com/en-us/azure/app-service/overview-arc-integration)-en fut (**preview!**) **+Y** pont
 
 - Tartós tár, pl. lokális mappa csatolása klaszterbe. **X** pont
-
 
 ### Azure alapon futó rendszerekhez
 
@@ -163,7 +161,6 @@ További szabályok:
 - Tartós tár, például Azure Disk, Azure Files csatolása AKS, ACA klaszterbe vagy [Azure Function-be](https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares): **X** pont
 
 - [*Durable Functions*](https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview) használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: **X** pont
-
 
 ### Egyéb
 
