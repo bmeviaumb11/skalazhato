@@ -47,12 +47,14 @@ További szabályok:
 - Hibatűrést növelő kommunikációs minták alkalmazása külső komponensek segítségével (pl. [Polly](https://www.pollydocs.org/), [Resilience4j](https://github.com/resilience4j/resilience4j), [Tenacity](https://github.com/jd/tenacity)). Saját minta implementációért nem jár pont. Ha az API gateway valósítja meg, szintén nem jár pont. **X** pont
 
 - Saját telepítésű API gateway használata: **X-Y** pont
-  - Traefik használata útvonalválasztásra: X pont
-  - Más, saját telepítésű API gateway használata: Z pont
+
+    - Traefik használata útvonalválasztásra: X pont
+    - Más, saját telepítésű API gateway használata: Z pont
 
 - A szolgáltatás authentikációjának kiszervezése az API gateway-be forward authentikáció használatával: **X-Y** pont
-  - OAuth proxy használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (KeyCloak, Entra) felé továbbítva: X pont
-  - Egyéb egyszerű saját dummy authentikációs szolgáltatás felé továbbítva: Z pont
+
+    - OAuth proxy használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (KeyCloak, Entra) felé továbbítva: X pont
+    - Egyéb egyszerű saját dummy authentikációs szolgáltatás felé továbbítva: Z pont
 
 - Üzenetsor alapú kommunikáció mikroszolgáltatások között saját telepítésű (pl. RabbitMQ konténer) üzenetsor, üzenetkezelő (messaging) szolgáltatással
 
@@ -61,6 +63,7 @@ További szabályok:
 - A szolgáltatás kubernetes-en belül futó része Helm chart-on keresztül telepíthető. Szükséges demonstrálni a rendszer frissítését a chart segítségével: **X** pont
 
 - Legalább egy saját konténer build-elése Azure Container Registry-ben: **X-Y** pont
+
     - ad-hoc build saját gépről feltöltött context alapján: **X** pont
     - build valamilyen triggerre (pl. commit egy adott git ágra): **Y** pont
 
@@ -76,10 +79,10 @@ További szabályok:
 
 - OpenTelemetry alkalmazása különféle célokra: naplózásra, metrikák monitorozásra, elosztott nyomkövetésre. Open Telemetry Collector komponens és valamilyen aggregátor felület használata kötelező (pl. Jaeger, Grafana, Azure Monitor), amin védéskor a naplókat, metrikákat, elosztott nyomkövetést be kell tudni mutatni: **X-Z** pont
 
-  - egyfajta célra **X** pont 
-  - kétfajta célra **Y** pont
-  - mindhárom célra **Z** pont
-  - [exportálás *Azure Monitor*-ba](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/azuremonitorexporter/README.md) **W** pont
+    - egyfajta célra **X** pont 
+    - kétfajta célra **Y** pont
+    - mindhárom célra **Z** pont
+    - [exportálás *Azure Monitor*-ba](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/azuremonitorexporter/README.md) **W** pont
 
 - Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell **X-Y** pont
 
@@ -90,8 +93,8 @@ További szabályok:
 
 - CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója elkészül és kitelepül: **X-Y** pont
 
-  - egy platformra telepít: **X** pont 
-  - két platformra telepít **Y** pont
+    - egy platformra telepít: **X** pont 
+    - két platformra telepít **Y** pont
   
 - Saga minta implementálása legalább egy folyamat esetén **X** pont
 
@@ -108,10 +111,11 @@ További szabályok:
 
 - Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure Container Registry-ből: **X-Y** pont
 
-  - anonim eléréssel: **X** pont
-  - image pull secret-tel: **Y** pont
+    - anonim eléréssel: **X** pont
+    - image pull secret-tel: **Y** pont
 
 - On-premise Kubernetes bekötése Azure Arc-ba: **X-Y** pont
+
     - A szolgáltatás on-premise [Azure Function engine](https://learn.microsoft.com/en-us/azure/app-service/overview-arc-integration)-en fut (**preview!**) **+Y** pont
 
 - Tartós tár, pl. lokális mappa csatolása klaszterbe. **X** pont
@@ -135,8 +139,8 @@ További szabályok:
 
 - Konténerek vagy helm chart(ok) letöltése Azure-beli klaszterbe vagy *Azure Function*-be saját *Azure Container Registry*-ből: **X-Y** pont
 
-  - ACR admin felhasználó nevében: **X** pont
-  - managed identity alapú hozzáféréssel: **Y** pont
+    - ACR admin felhasználó nevében: **X** pont
+    - managed identity alapú hozzáféréssel: **Y** pont
 
 - Titkok lekérése saját *Azure Key Vault*-ból managed identity alapú hozzáféréssel: **X** pont
 
