@@ -948,17 +948,17 @@
 </li>
 <li>
 <p>Saját telepítésű API gateway használata: <strong>X-Y</strong> pont</p>
-</li>
+<ul>
 <li>Traefik használata útvonalválasztásra: X pont</li>
-<li>
-<p>Más, saját telepítésű API gateway használata: Z pont</p>
+<li>Más, saját telepítésű API gateway használata: Z pont</li>
+</ul>
 </li>
 <li>
 <p>A szolgáltatás authentikációjának kiszervezése az API gateway-be forward authentikáció használatával: <strong>X-Y</strong> pont</p>
-</li>
+<ul>
 <li>OAuth proxy használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (KeyCloak, Entra) felé továbbítva: X pont</li>
-<li>
-<p>Egyéb egyszerű saját dummy authentikációs szolgáltatás felé továbbítva: Z pont</p>
+<li>Egyéb egyszerű saját dummy authentikációs szolgáltatás felé továbbítva: Z pont</li>
+</ul>
 </li>
 <li>
 <p>Üzenetsor alapú kommunikáció mikroszolgáltatások között saját telepítésű (pl. RabbitMQ konténer) üzenetsor, üzenetkezelő (messaging) szolgáltatással</p>
@@ -993,14 +993,12 @@
 </li>
 <li>
 <p>OpenTelemetry alkalmazása különféle célokra: naplózásra, metrikák monitorozásra, elosztott nyomkövetésre. Open Telemetry Collector komponens és valamilyen aggregátor felület használata kötelező (pl. Jaeger, Grafana, Azure Monitor), amin védéskor a naplókat, metrikákat, elosztott nyomkövetést be kell tudni mutatni: <strong>X-Z</strong> pont</p>
-</li>
-<li>
-<p>egyfajta célra <strong>X</strong> pont </p>
-</li>
+<ul>
+<li>egyfajta célra <strong>X</strong> pont </li>
 <li>kétfajta célra <strong>Y</strong> pont</li>
 <li>mindhárom célra <strong>Z</strong> pont</li>
-<li>
-<p><a href="https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/azuremonitorexporter/README.md">exportálás <em>Azure Monitor</em>-ba</a> <strong>W</strong> pont</p>
+<li><a href="https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/azuremonitorexporter/README.md">exportálás <em>Azure Monitor</em>-ba</a> <strong>W</strong> pont</li>
+</ul>
 </li>
 <li>
 <p>Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell <strong>X-Y</strong> pont</p>
@@ -1014,12 +1012,10 @@
 </li>
 <li>
 <p>CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója elkészül és kitelepül: <strong>X-Y</strong> pont</p>
-</li>
-<li>
-<p>egy platformra telepít: <strong>X</strong> pont </p>
-</li>
-<li>
-<p>két platformra telepít <strong>Y</strong> pont</p>
+<ul>
+<li>egy platformra telepít: <strong>X</strong> pont </li>
+<li>két platformra telepít <strong>Y</strong> pont</li>
+</ul>
 </li>
 <li>
 <p>Saga minta implementálása legalább egy folyamat esetén <strong>X</strong> pont</p>
@@ -1041,12 +1037,10 @@
 </li>
 <li>
 <p>Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure Container Registry-ből: <strong>X-Y</strong> pont</p>
-</li>
-<li>
-<p>anonim eléréssel: <strong>X</strong> pont</p>
-</li>
-<li>
-<p>image pull secret-tel: <strong>Y</strong> pont</p>
+<ul>
+<li>anonim eléréssel: <strong>X</strong> pont</li>
+<li>image pull secret-tel: <strong>Y</strong> pont</li>
+</ul>
 </li>
 <li>
 <p>On-premise Kubernetes bekötése Azure Arc-ba: <strong>X-Y</strong> pont</p>
@@ -1081,12 +1075,10 @@
 </li>
 <li>
 <p>Konténerek vagy helm chart(ok) letöltése Azure-beli klaszterbe vagy <em>Azure Function</em>-be saját <em>Azure Container Registry</em>-ből: <strong>X-Y</strong> pont</p>
-</li>
-<li>
-<p>ACR admin felhasználó nevében: <strong>X</strong> pont</p>
-</li>
-<li>
-<p>managed identity alapú hozzáféréssel: <strong>Y</strong> pont</p>
+<ul>
+<li>ACR admin felhasználó nevében: <strong>X</strong> pont</li>
+<li>managed identity alapú hozzáféréssel: <strong>Y</strong> pont</li>
+</ul>
 </li>
 <li>
 <p>Titkok lekérése saját <em>Azure Key Vault</em>-ból managed identity alapú hozzáféréssel: <strong>X</strong> pont</p>
@@ -1150,8 +1142,8 @@
           </path>
         </svg>
       </span>
-      <span title="2024. szeptember 8. 14:34:37">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-08T14:34:37+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-08</span>
+      <span title="2024. szeptember 8. 14:43:16">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-08T14:43:16+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-08</span>
       </span>
     </span>
 
