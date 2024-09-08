@@ -9,11 +9,12 @@ A házi feladat otthon, önállóan elkészítendő mikroszolgáltatások archit
 - de belül több részre (mikroszolgáltatás) van darabolva. A mikroszolgáltatások külön-külön API-val rendelkeznek, mely hálózaton keresztül (pl. más mikroszolgáltatásokból) hívható.
 - a szolgáltatás minden része valamely orkesztrációs vagy serverless platformon fut. Választható platformok: 
 
-  - saját gépen futó (on-premise) Kubernetes (K8S)
-  - saját gépen futó (on-premise) docker compose
-  - Azure Kubernetes Services (AKS)
-  - Azure Functions
-  - Azure Container Apps (ACA)
+    - saját gépen futó (on-premise) Kubernetes (K8S)
+    - saját gépen futó (on-premise) docker compose
+    - Azure Kubernetes Services (AKS)
+    - Azure Functions
+    - Azure Container Apps (ACA)
+
 - "dokumentáció" leadása a házi feladattal együtt, ami megcélzott platformonként egy darab architektúra ábrából ([példa](https://learn.microsoft.com/en-us/samples/azure-samples/serverless-microservices-reference-architecture/serverless-microservices-reference-architecture/)) áll. Az ábrán látszanak a mikroszolgáltatások és a köztük lévő kapcsolatok.
 - felhasználói felület (kliens) készítése nem elvárás, de enélkül is tudni kell demonstrálni a működést, például Postman klienssel hívva a REST API-t. Az esetleges felületet, klienst nem értékeljük, pontozzuk.
 
