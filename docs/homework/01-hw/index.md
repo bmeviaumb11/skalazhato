@@ -6,11 +6,13 @@ A labor célja megismerni a Docker konténerek használatának alapjait és a le
 
 ## Előkövetelmények
 
+- A házi leírásban Windows platformot használunk, azonban a feladatok Linuxon és Mac-en is megoldhatóak (a könyvtár elérési útvonalakat megfelelően átírva).
+- Docker Hub login
 - Docker Desktop
-    - A házi leírásban Windows platformot használunk, azonban a feladatok Linuxon és Mac-en is megoldhatóak (a könyvtár elérési útvonalakat megfelelően átírva).
-    - Docker Hub login
+   
     !!! warning
         Más kiépítések, telepítési formák is elérhetőek (pl. Docker Engine), de a Docker Desktop tartalmaz minden eszközt, amire szükségünk lehet. Például `docker init` csak a Docker Desktop-ban van.
+  
 - Microsoft Visual Studio Code
     - Javasolt: [Docker extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
 - Alap Linux parancsok ismerete. Érdemes átnézni pl.:
