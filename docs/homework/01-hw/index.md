@@ -622,7 +622,7 @@ A `docker init` paranccsal egy megadott technológiához tartozó, docker alapú
 
     Ezen felül létrejön még .dockerignore fájl is, valamint egy egy service-t hivatkozó Docker compose is.
 
-4. Futtassuk a docker compose configurációt (`docker-compose up` - Windows vagy `docker compose up` - Linux). Az alapértelmezett felkínál lehetőségek általában megfelelőek, csak végig kell ++enter++ -ezni. Böngészőben nyissuk meg a localhost címen a docker init-nek megadott portot pl. http://localhost:8080.
+4. Futtassuk a docker compose configurációt (`docker-compose up` - Windows vagy `docker compose up` - Linux). Az alapértelmezetten felkínált lehetőségek általában megfelelőek, csak végig kell ++enter++ -ezni. Böngészőben nyissuk meg a localhost címen a docker init-nek megadott portot pl. http://localhost:8080.
 
 5. Listázzuk ki a futó konténereket egy külön konzolablakban:
 
