@@ -28,7 +28,15 @@ A házi feladat otthon, önállóan elkészítendő mikroszolgáltatások archit
 
 ## Pontrendszer
 
-Az elkészített rendszer egyes képességeire az alábbiak szerint pontok kaphatóak. A végső jegy az összpontszámból adódik. 
+Az elkészített rendszer egyes képességeire az alábbiak szerint pontok kaphatóak. A végső jegy az összpontszámból adódik.
+
+|   |        |
+|---|--------|
+| 5 | 80-100 |
+| 4 | 67-79  |
+| 3 | 54-66  |
+| 2 | 40-53  |
+| 1 | 0-39   |
 
 További szabályok:
 
@@ -163,6 +171,8 @@ További szabályok:
 - [*Durable Functions*](https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview) használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: **X** pont
 
 ### Egyéb
+
+- Minden félévközi házi feladat (6 db.) teljesítése. Nem arányosítható - csak akkor adható, ha *minden* házi teljesített: **6** pont
 
 - Azure tananyagok elsajátítása, kizárólag a [külön leírt követelmények](mslearning.md) szerint: max. **X** pont
 
