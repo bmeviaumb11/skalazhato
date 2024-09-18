@@ -14,7 +14,7 @@ A labor célja megismerni a Docker konténerek használatának alapjait és a le
     !!! warning
         Más kiépítések, telepítési formák is elérhetőek (pl. Docker Engine), de a Docker Desktop tartalmaz minden eszközt, amire szükségünk lehet. Például `docker init` csak a Docker Desktop-ban van.
         
-- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0). Ha van fent friss Visual Studio, akkor általában nem kell külön feltenni. Tesztelheted [így](https://learn.microsoft.com/en-us/dotnet/core/install/how-to-detect-installed-versions?pivots=os-windows#check-sdk-versions)
+- Az opcionális feladathoz [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0). Ha van fent friss Visual Studio, akkor általában nem kell külön feltenni. Tesztelheted [így](https://learn.microsoft.com/en-us/dotnet/core/install/how-to-detect-installed-versions?pivots=os-windows#check-sdk-versions)
 - Microsoft Visual Studio Code
     - Javasolt: [Docker extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
 - Alap Linux parancsok ismerete. Érdemes átnézni pl.:
@@ -608,7 +608,7 @@ A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon.
 A `docker init` paranccsal egy megadott technológiához tartozó, docker alapú fejlesztéshez szükséges-hasznos fájlokat generáltathatjuk. A fájlok az adott technológiához illeszkedően készülnek, például ASP .NET Core esetén a megfelelő .NET alap lemezképekre hivatkozik a generált Dockerfile.
 
  !!! warning ".NET"
-    Előzetesen le kell töltened és telepítened kell a .NET SDK-t!
+     Ehhez a feladathoz telepítened kell a .NET SDK-t (lásd fentebb az *Előkövetelmények* részt), mely a `dotnet` parancsot adja.
 
 1. Készíts a repository mappájába egy almappát `aspnetweb` néven. A továbbiakban ennek az új mappának a kontextusában dolgozz.
 
