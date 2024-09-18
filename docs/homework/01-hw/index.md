@@ -10,13 +10,10 @@ A labor célja megismerni a Docker konténerek használatának alapjait és a le
 - Docker Hub login
 - Docker Desktop
      - <https://www.docker.com/products/docker-desktop/>
-- .NET 8.0
-     - <https://dotnet.microsoft.com/en-us/download/>
-- python
-     - <https://www.python.org/downloads/>
    
     !!! warning
         Más kiépítések, telepítési formák is elérhetőek (pl. Docker Engine), de a Docker Desktop tartalmaz minden eszközt, amire szükségünk lehet. Például `docker init` csak a Docker Desktop-ban van.
+        
 - [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0). Ha van fent friss Visual Studio, akkor általában nem kell külön feltenni. Tesztelheted [így](https://learn.microsoft.com/en-us/dotnet/core/install/how-to-detect-installed-versions?pivots=os-windows#check-sdk-versions)
 - Microsoft Visual Studio Code
     - Javasolt: [Docker extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
