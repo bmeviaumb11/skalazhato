@@ -9,6 +9,11 @@ A labor célja megismerni a Docker konténerek használatának alapjait és a le
 - A házi leírásban Windows platformot használunk, azonban a feladatok Linuxon és Mac-en is megoldhatóak (a könyvtár elérési útvonalakat megfelelően átírva).
 - Docker Hub login
 - Docker Desktop
+     - <https://www.docker.com/products/docker-desktop/>
+- .NET 8.0
+     - <https://dotnet.microsoft.com/en-us/download/>
+- python
+     - <https://www.python.org/downloads/>
    
     !!! warning
         Más kiépítések, telepítési formák is elérhetőek (pl. Docker Engine), de a Docker Desktop tartalmaz minden eszközt, amire szükségünk lehet. Például `docker init` csak a Docker Desktop-ban van.
@@ -48,6 +53,7 @@ docker --version
 ```
 
 Futtassunk egy egyszerű előre elkészített konténert, ami kiír egy példa szöveget a konzolra.
+Fontos, hogy a telepített Docker Desktop fusson a háttérben!
 
 ```cmd
 docker run hello-world
@@ -131,7 +137,7 @@ Gyakran szeretnénk a host gépről elérni a konténerben lévő fájlokat, vag
 Erre megoldás a _volume_ csatolás, amikor a host gép egy könyvtárát csatoljuk a konténerbe.
 
 !!! danger "NEPTUN"
-    :exclamation: A példákban a `neptun` helyett a **saját neptunkódunkat** helyettesítsük be :exclamation:
+    :exclamation: A példákban a `neptun` helyett a **saját neptunkódunkat** helyettesítsük be. Ha neptun-ként látod, akkor kisbetűvel írd; ha NEPTUN-ként, akkor nagybetűvel :exclamation:
 
 - Hozzunk létre egy munkakönyvtárat tetszőleges helyen a neptun kódunkkal, például `c:\work\neptun` (windows) `~/work/neptun` (linux)
     
@@ -222,7 +228,7 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
     docker run -d -p 8085:80 nginx
     ```
 
-    Jegyezzük meg a kiírt konténer id-t, alább használni fogjuk.
+    Jegyezzük meg a kiírt konténer id-t, alább használni fogjuk. (A kiírt karakterlánc első 12 karaktere jelöli az ID-t.)
 
 - Futtassunk le egy parancsot a konténerben:
 
@@ -603,6 +609,9 @@ A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon.
 ### Docker init
 
 A `docker init` paranccsal egy megadott technológiához tartozó, docker alapú fejlesztéshez szükséges-hasznos fájlokat generáltathatjuk. A fájlok az adott technológiához illeszkedően készülnek, például ASP .NET Core esetén a megfelelő .NET alap lemezképekre hivatkozik a generált Dockerfile.
+
+ !!! warning ".NET"
+    Előzetesen le kell töltened és telepítened kell a .NET SDK-t!
 
 1. Készíts a repository mappájába egy almappát `aspnetweb` néven. A továbbiakban ennek az új mappának a kontextusában dolgozz.
 
