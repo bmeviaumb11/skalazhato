@@ -607,8 +607,8 @@ A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon.
 
 A `docker init` paranccsal egy megadott technológiához tartozó, docker alapú fejlesztéshez szükséges-hasznos fájlokat generáltathatjuk. A fájlok az adott technológiához illeszkedően készülnek, például ASP .NET Core esetén a megfelelő .NET alap lemezképekre hivatkozik a generált Dockerfile.
 
- !!! warning ".NET"
-     Ehhez a feladathoz telepítened kell a .NET SDK-t (lásd fentebb az *Előkövetelmények* részt), mely a `dotnet` parancsot adja.
+!!! warning ".NET"
+    Ehhez a feladathoz telepítened kell a .NET SDK-t (lásd fentebb az *Előkövetelmények* részt), mely a `dotnet` parancsot adja.
 
 1. Készíts a repository mappájába egy almappát `aspnetweb` néven. A továbbiakban ennek az új mappának a kontextusában dolgozz.
 
