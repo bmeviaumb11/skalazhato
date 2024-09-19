@@ -58,9 +58,9 @@ A HF védés keretében az egyetemi M365 account-otokkal (@edu.bme.hu) belépve 
 
 ## Pontszámítás
 
-Beszámított idő megvédett képzési tervenként: a képzési terv címe alatt látható időatartam.
+Beszámított idő megvédett képzési tervenként: a képzési terv címe alatt látható időtartam. Az összegzett perceket a CSV *Összesen* sorából felfelé kerekítjük a következő egész órára.
 
-Időtartam átszámítása pontokra: TBD
+Időtartam átszámítása pontokra: 1 óra = 1 pont. Maximum **24** pont (óra).
 
 ## A szabályrendszer változása
 
