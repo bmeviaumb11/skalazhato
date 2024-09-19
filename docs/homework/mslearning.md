@@ -50,7 +50,7 @@ A fájlt add be a NHF-fel együtt.
 
 ## Védés
 
-A HF védés keretében az egyetemi M365 account-otokkal (@edu.bme.hu) belépve a [MS Learn oldalra](https://learn.microsoft.com/hu-hu/learn/) igazolnotok kell a képzési tervek elvégzését. Ezen túlmenően szúrópróbaszerűen belekérdezhetünk az elméleti részbe (lásd a modulok végén a "knowledge check" részeket)
+A HF védés keretében az egyetemi M365 account-otokkal (@edu.bme.hu) belépve a [MS Learn oldalra](https://learn.microsoft.com/hu-hu/learn/) igazolnotok kell a képzési tervek elvégzését. Ezen túlmenően szúrópróbaszerűen belekérdezhetünk az elméleti részbe (lásd a modulok végén a tudáspróba, feleletválasztós teszt részeket)
 
 !!! warning
 
