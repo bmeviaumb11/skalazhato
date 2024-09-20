@@ -34,7 +34,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
 4. A `neptun.txt` fájlba írd bele a Neptun kódodat. A fájlban semmi más ne szerepeljen, csak egyetlen sorban a Neptun kód 6 karaktere.
 
 !!! danger "NEPTUN"
-    :exclamation: A feladatokban a `neptun` kifejezés helyett a saját neptunkódunkat helyettesítsük be minden esetben :exclamation:
+    :exclamation: A példákban a `neptun` helyett a **saját neptunkódunkat** helyettesítsük be. Ha neptun-ként látod, akkor kisbetűvel írd; ha NEPTUN-ként, akkor nagybetűvel :exclamation:
 
 ## 0. Feladat
 
@@ -132,9 +132,6 @@ docker run hello-world
 
 Gyakran szeretnénk a host gépről elérni a konténerben lévő fájlokat, vagy éppen a konténerben lévő fájlokat szeretnénk a host gépen tárolni.
 Erre megoldás a _volume_ csatolás, amikor a host gép egy könyvtárát csatoljuk a konténerbe.
-
-!!! danger "NEPTUN"
-    :exclamation: A példákban a `neptun` helyett a **saját neptunkódunkat** helyettesítsük be. Ha neptun-ként látod, akkor kisbetűvel írd; ha NEPTUN-ként, akkor nagybetűvel :exclamation:
 
 - Hozzunk létre egy munkakönyvtárat tetszőleges helyen a neptun kódunkkal, például `c:\work\neptun` (windows) `~/work/neptun` (linux)
     
