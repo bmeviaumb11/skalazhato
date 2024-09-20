@@ -36,18 +36,6 @@ Szintén elfogadjuk az alábbi minősítéses oldalakon a felkészülési anyago
 
     A részben elvégzett képzési tervek, illetve olyan modulok, ahol a tartalmazó képzési terv nincs elvégezve - nem elfogadhatók
 
-## Beadás
-
-Készíts egy egyszerű [CSV-t](https://en.wikipedia.org/wiki/Comma-separated_values) `mslearn.csv` néven. A fájlban add meg az elvégzett képzési terveket és a hosszukat **percben**. A végén külön sorban összegezd a perceket. Példa:
-
-```
-Microsoft Azure Fundamentals: Describe Azure architecture and services;205
-AZ-400: Development for enterprise DevOps;405
-Összesen;610
-```
-
-A fájlt add be a NHF-fel együtt.
-
 ## Védés
 
 A HF védés keretében az egyetemi M365 account-otokkal (@edu.bme.hu) belépve a [MS Learn oldalra](https://learn.microsoft.com/hu-hu/learn/) igazolnotok kell a képzési tervek elvégzését. Ezen túlmenően szúrópróbaszerűen belekérdezhetünk az elméleti részbe (lásd a modulok végén a tudáspróba, feleletválasztós teszt részeket)
