@@ -663,6 +663,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#platformvalasztas-vs-azure-koltsegek" class="md-nav__link">
+    <span class="md-ellipsis">
+      Platformválasztás vs. Azure költségek
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Platformválasztás vs. Azure költségek">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#azure-tananyagok-kotsegei" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure tananyagok kötségei
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#pontrendszer_1" class="md-nav__link">
     <span class="md-ellipsis">
       Pontrendszer
@@ -804,6 +828,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#platformvalasztas-vs-azure-koltsegek" class="md-nav__link">
+    <span class="md-ellipsis">
+      Platformválasztás vs. Azure költségek
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Platformválasztás vs. Azure költségek">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#azure-tananyagok-kotsegei" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure tananyagok kötségei
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#pontrendszer_1" class="md-nav__link">
     <span class="md-ellipsis">
       Pontrendszer
@@ -926,13 +974,42 @@
 <p class="admonition-title">Tip</p>
 <p>Az órai demókban vagy mintaalkalmazásban megvalósított funkciók átvételéért pont nem adható, de azok tovább átdolgozhatóak saját implementációnak.</p>
 </div>
+<h2 id="platformvalasztas-vs-azure-koltsegek">Platformválasztás vs. Azure költségek<a class="headerlink" href="#platformvalasztas-vs-azure-koltsegek" title="Permanent link">&para;</a></h2>
+<p>A tárgy által oktatott, preferált architektúrák felhős költségei tipikusan magasabbak, mint amire a hallgatói Azure előfizetés kreditszámát (100$ / 1 év) méretezték. A költségeket lehet ugyan kontrollálni, de ez folyamatos odafigyelést igényel. Nem akartuk elvenni a lehetőséget és a motivációt a felhős szolgáltatások kipróbálásától, de a felhős alapplatformok választását a nagyházi keretében (különösen AKS) alapestben <strong>nem ajánljuk!</strong></p>
+<p>Ha mégis ezeket választanád, néhány tipp:</p>
+<ul>
+<li>Érdemes olyan platformokat választani, ahol könnyű elérni a 0 terhelés = kb. 0 költség állapotot. Az AKS-sel ezt nehéz, ACA és Azure Functions esetében könnyebb</li>
+<li>Figyeld a költségeket, de vedd figyelembe, hogy az elszámolás laggolhat (később jelentkeznek a költségek)</li>
+<li>Legnagyobb költség okozók: adatbázisok, futó virtuális gépek és node pool-ok, nagy mennyiségű adat mozgatása régiók között</li>
+<li>Próbáld egyszerűsíteni a felhős részt, két független telepítés esetén nem kell, hogy minden nem-üzleti funkció (pl. authentikáció) ugyanolyan komplex legyen a két telepítésben (lásd a pontrendszerben a két-független-platformos jogcímet)</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Ajánlott viszont</p>
+<ul>
+<li>saját gépen futó (on-premise) K8S architektúra kiegészítése egy-egy Azure szolgáltatással, pl. konténerek letöltése Azure Container Registry-ből</li>
+<li>IaC eszközökkel (pl. terraform) egy-egy parancssori paranccsal lebontani, majd szükség esetén visszaépíteni az architektúra költséges részeit</li>
+</ul>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">FAGYVESZÉLY!</p>
+<p>Ha a hallgatói előfizetésen a kredit elfogy, az előfizetés befagyasztásra kerül. Vannak erőforrástípusok, melyeknél a leállítás csökkenti vagy megszünteti a költséget (pl. virtuális gép), ugyanakkor vannak, melyeket nem lehet költségsprólás miatt "kikapcsolni" (tipikusan a tárolást végző erőforrások, adatbázisok). A kredit elfogyása megakadályozhatja az Azure-os pontok megszerzését!</p>
+</div>
+<h3 id="azure-tananyagok-kotsegei">Azure tananyagok kötségei<a class="headerlink" href="#azure-tananyagok-kotsegei" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+</div>
+<p>Vannak olyan képzési tervek, amik saját előfizetésen elvégzendő, kreditbe kerülő műveleteket írnak elő. Ezek is csökkentik a más Azure-os pontok megszerzésére fordítható keretet, így érdemes az emiatt létrehozott erőforrásokat a lehető leghamarabb törölni.</p>
+<div class="admonition tip">
+<p class="admonition-title">Microsoft Learn Sandbox</p>
+<p>Vannak olyan képzési tervek, ahol lehetőség van <em>Microsoft Learn Sandbox</em> használatára (pl. <a href="https://learn.microsoft.com/en-us/training/modules/chain-azure-functions-data-using-bindings/3-explore-input-and-output-binding-types-portal-lab?pivots=javascript">ebben a modulban</a> - ez egy olyan Azure környezet, amihez nem kell előfizetés. A Microsoft Learn Sandbox-ról bővebben <a href="https://learn.microsoft.com/en-us/learn/support/faq?pivots=sandbox">itt</a>.</p>
+</div>
 <h2 id="pontrendszer_1">Pontrendszer<a class="headerlink" href="#pontrendszer_1" title="Permanent link">&para;</a></h2>
 <p>Az elkészített rendszer egyes képességeire az alábbiak szerint pontok kaphatóak. A végső jegy az összpontszámból adódik.</p>
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th>Jegy</th>
+<th>Pont</th>
 </tr>
 </thead>
 <tbody>
@@ -966,29 +1043,36 @@
 <h3 id="altalanos-es-cross-technologia">Általános és cross-technológia<a class="headerlink" href="#altalanos-es-cross-technologia" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>A szolgáltatás két különféle orkesztrációs/platformon fut, egymástól függetlenül, tehát a teljes szolgáltatás két egymástól független telepítéssel rendelkezik (pl. on-premise K8S és AKS). Nem kell, hogy minden nem-üzleti funkció (pl. authentikáció) ugyanolyan komplex legyen a két telepítésben, csak az üzleti funkciók képességei egyezzennek. Legalább az egyik platformnak Azure-ban kell futnia: <strong>X</strong> pont</p>
+<p>A szolgáltatás két különféle orkesztrációs/platformon fut, egymástól függetlenül, tehát a teljes szolgáltatás két egymástól független telepítéssel rendelkezik (pl. on-premise K8S és AKS). Nem kell, hogy minden nem-üzleti funkció (pl. authentikáció) ugyanolyan komplex legyen a két telepítésben, csak az üzleti funkciók képességei egyezzenek. Legalább az egyik platformnak Azure-ban kell futnia: <strong>20</strong> pont</p>
 </li>
 <li>
-<p>Több implementációs nyelv használata. A backend szolgáltatások legalább két különböző programozási nyelven készültek. (A frontend ebbe nem számít bele!): <strong>X</strong> pont</p>
+<p>IaC (terraform, Bicep - <em>ez Azure-only!</em>, stb.) eszközzel legalább az üzleti funkciókat futtató architektúrarész (K8S / AKS / Azure Function App platform) felépítése és lebontása. A visszaépítés végén az alkalmazásnak működnie kell, nem elég például egy üres AKS-t visszaépíteni. Védésen nem kell demózni (sokáig tartana), de platformonként egy felépítésről és egy lebontásról egy-egy kimeneti naplót be kell tudni mutatni. <strong>7</strong>-<strong>10</strong> pont</p>
+<ul>
+<li>egyik platform telepítés (pl. Azure-os) felépítése-lebontása 7 pont</li>
+<li>mindkét platform felépítése-lebontása 10 pont</li>
+</ul>
 </li>
 <li>
-<p>gRPC alapú kommunikáció használata legalább egy mikroszolgáltatás esetében: <strong>X</strong> pont</p>
+<p>Több implementációs nyelv használata. A backend szolgáltatások legalább két különböző programozási nyelven készültek. (A frontend ebbe nem számít bele!): <strong>5</strong> pont</p>
+</li>
+<li>
+<p>gRPC alapú kommunikáció használata legalább egy mikroszolgáltatás esetében: <strong>7</strong> pont</p>
 </li>
 <li>
 <p>Hibatűrést növelő kommunikációs minták alkalmazása külső komponensek segítségével (pl. <a href="https://www.pollydocs.org/">Polly</a>, <a href="https://github.com/resilience4j/resilience4j">Resilience4j</a>, <a href="https://github.com/jd/tenacity">Tenacity</a>). Saját minta implementációért nem jár pont. Ha az API gateway valósítja meg, szintén nem jár pont. <strong>X</strong> pont</p>
 </li>
 <li>
-<p>Saját telepítésű API gateway használata: <strong>X-Y</strong> pont</p>
+<p>Saját telepítésű API gateway használata. Csak az <a href="https://gateway-api.sigs.k8s.io/implementations/">itt felsorolt</a> implementációk számítanak: <strong>X-Y</strong> pont</p>
 <ul>
 <li>Traefik használata útvonalválasztásra: X pont</li>
 <li>Más, saját telepítésű API gateway használata: Z pont</li>
 </ul>
 </li>
 <li>
-<p>A szolgáltatás authentikációjának kiszervezése az API gateway-be forward authentikáció használatával: <strong>X-Y</strong> pont</p>
+<p>A szolgáltatás authentikációjának kiszervezése API gateway-be  (csak az <a href="https://gateway-api.sigs.k8s.io/implementations/">itt felsorolt</a> API gateway implementációk számítanak) forward authentikáció használatával: <strong>7-12</strong> pont</p>
 <ul>
-<li>OAuth proxy használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (KeyCloak, Entra) felé továbbítva: X pont</li>
-<li>Egyéb egyszerű saját dummy authentikációs szolgáltatás felé továbbítva: Z pont</li>
+<li>OAuth proxy használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (pl. KeyCloak, Entra) felé továbbítva: 12 pont</li>
+<li>Egyéb egyszerű saját dummy authentikációs szolgáltatás felé továbbítva: 7 pont</li>
 </ul>
 </li>
 <li>
@@ -1065,7 +1149,7 @@
 <h3 id="on-premise-futo-rendszerekhez">On-premise futó rendszerekhez<a class="headerlink" href="#on-premise-futo-rendszerekhez" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>Legalább két fajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: <strong>X</strong> pont</p>
+<p>Legalább kétfajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: <strong>X</strong> pont</p>
 </li>
 <li>
 <p>Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure Container Registry-ből: <strong>X-Y</strong> pont</p>
@@ -1086,7 +1170,7 @@
 </ul>
 <h3 id="azure-alapon-futo-rendszerekhez">Azure alapon futó rendszerekhez<a class="headerlink" href="#azure-alapon-futo-rendszerekhez" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Legalább két fajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, CosmosDB). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: <strong>X</strong> pont</li>
+<li>Legalább kétfajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, CosmosDB). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: <strong>10</strong> pont</li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1094,26 +1178,26 @@
 </div>
 <ul>
 <li>
-<p><a href="https://azure.microsoft.com/en-us/products/cache">Azure Redis</a> szolgáltatás használata kifejezetten cache-elésre saját telepítésű cache helyett, legalább egy művelet esetén: <strong>X</strong> pont</p>
+<p><a href="https://azure.microsoft.com/en-us/products/cache">Azure Redis</a> szolgáltatás használata kifejezetten cache-elésre saját telepítésű cache helyett, legalább egy művelet esetén: <strong>5</strong> pont</p>
 </li>
 <li>
-<p>Valamely <a href="https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options">hivatalosan támogatott AKS ingress opció</a> használata saját telepítésű ingress / api gateway helyett: <strong>X</strong> pont</p>
+<p>Valamely <a href="https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options">hivatalosan támogatott AKS ingress opció</a> használata saját telepítésű ingress / api gateway helyett: <strong>7</strong> pont</p>
 </li>
 <li>
-<p><em>Azure API Management</em> használata gateway-ként. A kliensről jövő kérés előbb az API Management gateway-be fut be, aki az Azure-os klaszterben futó ingress vagy <a href="https://azure.microsoft.com/en-us/blog/benefits-of-using-azure-api-management-with-microservices/">Azure Function-ök</a> felé továbbít: <strong>X</strong> pont</p>
+<p><em>Azure API Management</em> használata gateway-ként. A kliensről jövő kérés előbb az API Management gateway-be fut be, ami az Azure-os klaszterben futó ingress vagy <a href="https://azure.microsoft.com/en-us/blog/benefits-of-using-azure-api-management-with-microservices/">Azure Function-ök</a> felé továbbít: <strong>7</strong> pont</p>
 </li>
 <li>
-<p>Authentikáció kiszervezése <em>Azure API Management</em> szolgáltatásba (<a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad">példa</a>): <strong>X</strong> pont</p>
+<p>Authentikáció kiszervezése <em>Azure API Management</em> szolgáltatásba (<a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad">példa</a>): <strong>8</strong> pont</p>
 </li>
 <li>
-<p>Konténerek vagy helm chart(ok) letöltése Azure-beli klaszterbe vagy <em>Azure Function</em>-be saját <em>Azure Container Registry</em>-ből: <strong>X-Y</strong> pont</p>
+<p>Konténerek vagy helm chart(ok) letöltése Azure-beli klaszterbe vagy <em>Azure Function</em>-be saját <em>Azure Container Registry</em>-ből: <strong>3-7</strong> pont</p>
 <ul>
-<li>ACR admin felhasználó nevében: <strong>X</strong> pont</li>
-<li>managed identity alapú hozzáféréssel: <strong>Y</strong> pont</li>
+<li>ACR admin felhasználó nevében: <strong>3</strong> pont</li>
+<li>managed identity alapú hozzáféréssel: <strong>7</strong> pont</li>
 </ul>
 </li>
 <li>
-<p>Titkok lekérése saját <em>Azure Key Vault</em>-ból managed identity alapú hozzáféréssel: <strong>X</strong> pont</p>
+<p>Titkok lekérése saját <em>Azure Key Vault</em>-ból managed identity alapú hozzáféréssel: <strong>7</strong> pont</p>
 </li>
 <li>
 <p>A mikroszolgáltatások közötti kommunikáció kiszervezése valamely <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services">Azure üzenetkezelő szolgáltatásba</a> (pl. Service Bus) managed identity alapú hozzáféréssel: <strong>X</strong> pont</p>
@@ -1136,19 +1220,19 @@
 </ul>
 </li>
 <li>
-<p><a href="https://learn.microsoft.com/en-us/azure/chaos-studio/"><em>Azure Chaos Studio</em></a> használata káosz teszt futtatására: <strong>X</strong> pont</p>
+<p><a href="https://learn.microsoft.com/en-us/azure/chaos-studio/"><em>Azure Chaos Studio</em></a> használata káosz teszt futtatására: <strong>7</strong> pont</p>
 </li>
 <li>
-<p>Tartós tár, például Azure Disk, Azure Files csatolása AKS, ACA klaszterbe vagy <a href="https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares">Azure Function-be</a>: <strong>X</strong> pont</p>
+<p>Tartós tár, például Azure Disk, Azure Files csatolása AKS, ACA klaszterbe vagy <a href="https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares">Azure Function-be</a>: <strong>5</strong> pont</p>
 </li>
 <li>
-<p><a href="https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview"><em>Durable Functions</em></a> használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: <strong>X</strong> pont</p>
+<p><a href="https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview"><em>Durable Functions</em></a> használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: <strong>5</strong> pont</p>
 </li>
 </ul>
 <h3 id="egyeb">Egyéb<a class="headerlink" href="#egyeb" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>A minimum elvárásokat teljesítő rendszer <strong>24</strong> pontot ér</p>
+<p>A minimum elvárásokat teljesítő rendszer: <strong>24</strong> pont</p>
 </li>
 <li>
 <p>Minden félévközi házi feladat (6 db.) teljesítése. Nem arányosítható - csak akkor adható, ha <em>minden</em> házi teljesített: <strong>6</strong> pont</p>
@@ -1157,7 +1241,7 @@
 <p>Azure tananyagok elsajátítása, kizárólag a <a href="../mslearning/">külön leírt követelmények</a> szerint: max. <strong>24</strong> pont</p>
 </li>
 <li>
-<p>Visszacsatolás. A véglegesített pontrendszer vagy tananyag javítása, bővítése, módosítása pull request-tel. Helyesírási hiba is lehet, de az oktatók döntenek, hogy pontot ér-e a módosítás. Többször is megszerezhető. <strong>X-Y</strong> pont, összesen max. <strong>Z</strong> pont</p>
+<p>Visszacsatolás. A véglegesített pontrendszer vagy tananyag javítása, bővítése, módosítása pull request-tel. Helyesírási hiba is lehet, de az oktatók döntenek, hogy pontot ér-e a módosítás. Többször is megszerezhető. <strong>0-2</strong> pont, összesen max. <strong>6</strong> pont</p>
 </li>
 </ul>
 <h2 id="ponthatarok">Ponthatárok<a class="headerlink" href="#ponthatarok" title="Permanent link">&para;</a></h2>
@@ -1180,8 +1264,8 @@
           </path>
         </svg>
       </span>
-      <span title="2024. szeptember 19. 16:22:26">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-19T16:22:26+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-19</span>
+      <span title="2024. szeptember 20. 10:55:59">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-20T10:55:59+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-20</span>
       </span>
     </span>
 
