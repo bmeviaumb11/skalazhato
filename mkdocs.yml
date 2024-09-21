@@ -34,6 +34,7 @@ theme:
     - search.suggest
     - content.action.edit
     - toc.follow
+    - content.code.copy
   logo: logo-bme-aut.png
   favicon: favicon.ico
 
@@ -97,7 +98,10 @@ nav:
       - information/contributing.md
       - information/GitHub.md
       - information/GitHub-Actions.md
-  - "Házi feladatok / Laborok":
-      - homework/01-docker/index.md
+      - information/certification.md
+  - "Gyakorlatok / Laborok":
+      - homework/01-hw/index.md      
       - homework/02-kubernetes/index.md
+  - "Nagyházi":      
       - homework/pontrendszer.md
+      - homework/mslearning.md

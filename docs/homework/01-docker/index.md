@@ -1,4 +1,4 @@
-# Konténerizáció
+# 01 - Konténerizáció
 
 ## Cél
 
@@ -6,15 +6,17 @@ A labor célja megismerni a Docker konténerek használatának alapjait és a le
 
 ## Előkövetelmények
 
+- A házi leírásban Windows platformot használunk, azonban a feladatok Linuxon és Mac-en is megoldhatóak (a könyvtár elérési útvonalakat megfelelően átírva).
+- Docker Hub login
 - Docker Desktop
-    - A házi leírásban Windows platformot használunk, azonban a feladatok Linuxon és Mac-en is megoldhatóak (a könyvtár elérési útvonalakat megfelelően átírva).
-    - Docker Hub login
-- Docker-compose
-    - Csak Linux esetén szükséges [külön telepíteni](https://docs.docker.com/compose/install/)
+     - <https://www.docker.com/products/docker-desktop/>
+   
+    !!! warning
+        Más kiépítések, telepítési formák is elérhetőek (pl. Docker Engine), de a Docker Desktop tartalmaz minden eszközt, amire szükségünk lehet. Például `docker init` csak a Docker Desktop-ban van.
+        
+- Az opcionális feladathoz [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0). Ha van fent friss Visual Studio, akkor általában nem kell külön feltenni. Tesztelheted [így](https://learn.microsoft.com/en-us/dotnet/core/install/how-to-detect-installed-versions?pivots=os-windows#check-sdk-versions)
 - Microsoft Visual Studio Code
     - Javasolt: [Docker extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
-- Visual Studio 2022 (min 17.10) vagy .NET SDK CLI
-    - A _ASP.NET and Web Development_ nevű [workload](https://learn.microsoft.com/en-us/visualstudio/install/modify-visual-studio?view=vs-2022) szükséges
 - Alap Linux parancsok ismerete. Érdemes átnézni pl.:
     - <http://bmeaut.github.io/snippets/snippets/0700_LinuxBev/>
     - <https://maker.pro/linux/tutorial/basic-linux-commands-for-beginners>
@@ -32,7 +34,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
 4. A `neptun.txt` fájlba írd bele a Neptun kódodat. A fájlban semmi más ne szerepeljen, csak egyetlen sorban a Neptun kód 6 karaktere.
 
 !!! danger "NEPTUN"
-    :exclamation: A feladatokban a `neptun` kifejezés helyett a saját neptunkódunkat helyettesítsük be minden esetben :exclamation:
+    :exclamation: A példákban a `neptun` helyett a **saját neptunkódunkat** helyettesítsük be. Ha neptun-ként látod, akkor kisbetűvel írd; ha NEPTUN-ként, akkor nagybetűvel :exclamation:
 
 ## 0. Feladat
 
@@ -48,6 +50,7 @@ docker --version
 ```
 
 Futtassunk egy egyszerű előre elkészített konténert, ami kiír egy példa szöveget a konzolra.
+Fontos, hogy a telepített Docker Desktop fusson a háttérben!
 
 ```cmd
 docker run hello-world
@@ -130,15 +133,16 @@ docker run hello-world
 Gyakran szeretnénk a host gépről elérni a konténerben lévő fájlokat, vagy éppen a konténerben lévő fájlokat szeretnénk a host gépen tárolni.
 Erre megoldás a _volume_ csatolás, amikor a host gép egy könyvtárát csatoljuk a konténerbe.
 
-!!! danger "NEPTUN"
-    :exclamation: A példákban a `neptun` helyett a **saját neptunkódunkat** helyettesítsük be :exclamation:
-
-- Hozzunk létre egy munkakönyvtárat tetszőleges helyen a neptun kódunkkal `c:\work\neptun`
+- Hozzunk létre egy munkakönyvtárat tetszőleges helyen a neptun kódunkkal, például `c:\work\neptun` (windows) `~/work/neptun` (linux)
     
 - Indítsunk el egy konténert úgy, hogy ezt a könyvtárat felcsatoljuk a `-v` kapcsolóval:
 
-    ```cmd
+    ```cmd title="Windows"
     docker run -it --rm -v c:\work\neptun:/neptun ubuntu
+    ```
+
+    ```cmd title="Linux"
+    docker run -it --rm -v ~/work/neptun:/neptun ubuntu
     ```
 
     Szintaktika: helyi teljes elérési útvonal _kettőspont_ konténeren belüli teljes elérési útvonal
@@ -172,7 +176,7 @@ Erre megoldás a _volume_ csatolás, amikor a host gép egy könyvtárát csatol
 - Nézzük meg a munkakönyvtárunkat.
 
 !!! tip "`--rm`"
-    A `--rm` opció törli a konténert leállás után; pl. teszteléshez hasznos, mint most.
+    A `docker run` `--rm` opciója törli a konténert leállás után; pl. teszteléshez hasznos, mint most.
 
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (f1.1.png) és commitold azt be a házi feladat repó gyökerébe, amin a fenti _Volume csatolás_ feladatok parancsainak eredményei láthatóak.
@@ -218,7 +222,7 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
     docker run -d -p 8085:80 nginx
     ```
 
-    Jegyezzük meg a kiírt konténer id-t, alább használni fogjuk.
+    Jegyezzük meg a kiírt konténer id-t, alább használni fogjuk. (A kiírt karakterlánc első 12 karaktere jelöli az ID-t.)
 
 - Futtassunk le egy parancsot a konténerben:
 
@@ -235,7 +239,7 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
     ```
   
     - Az `-it` opció az interaktivitásra utal, azaz a konzolunkat "hozzáköti" a konténerben futó shellhez.
-    - Tipikusan vagy `/bin/bash` vagy `/bin/sh` a Linux konténerekben a shell. Utóbbi az _alpine_ alapú konténerekben gyakori.
+    - Tipikusan vagy `/bin/bash` vagy `/bin/sh` a Linux konténerekben a shell. Utóbbi az [_alpine_](https://alpinelinux.org/) alapú konténerekben gyakori.
     - Ebben az interaktív shell-ben bármit csinálhatunk, beléphetünk könyvtárakba, megnézhetünk fájlokat, stb. Arra viszont ügyeljünk, hogy az így végzett módosításaink **elvesznek**, amikor a konténer törlésre kerül!
 
 - Például nézzük meg az nginx konfigurációját:
@@ -256,8 +260,12 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
 
 - Ha szükségünk van egy fájlra, akkor azt kimásolhatjuk a futó konténerből:
 
-    ```cmd
+    ```cmd title="Windows"
     docker cp <id|name>:/etc/nginx/conf.d/default.conf c:\work\neptun\nginx.conf
+    ```
+
+    ```cmd title="Linux"
+    docker cp <id|name>:/etc/nginx/conf.d/default.conf ~/work/neptun/nginx.conf
     ```
     
     - Szintaktikája: `docker cp <id|name>:</full/path> <cél/hely>`
@@ -333,9 +341,9 @@ Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most 
     ```
 
     !!! warning
-        A portszám szándékosan más, hogy biztosan legyünk 1enne, nem a korábban futóhoz csatlakozunk - ha mégsem állítottuk volna azt le.
+        A portszám szándékosan más, hogy biztosan legyünk benne, nem a korábban futóhoz csatlakozunk - ha mégsem állítottuk volna azt le.
 
-1. Nyisd meg böngészőből a <http://localhost:8086> címet. Látható, hogy ez a módosított tartalmat jeleníti meg. Tehát `mynginx` néven létrehoztunk egy saját image-et.
+1. Nyisd meg böngészőből a <http://localhost:8086> címet. Látható, hogy ez a módosított tartalmat jeleníti meg. Tehát `nginx-neptun` néven létrehoztunk egy saját image-et.
 
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (f2.1.png) és commitold azt be a házi feladat repó gyökerébe, amin a fenti weboldal látszik a böngészőben és a konténert futtató parancs a terminálban és annak a logjai.
@@ -422,6 +430,7 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
     Ez a parancs létrehoz egy image-et a Dockerfile alapján. A végén egy pont van, az is a parancs része, ami a build kontextust jelenti
 
     A Dockerfile lépései:
+   
     - `FROM`: az alap image, amire építjük a sajátunkat. Mi most a Python 3.12-slim image-et használjuk.
     - `WORKDIR`: a konténerben a munkakönyvtár, a további műveletek ebben a könyvtárban lesznek.
     - `COPY`: a host gépről a konténerbe másoljuk a fájlokat. A `.` jelenti a build kontextus mappáját, esetünkben a `pythonweb` mappát.
@@ -452,8 +461,12 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
 
     1. Készítsünk az aktuális könyvtárunkba, az `app.py` mellé egy nagy fájlt. PowerShell-ben addjuk ki a következő parancsot.
 
-        ```powershell
+        ```powershell title="Windows - powershell"
         $out = new-object byte[] 134217728; (new-object Random).NextBytes($out); [IO.File]::WriteAllBytes("$pwd\file.bin", $out)
+        ```
+
+        ```bash title="Linux - bash"
+        dd if=/dev/urandom of=./file.bin bs=1M count=1024
         ```
 
     2. Buildeljük le ismét a fenti image-et: `docker build -t python-neptun:v1 .`
@@ -479,6 +492,9 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
 ## 3. Feladat
 
 ### 3.1 Docker-compose
+
+!!! warning "Linux eltérés"
+    Linuxon a _compose_ nem egy külön parancs, hanem a docker parancs [kiterjesztése](https://docs.docker.com/compose/install/linux/). Emiatt nem `docker-compose` helyett `docker compose`-ként kell hívnunk.
 
 A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett egy Redis-re is szükségünk lenne. Futtassunk több konténert egyszerre a docker compose segítségével.
 
@@ -514,7 +530,7 @@ A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett 
         - `depends_on`: a konténer indításának sorrendjét jelzi. A `web` konténer csak akkor indul, ha a `redis` konténer már fut.
     - `networks`: a konténerek közötti hálózatokat definiálja. A `homework_network` nevű hálózatot használjuk, bridge módban, ami a konténerek közötti hálózatot jelenti. Ezt adtuk meg a konténerek `networks` tulajdonságában is.
 
-2. Nyiss egy _PowerShell_ konzolt ugyanebbe a mappába. Indítsd el az alkalmazásokat az alábbi paranccsal:
+2. Nyiss egy konzolt ugyanebbe a mappába. Indítsd el az alkalmazásokat az alábbi paranccsal:
 
     ```cmd
     docker-compose up --build
@@ -582,26 +598,36 @@ A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon.
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (f3.2.png) és commitold azt be a házi feladat repó gyökerébe, amin a fenti weboldal látszik a böngészőben és a részletesebb redis naplóbejegyzések.
 
-## 4. Feladat
+## Opcionális: 4. Feladat
 
-### 4.1 Microsoft Visual Studio támogatás Docker-alapú fejlesztéshez
+### Docker init
 
-A Microsoft Visual Studio támogatja és megkönnyíti a konténer alapú szoftverfejlesztést. Segíti a fejlesztőt a fejlesztett alkalmazás konténerizálásában, és támogatja a konténerben való debuggolást is.
+A `docker init` paranccsal egy megadott technológiához tartozó, docker alapú fejlesztéshez szükséges-hasznos fájlokat generáltathatjuk. A fájlok az adott technológiához illeszkedően készülnek, például ASP .NET Core esetén a megfelelő .NET alap lemezképekre hivatkozik a generált Dockerfile.
 
-1. Indítsuk el a Visual Studio-t (nem a Code-ot!).
+!!! warning ".NET"
+    Ehhez a feladathoz telepítened kell a .NET SDK-t (lásd fentebb az *Előkövetelmények* részt), mely a `dotnet` parancsot adja.
 
-2. Készítsünk egy új _ASP.NET Core Web App (Razor Pages)_ típusú projektet (.NET 8) `Neptun.WebApp` néven a házi repositorynkba, és engedélyezzük a Linux-alapú konténer támogatást a projekt létrehozásakor
+1. Készíts a repository mappájába egy almappát `aspnetweb` néven. A továbbiakban ennek az új mappának a kontextusában dolgozz.
 
-    ![VS Linux konténer támogatás](images/vs-linux-container.png)
+1. Generálj egy ASP.NET Core alapú kiinduló projektet
 
+    ```cmd
+    dotnet new webapp
+    ```
+
+1. Generáld az ASP.NET Core-hoz tartozó docker fájlokat
+
+    ```cmd
+    docker init
+    ```
     Ez a lépés létrehoz egy `Dockerfile`-t a projektben, ami ráadásul multi-stage build megoldást tartalmaz, ami a fordítási, publikálási és futtatási fázisokat különválasztja (több `FROM` utasítás amik egymásra hivatkoznak).
     Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálható legyen egy szeparált .NET SDK-t tartalmazó konténerben. A publikálás pedig egy kisebb méretű image-be történik, ami már csak a .NET futtatókörnyezetet tartalmazza.
 
-3. Engedélyezzük a docker-compose használatát a projektben: _Jobb gomb / Add / Container Orchestrator Support / Docker Compose / Linux_. Ez létrehoz egy docker-compose alapú projektet a Visual Studio Solution-ban és beállítja azt kiinduló projektnek.
+    Ezen felül létrejön még .dockerignore fájl is, valamint egy egy service-t hivatkozó Docker compose is.
 
-4. Futtassuk le a projektet a Visual Studio-ból. A projekt a `docker-compose`-ban definiált konténerekben fog futni.
+4. Futtassuk a docker compose configurációt (`docker-compose up` - Windows vagy `docker compose up` - Linux). Az alapértelmezetten felkínált lehetőségek általában megfelelőek, csak végig kell ++enter++ -ezni. Böngészőben nyissuk meg a localhost címen a docker init-nek megadott portot pl. http://localhost:8080.
 
-5. Egy konzolból listázzuk ki a futó konténereket:
+5. Listázzuk ki a futó konténereket egy külön konzolablakban:
 
     ```cmd
     docker ps

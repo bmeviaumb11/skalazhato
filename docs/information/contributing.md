@@ -8,10 +8,12 @@ Ha egy ilyennel találkozol és úgy döntesz szeretnél segíteni hallgatótár
     Más tantárgyak mintájára itt is szeretnénk plusz pontot adni a jegyzet open-source hozzájárulásaiért.
     Akik a tárgyat jelenleg hallgatják, pontokat kaphatnak hozzájárulásaikérrt.
 
-    A félév során max 3 db plusz pontot lehet szerezni fejenként olyan javításokért, amik a triviális 1-2 betű elgépelésen túl érdemben javítanak a githubon található labor jegyzetek minőségén.
+    A félév során plusz pontot lehet szerezni olyan javításokért, amik a triviális 1-2 betű elgépelésen túl érdemben javítanak a githubon található labor jegyzetek minőségén.
     Pl.: jelentős mennyiségű elgépelés javítása, egyértelműsítések, illusztrációk kiegészítések készítése vagy akár egy teljes kiegészítő jegyzet írása  (természetesen nem azonos pontértékkel).
 
     Persze a pont nélkül az 1-1 betűs elgépeléseket is szívesen fogadjuk, ami bemelegítésnek is tökéletes.
+
+    A pontos pontértékért lásd a [pontrendszert](../pontrendszer.md).
 
 ## Hibák jelzése
 
@@ -36,7 +38,7 @@ Amennyiben hibát találsz az anyagban, vagy szeretnéd bővíteni, de nem áll 
 
 !!! warning
 
-    A github issues nem a laborfeladatok megoldásával kapcsolatos problémák helye, így a "Nem tudom megoldani hogy az értesítés megérkezzen" jellegű problémákat ne itt jelezzétek, erre vannak a laboralkalmak.
+    A github issues nem a laborfeladatok megoldásával kapcsolatos problémák helye, így a "Nem tudom megoldani hogy az értesítés megérkezzen" jellegű problémákat ne itt jelezzétek, erre van a tárgy hivatalos Teams csoportja.
 
 ## Változtatások javaslása
 
