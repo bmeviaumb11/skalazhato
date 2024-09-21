@@ -1,4 +1,4 @@
-# Kubernetes
+# 02 - Kubernetes, Helm
 
 ## Cél
 
@@ -22,8 +22,11 @@ A labor Windows platformon lett kidolgozva, de Linuxon is hasonlóan működik.
     - A binárisa legyen elérhető PATH-on.
 - Egy kubernetes-t menedzselni képes GUI pl.:
     - [VS Code Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
-    - [Lens](https://k8slens.dev/))
+    - [Lens](https://k8slens.dev/)
     - [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
+- Helm CLI
+    - [Helm](https://helm.sh/docs/intro/install/)
+    - A Helm CLI legyen elérhető PATH-on.
 
 ## Előkészület
 
@@ -76,13 +79,13 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
     ```
 
     - Ha több klaszterrel dolgoznánk, itt láthatnánk őket.
-    - Ezek valójában egy konfigurációs fájlban vannak: `$HOME/.kube/config`
+    - Ezek valójában egy konfigurációs fájlban vannak: `%userprofile%/.kube/config`
     - Váltani a `kubectl config use-context <név>` parancssal lehet.
     - Minden parancsnál külön megadhatjuk a kontextust a `--context` kapcsolóval, de inkább az implicit contextust szoktuk használni.
     - Kontextus beállításról részletesebben [itt](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-context-and-configuration).
 
 !!! tip "Kubernetes GUI"
-    TODO 
+    A feladatokban lévő műveletek szinte mindegyike elvégezhető a GUI (pl.: VS Code kubernetes kiegészítő) segítségével is. A labor leírásaiban a `kubectl` parancsokat fogjuk használni, de a GUI is használható. 
 
 ## 1. Feladat
 
@@ -112,36 +115,23 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
 
 Kubernetes erőforrásokat tipikusan yaml leírókban definiálunk. A futtatás elemi egysége a pod, így készítsünk egy yaml fájlt a podunkhoz és indítsuk el azt.
 
-1. Hozzunk létre egy új yaml fájt a repositorynk gyökerébe `createpod.yml` néven az alábbi tartalommal
+!!! tip ""
+    A leíró szerkesztéséhez használhatjuk például Visual Studio Code-ot. Érdemes olyan szövegszerkesztővel dolgozni, amely ismeri a yaml szintaktikát. A parancsok futtatásához használhatjuk például Visual Studio Code beépített terminálját (CTLR + ö).
 
-    !!! tip ""
-        Használhatjuk például Visual Studio Code-ot. Érdemes olyan szövegszerkesztővel dolgozni, amely ismeri a yaml szintaktikát.
+1. Hozzunk létre egy új yaml fájt a repositorynk gyökerébe `createpod.yml` néven, az alábbi követelmények mentén
 
-    ```yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: counter-neptun
-    spec:
-      containers:
-        - name: count-neptun
-          image: ubuntu
-          args:
-            [bash, -c, 'echo NEPTUN & for ((i=0; ;i++));do echo "NEPTUN - $i: $(date)";sleep 5;done']
+   - a kubernetes leíró Pod-ot definiál
+   - a pod neve legyen `counter-neptun` a **saját neptunkóddal** kiegészítve
+   - a pod egy konténert tartalmazzon, amely az `ubuntu` képből indul
+   - a konténer egy bash parancsot futtasson, ami kiírja a _NEPTUN_ kódodat és 5 másodpercenként kiírja az aktuális időt.
+
+1. A konzolunkban navigáljunk el abba a könyvtárba, ahol a yaml fájl van, majd hozzuk létre a podot:
+
+    ```cmd
+    kubectl apply -f createpod.yml
     ```
 
-1. A konzolunkban navigáljunk el abba a könyvtárba, ahol a yaml fájl van.
-
-    !!! tip ""
-    Használhatjuk például Visual Studio Code beépített terminálját.
-
-1. Hozzuk létre a podot:
-
-     ```cmd
-      kubectl apply -f createpod.yml
-      ```
-
-    !!! warning ""
+    !!! warning "apply vs create"
         A `create` helyett `apply` parancsot használjuk. Az apply létrehozza, ha nem létezik, és módosítja az erőforrást, ha már létezik.
 
 1. A pod létrejött. Ellenőrizzük:
@@ -150,22 +140,25 @@ Kubernetes erőforrásokat tipikusan yaml leírókban definiálunk. A futtatás 
     kubectl get pod
     ```
 
-3. Nézzük meg a pod logjait:
+1. Nézzük meg a pod logjait:
 
     ```cmd
     kubectl logs counter-neptun
     ```
 
     !!! tip ""
-        Ha gondoljuk, tegyük hozzá a `-f` kapcsolót is (`kubectl logs -f counter`) a log követéséhez. Ctrl-C-vel léphetünk ki a log folyamatos követéséből. Ne feledjük, hogy ez nem a pod terminálja, hanem a logjainak figyelését.
+        Ha gondoljuk, tegyük hozzá a `-f` kapcsolót is (`kubectl logs -f counter`) a log követéséhez. ++ctrl+c++-vel léphetünk ki a log folyamatos követéséből. Ne feledjük, hogy ez nem a pod terminálja, hanem a logjainak figyelését.
 
-4. Töröljük a podot:
+!!! example "BEADANDÓ"
+    A feladathoz tartozó forráskódot commitold be és készíts egy képernyőképet (`f1.1.png`), majd commitold azt be a házi feladat repó gyökerébe, amin a futó pod logjai látszanak.
+
+1. Töröljük a podot:
 
     ```cmd
     kubectl delete pod counter-neptun
     ```
 
-5. Ellenőrizzük, hogy a pod tényleg eltűnik egy kis idő múlva:
+1. Ellenőrizzük, hogy a pod tényleg eltűnik egy kis idő múlva:
 
     ```cmd
     kubectl get pod
@@ -184,48 +177,29 @@ Kubernetes erőforrásokat tipikusan yaml leírókban definiálunk. A futtatás 
     A `-it` kapcsolók interaktív módot és terminált biztosítanak. A `/bin/bash` a shell, amit futtatni szeretnénk.
 
     Ahogy a docker-nél már láthattuk, egy új shell indul a pod konténerében, és ehhez csatlakozunk.
-    - Ebben a shellben, ahogy natív docker esetében is, bármit megtehetünk.
-
-!!! example "BEADANDÓ"
-    Készíts egy képernyőképet (f1.1.png) és commitold azt be a házi feladat repó gyökerébe, amin a futó pod logjai látszanak.
+    Ebben a shellben, ahogy natív docker esetében is, bármit megtehetünk.
 
 ## 2 Feladat
 
 ### 2.1 Deployment létrehozása
 
-A podokat nem szoktuk közvetlenük létrehozni, hanem _Deployment_-re és _ReplicaSet_-re szoktunk bízni a kezelésüket és létrehozásukat.
+A podokat nem szoktuk közvetlenül létrehozni, hanem _Deployment_-re és _ReplicaSet_-re szoktunk bízni a kezelésüket és létrehozásukat.
 
-1. Hozzunk létre egy új yaml fájl `createdeployment.yml` néven az alábbi tartalommal.
+1. Hozzunk létre egy új yaml fájl `createdeployment.yml` néven az alábbi követelményeknek megfelelően:
 
-    ```yaml
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: counter-neptun
-    spec:
-      replicas: 1
-      selector:
-        matchLabels:
-          app: counter-app-neptun
-      template:
-        metadata:
-          labels:
-            app: counter-app-neptun
-        spec:
-          containers:
-            - name: count-neptun
-              image: ubuntu
-              args:
-                [bash, -c, 'echo NEPTUN & for ((i=0; ;i++));do echo "NEPTUN - $i: $(date)";sleep 5;done']
-    ```
+    - a kubernetes leíró Deployment-et definiál
+    - a deployment neve legyen `counter-neptun` a **saját neptunkóddal** kiegészítve
+    - a deployment egy olyan konténert definiáljon, mint az 1. feladatban
+    - 1 replika legyen az elvárt állapot
+    - a selectorok használata során `counter-app-neptun` címkét használjuk a **saját neptunkóddal** kiegészítve
 
-1. Hozzuk létre a Deployment-et:
+2. Hozzuk létre a Deployment-et:
 
     ```cmd
     kubectl apply -f createdeployment.yml
     ```
 
-2. Listázzuk a Deployment-eket, ReplicaSet-eket és a podokat:
+3. Listázzuk a Deployment-eket, ReplicaSet-eket és a podokat:
 
     ```cmd
     kubectl get deployment
@@ -236,18 +210,31 @@ A podokat nem szoktuk közvetlenük létrehozni, hanem _Deployment_-re és _Repl
     Vegyük észre, hogy a pod neve generált, a _Deployment_ és a _ReplicaSet_ alapján kap automatikusan egyet.
 
 !!! example "BEADANDÓ"
-    Készíts egy képernyőképet (f2.1.png) és commitold azt be a házi feladat repó gyökerébe, amin a futó pod neve látszik.
+    Készíts egy képernyőképet (`f2.1.png`) és commitold azt be a házi feladat repó gyökerébe, amin a futó deployment, replicaset és pod neve látszik.
+    Commitold be a forráskódot is.
 
 ### 2.2 Deployment frissítése
 
 A _Deployment_ szolgál az alkalmazás verziónak frissítésére, kiadására.
-Változtassuk meg a program futását: ne 5, hanem 10 másodpercenként írjuk ki az időt.
-Ezt a _Deployment_ módosításával tehetjük meg.
-Podot nem tudunk szerkeszteni hatékonyan, egy futó pod nem cserélhető le. 
+
+Változtassuk meg a program futását a deployment leíróján keresztül: ne 5, hanem 10 másodpercenként írjuk ki az időt.
+Ezt a _Deployment_ módosításával érhetjük el, mivel podot nem tudunk szerkeszteni hatékonyan, egy futó pod nem cserélhető le.
 Ehelyett valójában egy új podot kell létrehozni indirekt módon a deployment frissítésével.
 
+Érvényesítsd a módosítást a deployment leíróban, majd alkalmazd a változást:
+
+```cmd
+kubectl apply -f createdeployment.yml
+```
+
+Kérjük le a logokat a deployment podjából:
+
+```cmd
+kubectl logs -f <podnév>
+```
+
 !!! example "BEADANDÓ"
-    Készíts egy képernyőképet (f2.2.png) és commitold azt be a házi feladat repó gyökerébe, ahol a logokban már 10 mp-enként történik a kiíratás. 
+    Készíts egy képernyőképet (`f2.2.png`) és commitold azt be a házi feladat repó gyökerébe, ahol a logokban már 10 mp-enként történik a kiíratás.
 
 ??? tip "Kubectl parancsok"
 
@@ -265,25 +252,11 @@ Ehelyett valójában egy új podot kell létrehozni indirekt módon a deployment
 
     A parancsokról `-h` kapcsolóval kaphatunk segítséget, pl. `kubectl describe -h`
 
-### Dashboard és proxy-zás
-
-A [_Web UI_ / _Dashboard_](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/) egy webalkalmazás, amely maga is Kubernetes alatt fut. Az alkalmazás a klaszter tartalmát jeleníti meg egy egyszerű, de könnyen áttekinthető webes felületen.
-
-TODO kell ez?
-
-TODO csak helmmel lehet telepíteni
-
-TODO kubectl proxy nem annyira divat már
-
-### Pod - ReplicaSet - Deployment - Service kapcsolata
-
-TODO kell ez?
-
 ## 3. Feladat
 
 ### Célok
 
-A célunk a [todo-kat kezelő konténeralapú mikroszolgáltatásokra épülő webalkalmazás](https://github.com/bmeviauav42/todoapp) telepítése Kubernetes-be. A rendszerünk alapvetően három féle komponensből épül fel:
+A célunk a [todo-kat kezelő konténeralapú, külön álló (mikro)szolgáltatásokra épülő webalkalmazás](https://github.com/bmeviauav42/todoapp) telepítése Kubernetes-be. A rendszerünk alapvetően három fajta komponensből épül fel:
 
 - az általunk megvalósított mikroszolgáltatások (backendek és frontend),
 - az adatbázis rendszerek (MongoDB, Elasticsearch és Redis),
@@ -293,10 +266,10 @@ A célunk a [todo-kat kezelő konténeralapú mikroszolgáltatásokra épülő w
 
 Célunk nem csak az egyszeri telepítés, hanem az alkalmazás naprakészen tartásához a folyamatos frissítés lehetőségének megteremtése.
 A fenti komponensek azonban nem ugyanolyan frissítési ciklussal rendelkeznek: a saját komponenseink gyakran fognak változni, míg az adatbázisok és az api gateway ritkán frissül.
-A telepítést ennek megfelelően ketté vágjuk:
+A telepítést ennek megfelelően most ketté vágjuk:
 
-1. Az api gateway-t és az adatbázisokat egyszer telepítjük.
-2. Az alkalmazásunk saját komponenseihez yaml alapú leírókat készítünk, amit `kubectl apply` segítségével fogunk telepíteni.
+1. Az api gateway-t és az adatbázisokat egyszer telepítjük manuálisan.
+2. Az alkalmazásunk saját komponenseihez yaml alapú leírókat készítünk, amit `kubectl apply` segítségével fogunk telepíteni, illetve ezeket a leírókat Helm-mel fogjuk kezelni.
 
 ### 3.0 Helm
 
@@ -330,11 +303,13 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
     ```
 
      - A legelső `traefik` a Helm release nevét adja meg. Ezzel tudunk rá hivatkozni a jövőben.
-     - A `traefik/traefik` azonosítha a telepítendő chartot (repository/chartnév).
+     - A `traefik/traefik` azonosítja a telepítendő chartot (repository/chartnév).
      - A `--set` kapcsolóval a chart változóit állítjuk be.
 
     !!! info "Publikus eléréshez"
-        A Traefik jelen konfigurációban _NodePort_ service típussal van konfigurálva, ami azt jelenti, lokálisan, helyben a megadott porton lesz csak elérhető. Ha publikusan elérhető klaszterben dolgozunk, akkor tipikusan _LoadBalancer_ service típust fogunk kérni, hogy publikus IP címet is kapjon a Traefik.
+        A Traefik  jelen konfigurációban _NodePort_ service típussal van konfigurálva, ami azt jelenti, lokálisan, helyben a megadott porton lesz csak elérhető. Ha publikusan elérhető klaszterben dolgozunk, akkor tipikusan _LoadBalancer_ service típust fogunk kérni, hogy publikus IP címet is kapjon a Traefik.
+
+        Viszont nekünk nem kell ezzel közvetlenül majd törődjünk, mert a Traefik IngressController-ként is működik, tehát a klaszterbe érhező kérések rajta keresztül lesznek irányítva a szolgáltatásokhoz.
 
 1. Ellenőrizzük, hogy fut-e:
 
@@ -352,7 +327,7 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
 
     ![Traefik port forward](images/traefik-dashboard-port-forward.png)
 
-    Fogadjuk el az elapértelmezett értékeket. (`9100:metrics 9000:traefik 8000:web 8443:websecure`) Így a Traefik dashboard a `localhost:9000/dashboard/` címen lesz elérhető.
+    Fogadjuk el az elapértelmezett értékeket (`9100:metrics 9000:traefik 8000:web 8443:websecure`). Így a Traefik dashboard a `localhost:9000/dashboard/` címen lesz elérhető.
 
     ??? tip "Port forward parancs"
 
@@ -369,4 +344,5 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
 !!! note ""
     Ha frissíteni szeretnénk később a Traefik-et, akkor azt a `helm upgrade traefik traefik/traefik ...` paranccsal tudjuk megtenni.
 
-**TODO a dashboard nekünk?**
+### 3.2 Adatbázisok telepítése
+
