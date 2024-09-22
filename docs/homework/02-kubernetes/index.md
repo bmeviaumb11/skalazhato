@@ -299,7 +299,7 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
 1. Telepítsük:
 
     ```cmd
-    helm install traefik traefik/traefik --set ports.web.nodePort=32080 --set service.type=NodePort
+    helm install traefik traefik/traefik --set ports.web.nodePort=32080 --set service.type=NodePort --set "additionalArguments={--api.insecure=true}"
     ```
 
      - A legelső `traefik` a Helm release nevét adja meg. Ezzel tudunk rá hivatkozni a jövőben.
@@ -320,7 +320,7 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
 3. A Traefik dashboard-ja nem elérhető "kívülről".
    A dashboard segít minket látni a Traefik konfigurációját és működését.
    Mivel ez a klaszter belső állapotát publikálja, production üzemben valamilyen módon authentikálnunk kellene.
-   Ezt most megkerülve `kubectl` segítségével egy helyi portra továbbítjuk a Traefik dashboard-ot.
+   Ezt most megkerülve `kubectl` segítségével egy helyi portra továbbítjuk a Traefik dashboard-ot (és a telepítéskor insecure módba kapcsoltuk).
    A port átirányítást próbáljuk most a VSCode Kubernetes extension segítségével:
 
     ![Traefik port forward](images/traefik-dashboard-port-forward.png)
