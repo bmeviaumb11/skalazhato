@@ -652,7 +652,7 @@ Alap image-ek, amikre tipikusan saját alkalmazást építünk:
     - [Debian](https://hub.docker.com/_/debian),
     - [Alpine](https://hub.docker.com/_/alpine),
 - Futtató platformok
-    - [.NET Runtime ASP.NET Core-ral](mcr.microsoft.com/dotnet/aspnet:8.0), pl. `mcr.microsoft.com/dotnet/aspnet:8.0`
+    - .NET Runtime ASP.NET Core-ral, pl. `mcr.microsoft.com/dotnet/aspnet:8.0`
     - [NodeJS](https://hub.docker.com/_/node) pl. `node:22.4-alpine`
     - [Python](https://hub.docker.com/_/python) pl. `python:3.12-slim`
 - [scratch](https://hub.docker.com/_/scratch): üres image, speciális esetek, pl. go, vagy distro készítéshez
@@ -660,7 +660,7 @@ Alap image-ek, amikre tipikusan saját alkalmazást építünk:
 A kész image-ek, amiket pedig felhasználunk:
 
 - SDK-k multi stage buildhez
-    - [.NET SDK](mcr.microsoft.com/dotnet/sdk:8.0), pl. `mcr.microsoft.com/dotnet/sdk:8.0`
+    - .NET SDK pl. `mcr.microsoft.com/dotnet/sdk:8.0`
 - Adatbázis szerverek, webszerverek, gyakran használt szolgáltatások
     - MSSQL, redis, mongodb, mysql, nginx, ...
 - Termérdek elérhető image: <https://hub.docker.com>

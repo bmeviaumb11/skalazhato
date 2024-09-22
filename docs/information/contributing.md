@@ -13,7 +13,7 @@ Ha egy ilyennel találkozol és úgy döntesz szeretnél segíteni hallgatótár
 
     Persze a pont nélkül az 1-1 betűs elgépeléseket is szívesen fogadjuk, ami bemelegítésnek is tökéletes.
 
-    A pontos pontértékért lásd a [pontrendszert](../pontrendszer.md).
+    A pontos pontértékért lásd a [pontrendszert](../homework/pontrendszer.md).
 
 ## Hibák jelzése
 
