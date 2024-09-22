@@ -262,7 +262,7 @@ A célunk a [todo-kat kezelő konténeralapú, külön álló (mikro)szolgáltat
 - az adatbázis rendszerek (MongoDB, Elasticsearch és Redis),
 - valamint az api gateway.
 
-**TODO ábra**
+![TODO App architektúra](images/todo-k8s.drawio.png)
 
 Célunk nem csak az egyszeri telepítés, hanem az alkalmazás naprakészen tartásához a folyamatos frissítés lehetőségének megteremtése.
 A fenti komponensek azonban nem ugyanolyan frissítési ciklussal rendelkeznek: a saját komponenseink gyakran fognak változni, míg az adatbázisok és az api gateway ritkán frissül.
@@ -307,11 +307,9 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
      - A `--set` kapcsolóval a chart változóit állítjuk be.
 
     !!! info "Publikus eléréshez"
-        A Traefik  jelen konfigurációban _NodePort_ service típussal van konfigurálva, ami azt jelenti, lokálisan, helyben a megadott porton lesz csak elérhető. Ha publikusan elérhető klaszterben dolgozunk, akkor tipikusan _LoadBalancer_ service típust fogunk kérni, hogy publikus IP címet is kapjon a Traefik.
+        A Traefik jelen konfigurációban _NodePort_ service típussal van konfigurálva, ami azt jelenti, lokálisan, helyben a megadott porton lesz csak elérhető. Ha publikusan elérhető klaszterben dolgozunk, akkor tipikusan _LoadBalancer_ service típust fogunk kérni, hogy publikus IP címet is kapjon a Traefik.
 
-        Viszont nekünk nem kell ezzel közvetlenül majd törődjünk, mert a Traefik IngressController-ként is működik, tehát a klaszterbe érhező kérések rajta keresztül lesznek irányítva a szolgáltatásokhoz.
-
-1. Ellenőrizzük, hogy fut-e:
+2. Ellenőrizzük, hogy fut-e:
 
     ```cmd
     kubectl get pod
@@ -319,7 +317,7 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
 
     Látunk kell egy traefik kezdetű podot.
 
-1. A Traefik dashboard-ja nem elérhető "kívülről".
+3. A Traefik dashboard-ja nem elérhető "kívülről".
    A dashboard segít minket látni a Traefik konfigurációját és működését.
    Mivel ez a klaszter belső állapotát publikálja, production üzemben valamilyen módon authentikálnunk kellene.
    Ezt most megkerülve `kubectl` segítségével egy helyi portra továbbítjuk a Traefik dashboard-ot.
@@ -339,10 +337,175 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
         kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) 9100:9100 9000:9000 8000:8000 8443:8443 -n default
         ```
 
-2. Nézzük meg a Traefik dashboardot: <http://localhost:9000/dashboard/> (a végén kell a perjel!)
+4. Nézzük meg a Traefik dashboardot: <http://localhost:9000/dashboard/> (a végén kell a perjel!)
 
 !!! note ""
     Ha frissíteni szeretnénk később a Traefik-et, akkor azt a `helm upgrade traefik traefik/traefik ...` paranccsal tudjuk megtenni.
 
 ### 3.2 Adatbázisok telepítése
 
+Az adatbázisainkat saját magunk által megírt yaml leíróval telepítjük. Ez a leíró fájl már rendelkezésünkre áll a kiinduló repository todoapp almappájában.
+
+1. Vizsgáljuk meg a repository `todoapp/kubernetes/db` könyvtárában lévő yaml leírókat.
+
+     - Redis: Deployment-ként telepítjük és nem csatolunk hozza diszket, mert úgyis csak cache-nek használjuk
+     - MongoDB: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk
+     - Elasticsearch: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk
+
+1. Telepítsük az adatbázisokat:
+
+    ```cmd
+    kubectl apply -f todoapp/kubernetes/db
+    ```
+
+    !!! tip ""
+        A `kubectl apply` parancs `-f` kapcsolója ha mappát kap, akkor a mappában lévő összes yaml fájlt alkalmazza.
+
+1. Ellenőrizzük, hogy az adatbázis podok elindulnak-e (pl.: GUI-val). Minden a _default_ névtérbe kellett települjön.
+1. Nézzük meg a _Persistent Volume_ és _Persistent Volumen Claim_-eket.
+
+### 3.3 Alkalmazásunk telepítése
+
+Az alkalmazásunk telepítéséhez szintén yaml leírókat találunk a _kubernetes/app_ könyvtárban.
+
+1. Nézzük meg a leírókat. Az előbb látott Deployment és Service mellet Ingress-t is látni fogunk.
+
+1. Telepítsük az alkalmazásokat:
+
+    ```cmd
+    kubectl apply -f todoapp/kubernetes/app
+    ```
+
+1. Ellenőrizzük, hogy létrejöttek a Deployment-ek podok, stb. Viszont vegyük észre, hogy piros lesz még pár dolog. A hiba oka, hogy a hivatkozott image-eket nem találja a rendszer.
+
+1. Navigáljunk el az `src/Docker` könyvtárba, és buildeljük le az alkalmazást docker-compose segítségével úgy, hogy a megfelelő taggel ellátjuk az image-eket. Ehhez a compose fájlunk az `IMAGE_TAG` környezeti változó beállítását várja.
+
+    - Powershell-ben
+
+        ```powershell
+        $env:IMAGE_TAG="v1"
+        docker compose build
+        ```
+
+    - Windows Command Prompt-ban
+
+        ```cmd
+        setx IMAGE_TAG "v1"
+        docker compose build
+        ```
+
+1. A build folyamat végén előállnak helyben az image-ek, pl. `todoapp/web:v1` taggel. Ha távoli registry-be szeretnénk feltölteni őket, akkor taggelhetnénk őket a registry-nek megfelelően. A helyi fejlesztéshez nincs szükségünk ehhez, mert a helyben elindított Kubernetes "látja" a Docker helyi image-eit.
+
+1. Menjünk vissza az erőforrásainkhoz. Egy kicsit várjunk, és azt kell lássuk, hogy az eddig piros elemek kizöldülnek (GUI függően frissítésre lehet szükség). A Kubernetes folyamatosan törekszik az elvárt állapot elérésére, ezért a nem elérhető image-einket újra és újra megpróbálta elérni, míg nem sikerült.
+
+1. Próbáljuk ki az alkalmazást a <http://localhost:32080> címen.
+
+!!! example "BEADANDÓ"
+    Készíts egy képernyőképet (`f3.3.png`) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval.
+
+### 3.4 Alkalmazás frissítése Helm charttal
+
+Tegyük fel, hogy az alkalmazásunkból újabb verzió készül, és szeretnénk frissíteni.
+A fentebb használt yaml leírókat azért (is) a verziókezelőben tároljuk, mert így a telepítési "útmutatók" is verziózottak.
+Tehát nincs más dolgunk, mit a konténer image-ek elkészítése után a Deployment-ekben a megfelelő tag-ek lecserélése, és a `kubectl apply` paranccsal a telepítés frissítése.
+
+A Tag-ek frissítéséhez a yaml fájlokba minden alkalommal bele kell írnunk.
+Jó lenne, ha az image tag-et mint egy változó tudnánk a telepítés során átadni.
+Erre szolgál a Helm: készítsünk egy _chart_-ot a szolgáltatásainknak.
+A _chart_ a telepítés leíró neve, ami gyakorlatilag yaml fájlok gyűjteménye egy speciális szintaktikával kiegészítve.
+
+1. Hozzunk létre a repository-nkban a `todoapp/helmchart` mappát majd konzolban navigáljunk egy el ide.
+
+1. Készítsünk egy új, üres chart-ot: `helm create todoapp`. Ez létrehoz egy _todoapp_ nevű chartot egy azonos nevű könyvtárban.
+
+1. Nézzük meg a chart fájljait.
+
+    - `Chart.yaml` a metaadatokat írja le.
+    - `values.yaml` írja le a változóink alapértelmezett értékeit.
+    - `.helmignore` azon fájlokat listázza, amelyeket a chart értelmezésekor nem kell figyelembe venni.
+    - `templates` könyvtárban vannak a template fájlok, amik a generálás alapjául szolgálnak.
+
+    A Helm egy olyan template nyelvet használ, amelyben változó behelyettesítések, ciklusok, egyszerű szövegműveletek támogatottak. Mi most csak a változó behelyettesítést fogjuk használni.
+
+1. Töröljük ki a `templates` könyvtárból az összes fájlt a `_helpers.tpl` kivételével.
+
+1. Másoljuk helyette be ide a korábban a telepítéshez használt yaml fájljainkat a `todoapp/kubernetes/app` mappából (3 darab).
+
+1. Szerkesszük meg a `todos.yaml` fájl tartalmát. Leegyszerűsítve az alábbiakra lesz szükség:
+
+    - Ha _Visual Studio Code_-ot használunk, akkor telepítsük a [`ms-kubernetes-tools.vscode-kubernetes-tools`](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools) extension-t. Így kapunk némi segítséget a szintaktikával.
+
+    - Mindenhol, ahol `labels` vagy `matchLabels` szerepel, még egy sort fel kell vennünk:
+
+        ```yaml
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        ```
+
+        Ez egy implicit változót helyettesít be: a _release_ nevét. Ezzel azonosítja a Helm a telepítés és frissítés során, hogy mely elemeket kell frissítenie, melyek tartoznak a fennhatósága alá.
+
+    - A pod-ban az image beállításához használjunk változót:
+
+        ```yaml
+        image: todoapp/todos:{{ .Values.todos.tag }}
+        ```
+
+        !!! warning "Whitespace"
+            Figyeljünk oda, hogy a változó behelyettesítés során hova kell whitespace-t rakni és hova nem.
+
+1. Definiáljuk az előbbi változó alapértelmezett értékét. A `values.yaml` fájlban (egy könyvtárral feljebb) töröljünk ki mindent, és vegyük fel ezt a kulcsot:
+
+    ```yaml
+    todos:
+      tag: v1
+    ```
+
+1. A másik két komponens yaml leíróival is hasonlóan kell eljárnunk.
+
+1. A továbbiakhoz el kell távolítanunk az előbb telepített alkalmazásunkat, mert összeakadna a Helm-mel. Ezt a parancsot a telepítéshez korábban használt `app` könyvtárban adjuk ki:
+
+    ```cmd
+    kubectl delete -f app
+    ```
+
+1. Nézzük meg a template-eket kiértékelve.
+
+    - A chartunk könyvtárából lépjünk eggyel feljebb, hogy a `todoapp` chart könyvtár az aktuális könyvtárban legyen.
+    - Futtassuk le csak a template generálást a telepítés nélkül: 
+
+        ```cmd
+        helm install todoapp --debug --dry-run todoapp
+        ```
+
+    - Konzolra megkapjuk a kiértékelt yaml-öket.
+
+1. Telepítsük újra az alkalmazást a chart segítségével:
+    
+    ```cmd
+    helm upgrade todoapp --install todoapp
+    ```
+
+    - A release-nek _todoapp_ nevet választottunk. Ez a Helm release azonosítója.
+
+    - Az `upgrade` parancs és az `--install` kapcsoló telepít, ha nem létezik, ill. frissít, ha már létezik ilyen telepítés.
+
+1. Nézzük meg, hogy a Helm szerint létezik-e a release: `helm list`
+
+1. Próbáljuk ki az alkalmazást a <http://localhost:32080> címen.
+
+1. Ezen chart segítségével frissítsük egy új képpel az alkalmazásunkat. Készítsük el az új docker image-eket v2 taggel.
+
+    ```cmd
+    $env:IMAGE_TAG="v2"
+    docker compose build
+    ```
+
+1. A tag-et a values fájlból felül tudjuk definiálni telepítési paraméterben `--set`, pl. ha a "v2" az új tag, akkor egy paranccsal tudjuk frissíteni:
+
+    ```cmd
+    helm upgrade todoapp --install todoapp --set todos.tag=v2 --set web.tag=v2 --set users.tag=v2
+    ```
+
+!!! example "BEADANDÓ"
+    Készíts egy képernyőképet (`f3.4.png`) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval.
+
+    Készíts egy képernyőképet (`f3.5.png`) és commitold azt be a házi feladat repó gyökerébe, demonstrálod, hogy létrejött a helm release k8s-ben v2-es taggel.
