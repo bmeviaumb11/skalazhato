@@ -1469,7 +1469,7 @@ helm repo update
 </li>
 <li>
 <p>Telepítsük:</p>
-<div class="highlight"><pre><span></span><code>helm install traefik traefik/traefik --set ports.web.nodePort=32080 --set service.type=NodePort
+<div class="highlight"><pre><span></span><code>helm install traefik traefik/traefik --set ports.web.nodePort=32080 --set service.type=NodePort --set &quot;additionalArguments={--api.insecure=true}&quot;
 </code></pre></div>
 <ul>
 <li>A legelső <code>traefik</code> a Helm release nevét adja meg. Ezzel tudunk rá hivatkozni a jövőben.</li>
@@ -1491,7 +1491,7 @@ helm repo update
 <p>A Traefik dashboard-ja nem elérhető "kívülről".
    A dashboard segít minket látni a Traefik konfigurációját és működését.
    Mivel ez a klaszter belső állapotát publikálja, production üzemben valamilyen módon authentikálnunk kellene.
-   Ezt most megkerülve <code>kubectl</code> segítségével egy helyi portra továbbítjuk a Traefik dashboard-ot.
+   Ezt most megkerülve <code>kubectl</code> segítségével egy helyi portra továbbítjuk a Traefik dashboard-ot (és a telepítéskor insecure módba kapcsoltuk).
    A port átirányítást próbáljuk most a VSCode Kubernetes extension segítségével:</p>
 <p><a class="glightbox" href="images/traefik-dashboard-port-forward.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Traefik port forward" src="images/traefik-dashboard-port-forward.png" /></a></p>
 <p>Fogadjuk el az elapértelmezett értékeket (<code>9100:metrics 9000:traefik 8000:web 8443:websecure</code>). Így a Traefik dashboard a <code>localhost:9000/dashboard/</code> címen lesz elérhető.</p>
@@ -1706,8 +1706,8 @@ docker compose build
           </path>
         </svg>
       </span>
-      <span title="2024. szeptember 22. 17:20:33">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-22T17:20:33+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-22</span>
+      <span title="2024. szeptember 22. 20:28:28">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-22T20:28:28+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-22</span>
       </span>
     </span>
 
