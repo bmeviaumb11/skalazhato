@@ -705,7 +705,7 @@
           <li class="md-nav__item">
   <a href="#pod-letrehozasa-yaml-leiroval" class="md-nav__link">
     <span class="md-ellipsis">
-      Pod létrehozása Yaml leíróval
+      Pod létrehozása YAML leíróval
     </span>
   </a>
   
@@ -1044,7 +1044,7 @@
           <li class="md-nav__item">
   <a href="#pod-letrehozasa-yaml-leiroval" class="md-nav__link">
     <span class="md-ellipsis">
-      Pod létrehozása Yaml leíróval
+      Pod létrehozása YAML leíróval
     </span>
   </a>
   
@@ -1190,7 +1190,7 @@
 </ul>
 </li>
 <li>egy alkalmazás telepítése Kubernetes klaszterbe és a frissítés módjának megismerése.<ul>
-<li>A telepítéshez és frissítéshez részben Helm chartot, részben magunk által elkészített yaml erőforrás leírókat használunk.</li>
+<li>A telepítéshez és frissítéshez részben Helm chartot, részben magunk által elkészített YAML erőforrás leírókat használunk.</li>
 </ul>
 </li>
 </ul>
@@ -1300,14 +1300,14 @@ Láthatjuk mind a kliens, mind a klaszter verzió információit.</p>
 <p>Listázzuk a podokat egy konkrét névtérben: <code>kubectl get pod -n kube-system</code></p>
 </li>
 </ul>
-<h3 id="pod-letrehozasa-yaml-leiroval">Pod létrehozása Yaml leíróval<a class="headerlink" href="#pod-letrehozasa-yaml-leiroval" title="Permanent link">&para;</a></h3>
-<p>Kubernetes erőforrásokat tipikusan yaml leírókban definiálunk. A futtatás elemi egysége a pod, így készítsünk egy yaml fájlt a podunkhoz és indítsuk el azt.</p>
+<h3 id="pod-letrehozasa-yaml-leiroval">Pod létrehozása YAML leíróval<a class="headerlink" href="#pod-letrehozasa-yaml-leiroval" title="Permanent link">&para;</a></h3>
+<p>Kubernetes erőforrásokat tipikusan YAML leírókban definiálunk. A futtatás elemi egysége a pod, így készítsünk egy YAML fájlt a podunkhoz és indítsuk el azt.</p>
 <div class="admonition tip">
-<p>A leíró szerkesztéséhez használhatjuk például Visual Studio Code-ot. Érdemes olyan szövegszerkesztővel dolgozni, amely ismeri a yaml szintaktikát. A parancsok futtatásához használhatjuk például Visual Studio Code beépített terminálját (++ctrl+ö++ magyar lokalizáció esetén).</p>
+<p>A leíró szerkesztéséhez használhatjuk például Visual Studio Code-ot. Érdemes olyan szövegszerkesztővel dolgozni, amely ismeri a YAML szintaktikát. A parancsok futtatásához használhatjuk például Visual Studio Code beépített terminálját (++ctrl+ö++ magyar lokalizáció esetén).</p>
 </div>
 <ol>
 <li>
-<p>Hozzunk létre egy új yaml fájt a repositorynk gyökerébe <code>createpod.yml</code> néven, az alábbi követelmények mentén</p>
+<p>Hozzunk létre egy új YAML fájt a repositorynk gyökerébe <code>createpod.yml</code> néven, az alábbi követelmények mentén</p>
 </li>
 <li>
 <p>a kubernetes leíró Pod-ot definiál</p>
@@ -1318,7 +1318,7 @@ Láthatjuk mind a kliens, mind a klaszter verzió információit.</p>
 <p>a konténer egy bash parancsot futtasson, ami kiírja a <em>NEPTUN</em> kódodat és 5 másodpercenként kiírja az aktuális időt.</p>
 </li>
 <li>
-<p>A konzolunkban navigáljunk el abba a könyvtárba, ahol a yaml fájl van, majd hozzuk létre a podot:</p>
+<p>A konzolunkban navigáljunk el abba a könyvtárba, ahol a YAML fájl van, majd hozzuk létre a podot:</p>
 <div class="highlight"><pre><span></span><code>kubectl apply -f createpod.yml
 </code></pre></div>
 <div class="admonition warning">
@@ -1373,7 +1373,7 @@ Ebben a shellben, ahogy natív docker esetében is, bármit megtehetünk.</p>
 <p>A podokat nem szoktuk közvetlenül létrehozni, hanem <em>Deployment</em>-re és <em>ReplicaSet</em>-re szoktunk bízni a kezelésüket és létrehozásukat.</p>
 <ol>
 <li>
-<p>Hozzunk létre egy új yaml fájl <code>createdeployment.yml</code> néven az alábbi követelményeknek megfelelően:</p>
+<p>Hozzunk létre egy új YAML fájlt <code>createdeployment.yml</code> néven az alábbi követelményeknek megfelelően:</p>
 <ul>
 <li>a kubernetes leíró Deployment-et definiál</li>
 <li>a deployment neve legyen <code>counter-neptun</code> a <strong>saját neptunkóddal</strong> kiegészítve</li>
@@ -1445,7 +1445,7 @@ A fenti komponensek azonban nem ugyanolyan frissítési ciklussal rendelkeznek: 
 A telepítést ennek megfelelően most ketté vágjuk:</p>
 <ol>
 <li>Az api gateway-t és az adatbázisokat egyszer telepítjük manuálisan.</li>
-<li>Az alkalmazásunk saját komponenseihez yaml alapú leírókat készítünk, amit <code>kubectl apply</code> segítségével fogunk telepíteni, illetve ezeket a leírókat Helm-mel fogjuk kezelni.</li>
+<li>Az alkalmazásunk saját komponenseihez YAML alapú leírókat készítünk, amit <code>kubectl apply</code> segítségével fogunk telepíteni, illetve ezeket a leírókat Helm-mel fogjuk kezelni.</li>
 </ol>
 <h3 id="30-helm">3.0 Helm<a class="headerlink" href="#30-helm" title="Permanent link">&para;</a></h3>
 <p>Ellenőrizzük, hogy a <code>helm</code> CLI elérhető-e:</p>
@@ -1512,10 +1512,10 @@ helm repo update
 <p>Ha frissíteni szeretnénk később a Traefik-et, akkor azt a <code>helm upgrade traefik traefik/traefik ...</code> paranccsal tudjuk megtenni.</p>
 </div>
 <h3 id="32-adatbazisok-telepitese">3.2 Adatbázisok telepítése<a class="headerlink" href="#32-adatbazisok-telepitese" title="Permanent link">&para;</a></h3>
-<p>Az adatbázisainkat saját magunk által megírt yaml leíróval telepítjük. Ez a leíró fájl már rendelkezésünkre áll a kiinduló repository todoapp almappájában.</p>
+<p>Az adatbázisainkat saját magunk által megírt YAML leíróval telepítjük. Ez a leíró fájl már rendelkezésünkre áll a kiinduló repository todoapp almappájában.</p>
 <ol>
 <li>
-<p>Vizsgáljuk meg a repository <code>todoapp/kubernetes/db</code> könyvtárában lévő yaml leírókat.</p>
+<p>Vizsgáljuk meg a repository <code>todoapp/kubernetes/db</code> könyvtárában lévő YAML leírókat.</p>
 <ul>
 <li>Redis: Deployment-ként telepítjük és nem csatolunk hozza diszket, mert úgyis csak cache-nek használjuk</li>
 <li>MongoDB: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk</li>
@@ -1536,7 +1536,7 @@ helm repo update
 <li>Nézzük meg a <em>Persistent Volume</em> és <em>Persistent Volumen Claim</em>-eket.</li>
 </ol>
 <h3 id="33-alkalmazasunk-telepitese">3.3 Alkalmazásunk telepítése<a class="headerlink" href="#33-alkalmazasunk-telepitese" title="Permanent link">&para;</a></h3>
-<p>Az alkalmazásunk telepítéséhez szintén yaml leírókat találunk a <em>kubernetes/app</em> könyvtárban.</p>
+<p>Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a <em>kubernetes/app</em> könyvtárban.</p>
 <ol>
 <li>
 <p>Nézzük meg a leírókat. Az előbb látott Deployment és Service mellet Ingress-t is látni fogunk.</p>
@@ -1550,7 +1550,7 @@ helm repo update
 <p>Ellenőrizzük, hogy létrejöttek a Deployment-ek podok, stb. Viszont vegyük észre, hogy piros lesz még pár dolog. A hiba oka, hogy a hivatkozott image-eket nem találja a rendszer.</p>
 </li>
 <li>
-<p>Navigáljunk el az <code>src/Docker</code> könyvtárba, és buildeljük le az alkalmazást docker-compose segítségével úgy, hogy a megfelelő taggel ellátjuk az image-eket. Az app könyvtárban lévő YAML fájlok a <em>v1</em> tagre hivatkoznak (<code>image: todoapp/todos:v1</code>), így ehhez érdemes igazodnunk. A tag-et beállíthatjuk környezeti változóból.</p>
+<p>Navigáljunk el az <code>src</code> könyvtárba, és buildeljük le az alkalmazást docker-compose segítségével úgy, hogy a megfelelő taggel ellátjuk az image-eket. Az app könyvtárban lévő YAML fájlok a <em>v1</em> tagre hivatkoznak (<code>image: todoapp/todos:v1</code>), így ehhez érdemes igazodnunk. A tag-et beállíthatjuk környezeti változóból.</p>
 <ul>
 <li>
 <p>Powershell-ben</p>
@@ -1587,12 +1587,12 @@ docker compose build
 </div>
 <h3 id="34-alkalmazas-frissitese-helm-charttal">3.4 Alkalmazás frissítése Helm charttal<a class="headerlink" href="#34-alkalmazas-frissitese-helm-charttal" title="Permanent link">&para;</a></h3>
 <p>Tegyük fel, hogy az alkalmazásunkból újabb verzió készül, és szeretnénk frissíteni.
-A fentebb használt yaml leírókat azért (is) a verziókezelőben tároljuk, mert így a telepítési "útmutatók" is verziózottak.
+A fentebb használt YAML leírókat azért (is) a verziókezelőben tároljuk, mert így a telepítési "útmutatók" is verziózottak.
 Tehát nincs más dolgunk, mit a konténer image-ek elkészítése után a Deployment-ekben a megfelelő tag-ek lecserélése, és a <code>kubectl apply</code> paranccsal a telepítés frissítése.</p>
-<p>A Tag-ek frissítéséhez a yaml fájlokba minden alkalommal bele kell írnunk.
+<p>A Tag-ek frissítéséhez a YAML fájlokba minden alkalommal bele kell írnunk.
 Jó lenne, ha az image tag-et mint egy változó tudnánk a telepítés során átadni.
 Erre szolgál a Helm: készítsünk egy <em>chart</em>-ot a szolgáltatásainknak.
-A <em>chart</em> a telepítés leíró neve, ami gyakorlatilag yaml fájlok gyűjteménye egy speciális szintaktikával kiegészítve.</p>
+A <em>chart</em> a telepítés leíró neve, ami gyakorlatilag YAML fájlok gyűjteménye egy speciális szintaktikával kiegészítve.</p>
 <ol>
 <li>
 <p>Hozzunk létre a repository-nkban a <code>todoapp/helmchart</code> mappát majd konzolban navigáljunk egy el ide.</p>
@@ -1614,7 +1614,7 @@ A <em>chart</em> a telepítés leíró neve, ami gyakorlatilag yaml fájlok gyű
 <p>Töröljük ki a <code>templates</code> könyvtárból az összes fájlt a <code>_helpers.tpl</code> kivételével.</p>
 </li>
 <li>
-<p>Másoljuk helyette be ide a korábban a telepítéshez használt yaml fájljainkat a <code>todoapp/kubernetes/app</code> mappából (3 darab).</p>
+<p>Másoljuk helyette be ide a korábban a telepítéshez használt YAML fájljainkat a <code>todoapp/kubernetes/app</code> mappából (3 darab).</p>
 </li>
 <li>
 <p>Szerkesszük meg a <code>todos.yaml</code> fájl tartalmát. Leegyszerűsítve az alábbiakra lesz szükség:</p>
@@ -1646,10 +1646,10 @@ A <em>chart</em> a telepítés leíró neve, ami gyakorlatilag yaml fájlok gyű
 </code></pre></div>
 </li>
 <li>
-<p>A másik két komponens yaml leíróival is hasonlóan kell eljárnunk.</p>
+<p>A másik két komponens YAML leíróival is hasonlóan kell eljárnunk: vegyünk fel egy-egy kulcsot komponensenként és hivatkozzunk a kulcsra az adott komponens pod leírójának <code>image:</code> értékében.</p>
 </li>
 <li>
-<p>A továbbiakhoz el kell távolítanunk az előbb telepített alkalmazásunkat, mert összeakadna a Helm-mel. Ezt a parancsot a telepítéshez korábban használt <code>app</code> könyvtárban adjuk ki:</p>
+<p>A továbbiakhoz el kell távolítanunk az előbb telepített alkalmazásunkat, mert összeakadna a Helm-mel. Ezt a parancsot a telepítéshez korábban használt <code>app</code> alkönyvtár szülőkönyvtárában adjuk ki:</p>
 <div class="highlight"><pre><span></span><code>kubectl delete -f app
 </code></pre></div>
 </li>
@@ -1659,25 +1659,21 @@ A <em>chart</em> a telepítés leíró neve, ami gyakorlatilag yaml fájlok gyű
 <li>A chartunk könyvtárából lépjünk eggyel feljebb, hogy a <code>todoapp</code> chart könyvtár az aktuális könyvtárban legyen.</li>
 <li>
 <p>Futtassuk le csak a template generálást a telepítés nélkül: </p>
-<div class="highlight"><pre><span></span><code>helm install todoapp --debug --dry-run todoapp
+<p><div class="highlight"><pre><span></span><code>helm install todoapp --debug --dry-run todoapp
 </code></pre></div>
+    - A release-nek <em>todoapp</em> nevet választottunk. Ez a Helm release azonosítója.</p>
 </li>
 <li>
-<p>Konzolra megkapjuk a kiértékelt yaml-öket.</p>
+<p>Konzolra megkapjuk a kiértékelt YAML-öket. Ellenőrizzük a kimenetben, hogy a <code>release</code> és <code>tag</code> változók rendben behelyettesítődtek.</p>
 </li>
 </ul>
 </li>
 <li>
-<p>Telepítsük újra az alkalmazást a chart segítségével:</p>
+<p>Telepítsük (újra) az alkalmazást a chart segítségével:</p>
 <div class="highlight"><pre><span></span><code>helm upgrade todoapp --install todoapp
 </code></pre></div>
 <ul>
-<li>
-<p>A release-nek <em>todoapp</em> nevet választottunk. Ez a Helm release azonosítója.</p>
-</li>
-<li>
-<p>Az <code>upgrade</code> parancs és az <code>--install</code> kapcsoló telepít, ha nem létezik, ill. frissít, ha már létezik ilyen telepítés.</p>
-</li>
+<li>Az <code>upgrade</code> parancs és az <code>--install</code> kapcsoló telepít, ha nem létezik, ill. frissít, ha már létezik ilyen telepítés.</li>
 </ul>
 </li>
 <li>
@@ -1687,7 +1683,7 @@ A <em>chart</em> a telepítés leíró neve, ami gyakorlatilag yaml fájlok gyű
 <p>Próbáljuk ki az alkalmazást a <a href="http://localhost:32080">http://localhost:32080</a> címen.</p>
 </li>
 <li>
-<p>Ezen chart segítségével frissítsük egy új képpel az alkalmazásunkat. Készítsük el az új docker image-eket v2 taggel.</p>
+<p>Ezen chart segítségével frissítsük egy új képpel az alkalmazásunkat. A korábban használt <code>docker compose build</code> paranccsal készítsük el az új docker image-eket, csak most <em>v2</em> taggel. Például Windows parancssorban:</p>
 <div class="highlight"><pre><span></span><code>$env:IMAGE_TAG=&quot;v2&quot;
 docker compose build
 </code></pre></div>
@@ -1712,8 +1708,8 @@ docker compose build
           </path>
         </svg>
       </span>
-      <span title="2024. szeptember 26. 16:49:45">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-26T16:49:45+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-26</span>
+      <span title="2024. szeptember 26. 17:58:00">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-26T17:58:00+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-26</span>
       </span>
     </span>
 
