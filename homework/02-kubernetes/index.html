@@ -1303,7 +1303,7 @@ Láthatjuk mind a kliens, mind a klaszter verzió információit.</p>
 <h3 id="pod-letrehozasa-yaml-leiroval">Pod létrehozása Yaml leíróval<a class="headerlink" href="#pod-letrehozasa-yaml-leiroval" title="Permanent link">&para;</a></h3>
 <p>Kubernetes erőforrásokat tipikusan yaml leírókban definiálunk. A futtatás elemi egysége a pod, így készítsünk egy yaml fájlt a podunkhoz és indítsuk el azt.</p>
 <div class="admonition tip">
-<p>A leíró szerkesztéséhez használhatjuk például Visual Studio Code-ot. Érdemes olyan szövegszerkesztővel dolgozni, amely ismeri a yaml szintaktikát. A parancsok futtatásához használhatjuk például Visual Studio Code beépített terminálját (CTLR + ö).</p>
+<p>A leíró szerkesztéséhez használhatjuk például Visual Studio Code-ot. Érdemes olyan szövegszerkesztővel dolgozni, amely ismeri a yaml szintaktikát. A parancsok futtatásához használhatjuk például Visual Studio Code beépített terminálját (++ctrl+ö++ magyar lokalizáció esetén).</p>
 </div>
 <ol>
 <li>
@@ -1355,7 +1355,7 @@ Láthatjuk mind a kliens, mind a klaszter verzió információit.</p>
 <div class="highlight"><pre><span></span><code>kubectl get pod
 </code></pre></div>
 <div class="admonition note">
-<p>A pod törlése nem azonnali. A benne futó konténerek leállás jelzést kapnak, és ők maguk terminálhatnak. Ha ez nem történik, meg, akkor kis idő múlva megszűnteti őket a rendszer.</p>
+<p>A pod törlése nem azonnali. A benne futó konténerek leállás jelzést kapnak, és ők maguk terminálhatnak. Ha ez nem történik, meg, akkor kis idő múlva megszünteti őket a rendszer.</p>
 </div>
 </li>
 </ol>
@@ -1414,7 +1414,7 @@ Ehelyett valójában egy új podot kell létrehozni indirekt módon a deployment
 </code></pre></div>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
-<p>Készíts egy képernyőképet (<code>f2.2.png</code>) és commitold azt be a házi feladat repó gyökerébe, ahol a logokban már 10 mp-enként történik a kiíratás.</p>
+<p>Készíts egy képernyőképet (<code>f2.2.png</code>) és commitold azt be a házi feladat repó gyökerébe, ahol a logokban már 10 másodpercenként történik a kiíratás.</p>
 </div>
 <details class="tip">
 <summary>Kubectl parancsok</summary>
@@ -1550,7 +1550,7 @@ helm repo update
 <p>Ellenőrizzük, hogy létrejöttek a Deployment-ek podok, stb. Viszont vegyük észre, hogy piros lesz még pár dolog. A hiba oka, hogy a hivatkozott image-eket nem találja a rendszer.</p>
 </li>
 <li>
-<p>Navigáljunk el az <code>src/Docker</code> könyvtárba, és buildeljük le az alkalmazást docker-compose segítségével úgy, hogy a megfelelő taggel ellátjuk az image-eket. Ehhez a compose fájlunk az <code>IMAGE_TAG</code> környezeti változó beállítását várja.</p>
+<p>Navigáljunk el az <code>src/Docker</code> könyvtárba, és buildeljük le az alkalmazást docker-compose segítségével úgy, hogy a megfelelő taggel ellátjuk az image-eket. Az app könyvtárban lévő YAML fájlok a <em>v1</em> tagre hivatkoznak (<code>image: todoapp/todos:v1</code>), így ehhez érdemes igazodnunk. A tag-et beállíthatjuk környezeti változóból.</p>
 <ul>
 <li>
 <p>Powershell-ben</p>
@@ -1562,6 +1562,11 @@ helm repo update
 <p>Windows Command Prompt-ban</p>
 <div class="highlight"><pre><span></span><code>setx IMAGE_TAG &quot;v1&quot;
 docker compose build
+</code></pre></div>
+</li>
+<li>
+<p>Linux bash-ben</p>
+<div class="highlight"><pre><span></span><code><span class="nv">IMAGE_TAG</span><span class="o">=</span><span class="s2">&quot;v1&quot;</span><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>build
 </code></pre></div>
 </li>
 </ul>
@@ -1707,8 +1712,8 @@ docker compose build
           </path>
         </svg>
       </span>
-      <span title="2024. szeptember 26. 15:17:38">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-26T15:17:38+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-26</span>
+      <span title="2024. szeptember 26. 16:49:45">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-26T16:49:45+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-26</span>
       </span>
     </span>
 
