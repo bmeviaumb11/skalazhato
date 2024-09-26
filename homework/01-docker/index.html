@@ -1445,7 +1445,7 @@ Erre megoldás a <em>volume</em> csatolás, amikor a host gép egy könyvtárát
 <div class="highlight"><pre><span></span><code>docker run -d -p 8085:80 nginx
 </code></pre></div>
 <ul>
-<li><code>-d</code> (detach): háttérben fut, a konzolt "visszakaptunk", amint elindult a konténer, és kiírja az image id-t</li>
+<li><code>-d</code> (detach): háttérben fut, a konzolt "visszakapjuk", amint elindult a konténer, és kiírja az image id-t</li>
 <li><code>-p</code> (port): helyi port <em>kettőspont</em> konténeren belüli port</li>
 </ul>
 </li>
@@ -1535,21 +1535,21 @@ docker rm &lt;id|name&gt;
 <h3 id="21-image-keszitese-parancssorbol">2.1 Image készítése parancssorból<a class="headerlink" href="#21-image-keszitese-parancssorbol" title="Permanent link">&para;</a></h3>
 <details class="note">
 <summary>Docker registry</summary>
-<p>Korábban használt parancs: <code>docker run ubuntu</code> Az <em>ubuntu</em> az image neve. Ez egy un. registry-ből jön, analóg más csomagkezelőkhöz pl.: NPM, NuGet stb.
-Az alapértelmezett registry a <a href="https://hub.docker.com">https://hub.docker.com</a>, ahol Tipikusan open-source szoftverek image-ei, és az általunk is használt alap image-ek találhatóak.
-Léteznek természetesen továbbiak is (Azure, Google, stb.)</p>
-<p>Az Image neve valójában nem <code>ubuntu</code>, hanem <code>index.docker.io/ubuntu:latest</code></p>
+<p>Korábban használt parancs: <code>docker run ubuntu</code> Az <em>ubuntu</em> az image neve. Ez egy ún. registry-ből jön, analóg más csomagkezelőkhöz pl.: NPM, NuGet stb.
+Az alapértelmezett registry a <a href="https://hub.docker.com">https://hub.docker.com</a>, ahol tipikusan open-source szoftverek image-ei és az általunk is használt alap image-ek találhatóak.
+Léteznek természetesen továbbiak is (Azure, Google, stb.).</p>
+<p>Az image neve valójában nem <code>ubuntu</code>, hanem <code>index.docker.io/ubuntu:latest</code></p>
 <ul>
 <li><code>index.docker.io</code> registry szerver elérési útvonala</li>
 <li><code>ubuntu</code> image neve (lehet többszintű is)</li>
 <li><code>:latest</code> tag neve</li>
 </ul>
-<p>Jogosultság szempontból két fajta registry létezhet: publikus (pl. Docker Hub) és privát. Privát registry esetén: <code>docker login &lt;url&gt;</code> és <code>docker logout &lt;url&gt;</code> szükséges az authentikációhoz.</p>
+<p>Jogosultság szempontból két fajta registry létezhet: publikus (pl. Docker Hub) és privát. Privát registry esetén <code>docker login &lt;url&gt;</code> és <code>docker logout &lt;url&gt;</code> szükséges az authentikációhoz.</p>
 <p>Letöltés a registry-ből: <code>docker pull mcr.microsoft.com/dotnet/aspnet:8.0</code></p>
 <p>Ugyan a <em>run</em> parancs is letölti, de csak akkor, ha még nem létezik. Nem ellenőrzi viszont, hogy nincs-e újabb image verzió publikálva. A <em>pull</em> mindig frisset szed le.</p>
 </details>
 <p>Készítünk egy saját image-et, ami egy módosított <code>nginx</code> image-et fog tartalmazni a saját tartalmunkkal.
-Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most ne lépj ki a konténerből, hanem a konténer állapotát mentsd egy új image-be, ami az nginx-re épít, és egy új <a href="https://docs.docker.com/v17.09/engine/userguide/storagedriver/imagesandcontainers/">image layer</a>-t tartalmaz a saját tartalmunkkal.</p>
+Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most ne lépj ki a konténerből, hanem a konténer állapotát mentsd egy új image-be, ami az nginx-re épít, és egy új <a href="https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/">image layer</a>-t tartalmaz a saját tartalmunkkal.</p>
 <ol>
 <li>
 <p>Az előző feladat alapján futtass egy nginx konténert, amiben módosítod az <code>index.html</code> tartalmát.</p>
@@ -1668,13 +1668,13 @@ Redis
 <p>Készítsd el a fenti fájlokból az image-et. Konzolból a munkakönyvtárban add ki a következő parancsot:</p>
 <div class="highlight"><pre><span></span><code>docker build -t python-neptun:v1 .
 </code></pre></div>
-<p>Ez a parancs létrehoz egy image-et a Dockerfile alapján. A végén egy pont van, az is a parancs része, ami a build kontextust jelenti</p>
+<p>Ez a parancs létrehoz egy image-et a Dockerfile alapján. A végén egy pont van, az is a parancs része, ami a build kontextust jelenti.</p>
 <p>A Dockerfile lépései:</p>
 <ul>
 <li><code>FROM</code>: az alap image, amire építjük a sajátunkat. Mi most a Python 3.12-slim image-et használjuk.</li>
 <li><code>WORKDIR</code>: a konténerben a munkakönyvtár, a további műveletek ebben a könyvtárban lesznek.</li>
 <li><code>COPY</code>: a host gépről a konténerbe másoljuk a fájlokat. A <code>.</code> jelenti a build kontextus mappáját, esetünkben a <code>pythonweb</code> mappát.</li>
-<li><code>RUN</code>: a build/image készítés során lefuttatandó parancsok. Itt a <code>requirements.txt</code> fájlban felsorolt Python csomagokat telepítjük a python (pip) csomagkezelővel.</li>
+<li><code>RUN</code>: a build/image készítés során lefuttatandó parancsok. Itt a <code>requirements.txt</code> fájlban felsorolt Python csomagokat telepítjük a python csomagkezelővel (pip).</li>
 <li><code>EXPOSE</code>: a konténer által kiajánlott portokat jelzi. Mi most webalkalmazást készítünk, ezért a 80-as portot jelöljük ki.</li>
 <li><code>ENV</code>: környezeti változó beállítása. A <code>NAME</code> környezeti változó értéke a saját Neptun kódod legyen.</li>
 <li><code>CMD</code>: a konténer indításakor lefuttatandó parancs és argumentumai. Ebben az esetben a Python alkalmazásunkat indítjuk el.  </li>
@@ -1704,7 +1704,7 @@ Redis
 <p>A <code>Dockerfile</code>-ban hivatkoztunk az aktuális könyvtárra a <code>.</code>-tal. Vizsgáljuk meg, hogy ez mit is jelent.</p>
 <ol>
 <li>
-<p>Készítsünk az aktuális könyvtárunkba, az <code>app.py</code> mellé egy nagy fájlt. PowerShell-ben addjuk ki a következő parancsot.</p>
+<p>Készítsünk az aktuális könyvtárunkba, az <code>app.py</code> mellé egy nagy fájlt. Ehhez PowerShell-ben adjuk ki a következő parancsot.</p>
 <div class="highlight"><span class="filename">Windows - powershell</span><pre><span></span><code><span class="nv">$out</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">byte</span><span class="p">[]</span> <span class="n">134217728</span><span class="p">;</span> <span class="p">(</span><span class="nb">new-object</span> <span class="n">Random</span><span class="p">).</span><span class="n">NextBytes</span><span class="p">(</span><span class="nv">$out</span><span class="p">);</span> <span class="no">[IO.File]</span><span class="p">::</span><span class="n">WriteAllBytes</span><span class="p">(</span><span class="s2">&quot;$pwd\file.bin&quot;</span><span class="p">,</span> <span class="nv">$out</span><span class="p">)</span>
 </code></pre></div>
 <div class="highlight"><span class="filename">Linux - bash</span><pre><span></span><code>dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/urandom<span class="w"> </span><span class="nv">of</span><span class="o">=</span>./file.bin<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>1M<span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="m">1024</span>
@@ -1735,12 +1735,12 @@ Redis
 <h3 id="31-docker-compose">3.1 Docker-compose<a class="headerlink" href="#31-docker-compose" title="Permanent link">&para;</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Linux eltérés</p>
-<p>Linuxon a <em>compose</em> nem egy külön parancs, hanem a docker parancs <a href="https://docs.docker.com/compose/install/linux/">kiterjesztése</a>. Emiatt nem <code>docker-compose</code> helyett <code>docker compose</code>-ként kell hívnunk.</p>
+<p>Linuxon a <em>compose</em> nem egy külön parancs, hanem a docker parancs <a href="https://docs.docker.com/compose/install/linux/">kiterjesztése</a>. Emiatt <code>docker-compose</code> helyett <code>docker compose</code>-ként kell meghívnunk.</p>
 </div>
 <p>A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett egy Redis-re is szükségünk lenne. Futtassunk több konténert egyszerre a docker compose segítségével.</p>
 <ol>
 <li>
-<p>Dolgozzunk a repository-n gyökerébe (tehát ne az előzőleg használt almappába) és Készítsünk ide egy <code>docker-compose.yaml</code> nevű fájlt az alábbi tartalommal.</p>
+<p>Dolgozzunk a repository gyökerébe (tehát ne az előzőleg használt almappába) és készítsünk ide egy <code>docker-compose.yaml</code> nevű fájlt az alábbi tartalommal.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">redis</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis:7.2-alpine</span>
@@ -1769,7 +1769,7 @@ Redis
 <li><code>depends_on</code>: a konténer indításának sorrendjét jelzi. A <code>web</code> konténer csak akkor indul, ha a <code>redis</code> konténer már fut.</li>
 </ul>
 </li>
-<li><code>networks</code>: a konténerek közötti hálózatokat definiálja. A <code>homework_network</code> nevű hálózatot használjuk, bridge módban, ami a konténerek közötti hálózatot jelenti. Ezt adtuk meg a konténerek <code>networks</code> tulajdonságában is.</li>
+<li><code>networks</code>: a konténerek közötti hálózatokat definiálja. A <code>homework_network</code> nevű hálózatot használjuk bridge módban, ami a konténerek között adatkapcsolati réteg szintű összeköttetést jelent. Erre hivatkozunk a konténerek <code>networks</code> tulajdonságában is.</li>
 </ul>
 </li>
 <li>
@@ -1967,8 +1967,8 @@ Amikor a környezeti változó már nem elegendő a testreszabáshoz, ez a javas
           </path>
         </svg>
       </span>
-      <span title="2024. szeptember 21. 20:54:06">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-21T20:54:06+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-21</span>
+      <span title="2024. szeptember 23. 23:52:22">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-23T23:52:22+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-23</span>
       </span>
     </span>
 
