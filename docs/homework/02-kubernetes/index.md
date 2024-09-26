@@ -116,7 +116,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
 Kubernetes erőforrásokat tipikusan yaml leírókban definiálunk. A futtatás elemi egysége a pod, így készítsünk egy yaml fájlt a podunkhoz és indítsuk el azt.
 
 !!! tip ""
-    A leíró szerkesztéséhez használhatjuk például Visual Studio Code-ot. Érdemes olyan szövegszerkesztővel dolgozni, amely ismeri a yaml szintaktikát. A parancsok futtatásához használhatjuk például Visual Studio Code beépített terminálját (CTLR + ö).
+    A leíró szerkesztéséhez használhatjuk például Visual Studio Code-ot. Érdemes olyan szövegszerkesztővel dolgozni, amely ismeri a yaml szintaktikát. A parancsok futtatásához használhatjuk például Visual Studio Code beépített terminálját (++ctrl+ö++ magyar lokalizáció esetén).
 
 1. Hozzunk létre egy új yaml fájt a repositorynk gyökerébe `createpod.yml` néven, az alábbi követelmények mentén
 
@@ -165,7 +165,7 @@ Kubernetes erőforrásokat tipikusan yaml leírókban definiálunk. A futtatás 
     ```
 
     !!! note ""
-        A pod törlése nem azonnali. A benne futó konténerek leállás jelzést kapnak, és ők maguk terminálhatnak. Ha ez nem történik, meg, akkor kis idő múlva megszűnteti őket a rendszer.
+        A pod törlése nem azonnali. A benne futó konténerek leállás jelzést kapnak, és ők maguk terminálhatnak. Ha ez nem történik, meg, akkor kis idő múlva megszünteti őket a rendszer.
 
 ??? tip "Interaktív shell"
     Ha szeretnénk egy podban belépni, és ott dolgozni, akkor ezt a `kubectl exec` paranccsal tehetjük meg. Például:
@@ -234,7 +234,7 @@ kubectl logs -f <podnév>
 ```
 
 !!! example "BEADANDÓ"
-    Készíts egy képernyőképet (`f2.2.png`) és commitold azt be a házi feladat repó gyökerébe, ahol a logokban már 10 mp-enként történik a kiíratás.
+    Készíts egy képernyőképet (`f2.2.png`) és commitold azt be a házi feladat repó gyökerébe, ahol a logokban már 10 másodpercenként történik a kiíratás.
 
 ??? tip "Kubectl parancsok"
 
@@ -378,7 +378,7 @@ Az alkalmazásunk telepítéséhez szintén yaml leírókat találunk a _kuberne
 
 1. Ellenőrizzük, hogy létrejöttek a Deployment-ek podok, stb. Viszont vegyük észre, hogy piros lesz még pár dolog. A hiba oka, hogy a hivatkozott image-eket nem találja a rendszer.
 
-1. Navigáljunk el az `src/Docker` könyvtárba, és buildeljük le az alkalmazást docker-compose segítségével úgy, hogy a megfelelő taggel ellátjuk az image-eket. Ehhez a compose fájlunk az `IMAGE_TAG` környezeti változó beállítását várja.
+1. Navigáljunk el az `src/Docker` könyvtárba, és buildeljük le az alkalmazást docker-compose segítségével úgy, hogy a megfelelő taggel ellátjuk az image-eket. Az app könyvtárban lévő YAML fájlok a *v1* tagre hivatkoznak (`image: todoapp/todos:v1`), így ehhez érdemes igazodnunk. A tag-et beállíthatjuk környezeti változóból.
 
     - Powershell-ben
 
@@ -392,6 +392,12 @@ Az alkalmazásunk telepítéséhez szintén yaml leírókat találunk a _kuberne
         ```cmd
         setx IMAGE_TAG "v1"
         docker compose build
+        ```
+    
+    - Linux bash-ben
+
+        ```bash
+        IMAGE_TAG="v1" docker compose build
         ```
 
 1. A build folyamat végén előállnak helyben az image-ek, pl. `todoapp/web:v1` taggel. Ha távoli registry-be szeretnénk feltölteni őket, akkor taggelhetnénk őket a registry-nek megfelelően. A helyi fejlesztéshez nincs szükségünk ehhez, mert a helyben elindított Kubernetes "látja" a Docker helyi image-eit.
