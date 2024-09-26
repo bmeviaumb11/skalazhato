@@ -8,7 +8,7 @@ A labor célja:
     - a _podok_, _Deployment-ek_ és _ReplicaSet-ek_ létrehozását és kezelését,
     - a leggyakrabban használt `kubectl` parancsokat.
 - egy alkalmazás telepítése Kubernetes klaszterbe és a frissítés módjának megismerése.
-    - A telepítéshez és frissítéshez részben Helm chartot, részben magunk által elkészített yaml erőforrás leírókat használunk.
+    - A telepítéshez és frissítéshez részben Helm chartot, részben magunk által elkészített YAML erőforrás leírókat használunk.
 
 ## Előkövetelmények
 
@@ -111,21 +111,21 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
 
 - Listázzuk a podokat egy konkrét névtérben: `kubectl get pod -n kube-system`
 
-### Pod létrehozása Yaml leíróval
+### Pod létrehozása YAML leíróval
 
-Kubernetes erőforrásokat tipikusan yaml leírókban definiálunk. A futtatás elemi egysége a pod, így készítsünk egy yaml fájlt a podunkhoz és indítsuk el azt.
+Kubernetes erőforrásokat tipikusan YAML leírókban definiálunk. A futtatás elemi egysége a pod, így készítsünk egy YAML fájlt a podunkhoz és indítsuk el azt.
 
 !!! tip ""
-    A leíró szerkesztéséhez használhatjuk például Visual Studio Code-ot. Érdemes olyan szövegszerkesztővel dolgozni, amely ismeri a yaml szintaktikát. A parancsok futtatásához használhatjuk például Visual Studio Code beépített terminálját (++ctrl+ö++ magyar lokalizáció esetén).
+    A leíró szerkesztéséhez használhatjuk például Visual Studio Code-ot. Érdemes olyan szövegszerkesztővel dolgozni, amely ismeri a YAML szintaktikát. A parancsok futtatásához használhatjuk például Visual Studio Code beépített terminálját (++ctrl+ö++ magyar lokalizáció esetén).
 
-1. Hozzunk létre egy új yaml fájt a repositorynk gyökerébe `createpod.yml` néven, az alábbi követelmények mentén
+1. Hozzunk létre egy új YAML fájt a repositorynk gyökerébe `createpod.yml` néven, az alábbi követelmények mentén
 
    - a kubernetes leíró Pod-ot definiál
    - a pod neve legyen `counter-neptun` a **saját neptunkóddal** kiegészítve
    - a pod egy konténert tartalmazzon, amely az `ubuntu` képből indul
    - a konténer egy bash parancsot futtasson, ami kiírja a _NEPTUN_ kódodat és 5 másodpercenként kiírja az aktuális időt.
 
-1. A konzolunkban navigáljunk el abba a könyvtárba, ahol a yaml fájl van, majd hozzuk létre a podot:
+1. A konzolunkban navigáljunk el abba a könyvtárba, ahol a YAML fájl van, majd hozzuk létre a podot:
 
     ```cmd
     kubectl apply -f createpod.yml
@@ -185,7 +185,7 @@ Kubernetes erőforrásokat tipikusan yaml leírókban definiálunk. A futtatás 
 
 A podokat nem szoktuk közvetlenül létrehozni, hanem _Deployment_-re és _ReplicaSet_-re szoktunk bízni a kezelésüket és létrehozásukat.
 
-1. Hozzunk létre egy új yaml fájl `createdeployment.yml` néven az alábbi követelményeknek megfelelően:
+1. Hozzunk létre egy új YAML fájlt `createdeployment.yml` néven az alábbi követelményeknek megfelelően:
 
     - a kubernetes leíró Deployment-et definiál
     - a deployment neve legyen `counter-neptun` a **saját neptunkóddal** kiegészítve
@@ -270,7 +270,7 @@ A fenti komponensek azonban nem ugyanolyan frissítési ciklussal rendelkeznek: 
 A telepítést ennek megfelelően most ketté vágjuk:
 
 1. Az api gateway-t és az adatbázisokat egyszer telepítjük manuálisan.
-2. Az alkalmazásunk saját komponenseihez yaml alapú leírókat készítünk, amit `kubectl apply` segítségével fogunk telepíteni, illetve ezeket a leírókat Helm-mel fogjuk kezelni.
+2. Az alkalmazásunk saját komponenseihez YAML alapú leírókat készítünk, amit `kubectl apply` segítségével fogunk telepíteni, illetve ezeket a leírókat Helm-mel fogjuk kezelni.
 
 ### 3.0 Helm
 
@@ -345,9 +345,9 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
 
 ### 3.2 Adatbázisok telepítése
 
-Az adatbázisainkat saját magunk által megírt yaml leíróval telepítjük. Ez a leíró fájl már rendelkezésünkre áll a kiinduló repository todoapp almappájában.
+Az adatbázisainkat saját magunk által megírt YAML leíróval telepítjük. Ez a leíró fájl már rendelkezésünkre áll a kiinduló repository todoapp almappájában.
 
-1. Vizsgáljuk meg a repository `todoapp/kubernetes/db` könyvtárában lévő yaml leírókat.
+1. Vizsgáljuk meg a repository `todoapp/kubernetes/db` könyvtárában lévő YAML leírókat.
 
      - Redis: Deployment-ként telepítjük és nem csatolunk hozza diszket, mert úgyis csak cache-nek használjuk
      - MongoDB: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk
@@ -367,7 +367,7 @@ Az adatbázisainkat saját magunk által megírt yaml leíróval telepítjük. E
 
 ### 3.3 Alkalmazásunk telepítése
 
-Az alkalmazásunk telepítéséhez szintén yaml leírókat találunk a _kubernetes/app_ könyvtárban.
+Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a _kubernetes/app_ könyvtárban.
 
 1. Nézzük meg a leírókat. Az előbb látott Deployment és Service mellet Ingress-t is látni fogunk.
 
@@ -379,7 +379,7 @@ Az alkalmazásunk telepítéséhez szintén yaml leírókat találunk a _kuberne
 
 1. Ellenőrizzük, hogy létrejöttek a Deployment-ek podok, stb. Viszont vegyük észre, hogy piros lesz még pár dolog. A hiba oka, hogy a hivatkozott image-eket nem találja a rendszer.
 
-1. Navigáljunk el az `src/Docker` könyvtárba, és buildeljük le az alkalmazást docker-compose segítségével úgy, hogy a megfelelő taggel ellátjuk az image-eket. Az app könyvtárban lévő YAML fájlok a *v1* tagre hivatkoznak (`image: todoapp/todos:v1`), így ehhez érdemes igazodnunk. A tag-et beállíthatjuk környezeti változóból.
+1. Navigáljunk el az `src` könyvtárba, és buildeljük le az alkalmazást docker-compose segítségével úgy, hogy a megfelelő taggel ellátjuk az image-eket. Az app könyvtárban lévő YAML fájlok a *v1* tagre hivatkoznak (`image: todoapp/todos:v1`), így ehhez érdemes igazodnunk. A tag-et beállíthatjuk környezeti változóból.
 
     - Powershell-ben
 
@@ -413,13 +413,13 @@ Az alkalmazásunk telepítéséhez szintén yaml leírókat találunk a _kuberne
 ### 3.4 Alkalmazás frissítése Helm charttal
 
 Tegyük fel, hogy az alkalmazásunkból újabb verzió készül, és szeretnénk frissíteni.
-A fentebb használt yaml leírókat azért (is) a verziókezelőben tároljuk, mert így a telepítési "útmutatók" is verziózottak.
+A fentebb használt YAML leírókat azért (is) a verziókezelőben tároljuk, mert így a telepítési "útmutatók" is verziózottak.
 Tehát nincs más dolgunk, mit a konténer image-ek elkészítése után a Deployment-ekben a megfelelő tag-ek lecserélése, és a `kubectl apply` paranccsal a telepítés frissítése.
 
-A Tag-ek frissítéséhez a yaml fájlokba minden alkalommal bele kell írnunk.
+A Tag-ek frissítéséhez a YAML fájlokba minden alkalommal bele kell írnunk.
 Jó lenne, ha az image tag-et mint egy változó tudnánk a telepítés során átadni.
 Erre szolgál a Helm: készítsünk egy _chart_-ot a szolgáltatásainknak.
-A _chart_ a telepítés leíró neve, ami gyakorlatilag yaml fájlok gyűjteménye egy speciális szintaktikával kiegészítve.
+A _chart_ a telepítés leíró neve, ami gyakorlatilag YAML fájlok gyűjteménye egy speciális szintaktikával kiegészítve.
 
 1. Hozzunk létre a repository-nkban a `todoapp/helmchart` mappát majd konzolban navigáljunk egy el ide.
 
@@ -436,7 +436,7 @@ A _chart_ a telepítés leíró neve, ami gyakorlatilag yaml fájlok gyűjtemén
 
 1. Töröljük ki a `templates` könyvtárból az összes fájlt a `_helpers.tpl` kivételével.
 
-1. Másoljuk helyette be ide a korábban a telepítéshez használt yaml fájljainkat a `todoapp/kubernetes/app` mappából (3 darab).
+1. Másoljuk helyette be ide a korábban a telepítéshez használt YAML fájljainkat a `todoapp/kubernetes/app` mappából (3 darab).
 
 1. Szerkesszük meg a `todos.yaml` fájl tartalmát. Leegyszerűsítve az alábbiakra lesz szükség:
 
@@ -466,9 +466,9 @@ A _chart_ a telepítés leíró neve, ami gyakorlatilag yaml fájlok gyűjtemén
       tag: v1
     ```
 
-1. A másik két komponens yaml leíróival is hasonlóan kell eljárnunk.
+1. A másik két komponens YAML leíróival is hasonlóan kell eljárnunk: vegyünk fel egy-egy kulcsot komponensenként és hivatkozzunk a kulcsra az adott komponens pod leírójának `image:` értékében.
 
-1. A továbbiakhoz el kell távolítanunk az előbb telepített alkalmazásunkat, mert összeakadna a Helm-mel. Ezt a parancsot a telepítéshez korábban használt `app` könyvtárban adjuk ki:
+1. A továbbiakhoz el kell távolítanunk az előbb telepített alkalmazásunkat, mert összeakadna a Helm-mel. Ezt a parancsot a telepítéshez korábban használt `app` alkönyvtár szülőkönyvtárában adjuk ki:
 
     ```cmd
     kubectl delete -f app
@@ -482,16 +482,15 @@ A _chart_ a telepítés leíró neve, ami gyakorlatilag yaml fájlok gyűjtemén
         ```cmd
         helm install todoapp --debug --dry-run todoapp
         ```
+    - A release-nek _todoapp_ nevet választottunk. Ez a Helm release azonosítója.
 
-    - Konzolra megkapjuk a kiértékelt yaml-öket.
+    - Konzolra megkapjuk a kiértékelt YAML-öket. Ellenőrizzük a kimenetben, hogy a `release` és `tag` változók rendben behelyettesítődtek.
 
-1. Telepítsük újra az alkalmazást a chart segítségével:
+1. Telepítsük (újra) az alkalmazást a chart segítségével:
     
     ```cmd
     helm upgrade todoapp --install todoapp
     ```
-
-    - A release-nek _todoapp_ nevet választottunk. Ez a Helm release azonosítója.
 
     - Az `upgrade` parancs és az `--install` kapcsoló telepít, ha nem létezik, ill. frissít, ha már létezik ilyen telepítés.
 
@@ -499,7 +498,7 @@ A _chart_ a telepítés leíró neve, ami gyakorlatilag yaml fájlok gyűjtemén
 
 1. Próbáljuk ki az alkalmazást a <http://localhost:32080> címen.
 
-1. Ezen chart segítségével frissítsük egy új képpel az alkalmazásunkat. Készítsük el az új docker image-eket v2 taggel.
+1. Ezen chart segítségével frissítsük egy új képpel az alkalmazásunkat. A korábban használt `docker compose build` paranccsal készítsük el az új docker image-eket, csak most *v2* taggel. Például Windows parancssorban:
 
     ```cmd
     $env:IMAGE_TAG="v2"
