@@ -191,7 +191,7 @@ Docker konténerek esetében gyakran webalkalmazásokat futtatunk, amiket a host
     docker run -d -p 8085:80 nginx
     ```
 
-    - `-d` (detach): háttérben fut, a konzolt "visszakaptunk", amint elindult a konténer, és kiírja az image id-t
+    - `-d` (detach): háttérben fut, a konzolt "visszakapjuk", amint elindult a konténer, és kiírja az image id-t
     - `-p` (port): helyi port _kettőspont_ konténeren belüli port
 
 - Nyissuk meg böngészőben a címet a neptun kódunkkal: <http://localhost:8085/index.html?student=NEPTUN>
@@ -286,24 +286,24 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
 ### 2.1 Image készítése parancssorból
 
 ??? note "Docker registry"
-    Korábban használt parancs: `docker run ubuntu` Az _ubuntu_ az image neve. Ez egy un. registry-ből jön, analóg más csomagkezelőkhöz pl.: NPM, NuGet stb.
-    Az alapértelmezett registry a <https://hub.docker.com>, ahol Tipikusan open-source szoftverek image-ei, és az általunk is használt alap image-ek találhatóak.
-    Léteznek természetesen továbbiak is (Azure, Google, stb.)
+    Korábban használt parancs: `docker run ubuntu` Az _ubuntu_ az image neve. Ez egy ún. registry-ből jön, analóg más csomagkezelőkhöz pl.: NPM, NuGet stb.
+    Az alapértelmezett registry a <https://hub.docker.com>, ahol tipikusan open-source szoftverek image-ei és az általunk is használt alap image-ek találhatóak.
+    Léteznek természetesen továbbiak is (Azure, Google, stb.).
 
-    Az Image neve valójában nem `ubuntu`, hanem `index.docker.io/ubuntu:latest`
+    Az image neve valójában nem `ubuntu`, hanem `index.docker.io/ubuntu:latest`
 
       - `index.docker.io` registry szerver elérési útvonala
       - `ubuntu` image neve (lehet többszintű is)
       - `:latest` tag neve
 
-    Jogosultság szempontból két fajta registry létezhet: publikus (pl. Docker Hub) és privát. Privát registry esetén: `docker login <url>` és `docker logout <url>` szükséges az authentikációhoz.
+    Jogosultság szempontból két fajta registry létezhet: publikus (pl. Docker Hub) és privát. Privát registry esetén `docker login <url>` és `docker logout <url>` szükséges az authentikációhoz.
 
     Letöltés a registry-ből: `docker pull mcr.microsoft.com/dotnet/aspnet:8.0`
     
     Ugyan a _run_ parancs is letölti, de csak akkor, ha még nem létezik. Nem ellenőrzi viszont, hogy nincs-e újabb image verzió publikálva. A _pull_ mindig frisset szed le.
 
 Készítünk egy saját image-et, ami egy módosított `nginx` image-et fog tartalmazni a saját tartalmunkkal.
-Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most ne lépj ki a konténerből, hanem a konténer állapotát mentsd egy új image-be, ami az nginx-re épít, és egy új [image layer](https://docs.docker.com/v17.09/engine/userguide/storagedriver/imagesandcontainers/)-t tartalmaz a saját tartalmunkkal.
+Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most ne lépj ki a konténerből, hanem a konténer állapotát mentsd egy új image-be, ami az nginx-re épít, és egy új [image layer](https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/)-t tartalmaz a saját tartalmunkkal.
 
 1. Az előző feladat alapján futtass egy nginx konténert, amiben módosítod az `index.html` tartalmát.
 
@@ -427,14 +427,14 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
     docker build -t python-neptun:v1 .
     ```
 
-    Ez a parancs létrehoz egy image-et a Dockerfile alapján. A végén egy pont van, az is a parancs része, ami a build kontextust jelenti
+    Ez a parancs létrehoz egy image-et a Dockerfile alapján. A végén egy pont van, az is a parancs része, ami a build kontextust jelenti.
 
     A Dockerfile lépései:
    
     - `FROM`: az alap image, amire építjük a sajátunkat. Mi most a Python 3.12-slim image-et használjuk.
     - `WORKDIR`: a konténerben a munkakönyvtár, a további műveletek ebben a könyvtárban lesznek.
     - `COPY`: a host gépről a konténerbe másoljuk a fájlokat. A `.` jelenti a build kontextus mappáját, esetünkben a `pythonweb` mappát.
-    - `RUN`: a build/image készítés során lefuttatandó parancsok. Itt a `requirements.txt` fájlban felsorolt Python csomagokat telepítjük a python (pip) csomagkezelővel.
+    - `RUN`: a build/image készítés során lefuttatandó parancsok. Itt a `requirements.txt` fájlban felsorolt Python csomagokat telepítjük a python csomagkezelővel (pip).
     - `EXPOSE`: a konténer által kiajánlott portokat jelzi. Mi most webalkalmazást készítünk, ezért a 80-as portot jelöljük ki.
     - `ENV`: környezeti változó beállítása. A `NAME` környezeti változó értéke a saját Neptun kódod legyen.
     - `CMD`: a konténer indításakor lefuttatandó parancs és argumentumai. Ebben az esetben a Python alkalmazásunkat indítjuk el.  
@@ -459,7 +459,7 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
 
     A `Dockerfile`-ban hivatkoztunk az aktuális könyvtárra a `.`-tal. Vizsgáljuk meg, hogy ez mit is jelent.
 
-    1. Készítsünk az aktuális könyvtárunkba, az `app.py` mellé egy nagy fájlt. PowerShell-ben addjuk ki a következő parancsot.
+    1. Készítsünk az aktuális könyvtárunkba, az `app.py` mellé egy nagy fájlt. Ehhez PowerShell-ben adjuk ki a következő parancsot.
 
         ```powershell title="Windows - powershell"
         $out = new-object byte[] 134217728; (new-object Random).NextBytes($out); [IO.File]::WriteAllBytes("$pwd\file.bin", $out)
@@ -494,11 +494,11 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
 ### 3.1 Docker-compose
 
 !!! warning "Linux eltérés"
-    Linuxon a _compose_ nem egy külön parancs, hanem a docker parancs [kiterjesztése](https://docs.docker.com/compose/install/linux/). Emiatt nem `docker-compose` helyett `docker compose`-ként kell hívnunk.
+    Linuxon a _compose_ nem egy külön parancs, hanem a docker parancs [kiterjesztése](https://docs.docker.com/compose/install/linux/). Emiatt `docker-compose` helyett `docker compose`-ként kell meghívnunk.
 
 A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett egy Redis-re is szükségünk lenne. Futtassunk több konténert egyszerre a docker compose segítségével.
 
-1. Dolgozzunk a repository-n gyökerébe (tehát ne az előzőleg használt almappába) és Készítsünk ide egy `docker-compose.yaml` nevű fájlt az alábbi tartalommal.
+1. Dolgozzunk a repository gyökerébe (tehát ne az előzőleg használt almappába) és készítsünk ide egy `docker-compose.yaml` nevű fájlt az alábbi tartalommal.
 
     ```yaml
     services:
@@ -528,7 +528,7 @@ A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett 
         - `build`: a build kontextusban lévő mappából építi az image-t
         - `ports`: a konténer által kiajánlott portokat jelzi. Mi most webalkalmazást készítünk, ezért a konténer 80-as portját mappeljük a host 5000-es portjára.
         - `depends_on`: a konténer indításának sorrendjét jelzi. A `web` konténer csak akkor indul, ha a `redis` konténer már fut.
-    - `networks`: a konténerek közötti hálózatokat definiálja. A `homework_network` nevű hálózatot használjuk, bridge módban, ami a konténerek közötti hálózatot jelenti. Ezt adtuk meg a konténerek `networks` tulajdonságában is.
+    - `networks`: a konténerek közötti hálózatokat definiálja. A `homework_network` nevű hálózatot használjuk bridge módban, ami a konténerek között adatkapcsolati réteg szintű összeköttetést jelent. Erre hivatkozunk a konténerek `networks` tulajdonságában is.
 
 2. Nyiss egy konzolt ugyanebbe a mappába. Indítsd el az alkalmazásokat az alábbi paranccsal:
 
