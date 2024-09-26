@@ -482,6 +482,7 @@ A _chart_ a telepítés leíró neve, ami gyakorlatilag YAML fájlok gyűjtemén
         ```cmd
         helm install todoapp --debug --dry-run todoapp
         ```
+        
     - A release-nek _todoapp_ nevet választottunk. Ez a Helm release azonosítója.
 
     - Konzolra megkapjuk a kiértékelt YAML-öket. Ellenőrizzük a kimenetben, hogy a `release` és `tag` változók rendben behelyettesítődtek.
