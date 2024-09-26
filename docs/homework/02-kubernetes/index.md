@@ -256,7 +256,8 @@ kubectl logs -f <podnév>
 
 ### Célok
 
-A célunk a [todo-kat kezelő konténeralapú, külön álló (mikro)szolgáltatásokra épülő webalkalmazás](https://github.com/bmeviauav42/todoapp) telepítése Kubernetes-be. A rendszerünk alapvetően három fajta komponensből épül fel:
+A célunk a kiinduló repóban lévő, todo-kat kezelő konténeralapú, külön álló (mikro)szolgáltatásokra épülő webalkalmazás telepítése Kubernetes-be.
+A rendszerünk alapvetően három fajta komponensből épül fel:
 
 - az általunk megvalósított mikroszolgáltatások (backendek és frontend),
 - az adatbázis rendszerek (MongoDB, Elasticsearch és Redis),
