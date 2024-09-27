@@ -20,10 +20,12 @@ A labor Windows platformon lett kidolgozva, de Linuxon is hasonlóan működik.
     - Windows platformon: Docker Desktop
 - [kubectl](https://kubernetes.io/docs/tasks/tools/)
     - A binárisa legyen elérhető PATH-on.
-- Egy kubernetes-t menedzselni képes GUI pl.:
+- Egy kubernetes-t menedzselni képes GUI, például:
     - [VS Code Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
     - [Lens](https://k8slens.dev/)
     - [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
+    - [Rider](https://www.jetbrains.com/help/rider/Kubernetes.html) - hallgatói fiókkal ingyenes
+    - [k9s](https://k9scli.io/)
 - Helm CLI
     - [Helm](https://helm.sh/docs/intro/install/)
     - A Helm CLI legyen elérhető PATH-on.
@@ -116,7 +118,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
 Kubernetes erőforrásokat tipikusan YAML leírókban definiálunk. A futtatás elemi egysége a pod, így készítsünk egy YAML fájlt a podunkhoz és indítsuk el azt.
 
 !!! tip ""
-    A leíró szerkesztéséhez használhatjuk például Visual Studio Code-ot. Érdemes olyan szövegszerkesztővel dolgozni, amely ismeri a YAML szintaktikát. A parancsok futtatásához használhatjuk például Visual Studio Code beépített terminálját (++ctrl+ö++ magyar lokalizáció esetén).
+    A leíró szerkesztéséhez használhatjuk például Visual Studio Code-ot. Érdemes olyan szövegszerkesztővel dolgozni, amely ismeri a YAML szintaktikát. A parancsok futtatásához használhatjuk például [Visual Studio Code beépített terminálját](https://code.visualstudio.com/docs/terminal/basics).
 
 1. Hozzunk létre egy új YAML fájt a repositorynk gyökerébe `createpod.yml` néven, az alábbi követelmények mentén
 
