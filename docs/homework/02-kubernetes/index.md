@@ -351,7 +351,7 @@ Az adatbázisainkat saját magunk által megírt YAML leíróval telepítjük. E
 
 1. Vizsgáljuk meg a repository `todoapp/kubernetes/db` könyvtárában lévő YAML leírókat.
 
-     - Redis: Deployment-ként telepítjük és nem csatolunk hozza diszket, mert úgyis csak cache-nek használjuk
+     - Redis: Deployment-ként telepítjük és nem csatolunk hozzá diszket, mert úgyis csak cache-nek használjuk
      - MongoDB: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk
      - Elasticsearch: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk
 
