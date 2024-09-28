@@ -383,6 +383,9 @@ Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a _kuberne
 
 1. Navigáljunk el az `src` könyvtárba, és buildeljük le az alkalmazást docker-compose segítségével úgy, hogy a megfelelő taggel ellátjuk az image-eket. Az app könyvtárban lévő YAML fájlok a *v1* tagre hivatkoznak (`image: todoapp/todos:v1`), így ehhez érdemes igazodnunk. A tag-et beállíthatjuk környezeti változóból.
 
+!!! note ""
+    Egyes Linuxos gépeken nem vállnak alapvetően láthatóvá a minikube-on belül az image-ek. Az ilyen gépeken érdemes a következő parancs előtt az `eval $(minikube docker-env)` parancsot kiadni. Ezt követően ebben a terminál ablakban adjuk ki a következő parancsot, valamint az előző apply parancsot is utána.
+
     - Powershell-ben
 
         ```powershell
@@ -408,6 +411,9 @@ Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a _kuberne
 1. Menjünk vissza az erőforrásainkhoz. Egy kicsit várjunk, és azt kell lássuk, hogy az eddig piros elemek kizöldülnek (GUI függően frissítésre lehet szükség). A Kubernetes folyamatosan törekszik az elvárt állapot elérésére, ezért a nem elérhető image-einket újra és újra megpróbálta elérni, míg nem sikerült.
 
 1. Próbáljuk ki az alkalmazást a <http://localhost:32080> címen.
+
+!!! note ""
+    Egyes Linuxos gépeken előfordulhat, hogy a <http://localhost:8000> címen lesz elérhető az alkalmazás, a korábban javasolt port forward parancsot követően.
 
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (`f3.3.png`) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval.
