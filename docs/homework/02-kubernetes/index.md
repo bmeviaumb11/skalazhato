@@ -423,7 +423,7 @@ Jó lenne, ha az image tag-et mint egy változó tudnánk a telepítés során �
 Erre szolgál a Helm: készítsünk egy _chart_-ot a szolgáltatásainknak.
 A _chart_ a telepítés leíró neve, ami gyakorlatilag YAML fájlok gyűjteménye egy speciális szintaktikával kiegészítve.
 
-1. Hozzunk létre a repository-nkban a `todoapp/helmchart` mappát majd konzolban navigáljunk egy el ide.
+1. Hozzuk létre a repository-nkban a `todoapp/helmchart` mappát majd a konzolban navigáljunk oda.
 
 1. Készítsünk egy új, üres chart-ot: `helm create todoapp`. Ez létrehoz egy _todoapp_ nevű chartot egy azonos nevű könyvtárban.
 
