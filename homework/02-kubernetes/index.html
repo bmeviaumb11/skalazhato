@@ -1553,10 +1553,6 @@ helm repo update
 </li>
 <li>
 <p>Navigáljunk el az <code>src</code> könyvtárba, és buildeljük le az alkalmazást docker-compose segítségével úgy, hogy a megfelelő taggel ellátjuk az image-eket. Az app könyvtárban lévő YAML fájlok a <em>v1</em> tagre hivatkoznak (<code>image: todoapp/todos:v1</code>), így ehhez érdemes igazodnunk. A tag-et beállíthatjuk környezeti változóból.</p>
-</li>
-</ol>
-<div class="admonition note">
-<p>Egyes Linuxos gépeken nem vállnak alapvetően láthatóvá a minikube-on belül az image-ek. Az ilyen gépeken érdemes a következő parancs előtt az <code>eval $(minikube docker-env)</code> parancsot kiadni. Ezt követően ebben a terminál ablakban adjuk ki a következő parancsot, valamint az előző apply parancsot is utána.</p>
 <ul>
 <li>
 <p>Powershell-ben</p>
@@ -1576,8 +1572,7 @@ docker compose build
 </code></pre></div>
 </li>
 </ul>
-</div>
-<ol>
+</li>
 <li>
 <p>A build folyamat végén előállnak helyben az image-ek, pl. <code>todoapp/web:v1</code> taggel. Ha távoli registry-be szeretnénk feltölteni őket, akkor taggelhetnénk őket a registry-nek megfelelően. A helyi fejlesztéshez nincs szükségünk ehhez, mert a helyben elindított Kubernetes "látja" a Docker helyi image-eit.</p>
 </li>
@@ -1588,16 +1583,20 @@ docker compose build
 <p>Próbáljuk ki az alkalmazást a <a href="http://localhost:32080">http://localhost:32080</a> címen.</p>
 </li>
 </ol>
-<div class="admonition note">
+<div class="admonition tip">
 <p>Egyes Linuxos gépeken előfordulhat, hogy a <a href="http://localhost:8000">http://localhost:8000</a> címen lesz elérhető az alkalmazás, a korábban javasolt port forward parancsot követően.</p>
 </div>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
 <p>Készíts egy képernyőképet (<code>f3.3.png</code>) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval.</p>
 </div>
-<details class="tip ha mégsem zöldülnek ki">
-<summary>Tip</summary>
-<div class="highlight"><pre><span></span><code>Lehet, hogy nem a minikube-ban vannak a docker image-ek. Ekkor PowerShellben a `&amp; minikube -p minikube docker-env --shell powershell | Invoke-Expression` paranccsal tudod elérni, hogy a minikube-ban lévő docker daemont használd.
+<details class="tip">
+<summary>Ha mégsem zöldülnek ki</summary>
+<div class="highlight"><pre><span></span><code>1. Egyes Linuxos gépeken nem vállnak alapvetően láthatóvá a minikube-on belül az image-ek. Az ilyen gépeken érdemes a következő parancs előtt az `eval $(minikube docker-env)` parancsot kiadni.
+Ezt követően ebben a terminál ablakban adjuk ki az image build paracsomat, valamint a k8s apply parancsokat is.
+
+2. Ugyanez Windows-os + minikube powershellel:
+Lehet, hogy nem a minikube-ban vannak a docker image-ek. Ekkor PowerShellben a `&amp; minikube -p minikube docker-env --shell powershell | Invoke-Expression` paranccsal tudod elérni, hogy a minikube-ban lévő docker daemont használd.
 Ha ez a parancs `❌  Exiting due to MK_USAGE: the docker-env command only supports the docker and containerd runtimes` errort dobna: Add ki a `minikube delete` parancsot, majd indítsd el a következő módon: `minikube start --driver=docker --container-runtime=docker`
 </code></pre></div>
 </details>
@@ -1726,8 +1725,8 @@ docker compose build
           </path>
         </svg>
       </span>
-      <span title="2024. október 4. 10:30:35">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-04T10:30:35+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-04</span>
+      <span title="2024. október 4. 10:35:31">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-04T10:35:31+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-04</span>
       </span>
     </span>
 
