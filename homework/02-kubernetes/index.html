@@ -1553,6 +1553,10 @@ helm repo update
 </li>
 <li>
 <p>Navigáljunk el az <code>src</code> könyvtárba, és buildeljük le az alkalmazást docker-compose segítségével úgy, hogy a megfelelő taggel ellátjuk az image-eket. Az app könyvtárban lévő YAML fájlok a <em>v1</em> tagre hivatkoznak (<code>image: todoapp/todos:v1</code>), így ehhez érdemes igazodnunk. A tag-et beállíthatjuk környezeti változóból.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p>Egyes Linuxos gépeken nem vállnak alapvetően láthatóvá a minikube-on belül az image-ek. Az ilyen gépeken érdemes a következő parancs előtt az <code>eval $(minikube docker-env)</code> parancsot kiadni. Ezt követően ebben a terminál ablakban adjuk ki a következő parancsot, valamint az előző apply parancsot is utána.</p>
 <ul>
 <li>
 <p>Powershell-ben</p>
@@ -1572,7 +1576,8 @@ docker compose build
 </code></pre></div>
 </li>
 </ul>
-</li>
+</div>
+<ol>
 <li>
 <p>A build folyamat végén előállnak helyben az image-ek, pl. <code>todoapp/web:v1</code> taggel. Ha távoli registry-be szeretnénk feltölteni őket, akkor taggelhetnénk őket a registry-nek megfelelően. A helyi fejlesztéshez nincs szükségünk ehhez, mert a helyben elindított Kubernetes "látja" a Docker helyi image-eit.</p>
 </li>
@@ -1583,6 +1588,9 @@ docker compose build
 <p>Próbáljuk ki az alkalmazást a <a href="http://localhost:32080">http://localhost:32080</a> címen.</p>
 </li>
 </ol>
+<div class="admonition note">
+<p>Egyes Linuxos gépeken előfordulhat, hogy a <a href="http://localhost:8000">http://localhost:8000</a> címen lesz elérhető az alkalmazás, a korábban javasolt port forward parancsot követően.</p>
+</div>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
 <p>Készíts egy képernyőképet (<code>f3.3.png</code>) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval.</p>
@@ -1712,8 +1720,8 @@ docker compose build
           </path>
         </svg>
       </span>
-      <span title="2024. szeptember 28. 21:56:12">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-28T21:56:12+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-28</span>
+      <span title="2024. október 4. 10:30:16">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-04T10:30:16+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-04</span>
       </span>
     </span>
 
