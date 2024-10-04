@@ -351,7 +351,7 @@ Az adatbázisainkat saját magunk által megírt YAML leíróval telepítjük. E
 
 1. Vizsgáljuk meg a repository `todoapp/kubernetes/db` könyvtárában lévő YAML leírókat.
 
-     - Redis: Deployment-ként telepítjük és nem csatolunk hozza diszket, mert úgyis csak cache-nek használjuk
+     - Redis: Deployment-ként telepítjük és nem csatolunk hozzá diszket, mert úgyis csak cache-nek használjuk
      - MongoDB: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk
      - Elasticsearch: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk
 
@@ -423,7 +423,7 @@ Jó lenne, ha az image tag-et mint egy változó tudnánk a telepítés során �
 Erre szolgál a Helm: készítsünk egy _chart_-ot a szolgáltatásainknak.
 A _chart_ a telepítés leíró neve, ami gyakorlatilag YAML fájlok gyűjteménye egy speciális szintaktikával kiegészítve.
 
-1. Hozzunk létre a repository-nkban a `todoapp/helmchart` mappát majd konzolban navigáljunk egy el ide.
+1. Hozzuk létre a repository-nkban a `todoapp/helmchart` mappát majd a konzolban navigáljunk oda.
 
 1. Készítsünk egy új, üres chart-ot: `helm create todoapp`. Ez létrehoz egy _todoapp_ nevű chartot egy azonos nevű könyvtárban.
 
