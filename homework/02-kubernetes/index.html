@@ -1595,6 +1595,12 @@ docker compose build
 <p class="admonition-title">BEADANDÓ</p>
 <p>Készíts egy képernyőképet (<code>f3.3.png</code>) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval.</p>
 </div>
+<details class="tip ha mégsem zöldülnek ki">
+<summary>Tip</summary>
+<div class="highlight"><pre><span></span><code>Lehet, hogy nem a minikube-ban vannak a docker image-ek. Ekkor PowerShellben a `&amp; minikube -p minikube docker-env --shell powershell | Invoke-Expression` paranccsal tudod elérni, hogy a minikube-ban lévő docker daemont használd.
+Ha ez a parancs `❌  Exiting due to MK_USAGE: the docker-env command only supports the docker and containerd runtimes` errort dobna: Add ki a `minikube delete` parancsot, majd indítsd el a következő módon: `minikube start --driver=docker --container-runtime=docker`
+</code></pre></div>
+</details>
 <h3 id="34-alkalmazas-frissitese-helm-charttal">3.4 Alkalmazás frissítése Helm charttal<a class="headerlink" href="#34-alkalmazas-frissitese-helm-charttal" title="Permanent link">&para;</a></h3>
 <p>Tegyük fel, hogy az alkalmazásunkból újabb verzió készül, és szeretnénk frissíteni.
 A fentebb használt YAML leírókat azért (is) a verziókezelőben tároljuk, mert így a telepítési "útmutatók" is verziózottak.
@@ -1720,8 +1726,8 @@ docker compose build
           </path>
         </svg>
       </span>
-      <span title="2024. október 4. 10:30:16">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-04T10:30:16+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-04</span>
+      <span title="2024. október 4. 10:30:35">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-04T10:30:35+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-04</span>
       </span>
     </span>
 
