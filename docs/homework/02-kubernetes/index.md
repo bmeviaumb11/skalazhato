@@ -383,9 +383,6 @@ Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a _kuberne
 
 1. Navigáljunk el az `src` könyvtárba, és buildeljük le az alkalmazást docker-compose segítségével úgy, hogy a megfelelő taggel ellátjuk az image-eket. Az app könyvtárban lévő YAML fájlok a *v1* tagre hivatkoznak (`image: todoapp/todos:v1`), így ehhez érdemes igazodnunk. A tag-et beállíthatjuk környezeti változóból.
 
-!!! note ""
-    Egyes Linuxos gépeken nem vállnak alapvetően láthatóvá a minikube-on belül az image-ek. Az ilyen gépeken érdemes a következő parancs előtt az `eval $(minikube docker-env)` parancsot kiadni. Ezt követően ebben a terminál ablakban adjuk ki a következő parancsot, valamint az előző apply parancsot is utána.
-
     - Powershell-ben
 
         ```powershell
@@ -412,16 +409,20 @@ Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a _kuberne
 
 1. Próbáljuk ki az alkalmazást a <http://localhost:32080> címen.
 
-!!! note ""
+!!! tip ""
     Egyes Linuxos gépeken előfordulhat, hogy a <http://localhost:8000> címen lesz elérhető az alkalmazás, a korábban javasolt port forward parancsot követően.
 
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (`f3.3.png`) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval.
 
-??? tip Ha mégsem zöldülnek ki
+??? tip "Ha mégsem zöldülnek ki"
+
+        1. Egyes Linuxos gépeken nem vállnak alapvetően láthatóvá a minikube-on belül az image-ek. Az ilyen gépeken érdemes a következő parancs előtt az `eval $(minikube docker-env)` parancsot kiadni.
+        Ezt követően ebben a terminál ablakban adjuk ki az image build paracsomat, valamint a k8s apply parancsokat is.
+        
+        2. Ugyanez Windows-os + minikube powershellel:
         Lehet, hogy nem a minikube-ban vannak a docker image-ek. Ekkor PowerShellben a `& minikube -p minikube docker-env --shell powershell | Invoke-Expression` paranccsal tudod elérni, hogy a minikube-ban lévő docker daemont használd.
         Ha ez a parancs `❌  Exiting due to MK_USAGE: the docker-env command only supports the docker and containerd runtimes` errort dobna: Add ki a `minikube delete` parancsot, majd indítsd el a következő módon: `minikube start --driver=docker --container-runtime=docker`
-
 
 ### 3.4 Alkalmazás frissítése Helm charttal
 
