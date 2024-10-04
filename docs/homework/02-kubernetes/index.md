@@ -418,6 +418,11 @@ Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a _kuberne
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (`f3.3.png`) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval.
 
+??? tip Ha mégsem zöldülnek ki
+        Lehet, hogy nem a minikube-ban vannak a docker image-ek. Ekkor PowerShellben a `& minikube -p minikube docker-env --shell powershell | Invoke-Expression` paranccsal tudod elérni, hogy a minikube-ban lévő docker daemont használd.
+        Ha ez a parancs `❌  Exiting due to MK_USAGE: the docker-env command only supports the docker and containerd runtimes` errort dobna: Add ki a `minikube delete` parancsot, majd indítsd el a következő módon: `minikube start --driver=docker --container-runtime=docker`
+
+
 ### 3.4 Alkalmazás frissítése Helm charttal
 
 Tegyük fel, hogy az alkalmazásunkból újabb verzió készül, és szeretnénk frissíteni.
