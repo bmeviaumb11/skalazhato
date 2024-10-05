@@ -1072,9 +1072,11 @@
 <li>Vedd fel a gyökérben lévő neptun.txt-be a NEPTUN azonosítódat.</li>
 <li>Írd át az <em>AppHost</em> projekt <code>Program.cs</code> fájljában a sztringekben található <code>NEPTUN</code> kifejezést a saját neptun kódodra.</li>
 <li>Írd át az <em>Order</em> projektben a <code>Program.cs</code> fájljában a sztringekben található <code>NEPTUN</code> kifejezést a saját neptun kódodra.</li>
-<li><strong>Próbáljuk ki</strong> az alkalmazásokat az <em>AppHost</em> projektet futtatva.</li>
+<li><strong>Próbáljuk ki</strong> az alkalmazásokat az <em>AppHost</em> projektet futtatva.<ol>
 <li>Megjelenik-e a .NET Aspire dashboard?</li>
 <li>Működnek-e a szolgáltatások külön külön a swagger felületükről?</li>
+</ol>
+</li>
 </ol>
 <h2 id="1-feladat-hibaturo-kommunikacio">1. Feladat - Hibatűrő kommunikáció<a class="headerlink" href="#1-feladat-hibaturo-kommunikacio" title="Permanent link">&para;</a></h2>
 <p>A hibatűrő kommunikáció kapcsán tárgyalt tervezési minták nem csak a kommunikáció implementációja során hasznosak, hanem bármilyen olyan komponens hívása során is, ami nem várt tranziens hibajelenséget produkálhat.
@@ -1155,13 +1157,11 @@ A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes
 </li>
 <li>
 <p>Ebbe vegyünk fel egy interfészt <code>IOrderCreatedEvent</code> néven az alábbi tartalommal, ami azt üzenetsorban lévő adatot reprezentálja.</p>
-</li>
-<li>
-<p>Megrendelt termék azonosítója</p>
-</li>
+<ul>
+<li>Megrendelt termék azonosítója</li>
 <li>Megrendelés ideje</li>
-<li>
-<p>Megrendelt mennyiség</p>
+<li>Megrendelt mennyiség</li>
+</ul>
 </li>
 <li>
 <p>Az <em>Order</em> és <em>Catalog</em> szolgáltatásokban vegyük fel a <code>Skalazhato.HF3.Events</code> projekt referenciáját, és implementáljuk az interfészt, új <code>IntegrationEvents</code> mappákban.</p>
@@ -1192,14 +1192,14 @@ A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes
 </li>
 <li>
 <p>Süssük el az eseményt a <code>TestController</code>-ben, egy újonnan létrehozott <code>CreateOrder</code> actionben.</p>
-</li>
-<li>
-<p>Az action-t nem fontos parametrizálni, dolgozhat beégetett értékekkel is.</p>
-</li>
+<ul>
+<li>Az action-t nem fontos parametrizálni, dolgozhat beégetett értékekkel is.</li>
 <li>A küldést a <code>IPublishEndpoint</code> objektum segítségével végezzük el. 
-     MassTransit esetében a <code>Publish</code> süti el a broadcast szerű eseményeket, míg a <code>Send</code> inkább a command típusú üzenetekre van kihegyezve.</li>
+  MassTransit esetében a <code>Publish</code> süti el a broadcast szerű eseményeket, míg a <code>Send</code> inkább a command típusú üzenetekre van kihegyezve.</li>
 <li>Naplózzuk <strong>struktúráltan</strong> az <code>ILogger</code> segítségével infó szinten, hogy melyik terméket rendeltük meg mekkora mennyiségben.</li>
 <li>Az action végén adjunk vissza egy <code>Ok</code> státuszkódot, és egy üzenetet a válaszban, hogy sikeres volt a megrendelés.</li>
+</ul>
+</li>
 </ol>
 <h4 id="fogado-oldal">Fogadó oldal<a class="headerlink" href="#fogado-oldal" title="Permanent link">&para;</a></h4>
 <p>Térjünk át a fogadó oldalra.</p>
@@ -1211,14 +1211,12 @@ A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes
 </li>
 <li>
 <p>Szükségünk lesz egy az eseményt lekezelő osztályra is, aminek a MassTransit-os <code>IConsumer&lt;T&gt;</code> interfészt kell megvalósítania.</p>
-</li>
-<li>
-<p>Vegyünk fel a Catalog projektbe egy <code>IntegrationEventHandlers</code> mappát, majd abba hozzunk létre egy új osztályt <code>OrderCreatedEventHandler</code> néven.</p>
-</li>
+<ul>
+<li>Vegyünk fel a Catalog projektbe egy <code>IntegrationEventHandlers</code> mappát, majd abba hozzunk létre egy új osztályt <code>OrderCreatedEventHandler</code> néven.</li>
 <li>Itt a kapott adatok alapján frissítsük az adatainkat: a mi Móricka példánkban a <code>ProductController</code>-ben lévő statikus listán dolgozunk. 
-     Nem kell most törődni az idempotens megvalósítással, azaz azzal, hogy többszöri üzenetküldés esetén ne legyen dupla módosítás.</li>
-<li>
-<p>Naplózzunk <strong>struktúráltan</strong> az <code>ILogger</code> segítségével infó szinten, hogy melyik termék raktárkészletét csökkentettük, és mennyi lett az új.</p>
+ Nem kell most törődni az idempotens megvalósítással, azaz azzal, hogy többszöri üzenetküldés esetén ne legyen dupla módosítás.</li>
+<li>Naplózzunk <strong>struktúráltan</strong> az <code>ILogger</code> segítségével infó szinten, hogy melyik termék raktárkészletét csökkentettük, és mennyi lett az új.</li>
+</ul>
 </li>
 <li>
 <p>Konfiguráljuk be a <code>Program.cs</code>-ben a MassTransit-ot, hogy RabbitMQ-t használjon, illetve hogy az <code>IOrderCreatedEvent</code> eseményünket melyik <code>IConsumer</code> megvalósítás kezelje le.</p>
@@ -1236,13 +1234,11 @@ A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes
 </li>
 <li>
 <p><strong>Próbáljuk ki!</strong></p>
-</li>
-<li>
-<p>Kérjük le a termékeket</p>
-</li>
+<ul>
+<li>Kérjük le a termékeket</li>
 <li>Süssünk el swaggerből a <code>POST /api/Test/CreateOrder</code> kérést</li>
-<li>
-<p>Nézzük meg, hogy frissült-e a termék raktárkészlete.</p>
+<li>Nézzük meg, hogy frissült-e a termék raktárkészlete.</li>
+</ul>
 <div class="admonition tip">
 <p class="admonition-title">Hibakeresés</p>
 <p>Ha nem frissült, akkor a logokból vagy a rabbitmq menedzsment felületéről lehet nyomozni.</p>
@@ -1282,8 +1278,8 @@ A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes
           </path>
         </svg>
       </span>
-      <span title="2024. október 5. 22:05:06">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-05T22:05:06+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-05</span>
+      <span title="2024. október 5. 22:09:00">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-05T22:09:00+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-05</span>
       </span>
     </span>
 
