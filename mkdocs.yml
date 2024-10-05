@@ -102,6 +102,7 @@ nav:
   - "Gyakorlatok / Laborok":
       - homework/01-docker/index.md      
       - homework/02-kubernetes/index.md
+      - homework/03-communication/index.md
   - "Nagyházi":      
       - homework/pontrendszer.md
       - homework/mslearning.md
