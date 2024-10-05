@@ -33,7 +33,7 @@ A kiinduló projekt egy .NET 8 alapú alkalmazás két mikroszolgáltatást tart
 1. Vedd fel a gyökérben lévő neptun.txt-be a NEPTUN azonosítódat.
 2. Írd át az _AppHost_ projekt `Program.cs` fájljában a sztringekben található `NEPTUN` kifejezést a saját neptun kódodra.
 3. Írd át az _Order_ projektben a `Program.cs` fájljában a sztringekben található `NEPTUN` kifejezést a saját neptun kódodra.
-4. Próbáld ki az alkalmazásokat az _AppHost_ projektet futtatva.
+4. **Próbáljuk ki** az alkalmazásokat az _AppHost_ projektet futtatva.
    1. Megjelenik-e a .NET Aspire dashboard?
    2. Működnek-e a szolgáltatások külön külön a swagger felületükről?
 
@@ -51,22 +51,23 @@ Az egyszerűség kedvéért most a Retry mintát valósítsuk meg.
 Az Order szolgáltatásból hívjuk a Catalog szolgáltatást, hogy lekérjük a termékek listáját.
 A Catalog szolgáltatás azonban (szándékosan) véletlenszerűen 503 HTTP hibakóddal tér vissza.
 Célunk, hogy a hívásokat újrapróbálkozással kezeljük, és a hívó számára transzparens legyen az újrapróbálkozás.
-Próbáljuk ki a jelenlegi működést az Order szolgáltatás swagger oldaláról, és figyeljük meg a hibát, amit a Catalog szolgáltatás ad vissza.
+
+**Próbáljuk ki** a jelenlegi működést az Order szolgáltatás swagger oldaláról, és figyeljük meg a hibát, amit a Catalog szolgáltatás ad vissza.
 
 .NET-ben a HTTP kéréseket a `HttpClient` osztály segítségével végezzük. Az `IHttpClientFactory` segítségével tudjuk konfigurálni a `HttpClient`-ünket, ahol már az alap beállításokon felül hibatűrést megvalósító handlert is konfigurálni tudunk.
 
-Az _Order_ szolgáltatás `Program` osztályában konfiguráljuk be az `HttpClient`-ünket, és adjuk hozzá a retry konfigurációt az alábbi követelmények szerint:
+Az _Order_ szolgáltatás `Program` osztályában konfiguráljuk be az `HttpClient`-ünket a `AddResilienceHandler` függvény segítségével, és adjuk hozzá a retry konfigurációt az alábbi követelmények szerint:
 
 * Az 503-as hibakód esetén próbálkozzon újra
 * Maximum 5-ször próbálkozzon újra
 * Újrapróbálkozás előtt várjon 1 másodpercet
 * Többszöri újrapróbálkozási idő exponenciálisan növekvő időköz legyen
 
-Próbáljuk ki! Tapasztalatunk szerint szinte megszűntek a hibák.
+**Próbáljuk ki!** Tapasztalatunk szerint szinte megszűntek a hibák.
 
 Ez a Policy gyakorlatilag beépül a `HttpClient` Handler Pipeline-jába, így a hívó számára transzparens lesz az újrapróbálkozási logika. Viszont érdemes odafigyelni a `HttpClient` `Timeout`jára is, mert az újrapróbálkozások során így az nem indul újra.
 
-!!! tip "Beépített alapértelmezett konfiguráció"
+??? tip "Beépített alapértelmezett konfiguráció"
     .NET 8 óta kapunk egy akapértelmezett konfigurációt is a leggyakoribb esetekre, amit az `AddStandardResilienceHandler` metódussal tudunk hozzáadni a HttpClientFactory-hoz. Sőt ez már alapértelmezetten az Aspire segédprojektben be is volt regisztrálva, de a mai példában ezt szándékosan nem használtuk, hogy lássuk hogyan kellene ezt kézzel konfigurálni.
 
     ```csharp hl_lines="3-4" title="Skalazhato.HF3.ServiceDefaults/Extensions.cs"
@@ -82,11 +83,11 @@ Ez a Policy gyakorlatilag beépül a `HttpClient` Handler Pipeline-jába, így a
 
     Bővebben: <https://devblogs.microsoft.com/dotnet/building-resilient-cloud-services-with-dotnet-8/>
 
-
 !!! note "Polly általánosan"
     A Polly-t nem csak `HttpClient`-tel lehet használni, hanem tetszőleges kódban: össze lehet rakni egy Policy láncot, és abba beburkolni a kívánt függvényhívást. A Policy-ket akár karbantarthatjuk a DI konténerben is.
 
-Most laboron nem nézünk példát több Policy használatára, de szóba jöhetne még a Timeout, a Circuit breaker, Cache vagy akár a Fallback policy [is](https://github.com/App-vNext/Polly/blob/master/README.md). Az előadás anyagban találtok egy összetettebb szekvencia diagrammot, az ajánlott összetételről.
+Most laboron nem nézünk példát több Policy használatára, de szóba jöhetne még a Timeout, a Circuit breaker, Cache vagy akár a Fallback policy [is](https://github.com/App-vNext/Polly/blob/master/README.md).
+Az előadás anyagban találtok egy összetettebb szekvencia diagrammot, az ajánlott összetételről.
 
 !!! example "BEADANDÓ"
     Készíts egy `f1.png`-t, amiben látszik a .NET Aspire dashboardon a Trace fülön a retry policy hatása a hívásokra. A hívások között legyenek sikeres és sikertelen hívások is, és látszódjon, hogy a sikertelen hívások újrapróbálkozásokkal sikeresekké válnak.
@@ -103,17 +104,16 @@ Az aszinkron kommunikációt RabbitMQ-n keresztül valósítjuk meg, és a MassT
 
 ### RabbitMQ beüzemelése
 
-Az _AppHost_ projektbe fel egy RabbitMQ image alapú konténert. Ehhez az alábbi NuGet csomagot kell felvenni.
+A .NET Aspire segítségével _AppHost_ projektbe vegyünk fel egy RabbitMQ erőforrást.
+
+Ehhez az alábbi NuGet csomagot kell felvenni.
 
 ```xml
 <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="8.2.1" />
 ```
 
 Vegyük fel a RabbitMQ-t az _AppHost_ projektbe, és a függőségeket erre az új erőforrásra.
-Ez a megoldás a RabbitMQ-t egy Docker konténerben fogja futtatni.
-A RabbitMQ-hoz kapunk így egy menedzsment felületet is, amit a `guest` userrel, és egy generált jelszóval tudunk elérni.
-A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes nézeténél.
-
+   
 ```csharp hl_lines="1-2 5 9"
 var messaging = builder.AddRabbitMQ("hf3-NEPTUN-messaging")
     .WithManagementPlugin();
@@ -126,17 +126,24 @@ var order = builder.AddProject<Projects.Skalazhato_HF3_Services_Order>("hf3-NEPT
     .WithReference(messaging);
 ```
 
+Ez a megoldás a RabbitMQ-t egy Docker konténerben fogja futtatni.
+A RabbitMQ-hoz kapunk így egy menedzsment felületet is, amit a `guest` userrel, és egy generált jelszóval tudunk elérni.
+A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes nézeténél.
+
 ### Integrációs esemény
 
-Hozzunk létre egy új .NET 8 Class Library projektet `Skalazhato.HF3.Events` néven, ami lényegében a kommunikáció szerződése lesz.
+Létre kell hozzuk az eseményt reprezentáló üzenetet, ami lényegében a kommunikáció szerződése lesz.
 
-Ebbe vegyünk fel egy interfészt `IOrderCreatedEvent` néven az alábbi tartalommal, ami azt üzenetsorban lévő adatot reprezentálja.
+1. Hozzunk létre egy új .NET 8 Class Library projektet `Skalazhato.HF3.Events` néven.
 
-* Megrendelt termék azonosítója
-* Megrendelés ideje
-* Megrendelt mennyiség
+1. Ebbe vegyünk fel egy interfészt `IOrderCreatedEvent` néven az alábbi tartalommal, ami azt üzenetsorban lévő adatot reprezentálja.
 
-Az _Order_ és _Catalog_ szolgáltatásokban vegyük fel a `Skalazhato.HF3.Events` projekt referenciáját, és implementáljuk az interfészt, új `IntegrationEvents` mappákban.
+   * Megrendelt termék azonosítója
+   * Megrendelés ideje
+   * Megrendelt mennyiség
+
+1. Az _Order_ és _Catalog_ szolgáltatásokban vegyük fel a `Skalazhato.HF3.Events` projekt referenciáját, és implementáljuk az interfészt, új `IntegrationEvents` mappákban.
+
 Semmi bonyolultra nem kell eddig gondolni, ezek csak egyszerű DTO osztályok.
 
 ### MassTransit használata
@@ -146,79 +153,82 @@ Az üzeneteket a MassTransit könyvtár segítségével fogjuk elküldeni és fo
 #### Küldő oldal
 
 Kezdjük a a küldő oldallal.
-Vegyük fel az _Order_ szolgáltatásba a következő NuGet csomagot.
 
-```xml
-<PackageReference Include="MassTransit.RabbitMQ" Version="8.2.5" />
-```
+1. Vegyük fel az _Order_ szolgáltatásba a következő NuGet csomagot.
 
-Konfiguráljuk be a `Program` osztályban a MassTransit-ot, hogy RabbitMQ-t használjon.
+    ```xml
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.5" />
+    ```
 
-```csharp
-builder.Services.AddMassTransit(x =>
-{
-    x.UsingRabbitMq((ctx, config) =>
+2. Konfiguráljuk be a `Program` osztályban a MassTransit-ot, hogy RabbitMQ-t használjon.
+
+    ```csharp
+    builder.Services.AddMassTransit(x =>
     {
-        config.Host(ctx.GetRequiredService<IConfiguration>().GetConnectionString("hf3-NEPTUN-messaging"));
+        x.UsingRabbitMq((ctx, config) =>
+        {
+            config.Host(ctx.GetRequiredService<IConfiguration>()
+                .GetConnectionString("hf3-NEPTUN-messaging"));
+        });
     });
-});
-```
+    ```
 
-Süssük el az eseményt a `TestController`-ben, egy újonnan létrehozott `CreateOrder` actionben.
+3. Süssük el az eseményt a `TestController`-ben, egy újonnan létrehozott `CreateOrder` actionben.
 
-* Az action-t nem fontos parametrizálni, dolgozhat beégetett értékekkel is.
-* A küldést a `IPublishEndpoint` objektum segítségével végezzük el. 
-  MassTransit esetében a `Publish` süti el a broadcast szerű eseményeket, míg a `Send` inkább a command típusú üzenetekre van kihegyezve.
-* Naplózzuk **struktúráltan** az `ILogger` segítségével infó szinten, hogy melyik terméket rendeltük meg mekkora mennyiségben.
-* Az action végén adjunk vissza egy `Ok` státuszkódot, és egy üzenetet a válaszban, hogy sikeres volt a megrendelés.
+   * Az action-t nem fontos parametrizálni, dolgozhat beégetett értékekkel is.
+   * A küldést a `IPublishEndpoint` objektum segítségével végezzük el. 
+     MassTransit esetében a `Publish` süti el a broadcast szerű eseményeket, míg a `Send` inkább a command típusú üzenetekre van kihegyezve.
+   * Naplózzuk **struktúráltan** az `ILogger` segítségével infó szinten, hogy melyik terméket rendeltük meg mekkora mennyiségben.
+   * Az action végén adjunk vissza egy `Ok` státuszkódot, és egy üzenetet a válaszban, hogy sikeres volt a megrendelés.
 
 #### Fogadó oldal
 
 Térjünk át a fogadó oldalra.
 
-A _Catalog_ szolgáltatás projektbe vegyük fel szintén az alábbi NuGet csomagot.
+1. A _Catalog_ szolgáltatás projektbe vegyük fel szintén az alábbi NuGet csomagot.
 
-```xml
-<PackageReference Include="MassTransit.RabbitMQ" Version="8.2.5" />
-```
+    ```xml
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.5" />
+    ```
 
-Szükségünk lesz egy az eseményt lekezelő osztályra is, aminek a MassTransit-os `IConsumer<T>` interfészt kell megvalósítania.
+2. Szükségünk lesz egy az eseményt lekezelő osztályra is, aminek a MassTransit-os `IConsumer<T>` interfészt kell megvalósítania.
 
-* Vegyünk fel a Catalog projektbe egy `IntegrationEventHandlers` mappát, majd abba hozzunk létre egy új osztályt `OrderCreatedEventHandler` néven.
-* Itt a kapott adatok alapján frissítsük az adatainkat: a mi Móricka példánkban a `ProductController`-ben lévő statikus listán dolgozunk. 
-  Nem kell most törődni az idempotens megvalósítással, azaz azzal, hogy többszöri üzenetküldés esetén ne legyen dupla módosítás.
-* Naplózzunk **struktúráltan** az `ILogger` segítségével infó szinten, hogy melyik termék raktárkészletét csökkentettük, és mennyi lett az új.
+   * Vegyünk fel a Catalog projektbe egy `IntegrationEventHandlers` mappát, majd abba hozzunk létre egy új osztályt `OrderCreatedEventHandler` néven.
+   * Itt a kapott adatok alapján frissítsük az adatainkat: a mi Móricka példánkban a `ProductController`-ben lévő statikus listán dolgozunk. 
+     Nem kell most törődni az idempotens megvalósítással, azaz azzal, hogy többszöri üzenetküldés esetén ne legyen dupla módosítás.
+   * Naplózzunk **struktúráltan** az `ILogger` segítségével infó szinten, hogy melyik termék raktárkészletét csökkentettük, és mennyi lett az új.
 
-Konfiguráljuk be a `Program.cs`-ben a MassTransit-ot, hogy RabbitMQ-t használjon, illetve hogy az `IOrderCreatedEvent` eseményünket melyik `IConsumer` megvalósítás kezelje le.
+3. Konfiguráljuk be a `Program.cs`-ben a MassTransit-ot, hogy RabbitMQ-t használjon, illetve hogy az `IOrderCreatedEvent` eseményünket melyik `IConsumer` megvalósítás kezelje le.
 
-```csharp
-builder.Services.AddMassTransit(x =>
-{
-    x.AddConsumer<OrderCreatedEventHandler>();
-    x.UsingRabbitMq((ctx, cfg) =>
+    ```csharp
+    builder.Services.AddMassTransit(x =>
     {
-        cfg.Host(ctx.GetRequiredService<IConfiguration>().GetConnectionString("hf3-NEPTUN-messaging"));
-        cfg.ConfigureEndpoints(ctx);
+        x.AddConsumer<OrderCreatedEventHandler>();
+        x.UsingRabbitMq((ctx, cfg) =>
+        {
+            cfg.Host(ctx.GetRequiredService<IConfiguration>()
+                .GetConnectionString("hf3-NEPTUN-messaging"));
+            cfg.ConfigureEndpoints(ctx);
+        });
     });
-});
-```
+    ```
 
-Próbáljuk ki!
+4. **Próbáljuk ki!**
 
-* Kérjük le a termékeket
-* Süssünk el swaggerből a `POST /api/Test/CreateOrder` kérést
-* Nézzük meg, hogy frissült-e a termék raktárkészlete.
+   * Kérjük le a termékeket
+   * Süssünk el swaggerből a `POST /api/Test/CreateOrder` kérést
+   * Nézzük meg, hogy frissült-e a termék raktárkészlete.
+
+    !!! tip "Hibakeresés"
+        Ha nem frissült, akkor a logokból vagy a rabbitmq menedzsment felületéről lehet nyomozni.
+
+        * Ha azt tapasztaljuk hogy nem tud csatlakozni valamelyik szolgáltatás, akkor ellenőrizzük az Aspire AppHost projektet és a Connection Stringeket.
+        * Ha azt tapasztaljuk, hogy `skipped` üzenetsorba kerülnek az üzenetek, akkor a küldő oldal rendben működött, de valamiért a fogadó oldal nem tudott a megadott üzenettípusra egyszer sem feliratkozni helyesen.
 
 !!! example "BEADANDÓ"
     Készíts egy `f2.png`-t, amiben látszik a .NET Aspire dashboardon a _Structured_ fülön a küldő és fogadó oldali logbejegyzések.
 
-!!! tip "Hibakeresés"
-    Ha nem frissült, akkor a logokból vagy a rabbitmq menedzsment felületéről lehet nyomozni.
-
-    * Ha azt tapasztaljuk hogy nem tud csatlakozni valamelyik szolgáltatás, akkor ellenőrizzük az Aspire AppHost projektet és a Connection Stringeket.
-    * Ha azt tapasztaljuk, hogy `skipped` üzenetsorba kerülnek az üzenetek, akkor a küldő oldal rendben működött, de valamiért a fogadó oldal nem tudott a megadott üzenettípusra egyszer sem feliratkozni helyesen.
-
-!!! note "Kitekintés"
+??? note "Kitekintés"
 
     1. A fenti példában nem törődtünk az idempotens megvalósítással, ez mindig külön tervezést igényel, az üzleti logikánk függvényében, de mindenképpen érdemes a tervezés során figyelni erre.
 
