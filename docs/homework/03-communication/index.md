@@ -34,8 +34,8 @@ A kiinduló projekt egy .NET 8 alapú alkalmazás két mikroszolgáltatást tart
 2. Írd át az _AppHost_ projekt `Program.cs` fájljában a sztringekben található `NEPTUN` kifejezést a saját neptun kódodra.
 3. Írd át az _Order_ projektben a `Program.cs` fájljában a sztringekben található `NEPTUN` kifejezést a saját neptun kódodra.
 4. **Próbáljuk ki** az alkalmazásokat az _AppHost_ projektet futtatva.
-   1. Megjelenik-e a .NET Aspire dashboard?
-   2. Működnek-e a szolgáltatások külön külön a swagger felületükről?
+    1. Megjelenik-e a .NET Aspire dashboard?
+    2. Működnek-e a szolgáltatások külön külön a swagger felületükről?
 
 ## 1. Feladat - Hibatűrő kommunikáció
 
@@ -138,9 +138,9 @@ Létre kell hozzuk az eseményt reprezentáló üzenetet, ami lényegében a kom
 
 1. Ebbe vegyünk fel egy interfészt `IOrderCreatedEvent` néven az alábbi tartalommal, ami azt üzenetsorban lévő adatot reprezentálja.
 
-   * Megrendelt termék azonosítója
-   * Megrendelés ideje
-   * Megrendelt mennyiség
+    * Megrendelt termék azonosítója
+    * Megrendelés ideje
+    * Megrendelt mennyiség
 
 1. Az _Order_ és _Catalog_ szolgáltatásokban vegyük fel a `Skalazhato.HF3.Events` projekt referenciáját, és implementáljuk az interfészt, új `IntegrationEvents` mappákban.
 
@@ -175,11 +175,11 @@ Kezdjük a a küldő oldallal.
 
 3. Süssük el az eseményt a `TestController`-ben, egy újonnan létrehozott `CreateOrder` actionben.
 
-   * Az action-t nem fontos parametrizálni, dolgozhat beégetett értékekkel is.
-   * A küldést a `IPublishEndpoint` objektum segítségével végezzük el. 
-     MassTransit esetében a `Publish` süti el a broadcast szerű eseményeket, míg a `Send` inkább a command típusú üzenetekre van kihegyezve.
-   * Naplózzuk **struktúráltan** az `ILogger` segítségével infó szinten, hogy melyik terméket rendeltük meg mekkora mennyiségben.
-   * Az action végén adjunk vissza egy `Ok` státuszkódot, és egy üzenetet a válaszban, hogy sikeres volt a megrendelés.
+    * Az action-t nem fontos parametrizálni, dolgozhat beégetett értékekkel is.
+    * A küldést a `IPublishEndpoint` objektum segítségével végezzük el. 
+      MassTransit esetében a `Publish` süti el a broadcast szerű eseményeket, míg a `Send` inkább a command típusú üzenetekre van kihegyezve.
+    * Naplózzuk **struktúráltan** az `ILogger` segítségével infó szinten, hogy melyik terméket rendeltük meg mekkora mennyiségben.
+    * Az action végén adjunk vissza egy `Ok` státuszkódot, és egy üzenetet a válaszban, hogy sikeres volt a megrendelés.
 
 #### Fogadó oldal
 
@@ -193,10 +193,10 @@ Térjünk át a fogadó oldalra.
 
 2. Szükségünk lesz egy az eseményt lekezelő osztályra is, aminek a MassTransit-os `IConsumer<T>` interfészt kell megvalósítania.
 
-   * Vegyünk fel a Catalog projektbe egy `IntegrationEventHandlers` mappát, majd abba hozzunk létre egy új osztályt `OrderCreatedEventHandler` néven.
-   * Itt a kapott adatok alapján frissítsük az adatainkat: a mi Móricka példánkban a `ProductController`-ben lévő statikus listán dolgozunk. 
+    * Vegyünk fel a Catalog projektbe egy `IntegrationEventHandlers` mappát, majd abba hozzunk létre egy új osztályt `OrderCreatedEventHandler` néven.
+    * Itt a kapott adatok alapján frissítsük az adatainkat: a mi Móricka példánkban a `ProductController`-ben lévő statikus listán dolgozunk. 
      Nem kell most törődni az idempotens megvalósítással, azaz azzal, hogy többszöri üzenetküldés esetén ne legyen dupla módosítás.
-   * Naplózzunk **struktúráltan** az `ILogger` segítségével infó szinten, hogy melyik termék raktárkészletét csökkentettük, és mennyi lett az új.
+    * Naplózzunk **struktúráltan** az `ILogger` segítségével infó szinten, hogy melyik termék raktárkészletét csökkentettük, és mennyi lett az új.
 
 3. Konfiguráljuk be a `Program.cs`-ben a MassTransit-ot, hogy RabbitMQ-t használjon, illetve hogy az `IOrderCreatedEvent` eseményünket melyik `IConsumer` megvalósítás kezelje le.
 
@@ -215,9 +215,9 @@ Térjünk át a fogadó oldalra.
 
 4. **Próbáljuk ki!**
 
-   * Kérjük le a termékeket
-   * Süssünk el swaggerből a `POST /api/Test/CreateOrder` kérést
-   * Nézzük meg, hogy frissült-e a termék raktárkészlete.
+    * Kérjük le a termékeket
+    * Süssünk el swaggerből a `POST /api/Test/CreateOrder` kérést
+    * Nézzük meg, hogy frissült-e a termék raktárkészlete.
 
     !!! tip "Hibakeresés"
         Ha nem frissült, akkor a logokból vagy a rabbitmq menedzsment felületéről lehet nyomozni.
