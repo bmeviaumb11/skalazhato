@@ -198,7 +198,7 @@ Térjünk át a fogadó oldalra.
      Nem kell most törődni az idempotens megvalósítással, azaz azzal, hogy többszöri üzenetküldés esetén ne legyen dupla módosítás.
     * Naplózzunk **struktúráltan** az `ILogger` segítségével infó szinten, hogy melyik termék raktárkészletét csökkentettük, és mennyi lett az új.
 
-3. Konfiguráljuk be a `Program.cs`-ben a MassTransit-ot, hogy RabbitMQ-t használjon, illetve hogy az `IOrderCreatedEvent` eseményünket melyik `IConsumer` megvalósítás kezelje le.
+3. Konfiguráljuk be a `Program.cs`-ben a MassTransit-ot, hogy RabbitMQ-t használjon, és az `IOrderCreatedEvent` eseményünket melyik `IConsumer` megvalósítás kezelje le, illetve a figyelendő végpontokat is konfiguráljuk be alapértelmezett módon.
 
     ```csharp
     builder.Services.AddMassTransit(x =>
