@@ -1219,7 +1219,7 @@ A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes
 </ul>
 </li>
 <li>
-<p>Konfiguráljuk be a <code>Program.cs</code>-ben a MassTransit-ot, hogy RabbitMQ-t használjon, illetve hogy az <code>IOrderCreatedEvent</code> eseményünket melyik <code>IConsumer</code> megvalósítás kezelje le.</p>
+<p>Konfiguráljuk be a <code>Program.cs</code>-ben a MassTransit-ot, hogy RabbitMQ-t használjon, és az <code>IOrderCreatedEvent</code> eseményünket melyik <code>IConsumer</code> megvalósítás kezelje le, illetve a figyelendő végpontokat is konfiguráljuk be alapértelmezett módon.</p>
 <div class="highlight"><pre><span></span><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddMassTransit</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="n">x</span><span class="p">.</span><span class="n">AddConsumer</span><span class="o">&lt;</span><span class="n">OrderCreatedEventHandler</span><span class="o">&gt;</span><span class="p">();</span>
@@ -1278,8 +1278,8 @@ A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes
           </path>
         </svg>
       </span>
-      <span title="2024. október 5. 22:09:00">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-05T22:09:00+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-05</span>
+      <span title="2024. október 5. 22:14:28">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-05T22:14:28+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-05</span>
       </span>
     </span>
 
