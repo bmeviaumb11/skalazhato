@@ -1212,7 +1212,7 @@ A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes
 </code></pre></div>
 </li>
 <li>
-<p>Szükségünk lesz egy az eseményt lekezelő osztályra is, aminek a MassTransit-os <code>IConsumer&lt;T&gt;</code> interfészt kell megvalósítania.</p>
+<p>Szükségünk lesz egy az eseményt lekezelő osztályra is, aminek a MassTransit-os <code>IConsumer&lt;IOrderCreatedEvent&gt;</code> interfészt kell megvalósítania.</p>
 <ul>
 <li>Vegyünk fel a Catalog projektbe egy <code>IntegrationEventHandlers</code> mappát, majd abba hozzunk létre egy új osztályt <code>OrderCreatedEventHandler</code> néven.</li>
 <li>Itt a kapott adatok alapján frissítsük az adatainkat: a mi Móricka példánkban a <code>ProductController</code>-ben lévő statikus listán dolgozunk. 
@@ -1280,8 +1280,8 @@ A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes
           </path>
         </svg>
       </span>
-      <span title="2024. október 7. 17:05:38">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-07T17:05:38+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-07</span>
+      <span title="2024. október 7. 19:17:11">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-07T19:17:11+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-07</span>
       </span>
     </span>
 
