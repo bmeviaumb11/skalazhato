@@ -1043,9 +1043,11 @@
 </ul>
 </li>
 <li>Docker Desktop</li>
+<li><a href="https://dotnet.microsoft.com/en-us/download/dotnet/8.0">.NET SDK</a> (legalább v8.0.402)</li>
 <li>Visual Studio 2022<ul>
 <li>kidolgozva: v17.11.4</li>
 <li>ASP.NET and web development workload</li>
+<li>alternatívaként jó lehet a Rider is, az Aspire pluginnel</li>
 </ul>
 </li>
 <li>Házi repóban található kiinduló projekt</li>
@@ -1191,11 +1193,11 @@ A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes
 </code></pre></div>
 </li>
 <li>
-<p>Süssük el az eseményt a <code>TestController</code>-ben, egy újonnan létrehozott <code>CreateOrder</code> actionben.</p>
+<p>Süssük el az eseményt a <code>TestController</code>-ben, egy újonnan létrehozott, HTTP POST-tal hívható <code>CreateOrder</code> actionben.</p>
 <ul>
 <li>Az action-t nem fontos parametrizálni, dolgozhat beégetett értékekkel is.</li>
 <li>A küldést a <code>IPublishEndpoint</code> objektum segítségével végezzük el. 
-  MassTransit esetében a <code>Publish</code> süti el a broadcast szerű eseményeket, míg a <code>Send</code> inkább a command típusú üzenetekre van kihegyezve.</li>
+  MassTransit esetében a <code>Publish</code> süti el a broadcast szerű eseményeket, míg a <code>Send</code> inkább a command típusú üzenetekre van kihegyezve. A <code>Publish</code>-nak explicit adjuk meg típusparaméterként az <code>IOrderCreatedEvent</code> interfészt.</li>
 <li>Naplózzuk <strong>struktúráltan</strong> az <code>ILogger</code> segítségével infó szinten, hogy melyik terméket rendeltük meg mekkora mennyiségben.</li>
 <li>Az action végén adjunk vissza egy <code>Ok</code> státuszkódot, és egy üzenetet a válaszban, hogy sikeres volt a megrendelés.</li>
 </ul>
@@ -1278,8 +1280,8 @@ A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes
           </path>
         </svg>
       </span>
-      <span title="2024. október 5. 22:14:28">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-05T22:14:28+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-05</span>
+      <span title="2024. október 7. 17:05:38">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-07T17:05:38+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-07</span>
       </span>
     </span>
 
