@@ -144,7 +144,7 @@ Létre kell hozzuk az eseményt reprezentáló üzenetet, ami lényegében a kom
     * Megrendelés ideje
     * Megrendelt mennyiség
 
-1. Az _Order_ és _Catalog_ szolgáltatásokban vegyük fel a `Skalazhato.HF3.Events` projekt referenciáját, és implementáljuk az interfészt, új `IntegrationEvents` mappákban.
+1. Az _Order_ és _Catalog_ szolgáltatásokban vegyük fel a `Skalazhato.HF3.Events` projekt referenciáját, és implementáljuk az interfészt az _Order_ szolgáltatásban, egy új `IntegrationEvents` mappában.
 
 Semmi bonyolultra nem kell eddig gondolni, ezek csak egyszerű DTO osztályok.
 
