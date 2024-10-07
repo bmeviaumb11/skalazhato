@@ -193,7 +193,7 @@ Térjünk át a fogadó oldalra.
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.5" />
     ```
 
-2. Szükségünk lesz egy az eseményt lekezelő osztályra is, aminek a MassTransit-os `IConsumer<T>` interfészt kell megvalósítania.
+2. Szükségünk lesz egy az eseményt lekezelő osztályra is, aminek a MassTransit-os `IConsumer<IOrderCreatedEvent>` interfészt kell megvalósítania.
 
     * Vegyünk fel a Catalog projektbe egy `IntegrationEventHandlers` mappát, majd abba hozzunk létre egy új osztályt `OrderCreatedEventHandler` néven.
     * Itt a kapott adatok alapján frissítsük az adatainkat: a mi Móricka példánkban a `ProductController`-ben lévő statikus listán dolgozunk. 
