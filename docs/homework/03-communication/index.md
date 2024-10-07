@@ -9,9 +9,11 @@ A házi feladat célja az elosztott alkalmazások fejlesztése során felmerül�
 * REST webszolgáltatások készítésének ismerete .NET platformon
     * A házi külön nem tér ki a REST szerű webszolgáltatások készítésének módszereire, arra a BSc szakirányos képzés [Adatvezérelt rendszerek](https://bmeviauac01.github.io/datadriven/hu/) és a [Szoftverfejlesztés .NET platformra](https://bmeviauav23.github.io/aspnetcorebook/) című választható tárgy anyagai az ajánlott irodalom.
 * Docker Desktop
+* [.NET SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (legalább v8.0.402)
 * Visual Studio 2022
     * kidolgozva: v17.11.4
     * ASP.NET and web development workload
+    * alternatívaként jó lehet a Rider is, az Aspire pluginnel
 * Házi repóban található kiinduló projekt
 
 ## Kiinduló projekt
@@ -173,11 +175,11 @@ Kezdjük a a küldő oldallal.
     });
     ```
 
-3. Süssük el az eseményt a `TestController`-ben, egy újonnan létrehozott `CreateOrder` actionben.
+3. Süssük el az eseményt a `TestController`-ben, egy újonnan létrehozott, HTTP POST-tal hívható `CreateOrder` actionben.
 
     * Az action-t nem fontos parametrizálni, dolgozhat beégetett értékekkel is.
     * A küldést a `IPublishEndpoint` objektum segítségével végezzük el. 
-      MassTransit esetében a `Publish` süti el a broadcast szerű eseményeket, míg a `Send` inkább a command típusú üzenetekre van kihegyezve.
+      MassTransit esetében a `Publish` süti el a broadcast szerű eseményeket, míg a `Send` inkább a command típusú üzenetekre van kihegyezve. A `Publish`-nak explicit adjuk meg típusparaméterként az `IOrderCreatedEvent` interfészt.
     * Naplózzuk **struktúráltan** az `ILogger` segítségével infó szinten, hogy melyik terméket rendeltük meg mekkora mennyiségben.
     * Az action végén adjunk vissza egy `Ok` státuszkódot, és egy üzenetet a válaszban, hogy sikeres volt a megrendelés.
 
