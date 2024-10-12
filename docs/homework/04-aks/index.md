@@ -2,17 +2,17 @@
 
 ## Cél
 
-A labor célja:
+A labor célja megismerni:
 
-- megismerni az AKS szolgáltatást és a legfontosabb kapcsolódó szolgáltatásokat (ACR) 
-- egy alkalmazás telepítése AKS klaszterbe és a frissítés módjának megismerése
-    - A telepítéshez és frissítéshez Helm chartot használunk
+- az AKS szolgáltatást és a legfontosabb kapcsolódó szolgáltatásokat (ACR) 
+- az AKS alkalmazások telepítésének különböző módszereit
+- az AKS legalapvetőbb megfigyelési funkcióit 
 
 ## Előkövetelmények
 
-A laborleírás cross-platform eszközöket használ.
+A laborleírás cross-platform eszközöket használ. A labor linuxon (kubuntu) lett kidolgozva.
 
-- Korábbi laborok infrastruktúrájából: `docker`, `docker compose`
+- Korábbi laborok infrastruktúrájából: `docker`, `docker compose`, `kuibectl`
 - Azure [hallgatói előfizetés](https://azure.microsoft.com/en-us/free/students)
 - Azure [kubelogin és kubectl](https://azure.github.io/kubelogin/install.html)
     - felülírhatja a korábban telepített `kubectl` binárist 
@@ -24,6 +24,9 @@ A laborleírás cross-platform eszközöket használ.
 ## Előkészület
 
 A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamatát [GitHub](../../information/GitHub.md).
+
+!!! danger "PR név"
+    :exclamation: Beadásnál a pull request neve legyen: *hf4* :exclamation:
 
 ### Git repository létrehozása és letöltése
 
@@ -108,7 +111,7 @@ Azure CLI-vel (`az acr login`) [regisztráljuk is az ACR-t a docker környezetü
 
 A hivatalos útmutató [második része](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-acr?tabs=azure-cli) az ACR build szolgáltatását használja, amivel könnyen lehet a fejlesztői gép erőforrásait kímélve lehetne a lemezképeket megépíteni. Az építéshez szükséges kontextust (forráskód, YAML) tölti csak fel, a kiinduló lemezkép és az építési folyamat is az ACR-en belül történik. Sajnos ez a szolgáltatás [jelenleg csak fizetős Azure előfizetésekben érhető el](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-tasks-overview), hallgatóiban nem. Szerencsére az első feladatrész során a lemezképek elkészültek, így [azokat feltölthetjük](https://docs.docker.com/get-started/docker-concepts/building-images/build-tag-and-publish-an-image/).
 
-1. Tag-eljük meg az alábbi három *aks-store-demo* lemezképet. Az $ACRNAME helyére helyettesítsük be az ACR-ünk nevét (acr+neptun kód).
+1. Tag-eljük meg az alábbi három *aks-store-demo* lemezképet. Az $ACRNAME helyére helyettesítsük be az ACR-ünk nevét (*acr+neptun kód*).
 
     ```bash
     docker tag aks-store-demo-product-service $ACRNAME.azurecr.io/azure-samples/aks-store-demo/product-service
@@ -123,6 +126,9 @@ A hivatalos útmutató [második része](https://learn.microsoft.com/en-us/azure
     docker push $ACRNAME.azurecr.io/azure-samples/aks-store-demo/order-service
     docker push $ACRNAME.azurecr.io/azure-samples/aks-store-demo/product-service
     ```
+   
+!!! tip "ACR által használt tárhely"
+    Az ACR Azure portálos oldalán belül a *Metrics* menüpontban a *Storage used* nevű [metrikát](https://learn.microsoft.com/en-us/azure/container-registry/monitor-container-registry-reference#supported-metrics-for-microsoftcontainerregistryregistries) kiválasztva ellenőrizhetjük az ACR által használt tárhelyet, illetve annak időbeli változását. Másik lehetőség az *Overview* menüponton belül a *Monitoring* alfül.
 
 ### AKS létrehozása, méretezése
 
@@ -135,6 +141,8 @@ A hivatalos útmutató [harmadik része](https://learn.microsoft.com/en-us/azure
 - Authentication and Authorization: Microsoft Entra ID authentication with Azure RBAC
 
 A *Node Pool* fülön kell méreteznünk a klasztert. Ez hallgatói előfizetés esetén nem egyszerű, mert csak bizonyos virtuális gép típusok érhetőek el, azok is csak kis számban. Ráadásul a kínálat időben és régiók mentén folyamatosan változik. Az aktuális kínálat az [Azure portálon](https://learn.microsoft.com/en-us/azure/quotas/view-quotas) követhető.
+
+Ugyanezen a fülön jelöljük be: *Enable virtual nodes*.
 
 !!! warning "Kvóta növelése - elméletben"
     Számos kvóta elvileg a portálon keresztül is [növelhető](https://learn.microsoft.com/en-us/azure/quotas/per-vm-quota-requests), de ez hallgatói előfizetés esetében általában nem működik.
@@ -157,340 +165,143 @@ A VM kiméret választás után a *Node Pool* fülre visszatérve az Azure ellen
 !!! danger "Free AKS korlátozás"
     A legnagyobb terhelésnek kitett Azure régiókban (pl. *West Europe*) előfordulhat, hogy korlátozzák az ingyenes (csak a neve ingyenes!) csomagú AKS-ek létrehozását.
 
-## 2 Feladat
+Az *Integrations* fülön válasszuk ki az ACR-ünket.
 
-### 2.1 Deployment létrehozása
+A többi fülön hagyjuk meg az alapértelmezett értékeket. 
 
-A podokat nem szoktuk közvetlenül létrehozni, hanem _Deployment_-re és _ReplicaSet_-re szoktunk bízni a kezelésüket és létrehozásukat.
+1. Indítsuk el alétrehozási folyamatot.  
 
-1. Hozzunk létre egy új YAML fájlt `createdeployment.yml` néven az alábbi követelményeknek megfelelően:
+2. A létrehozás végeztével (10-15 perc is lehet!) [fedezzük fel a klaszter logikai szerkezetét az Azure portálon keresztül](https://learn.microsoft.com/en-us/azure/aks/kubernetes-portal?tabs=azure-cli#view-kubernetes-resources). 
 
-    - a kubernetes leíró Deployment-et definiál
-    - a deployment neve legyen `counter-neptun` a **saját neptunkóddal** kiegészítve
-    - a deployment egy olyan konténert definiáljon, mint az 1. feladatban
-    - 1 replika legyen az elvárt állapot
-    - a selectorok használata során `counter-app-neptun` címkét használjuk a **saját neptunkóddal** kiegészítve
+3. Ellenőrizzük, hogy tudunk-e csatlakozni a kubectl eszközünkkel. Erre a legkényelmesebb mód, ha az AKS-ünk Azure Portal oldalának *Overview* menüpontját megnyitva, a vízszintes menüben a *Connect* gombot megnyomva, [az előre elkészített parancsokat használjuk](https://learn.microsoft.com/en-us/azure/aks/kubernetes-portal?tabs=azure-cli#connect-to-your-cluster). Futtassunk le egy-két lekérdező `kubectl` parancsot.
 
-2. Hozzuk létre a Deployment-et:
+4. Kukkantsuk meg a klasztert alkotó Azure infrastruktúraszolgáltatásokat: a *Properties* menüpontban az *Infrastructure resource group* linkre kattintva átugorhatunk az ezen szolgáltatásokat összefogó erőforráscsoportba.
 
-    ```cmd
-    kubectl apply -f createdeployment.yml
-    ```
+### Mintaalkalmazás telepítése
 
-3. Listázzuk a Deployment-eket, ReplicaSet-eket és a podokat:
-
-    ```cmd
-    kubectl get deployment
-    kubectl get replicaset
-    kubectl get pod
-    ```
-
-    Vegyük észre, hogy a pod neve generált, a _Deployment_ és a _ReplicaSet_ alapján kap automatikusan egyet.
+A hivatalos útmutató [negyedik része](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-application?tabs=azure-cli) alapján telepítsük a mintaalkalmazást. Az ACR login szerver és a K8S service külső IP címe is megszerezhető az Azure portálról. Az útmutató rész végére érve ne töröljük a telepítést.
 
 !!! example "BEADANDÓ"
-    Készíts egy képernyőképet (`f2.1.png`) és commitold azt be a házi feladat repó gyökerébe, amin a futó deployment, replicaset és pod neve látszik.
-    Commitold be a forráskódot is.
+    Készíts egy képernyőképet (`f1.png`) és commitold azt be a házi feladat repó gyökerébe, amin látszik:
 
-### 2.2 Deployment frissítése
+    - a futó alkalmazás böngészőben, böngésző címsorban az alkalmazás (IP) címével
+    - parancssorban a kapcsolódó k8s *service* adatai (`kubectl get service store-front`)
+    - parancssorban az alkalmazás k8s *deployment* erőforrásai a lemezképek azonosítóival együtt (`kubectl get deployment -o wide`). 
 
-A _Deployment_ szolgál az alkalmazás verziónak frissítésére, kiadására.
+## 2. Feladat
 
-Változtassuk meg a program futását a deployment leíróján keresztül: ne 5, hanem 10 másodpercenként írjuk ki az időt.
-Ezt a _Deployment_ módosításával érhetjük el, mivel podot nem tudunk szerkeszteni hatékonyan, egy futó pod nem cserélhető le.
-Ehelyett valójában egy új podot kell létrehozni indirekt módon a deployment frissítésével.
+A k8s házi *todoapp*-ját is telepítsük ugyanebbe az AKS-be, egy külön [kubernetes névtérbe](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/).
 
-Érvényesítsd a módosítást a deployment leíróban, majd alkalmazd a változást:
+### 2.1 Névtér létrehozása
 
-```cmd
-kubectl apply -f createdeployment.yml
+Ez egyszerű:
+
+```bash
+kubectl create namespace todoapp
 ```
 
-Kérjük le a logokat a deployment podjából:
+### 2.2 Traefik - telepítés külső helm chart forrásból
 
-```cmd
-kubectl logs -f <podnév>
+Itt most kiengedjük a traefik-et a publikus internetre, LoadBalancer objektumot hozunk létre NodePort helyett, de mivel ez az [alapbeállítás](https://github.com/traefik/traefik-helm-chart/blob/b8725498c2445da8ecc06f156ca69ddc1a56cce4/traefik/values.yaml#L728), így nem kell szinte semmi ilyesmit állítgatni. Csak az IngressRoute-ot kell [létrehozatni](https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md#access-traefik-dashboard-without-exposing-it).
+
+```bash
+ helm install traefik traefik/traefik --namespace todoapp --set ingressRoute.dashboard.enabled=true
 ```
+
+Ezután már lehet port-átirányítani.
+
+```bash
+kubectl port-forward $(kubectl get pods -n todoapp -l "app.kubernetes.io/name=traefik" -o jsonpath="{.items[0].metadata.name}") 9000:9000 -n todoapp
+```
+
+Ezután a http://localhost:9000/dashboard/ címen érhető el a traefik dashboard (amíg a `port-forward` parancs fut).
+
+### 2.3 Adatbázisok - telepítés k8s YAML fájlokkal
+
+Próbáljuk ki egy-az-egyben a k8s házi módszerét. Töltsük le valahová az adatbázisok [k8s YAML fájljait tartalmazó mappát](https://github.com/bmeviaumb11/skalazhato-szoftverek-bmeviaumb11-2024-hf-2024-kubernetes-hf-kiindulo-kubernetes-1/tree/main/todoapp/kubernetes/db) (vagy navigáljunk a k8s házink könyvtárába). A `db` mappa szülőkönyvtárban állva:
+
+```bash
+kubectl apply -f db -n todoapp
+```
+
+Meglepő lehet, de ez szinte teljesen jól működik: nincs megadva storage class, így az AKS alapértelmezett storage class-a érvényesül, ami standard SSD lemezeket hoz létre, és ezek csatolódnak fel. Ezen lemezek élettartama az AKS élettartamához kötött (de nem a K8S objektumok élettartamához!), így az AKS törlésével ezek is törlődnek. 
+
+!!! tip "AKS/K8S storage class-ok"
+    Így kérdezhetjük le őket: `kubectl get sc`. Az alapértelmezett storage class tulajdonságai: `kubectl describe sc default`. Látható, hogy a létrehozó (provisioner) `disk.csi.azure.com`, aminek paraméterként a `skuname=StandardSSD_LRS` beállítást kapja meg, tehát nem meglepő, hogy [Azure Disk Standard SSD](https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types#disk-type-comparison) jön létre.
+
+!!! tip "Diszkek, mint Azure erőforrások"
+    A lemezeket, mint Azure erőforrás is megfigyelhetjük, ha újra rákukkantunk az infrastruktúraszolgáltatásos erőforráscsoportra: két új 2 GiB méretű Standard SSD diszk is létrejött. Mivel a provisioner (az AKS platform) kezeli ezeket a lemezeket, ezért logikus, hogy ide kerülnek.
+
+Pár perc elteltével, ha ránézünk pod listára (megfelelő `kubectl` paranccsal vagy [Azure portal Workloads menüpontban](https://learn.microsoft.com/en-us/azure/aks/kubernetes-portal?tabs=azure-cli#view-kubernetes-resources)) láthatjuk, hogy gond van az elasticsearch poddal, folyamatosan újraindul.
+
+Kérdezzük le a pod logját: ezt is megtehetjük `kubectl` paranccsal vagy [Azure portálon](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-livedata-overview#view-aks-resource-live-logs). Az elasticsearch folyamat nem tud dolgozni a csatolt köteten (volume) jogosultsági gondok miatt. Az elasticsearch folyamat saját [*elasticsearch* linux felhasználó nevében fut](https://github.com/elastic/elasticsearch/blob/v7.17.17/distribution/docker/src/docker/Dockerfile#L164), az AKS viszont nem tud erről a felhasználóról, így a kötethez alapértelmezetten nem lesz joga. Oldjuk meg a problémát egy új init konténerrel, vegyünk fel egy újat a meglévők mellé a *elasticsearch-statefulset.yaml*-be, ami root felhasználó nevében futva a kötet tulajdonosává teszi az *elasticsearch* felhasználót (uid:1000, gid:1000).
+
+```yaml
+- name: init-permissions
+  image: alpine
+  command: [ "sh", "-c", "chown -R 1000:1000 /usr/share/elasticsearch/data" ]
+  volumeMounts:
+  - name: elasticsearch-data
+    mountPath: /usr/share/elasticsearch/data      
+```
+
+Mehet egy újabb próba a korábbi `kubectl apply` paranccsal. Egyértelműbb a változtatás alkalmazása, ha ki is töröljük az elasticsearch pod-ot. Ezt is megtehetjük Azure portálról és `kubectl` paranccsal is. Ezután már nem szabad folyamatos újraindulást tapasztalunk a podok között.
+
+!!! tip "ECK"
+    Elasticsearch telepítésére egy modernebb módszer az *Elastic Cloud on Kubernetes* disztribúció, például [helm chartként](https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-install-helm.html).
+
+### 2.4 Saját mikroszolgáltatások - telepítés nem annyira külső helm chart forrásból
+
+A tárgy [közös ACR-jába](https://portal.azure.com/#@m365.bme.hu/resource/subscriptions/b83ae5ef-4ef6-4ccb-bb4b-e9f187873feb/resourceGroups/infra/providers/Microsoft.ContainerRegistry/registries/viaumb11acr/overview) felkerültek a k8s házi mikroszolgáltatásai helm chartként, illetve a hivatkozott konténerek is. Elvileg minden Teams csapattag kapott ehhez hozzáférést, letöltéshez [`AcrPull` jogot](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-roles?tabs=azure-cli).
+
+!!! tip "Saját jog ellenőrzése"
+    Ellenőrizheted a hozzáférésed ehhez vagy bármilyen más Azure erőforráshoz az [Azure portálon](https://learn.microsoft.com/en-us/azure/role-based-access-control/check-access#step-3-check-your-access).
+
+Megfelelő jogok birtokában közvetlenül, saját gép érintése nélkül [másolhatunk](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-import-images?tabs=azure-cli#import-from-a-registry-in-a-different-subscription) lemezképeket, helm chartokat ACR-ek között. Az alábbi példa alapján másold át a 3 szükséges lemezképet (*todos*, *users*, *web*; mindegyikből a v2 tag). A helm chartot nem szükséges másolni: azt a fejlesztői gépünknek kell elérni, a lemezképeket viszont az AKS-nek, ami csak a saját ACR-ünket látja csak, a közös tárgy ACR-t nem.
+
+```bash
+az acr import --name $ACRNAME --source todos:v2 --registry /subscriptions/b83ae5ef-4ef6-4ccb-bb4b-e9f187873feb/resourceGroups/infra/providers/Microsoft.ContainerRegistry/registries/viaumb11acr
+```
+
+!!! tip "ACR repo felfedezése"
+    Az elérhető lemezképeket, helm chartokat is felfedezheted [a portálon](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-repositories).
+
+!!! tip "Alternatíva - helm publikálás ACR-be"
+    A saját k8s házid megoldásának mikroszolgáltatásait is publikálhatod a saját ACR-edbe. Ehhez a `IMAGE_TAG="v2" REGISTRY_URL="$ACRNAME.azurecr.io"  docker compose build --push` parancsot használhatod.
+
+Csatlakoztassuk a központi ACR-t helm repo-ként. Az alábbi egy *bash*-specifikus példa:
+
+```bash title="bash"
+az acr login --name viaumb11acr --expose-token --output tsv --query accessToken | \
+  helm registry login viaumb11acr.azurecr.io --username "00000000-0000-0000-0000-000000000000" --password-stdin
+```
+
+Kérdezzük le a helm chart beállításait.
+
+```bash
+helm show values oci://viaumb11acr.azurecr.io/helm/todoapp
+```
+
+A k8s házihoz képest új beállítás került be, az **image.registry**, amivel a lemezképek registry azonosítóit állíthatjuk. Ezt kell a saját ACR-ünkre állítani, amit az AKS-ünk elér. A tag beállítások már korábban megvoltak, azoknak egyezniük kell az átmásolt képek tagjeivel.
+
+```bash
+helm install todoapp oci://viaumb11acr.azurecr.io/helm/todoapp --version 0.1.0 --namespace todoapp --set image.registry=$ACRNAME.azurecr.io --set todos.tag=v2 --set web.tag=v2 --set users.tag=v2
+```
+
+!!! tip "Lemezkép letöltés ellenpróba"
+    Opcionálisan próbáld ki, mi történik, ha a registry-t nem állítod be. Telepített verzió leszedése: `helm uninstall todoapp --namespace todoapp`.
+
+Jöhet a fő próba: az Azure portálról vagy parancssorból (`kubectl`) szerezzük meg a traefik service külső IP-jét és nyissuk meg böngészőből (https helyett sima http-n). Vegyünk fel pár feladatot.
+
+!!! tip "Kitekintés - külső források"
+    Nagyvállalati környezetben a külső források elérése gyakran tiltott (pl. tűzfalszabályokkal), ezen források biztonsági és egyéb szempontok miatt  alapértelmezetten megbízhatatlannak számítanak. A docker alapértelmezett forrása, a Docker Hub például  korlátozásokat (rate limiting) [vezetett be](https://medium.com/@alaa.barqawi/docker-rate-limit-with-azure-container-instance-and-aks-4449cede66dd) az AKS-es letöltésekre is. Mindezek miatt a nagyvállalti klaszterek csak belső céges repository-kat használhatnak, amiket egy dedikált csapat kezel: megfelelő ellenőrzés után emelnek be külső vagy belső fejlesztésű elemeket (artifaktokat). Emiatt fontos, hogy minden telepítési egység (pl. helm chart) paraméterezhető legyen a függőségeinek elérhetősége kapcsán.
+
 
 !!! example "BEADANDÓ"
-    Készíts egy képernyőképet (`f2.2.png`) és commitold azt be a házi feladat repó gyökerébe, ahol a logokban már 10 másodpercenként történik a kiíratás.
+    Készíts egy képernyőképet (`f2.1.png`) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval. Látszódjon a weboldal címe is.
 
-??? tip "Kubectl parancsok"
-
-    A `kubectl` leggyakrabban használt parancsainak szerkezete: `kubectl <ige> <erőforrás> <attribútumok>`.
-
-    Az ige például:
-
-    - `get`: listázza az erőforrásokat
-    - `create`: létrehoz egy erőforrást
-    - `delete`: töröl egy erőforrást
-    - `describe`: lekérdezi az erőforrás részletes állapotát
-    - `edit`: letölti az erőforrás leíróját, és megnyitja szövegszerkesztőben; mentés és bezárás után frissíti a klaszterben az erőforrást a módosítások alapján
-
-    Az erőforrások a `pod`, `replicaset` vagy röviden `rs`, a `deployment`, stb.
-
-    A parancsokról `-h` kapcsolóval kaphatunk segítséget, pl. `kubectl describe -h`
-
-## 3. Feladat
-
-### Célok
-
-A célunk a kiinduló repóban lévő, todo-kat kezelő konténeralapú, külön álló (mikro)szolgáltatásokra épülő webalkalmazás telepítése Kubernetes-be.
-A rendszerünk alapvetően három fajta komponensből épül fel:
-
-- az általunk megvalósított mikroszolgáltatások (backendek és frontend),
-- az adatbázis rendszerek (MongoDB, Elasticsearch és Redis),
-- valamint az api gateway.
-
-![TODO App architektúra](images/todo-k8s.drawio.png)
-
-Célunk nem csak az egyszeri telepítés, hanem az alkalmazás naprakészen tartásához a folyamatos frissítés lehetőségének megteremtése.
-A fenti komponensek azonban nem ugyanolyan frissítési ciklussal rendelkeznek: a saját komponenseink gyakran fognak változni, míg az adatbázisok és az api gateway ritkán frissül.
-A telepítést ennek megfelelően most ketté vágjuk:
-
-1. Az api gateway-t és az adatbázisokat egyszer telepítjük manuálisan.
-2. Az alkalmazásunk saját komponenseihez YAML alapú leírókat készítünk, amit `kubectl apply` segítségével fogunk telepíteni, illetve ezeket a leírókat Helm-mel fogjuk kezelni.
-
-### 3.0 Helm
-
-Ellenőrizzük, hogy a `helm` CLI elérhető-e:
-
-```cmd
-helm version
-```
-
-!!! warning "Helm 3"
-    A feladat során a Helm 3-as verzióját fogjuk használni. A korábbi verziója koncepcióban azonos, de működésében eltérő.
-
-### 3.1 Ingress Controller (api gateway) telepítése Helm charttal
-
-A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogjuk telepíteni, mert a Traefik helyes működéséhez a Traefik konténer (Deployment) mellett egyéb elemekre is szükség lesz (klaszteren belüli hozzáférés szabályzás miatt).
-
-!!! warning "Chart-ok ellenőrzése"
-    A Helm chartok nagy része harmadik féltől származik, így a klaszterünbe való telepítés előtt a tartalmukat érdemes alaposan megnézni.
-
-1. A Helm is repository-kkal dolgozik, ahonnan a chart-okat letölti. Ezeket regisztrálni kell. Regisztráljuk a Traefik hivatalos chart-ját tartalmazó repository-t, majd frissítsük az elérhető char-okat:
-
-    ```cmd
-    helm repo add traefik https://traefik.github.io/charts
-    helm repo update
-    ```
-
-1. Telepítsük:
-
-    ```cmd
-    helm install traefik traefik/traefik --set ports.web.nodePort=32080 --set service.type=NodePort --set "additionalArguments={--api.insecure=true}"
-    ```
-
-     - A legelső `traefik` a Helm release nevét adja meg. Ezzel tudunk rá hivatkozni a jövőben.
-     - A `traefik/traefik` azonosítja a telepítendő chartot (repository/chartnév).
-     - A `--set` kapcsolóval a chart változóit állítjuk be.
-
-    !!! info "Publikus eléréshez"
-        A Traefik jelen konfigurációban _NodePort_ service típussal van konfigurálva, ami azt jelenti, lokálisan, helyben a megadott porton lesz csak elérhető. Ha publikusan elérhető klaszterben dolgozunk, akkor tipikusan _LoadBalancer_ service típust fogunk kérni, hogy publikus IP címet is kapjon a Traefik.
-
-2. Ellenőrizzük, hogy fut-e:
-
-    ```cmd
-    kubectl get pod
-    ```
-
-    Látunk kell egy traefik kezdetű podot.
-
-3. A Traefik dashboard-ja nem elérhető "kívülről".
-   A dashboard segít minket látni a Traefik konfigurációját és működését.
-   Mivel ez a klaszter belső állapotát publikálja, production üzemben valamilyen módon authentikálnunk kellene.
-   Ezt most megkerülve `kubectl` segítségével egy helyi portra továbbítjuk a Traefik dashboard-ot (és a telepítéskor insecure módba kapcsoltuk).
-   A port átirányítást próbáljuk most a VSCode Kubernetes extension segítségével:
-
-    ![Traefik port forward](images/traefik-dashboard-port-forward.png)
-
-    Fogadjuk el az elapértelmezett értékeket (`9100:metrics 9000:traefik 8000:web 8443:websecure`). Így a Traefik dashboard a `localhost:9000/dashboard/` címen lesz elérhető.
-
-    ??? tip "Port forward parancs"
-
-        Ahogy látjuk a GUI-s K8S eszközök is csak a `kubectl port-forward` parancsot használják a háttérben.
-
-        Ha nem használunk GUI-t, akkor a port forward parancs a következő, amibe ráadásul nem égettük bele a pod nevét:
-
-        ```bash
-        kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) 9100:9100 9000:9000 8000:8000 8443:8443 -n default
-        ```
-
-4. Nézzük meg a Traefik dashboardot: <http://localhost:9000/dashboard/> (a végén kell a perjel!)
-
-!!! note ""
-    Ha frissíteni szeretnénk később a Traefik-et, akkor azt a `helm upgrade traefik traefik/traefik ...` paranccsal tudjuk megtenni.
-
-### 3.2 Adatbázisok telepítése
-
-Az adatbázisainkat saját magunk által megírt YAML leíróval telepítjük. Ez a leíró fájl már rendelkezésünkre áll a kiinduló repository todoapp almappájában.
-
-1. Vizsgáljuk meg a repository `todoapp/kubernetes/db` könyvtárában lévő YAML leírókat.
-
-     - Redis: Deployment-ként telepítjük és nem csatolunk hozza diszket, mert úgyis csak cache-nek használjuk
-     - MongoDB: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk
-     - Elasticsearch: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk
-
-1. Telepítsük az adatbázisokat:
-
-    ```cmd
-    kubectl apply -f todoapp/kubernetes/db
-    ```
-
-    !!! tip ""
-        A `kubectl apply` parancs `-f` kapcsolója ha mappát kap, akkor a mappában lévő összes yaml fájlt alkalmazza.
-
-1. Ellenőrizzük, hogy az adatbázis podok elindulnak-e (pl.: GUI-val). Minden a _default_ névtérbe kellett települjön.
-1. Nézzük meg a _Persistent Volume_ és _Persistent Volumen Claim_-eket.
-
-### 3.3 Alkalmazásunk telepítése
-
-Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a _kubernetes/app_ könyvtárban.
-
-1. Nézzük meg a leírókat. Az előbb látott Deployment és Service mellet Ingress-t is látni fogunk.
-
-1. Telepítsük az alkalmazásokat:
-
-    ```cmd
-    kubectl apply -f todoapp/kubernetes/app
-    ```
-
-1. Ellenőrizzük, hogy létrejöttek a Deployment-ek podok, stb. Viszont vegyük észre, hogy piros lesz még pár dolog. A hiba oka, hogy a hivatkozott image-eket nem találja a rendszer.
-
-1. Navigáljunk el az `src` könyvtárba, és buildeljük le az alkalmazást docker-compose segítségével úgy, hogy a megfelelő taggel ellátjuk az image-eket. Az app könyvtárban lévő YAML fájlok a *v1* tagre hivatkoznak (`image: todoapp/todos:v1`), így ehhez érdemes igazodnunk. A tag-et beállíthatjuk környezeti változóból.
-
-    - Powershell-ben
-
-        ```powershell
-        $env:IMAGE_TAG="v1"
-        docker compose build
-        ```
-
-    - Windows Command Prompt-ban
-
-        ```cmd
-        setx IMAGE_TAG "v1"
-        docker compose build
-        ```
+    Készíts egy másik képernyőképet (`f2.2.png`) és commitold azt be ezt is a házi feladat repó gyökerébe, ahol az Azure portálon látszik az AKS infrastruktúra erőforráscsoportjának (MC_ kezdetű) áttekintő nézete (*Overview*). Látszódjon a portálra belépett felhasználó azonosítója a jobb felső sarokban.
     
-    - Linux bash-ben
+    Készíts egy másik képernyőképet (`f2.3.png`) és commitold azt be ezt is a házi feladat repó gyökerébe, ahol a végállapotban látszik parancssorban mindkét alkalmazás k8s *deployment* erőforrásai a lemezképek azonosítóival együtt (`kubectl get deployment -o wide` és `kubectl get deployment -n todoapp -o wide`)
 
-        ```bash
-        IMAGE_TAG="v1" docker compose build
-        ```
 
-1. A build folyamat végén előállnak helyben az image-ek, pl. `todoapp/web:v1` taggel. Ha távoli registry-be szeretnénk feltölteni őket, akkor taggelhetnénk őket a registry-nek megfelelően. A helyi fejlesztéshez nincs szükségünk ehhez, mert a helyben elindított Kubernetes "látja" a Docker helyi image-eit.
-
-1. Menjünk vissza az erőforrásainkhoz. Egy kicsit várjunk, és azt kell lássuk, hogy az eddig piros elemek kizöldülnek (GUI függően frissítésre lehet szükség). A Kubernetes folyamatosan törekszik az elvárt állapot elérésére, ezért a nem elérhető image-einket újra és újra megpróbálta elérni, míg nem sikerült.
-
-1. Próbáljuk ki az alkalmazást a <http://localhost:32080> címen.
-
-!!! example "BEADANDÓ"
-    Készíts egy képernyőképet (`f3.3.png`) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval.
-
-### 3.4 Alkalmazás frissítése Helm charttal
-
-Tegyük fel, hogy az alkalmazásunkból újabb verzió készül, és szeretnénk frissíteni.
-A fentebb használt YAML leírókat azért (is) a verziókezelőben tároljuk, mert így a telepítési "útmutatók" is verziózottak.
-Tehát nincs más dolgunk, mit a konténer image-ek elkészítése után a Deployment-ekben a megfelelő tag-ek lecserélése, és a `kubectl apply` paranccsal a telepítés frissítése.
-
-A Tag-ek frissítéséhez a YAML fájlokba minden alkalommal bele kell írnunk.
-Jó lenne, ha az image tag-et mint egy változó tudnánk a telepítés során átadni.
-Erre szolgál a Helm: készítsünk egy _chart_-ot a szolgáltatásainknak.
-A _chart_ a telepítés leíró neve, ami gyakorlatilag YAML fájlok gyűjteménye egy speciális szintaktikával kiegészítve.
-
-1. Hozzunk létre a repository-nkban a `todoapp/helmchart` mappát majd konzolban navigáljunk egy el ide.
-
-1. Készítsünk egy új, üres chart-ot: `helm create todoapp`. Ez létrehoz egy _todoapp_ nevű chartot egy azonos nevű könyvtárban.
-
-1. Nézzük meg a chart fájljait.
-
-    - `Chart.yaml` a metaadatokat írja le.
-    - `values.yaml` írja le a változóink alapértelmezett értékeit.
-    - `.helmignore` azon fájlokat listázza, amelyeket a chart értelmezésekor nem kell figyelembe venni.
-    - `templates` könyvtárban vannak a template fájlok, amik a generálás alapjául szolgálnak.
-
-    A Helm egy olyan template nyelvet használ, amelyben változó behelyettesítések, ciklusok, egyszerű szövegműveletek támogatottak. Mi most csak a változó behelyettesítést fogjuk használni.
-
-1. Töröljük ki a `templates` könyvtárból az összes fájlt a `_helpers.tpl` kivételével.
-
-1. Másoljuk helyette be ide a korábban a telepítéshez használt YAML fájljainkat a `todoapp/kubernetes/app` mappából (3 darab).
-
-1. Szerkesszük meg a `todos.yaml` fájl tartalmát. Leegyszerűsítve az alábbiakra lesz szükség:
-
-    - Ha _Visual Studio Code_-ot használunk, akkor telepítsük a [`ms-kubernetes-tools.vscode-kubernetes-tools`](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools) extension-t. Így kapunk némi segítséget a szintaktikával.
-
-    - Mindenhol, ahol `labels` vagy `matchLabels` szerepel, még egy sort fel kell vennünk:
-
-        ```yaml
-        app.kubernetes.io/instance: {{ .Release.Name }}
-        ```
-
-        Ez egy implicit változót helyettesít be: a _release_ nevét. Ezzel azonosítja a Helm a telepítés és frissítés során, hogy mely elemeket kell frissítenie, melyek tartoznak a fennhatósága alá.
-
-    - A pod-ban az image beállításához használjunk változót:
-
-        ```yaml
-        image: todoapp/todos:{{ .Values.todos.tag }}
-        ```
-
-        !!! warning "Whitespace"
-            Figyeljünk oda, hogy a változó behelyettesítés során hova kell whitespace-t rakni és hova nem.
-
-1. Definiáljuk az előbbi változó alapértelmezett értékét. A `values.yaml` fájlban (egy könyvtárral feljebb) töröljünk ki mindent, és vegyük fel ezt a kulcsot:
-
-    ```yaml
-    todos:
-      tag: v1
-    ```
-
-1. A másik két komponens YAML leíróival is hasonlóan kell eljárnunk: vegyünk fel egy-egy kulcsot komponensenként és hivatkozzunk a kulcsra az adott komponens pod leírójának `image:` értékében.
-
-1. A továbbiakhoz el kell távolítanunk az előbb telepített alkalmazásunkat, mert összeakadna a Helm-mel. Ezt a parancsot a telepítéshez korábban használt `app` alkönyvtár szülőkönyvtárában adjuk ki:
-
-    ```cmd
-    kubectl delete -f app
-    ```
-
-1. Nézzük meg a template-eket kiértékelve.
-
-    - A chartunk könyvtárából lépjünk eggyel feljebb, hogy a `todoapp` chart könyvtár az aktuális könyvtárban legyen.
-    - Futtassuk le csak a template generálást a telepítés nélkül: 
-
-        ```cmd
-        helm install todoapp --debug --dry-run todoapp
-        ```
-        
-    - A release-nek _todoapp_ nevet választottunk. Ez a Helm release azonosítója.
-
-    - Konzolra megkapjuk a kiértékelt YAML-öket. Ellenőrizzük a kimenetben, hogy a `release` és `tag` változók rendben behelyettesítődtek.
-
-1. Telepítsük (újra) az alkalmazást a chart segítségével:
-    
-    ```cmd
-    helm upgrade todoapp --install todoapp
-    ```
-
-    - Az `upgrade` parancs és az `--install` kapcsoló telepít, ha nem létezik, ill. frissít, ha már létezik ilyen telepítés.
-
-1. Nézzük meg, hogy a Helm szerint létezik-e a release: `helm list`
-
-1. Próbáljuk ki az alkalmazást a <http://localhost:32080> címen.
-
-1. Ezen chart segítségével frissítsük egy új képpel az alkalmazásunkat. A korábban használt `docker compose build` paranccsal készítsük el az új docker image-eket, csak most *v2* taggel. Például Windows parancssorban:
-
-    ```cmd
-    $env:IMAGE_TAG="v2"
-    docker compose build
-    ```
-
-1. A tag-et a values fájlból felül tudjuk definiálni telepítési paraméterben `--set`, pl. ha a "v2" az új tag, akkor egy paranccsal tudjuk frissíteni:
-
-    ```cmd
-    helm upgrade todoapp --install todoapp --set todos.tag=v2 --set web.tag=v2 --set users.tag=v2
-    ```
-
-!!! example "BEADANDÓ"
-    Készíts egy képernyőképet (`f3.4.png`) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval.
-
-    Készíts egy képernyőképet (`f3.5.png`) és commitold azt be a házi feladat repó gyökerébe, demonstrálod, hogy létrejött a helm release k8s-ben v2-es taggel.
