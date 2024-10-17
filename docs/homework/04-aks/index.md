@@ -12,7 +12,7 @@ A labor célja megismerni:
 
 A laborleírás cross-platform eszközöket használ. A labor linuxon (kubuntu) lett kidolgozva.
 
-- Korábbi laborok infrastruktúrájából: `docker`, `docker compose`, `kuibectl`
+- Korábbi laborok infrastruktúrájából: `docker`, `docker compose`
 - Azure [hallgatói előfizetés](https://azure.microsoft.com/en-us/free/students)
 - Azure [kubelogin és kubectl](https://azure.github.io/kubelogin/install.html)
     - felülírhatja a korábban telepített `kubectl` binárist 
@@ -305,3 +305,7 @@ Jöhet a fő próba: az Azure portálról vagy parancssorból (`kubectl`) szerez
     Készíts egy másik képernyőképet (`f2.3.png`) és commitold azt be ezt is a házi feladat repó gyökerébe, ahol a végállapotban látszik parancssorban mindkét alkalmazás k8s *deployment* erőforrásai a lemezképek azonosítóival együtt (`kubectl get deployment -o wide` és `kubectl get deployment -n todoapp -o wide`)
 
 
+## 3. Feladat - talán a legfontosabb
+
+!!! danger "AKS törlése"
+    Beadás után, ha egyből folytatod a következő házival, akkor hagyd meg, egyébként töröld az AKS-t. Ajánlott egyből folytatni, különben újra létre kell majd hoznod, és fel kell töltened az AKS-t.
