@@ -24,6 +24,8 @@ Szintén elfogadjuk az alábbi minősítéses oldalakon a felkészülési anyago
 - [Microsoft Certified: Azure Administrator Associate](https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/?practice-assessment-type=certification#certification-prepare-for-the-exam)
 - [Microsoft Certified: DevOps Engineer Expert](https://learn.microsoft.com/en-us/credentials/certifications/devops-engineer/)
 
+**Nem** számítanak be a félévközi házikban előírt Microsoft Learn modulok képzési tervei.
+
 !!! tip
 
     Számos képzési terv elérhető magyarul is.
