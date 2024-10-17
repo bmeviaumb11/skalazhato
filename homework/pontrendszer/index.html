@@ -1238,28 +1238,28 @@ AZ-400: Development for enterprise DevOps;405
 <h3 id="on-premise-futo-rendszerekhez">On-premise futó rendszerekhez<a class="headerlink" href="#on-premise-futo-rendszerekhez" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>Legalább kétfajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: <strong>X</strong> pont</p>
+<p><strong>{OPDB2}</strong> Legalább kétfajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: <strong>X</strong> pont</p>
 </li>
 <li>
-<p>Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure Container Registry-ből: <strong>X-Y</strong> pont</p>
+<p><strong>{OPACR}</strong> Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure Container Registry-ből: <strong>X-Y</strong> pont</p>
 <ul>
 <li>anonim eléréssel: <strong>X</strong> pont</li>
 <li>image pull secret-tel: <strong>Y</strong> pont</li>
 </ul>
 </li>
 <li>
-<p>On-premise Kubernetes bekötése Azure Arc-ba: <strong>X-Y</strong> pont</p>
+<p><strong>{OPARC}</strong> On-premise Kubernetes bekötése Azure Arc-ba: <strong>X-Y</strong> pont</p>
 <ul>
 <li>A szolgáltatás on-premise <a href="https://learn.microsoft.com/en-us/azure/app-service/overview-arc-integration">Azure Function engine</a>-en fut (<strong>preview!</strong>) <strong>+Y</strong> pont</li>
 </ul>
 </li>
 <li>
-<p>Tartós tár, pl. lokális mappa csatolása klaszterbe. <strong>X</strong> pont</p>
+<p><strong>{OPSTR}</strong> Tartós tár, pl. lokális mappa csatolása klaszterbe. <strong>X</strong> pont</p>
 </li>
 </ul>
 <h3 id="azure-alapon-futo-rendszerekhez">Azure alapon futó rendszerekhez<a class="headerlink" href="#azure-alapon-futo-rendszerekhez" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Legalább kétfajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, CosmosDB). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: <strong>10</strong> pont</li>
+<li><strong>{AZDB2}</strong> Legalább kétfajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, CosmosDB). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: <strong>10</strong> pont</li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1267,41 +1267,41 @@ AZ-400: Development for enterprise DevOps;405
 </div>
 <ul>
 <li>
-<p><a href="https://azure.microsoft.com/en-us/products/cache">Azure Redis</a> szolgáltatás használata kifejezetten cache-elésre saját telepítésű cache helyett, legalább egy művelet esetén: <strong>5</strong> pont</p>
+<p><strong>{AZRED}</strong> <a href="https://azure.microsoft.com/en-us/products/cache">Azure Redis</a> szolgáltatás használata kifejezetten cache-elésre saját telepítésű cache helyett, legalább egy művelet esetén: <strong>5</strong> pont</p>
 </li>
 <li>
-<p>Valamely <a href="https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options">hivatalosan támogatott AKS ingress opció</a> használata saját telepítésű ingress / api gateway helyett: <strong>7</strong> pont</p>
+<p><strong>{AZING}</strong> Valamely <a href="https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options">hivatalosan támogatott AKS ingress opció</a> használata saját telepítésű ingress / api gateway helyett: <strong>7</strong> pont</p>
 </li>
 <li>
-<p><em>Azure API Management</em> használata gateway-ként. A kliensről jövő kérés előbb az API Management gateway-be fut be, ami az Azure-os klaszterben futó ingress vagy <a href="https://azure.microsoft.com/en-us/blog/benefits-of-using-azure-api-management-with-microservices/">Azure Function-ök</a> felé továbbít: <strong>7</strong> pont</p>
+<p><strong>{AZAPIMGW}</strong> <em>Azure API Management</em> használata gateway-ként. A kliensről jövő kérés előbb az API Management gateway-be fut be, ami az Azure-os klaszterben futó ingress vagy <a href="https://azure.microsoft.com/en-us/blog/benefits-of-using-azure-api-management-with-microservices/">Azure Function-ök</a> felé továbbít: <strong>7</strong> pont</p>
 </li>
 <li>
-<p>Authentikáció kiszervezése <em>Azure API Management</em> szolgáltatásba (<a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad">példa</a>): <strong>8</strong> pont</p>
+<p><strong>{AZAPIMAUTH}</strong> Authentikáció kiszervezése <em>Azure API Management</em> szolgáltatásba (<a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad">példa</a>): <strong>8</strong> pont</p>
 </li>
 <li>
-<p>Konténerek vagy helm chart(ok) letöltése Azure-beli klaszterbe vagy <em>Azure Function</em>-be saját <em>Azure Container Registry</em>-ből: <strong>3-7</strong> pont</p>
+<p><strong>{AZACR}</strong> Konténerek vagy helm chart(ok) letöltése Azure-beli klaszterbe vagy <em>Azure Function</em>-be saját <em>Azure Container Registry</em>-ből: <strong>3-7</strong> pont</p>
 <ul>
 <li>ACR admin felhasználó nevében: <strong>3</strong> pont</li>
 <li>managed identity alapú hozzáféréssel: <strong>7</strong> pont</li>
 </ul>
 </li>
 <li>
-<p>Titkok lekérése saját <em>Azure Key Vault</em>-ból managed identity alapú hozzáféréssel: <strong>7</strong> pont</p>
+<p><strong>{AZKVAU}</strong> Titkok lekérése saját <em>Azure Key Vault</em>-ból managed identity alapú hozzáféréssel: <strong>7</strong> pont</p>
 </li>
 <li>
-<p>A mikroszolgáltatások közötti kommunikáció kiszervezése valamely <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services">Azure üzenetkezelő szolgáltatásba</a> (pl. Service Bus) managed identity alapú hozzáféréssel: <strong>X</strong> pont</p>
+<p><strong>{AZMSG}</strong> A mikroszolgáltatások közötti kommunikáció kiszervezése valamely <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services">Azure üzenetkezelő szolgáltatásba</a> (pl. Service Bus) managed identity alapú hozzáféréssel: <strong>X</strong> pont</p>
 </li>
 <li>
-<p><em>Azure Container Apps</em> skálázása szabály alapján: <strong>X</strong> pont</p>
+<p><strong>{AZACA}</strong> <em>Azure Container Apps</em> skálázása szabály alapján: <strong>X</strong> pont</p>
 </li>
 <li>
-<p>Metrikák bekötése <em>Azure Managed Prometheus</em>-ba: <strong>X</strong> pont</p>
+<p><strong>{AZMP}</strong> Metrikák bekötése <em>Azure Managed Prometheus</em>-ba: <strong>X</strong> pont</p>
 </li>
 <li>
-<p>Naplók bekötése <em>Azure Application Insights</em>-ba: <strong>X</strong> pont</p>
+<p><strong>{AZAILOG}</strong> Naplók bekötése <em>Azure Application Insights</em>-ba: <strong>X</strong> pont</p>
 </li>
 <li>
-<p>Különféle telemetriák - naplók, metrikák, elosztott nyomkövetés bekötése <em>Azure Managed Grafana</em>-ba vagy <em>Azure Monitor (Application Insights-ba)</em>. Védésen szemléltetés a telemetriának megfelelő vizualizációkon, vagy naplók esetén lekérdezésken, keresztül: <strong>X-Z</strong> pont</p>
+<p><strong>{AZTEL}</strong> Különféle telemetriák - naplók, metrikák, elosztott nyomkövetés bekötése <em>Azure Managed Grafana</em>-ba vagy <em>Azure Monitor (Application Insights-ba)</em>. Védésen szemléltetés a telemetriának megfelelő vizualizációkon, vagy naplók esetén lekérdezésken, keresztül: <strong>X-Z</strong> pont</p>
 <ul>
 <li>Egyféle telemetria: <strong>X</strong> pont</li>
 <li>Kétféle telemetria: <strong>Y</strong> pont</li>
@@ -1309,28 +1309,28 @@ AZ-400: Development for enterprise DevOps;405
 </ul>
 </li>
 <li>
-<p><a href="https://learn.microsoft.com/en-us/azure/chaos-studio/"><em>Azure Chaos Studio</em></a> használata káosz teszt futtatására: <strong>7</strong> pont</p>
+<p><strong>{AZCS}</strong> <a href="https://learn.microsoft.com/en-us/azure/chaos-studio/"><em>Azure Chaos Studio</em></a> használata káosz teszt futtatására: <strong>7</strong> pont</p>
 </li>
 <li>
-<p>Tartós tár, például Azure Disk, Azure Files csatolása AKS, ACA klaszterbe vagy <a href="https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares">Azure Function-be</a>: <strong>5</strong> pont</p>
+<p><strong>{AZSTR}</strong> Tartós tár, például Azure Disk, Azure Files csatolása AKS, ACA klaszterbe vagy <a href="https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares">Azure Function-be</a>: <strong>5</strong> pont</p>
 </li>
 <li>
-<p><a href="https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview"><em>Durable Functions</em></a> használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: <strong>5</strong> pont</p>
+<p><strong>{AZFDF}</strong> <a href="https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview"><em>Durable Functions</em></a> használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: <strong>5</strong> pont</p>
 </li>
 </ul>
 <h3 id="egyeb">Egyéb<a class="headerlink" href="#egyeb" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>A minimum elvárásokat teljesítő rendszer: <strong>24</strong> pont</p>
+<p><strong>{BASE}</strong> A minimum elvárásokat teljesítő rendszer: <strong>24</strong> pont</p>
 </li>
 <li>
-<p>Minden félévközi házi feladat (6 db.) teljesítése. Nem arányosítható - csak akkor adható, ha <em>minden</em> házi teljesített: <strong>6</strong> pont</p>
+<p><strong>{ALLHF}</strong> Minden félévközi házi feladat (6 db.) teljesítése. Nem arányosítható - csak akkor adható, ha <em>minden</em> házi teljesített: <strong>6</strong> pont</p>
 </li>
 <li>
-<p>Azure tananyagok elsajátítása, kizárólag a <a href="../mslearning/">külön leírt követelmények</a> szerint: max. <strong>24</strong> pont</p>
+<p><strong>{MSLEARN}</strong> Azure tananyagok elsajátítása, kizárólag a <a href="../mslearning/">külön leírt követelmények</a> szerint: max. <strong>24</strong> pont</p>
 </li>
 <li>
-<p>Visszacsatolás. A véglegesített pontrendszer vagy tananyag javítása, bővítése, módosítása pull request-tel. Helyesírási hiba is lehet, de az oktatók döntenek, hogy pontot ér-e a módosítás. Többször is megszerezhető. <strong>0-2</strong> pont, összesen max. <strong>6</strong> pont</p>
+<p><strong>{CONTRIB}</strong> Visszacsatolás. A véglegesített pontrendszer vagy tananyag javítása, bővítése, módosítása pull request-tel. Helyesírási hiba is lehet, de az oktatók döntenek, hogy pontot ér-e a módosítás. Többször is megszerezhető. <strong>0-2</strong> pont, összesen max. <strong>6</strong> pont</p>
 </li>
 </ul>
 <h2 id="ponthatarok">Ponthatárok<a class="headerlink" href="#ponthatarok" title="Permanent link">&para;</a></h2>
@@ -1353,8 +1353,8 @@ AZ-400: Development for enterprise DevOps;405
           </path>
         </svg>
       </span>
-      <span title="2024. szeptember 20. 13:30:16">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-20T13:30:16+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-20</span>
+      <span title="2024. október 17. 15:15:48">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-17T15:15:48+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-17</span>
       </span>
     </span>
 
