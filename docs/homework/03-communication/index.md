@@ -26,7 +26,7 @@ A kiinduló projekt egy .NET 8 alapú alkalmazás két mikroszolgáltatást tart
     * Ez a kliens oldali kód `HttpClient` segítségével hívja meg a Catalog szolgáltatást.
 * **AppHost**: .NET Aspire alapó AppHost projekt, ami megkönnyíti az elosztott alkalmazások futtatását fejlesztés során. 
   Koncepciójában a Docker Compose-hoz hasonló, de C# nyelven írható YAML helyett, és nem csak .NET alkalmazásokat támogat.
-    * biztosítja a komponensek megfigyelhetőségét OpenTelemetry segítségével (Struktúrált naplózás, Nyomkövetés, Metrikák)
+    * biztosítja a komponensek megfigyelhetőségét OpenTelemetry segítségével (Strukturált naplózás, Nyomkövetés, Metrikák)
     * és a Service Discovery-t konfigurációk kezelésén keresztül
     * Bővebben az Aspire-ről: <https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview>
 
@@ -180,7 +180,7 @@ Kezdjük a a küldő oldallal.
     * Az action-t nem fontos parametrizálni, dolgozhat beégetett értékekkel is.
     * A küldést a `IPublishEndpoint` objektum segítségével végezzük el. 
       MassTransit esetében a `Publish` süti el a broadcast szerű eseményeket, míg a `Send` inkább a command típusú üzenetekre van kihegyezve. A `Publish`-nak explicit adjuk meg típusparaméterként az `IOrderCreatedEvent` interfészt.
-    * Naplózzuk **struktúráltan** az `ILogger` segítségével infó szinten, hogy melyik terméket rendeltük meg mekkora mennyiségben.
+    * Naplózzuk **strukturáltan** az `ILogger` segítségével infó szinten, hogy melyik terméket rendeltük meg mekkora mennyiségben.
     * Az action végén adjunk vissza egy `Ok` státuszkódot, és egy üzenetet a válaszban, hogy sikeres volt a megrendelés.
 
 #### Fogadó oldal
@@ -198,7 +198,7 @@ Térjünk át a fogadó oldalra.
     * Vegyünk fel a Catalog projektbe egy `IntegrationEventHandlers` mappát, majd abba hozzunk létre egy új osztályt `OrderCreatedEventHandler` néven.
     * Itt a kapott adatok alapján frissítsük az adatainkat: a mi Móricka példánkban a `ProductController`-ben lévő statikus listán dolgozunk. 
      Nem kell most törődni az idempotens megvalósítással, azaz azzal, hogy többszöri üzenetküldés esetén ne legyen dupla módosítás.
-    * Naplózzunk **struktúráltan** az `ILogger` segítségével infó szinten, hogy melyik termék raktárkészletét csökkentettük, és mennyi lett az új.
+    * Naplózzunk **strukturáltan** az `ILogger` segítségével infó szinten, hogy melyik termék raktárkészletét csökkentettük, és mennyi lett az új.
 
 3. Konfiguráljuk be a `Program.cs`-ben a MassTransit-ot, hogy RabbitMQ-t használjon, és az `IOrderCreatedEvent` eseményünket melyik `IConsumer` megvalósítás kezelje le, illetve a figyelendő végpontokat is konfiguráljuk be alapértelmezett módon.
 
