@@ -89,7 +89,7 @@ plugins:
       # not a vanilla yaml syntax, only works with mkdocs.yaml because of pyyaml_env_tag
       enabled: !ENV [IsAuthorsPluginEnabled, false]
       github_token: !ENV [GITHUB_TOKEN, '']
-      repository: bmeaut/mkdocs-course-materials-template
+      repository: bmeviaumb11/skalazhato
       branch: master
 
 nav:
