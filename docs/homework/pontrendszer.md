@@ -1,5 +1,5 @@
 ---
-authors: kszicsillag, tibitoth
+authors: kszicsillag,tibitoth
 ---
 
 # Pontrendszer
