@@ -1,3 +1,7 @@
+---
+authors: tibitoth
+---
+
 # 02 - Kubernetes, Helm
 
 ## Cél

@@ -1,3 +1,7 @@
+---
+authors: kszicsillag, tibitoth
+---
+
 # Skálázható szoftverek
 
 Jegyzetek, gyakorlati anyagok és házi feladatok a Skálázható szoftverek c. tárgyhoz.

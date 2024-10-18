@@ -1,3 +1,7 @@
+---
+authors: tibitoth
+---
+
 # GitHub Actions ismertető
 
 A laborfeladatok kiértékelésében a [GitHub Actions](https://github.com/features/actions)-re támaszkodunk. Segítségével a git repository-kon műveleteket és programokat tudunk futtatni. Ilyen művelet például a C# kód lefordítása, vagy a beadott kód tesztelése.

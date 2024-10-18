@@ -1,4 +1,9 @@
+---
+authors: kszicsillag
+---
+
 # NHF pontokért elszámolható Azure tananyagok
+
 *Még nincs véglegesítve 2024. őszi félévre*
 
 Kizárólag az alább meghatározott Azure tananyagok elsajátításáért NHF pontok szerezhetők.

@@ -1,3 +1,7 @@
+---
+authors: tibitoth
+---
+
 # 03 - Kommunikációs megoldások
 
 ## Cél

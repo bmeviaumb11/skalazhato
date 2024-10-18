@@ -1,4 +1,9 @@
+---
+authors: kszicsillag, tibitoth
+---
+
 # Pontrendszer
+
 *Még nincs véglegesítve 2024. őszi félévre*
 
 A házi feladat otthon, önállóan elkészítendő mikroszolgáltatások architektúrára épülő és konténertechnológiát használó szoftverrendszer elkészítése és működőképes állapotban való bemutatása.
