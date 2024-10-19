@@ -77,7 +77,7 @@ Az útmutató szerint a replikaszámnak vissza kellene állnia háromra, de ez a
 
 ## 2. Feladat
 
-Terheléses tesztet írunk .NET-es tesztprojektként, mely felhős terhelésesteszt-motorokat (load test engine) használ szükséges terhelés előállítására. 
+Terheléses tesztet írunk .NET-es tesztprojektként, mely felhős terhelésesteszt-motorokat (load test engine) használ a szükséges terhelés előállítására. 
 
 ### 2.1 HPA érzékenyítése
 
