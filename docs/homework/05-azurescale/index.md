@@ -137,7 +137,7 @@ dotnet add package Abstracta.JmeterDsl.Azure --version 0.6
 
 Az alábbi minta alapján írd meg a saját teszteseted a generált *.cs* fájlba. A kommentek alapján cseréld le a különböző paramétereket. Ezeket kell megadni:
 
--  mintaalkalmazás URL-je
+- mintaalkalmazás URL-je
 - létrehozandó teszt neve, `store-front-neptun-test` a neptun kódot behelyettesítve
 - előfizetés azonosítója (GUID)
 - a korábban létrehozott Azure Load Testing szolgáltatás neve (*ltneptun*)
@@ -173,6 +173,9 @@ public void LoadTest()
 ```bash
 dotnet test -e AZURE_CREDS="00000000-0000-0000-0000-000000000000:00000000-0000-0000-0000-000000000000:xyxyyxy.xyyxyxyx"
 ```
+
+!!!danger "Titok vs. git"
+    Az AZURE_CREDS értékét ne égesd be a kódba, ne kerüljön be git-be!
 
 A tesztnek automatikusan létre kell jönnie az Azure Load Testing szolgáltatáson belül és el kell indulnia. A lefutást kövesd az Azure portálon: Load Testing erőforrás *Tests* menüpontja, ott a teszt, majd azon belül tesztlefutás (*Test runs* rész).
 
