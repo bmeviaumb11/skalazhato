@@ -12,9 +12,9 @@ A laborleírás cross-platform eszközöket használ. A labor linuxon (kubuntu v
 - Azure [kubelogin és kubectl](https://azure.github.io/kubelogin/install.html)
     - felülírhatja a korábban telepített `kubectl` binárist 
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) v2.61 vagy újabb
-- .NET 8 SDK
+- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet)
     - opcionálisan .NET 8 alap fejlesztő környezet (Visual Studio, Visual Studio Code, Rider), ha kell kódkiegészítés, pl. IntelliSense
-- JRE v8 vagy későbbi, `java` parancs legyen a PATH-ban
+- JRE v8 vagy későbbi  (pl. [Adoptium](https://adoptium.net/)), `java` parancs legyen a PATH-ban
 
 ## Előkészület
 
@@ -37,7 +37,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
 
 ### AKS workload telepítése
 
-Ha megvan az alkalmazásokkal feltöltött AKS, az AKS háziból, akkor nincs teendő. Egyébként az AKS házi alapján hozz létre és telepíts alkalmazásokat egy saját AKS-be.
+Ha megvan az alkalmazásokkal feltöltött AKS, az AKS háziból, akkor nincs teendő. Egyébként az **AKS házi 1. feladata alapján** hozz létre és telepítsd a  mintaalkalmazást egy saját AKS-be.
 
 ## 1. Feladat
 
@@ -62,10 +62,7 @@ Készíts saját [KQL nyelvű](https://learn.microsoft.com/en-us/kusto/query) le
 
 ### 1.2 Manuális skálázás és HPA kipróbálása
 
-Skálázd a store-front deploymentet manuálisan a [hivatalos útmutatót](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-scale?tabs=azure-cli#manually-scale-pods)követve. Várd meg amíg a hatás látszik a lekérdezés eredményében.
-
-
-Skálázd a store-front deploymentet HPA-val a [hivatalos útmutatót](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-scale?tabs=azure-cli#autoscale-pods)követve. Várd meg amíg a hatás látszik a lekérdezés eredményében.
+Skálázd a store-front deploymentet HPA-val a [hivatalos útmutatót](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-scale?tabs=azure-cli#autoscale-pods) követve. Várd meg amíg a hatás látszik a lekérdezés eredményében.
 
 Az útmutató szerint a replikaszámnak vissza kellene állnia háromra, de ez az AKS-be választott VM CPU erősségétől függően nem biztos, hogy bekövetkezik. A podok terhelését a HPA az igényelt CPU-hoz viszonyítja (0,5 CPU az igényelt és 0,5 CPU-t használ = 100% terhelés). Ha rossz az igényelt CPU érték beállítás, akkor nem a várt viselkedést kaphatjuk. Ellenőrizd [a store-front által igényelt CPU-t](https://github.com/Azure-Samples/aks-store-demo/blob/abc38d094c09d421f6bb6ec6b900651992a7da14/aks-store-quickstart.yaml#L249) és ha szükséges, módosítsd, hogy bejövő kérés hiányában a minimum értékre álljon vissza.
 
@@ -74,9 +71,9 @@ Az útmutató szerint a replikaszámnak vissza kellene állnia háromra, de ez a
 
 
 !!! example "BEADANDÓ"
-    Készíts egy képernyőképet az Azure portálról (`f1.2.1.png`) és commitold azt be a házi feladat repó gyökerébe, amin látszik a replikaszámos vonalgrafikon (Chart Type: Line) és a különböző skálázások, illetve a HPA hatása, ahogy visszaáll a minimum értékre. A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarka környékén az AKS neve.
+    Készíts egy képernyőképet az Azure portálról (`f1.1.png`) és commitold azt be a házi feladat repó gyökerébe, amin látszik a replikaszámos vonalgrafikon (Chart Type: Line) és a különböző skálázások, illetve a HPA hatása, ahogy visszaáll a minimum értékre. A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarka környékén az AKS neve.
     
-    Készíts egy képernyőképet (`f1.2.2.png`) és commitold azt be a házi feladat repó gyökerébe, amin igazolod, hogy a HPA csökkentette minimumra a replikaszámot (pl. `kubectl describe hpa` paranccsal).
+    Készíts egy képernyőképet (`f1.2.png`) és commitold azt be a házi feladat repó gyökerébe, amin `kubectl describe hpa` paranccsal igazolod, hogy a HPA (és nem például manuális skálázás) csökkentette minimumra a replikaszámot.
 
 ## 2. Feladat
 
@@ -85,7 +82,6 @@ Terheléses tesztet írunk .NET-es tesztprojektként, mely felhős terheléseste
 ### 2.1 HPA érzékenyítése
 
 A k8s YAML fájlok átírásával és érvényesítésével (`kubectl apply`) állítsd át a HPA minimum replikaszám értékét 1-re, a store-front CPU igényét pedig egy kis értékre (pl. *10m*), de annyira ne legyen kicsi, hogy terhelés nélkül egynél több replika kelljen. A replikaszám grafikonon validáld, hogy a replikaszám terhelés nélkül beáll-e egyre.
-
 
 ### 2.2 Azure Load Testing
 
@@ -99,15 +95,52 @@ Tesztet nem kell létrehozni, csak az erőforrás legyen meg.
 
 ### 2.3 Service Principal
 
+A tesztet programból fogjuk létrehozni és indítani, ehhez kell egy Entra technikai felhasználó, akit a programunk megszemélyesít és ennek a felhasználónak a nevében jön létre és fut le a teszt. Technikai felhasználó létrehozása több lépéses folyamat általában, de az alapesetre van egy egysoros kényelmi [Azure CLI parancs](https://learn.microsoft.com/en-us/cli/azure/azure-cli-sp-tutorial-1?tabs=bash#create-a-service-principal). Helyettesítsd be a neptun kódodat:
 
+```bash
+az ad sp create-for-rbac -n loadtest_automation_neptun
+```
 
+!!!warning "Service prinicipal neve"
+    Bár lehetséges több technikai felhasználó ugyanazon névvel, a könnyebb kereshetőség miatt jobb, ha a nevek egyedibbek.
+
+A válasz JSON-t mindenképp mentsd el, szükség lesz az adatokra belőle. A benne lévő titok utólag már nem kérdezhető le.
+
+!!!tip "Service prinicipal parancsok"
+    Az `az ad sp` [parancsokkal](https://learn.microsoft.com/en-us/cli/azure/ad/sp) a technikai felhasználókhoz kapcsolódó legtöbb gyakori tevékenység elvégezhető. Például az általunk létrehozott technikai felhasználók listázása: `az ad sp list --show-mine`.
+
+!!!warning "Entra felületek BME tenantban"
+    A BME tenantban az Azure portálos Entra kezelőfelületek le vannak tiltva, kizárólag API-t hívva, például Azure CLI-ből, kezelhetjük a technikai felhasználóinkat. 
+
+Az Azure RBAC felületek viszont nincsenek tiltva, az [útmutató](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal) alapján osszunk jogokat a technikai felhasználónak (két hozzárendelés): 
+
+1. legyen *Reader* szerepköre (role) az alapértelmezett Azure erőforráscsoporton (scope), amiben a Load Testing szolgáltatást is létrehoztuk és 
+2. legyen [*Load Test Contributor*](https://learn.microsoft.com/en-us/azure/load-testing/how-to-assign-roles#load-test-contributor) (role) a Load Testing erőforráson (scope)
+
+!!!tip
+    A technikai felhasználó az alanykeresőben a sima ember felhasználókkal egy kategóriában van, nem a managed identity-k között.
 
 ### 2.4 Terhelésteszt NUnit unit teszt projektként
+
+A klónozott kiinduló repó könyvtárában hozzunk létre egy új mappát, lépjünk bele, majd hozzunk létre egy NUnit projektet a .NET CLI segítségével. Adjuk hozzá az Azure Load Test automatizálását megvalósító [.NET könyvtárat](https://github.com/abstracta/jmeter-dotnet-dsl) is.
 
 ```bash
 dotnet new nunit
 dotnet add package Abstracta.JmeterDsl.Azure --version 0.6
 ```
+
+!!!tip "Abstracta.JmeterDsl"
+    Az *Abstracta.JmeterDsl* könyvtárak lehetővé teszik, hogy az Azure Load Testing tesztjeinket [JMeter](https://learn.microsoft.com/en-us/azure/load-testing/how-to-create-and-run-load-test-with-jmeter-script?tabs=portal) XML szerkesztő eszközök helyett imperatív nyelven ([Java](https://abstracta.github.io/jmeter-java-dsl/) vagy [C#](https://abstracta.github.io/jmeter-dotnet-dsl/)), fluent jellegű API-val írjuk meg egy tesztprojektben. A csomag ebből a kód alapján egyrészt generálja a szükséges JMeter artifaktokat, majd ezekkel inicializálja a teszt végrehajtó motort (esetünkben Azure Load Test), elindítja a tesztet, végül begyűjti a lefutási statisztikákat, amikre assert feltételeket fogalmazhatunk meg.
+
+!!!warning "Java"
+    Az *Abstracta* könyvtár működéséhez szükséges Java futtatókörnyezet, lásd fent az *Előkövetelmények* részt.
+
+Az alábbi minta alapján írd meg a saját teszteseted a generált *.cs* fájlba. A kommentek alapján cseréld le a különböző paramétereket. Ezeket kell megadni:
+
+-  mintaalkalmazás URL-je
+- létrehozandó teszt neve, `store-front-neptun-test` a neptun kódot behelyettesítve
+- előfizetés azonosítója (GUID)
+- a korábban létrehozott Azure Load Testing szolgáltatás neve (*ltneptun*)
 
 ```csharp title="Load Test függvény minta"
 //using-ok a .cs fájl tetejére
@@ -121,31 +154,36 @@ public void LoadTest()
         ThreadGroup(threads: 100, iterations: 100,
             HttpSampler(url: "http://48.48.48.48") // cseréld le: mintaalkalmazás főoldalának URL-je
         )
-    ).RunIn(new AzureEngine(Environment.GetEnvironmentVariable("AZURE_CREDS")) 
-                                            // AZURE_CREDS=tenantId:clientId:secretId
+    ).RunIn(new AzureEngine(Environment.GetEnvironmentVariable("AZURE_CREDS"))
         .TestName("store-front-neptun-test") // cseréld le
         .SubscriptionId("b593cc31-e0b8-e0b8-e0b8-b593cc31") // cseréld le
         .ResourceGroupName("viaumb11") 
         .TestResourceName("ltneptun") //cseréld le: Azure Load Testing erőforrás neve
         .Engines(2) 
-        .TestTimeout(TimeSpan.FromMinutes(20)));
+        .TestTimeout(TimeSpan.FromMinutes(30)));
     Assert.That(stats.Overall.SampleTimePercentile99, Is.LessThan(TimeSpan.FromSeconds(5)));
 }
 ```
+
+Állítsd össze az `AZURE_CREDS` környezeti változó értékét a technikai felhasználó kapcsán elmentett JSON alapján: kettősponttal elválasztva a BME tenant azonosítója (*tenant*), a technikai felhasználó azonosítója (*appId*) és a titok (*password*). [Indítsd](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-test) a tesztet:
 
 ```bash
 dotnet test -e AZURE_CREDS="00000000-0000-0000-0000-000000000000:00000000-0000-0000-0000-000000000000:xyxyyxy.xyyxyxyx"
 ```
 
+A tesztnek automatikusan létre kell jönnie az Azure Load Testing szolgáltatáson belül és el kell indulnia. A lefutást kövesd az Azure portálon: Load Testing erőforrás *Tests* menüpontja, ott a teszt, majd azon belül tesztlefutás (*Test runs* rész).
 
 !!! example "BEADANDÓ"
-    Készíts egy képernyőképet (`f2.1.png`) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval. Látszódjon a weboldal címe is.
+    Készíts egy képernyőképet az Azure portálról (`f2.1.png`) és commitold azt be a házi feladat repó gyökerébe, amin látszik a replikaszámos vonalgrafikon (Chart Type: Line) és a HPA hatása, ahogy a terhelésteszt miatt megnöveli, majd visszacsökkenti a replikaszámot a minimum értékre. A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarka környékén az AKS neve. Ha a hatás nem elég látványos, növeld a terhelést a `ThreadGroup` `threads` és `iterations` paramétereivel.
 
-    Készíts egy másik képernyőképet (`f2.2.png`) és commitold azt be ezt is a házi feladat repó gyökerébe, ahol az Azure portálon látszik az AKS infrastruktúra erőforráscsoportjának (MC_ kezdetű) áttekintő nézete (*Overview*). Látszódjon a portálra belépett felhasználó azonosítója a jobb felső sarokban.
-    
-    Készíts egy másik képernyőképet (`f2.3.png`) és commitold azt be ezt is a házi feladat repó gyökerébe, ahol a végállapotban látszik parancssorban mindkét alkalmazás k8s *deployment* erőforrásai a lemezképek azonosítóival együtt (`kubectl get deployment -o wide` és `kubectl get deployment -n todoapp -o wide`)
+    Készíts egy képernyőképet (`f2.2.png`) és commitold azt be a házi feladat repó gyökerébe, amin `kubectl describe hpa` paranccsal szemlélteted a HPA skálázási eseményeit.
+
+    Készíts egy képernyőképet (`f2.3.png`) és commitold azt be a házi feladat repó gyökerébe, amin az Azure portálon látszik a tesztlefutások (*Test Runs*) listája. A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarkában a terhelés teszt neve.
+
+!!!tip "Kitekintés - egyéb skálázási lehetőségek"
+    Érdemes lett volna kipróbálni a  [klaszter skálázást](https://learn.microsoft.com/en-us/azure/aks/cluster-autoscaler?tabs=azure-cli), de a hallgatói előfizetés szigorú vCPU korlátai miatt ez nagyon nehézkes lett volna. Alternatívaként a [*virtual nodes* opciót](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes) még így is használhatnánk, amivel a Azure Container Instances szolgáltatás virtuális K8S node-ként jelennének meg. Azonban ez a mód számos [dokumentált](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes#limitations) és nem annyira jól dokumentált korlátozással rendelkezik, így a házi keretében szintén nehézkes lenne a használata, de egy kis példán [kipróbálható](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes-portal).
 
 ## 3. Feladat - talán a legfontosabb
 
 !!! danger "Erőforrások törlése"
-    Beadás után törölj minden erőforráscsoportot az előfizetéseden belül. (Kivéve esetleg ami nem a kisházikhoz kellett.)
+    Beadás után törölj minden erőforráscsoportot az előfizetéseden belül. (Kivéve esetleg ami nem a kisházikhoz kellett.) A technikai felhasználót is érdemes [törölni](https://learn.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az-ad-sp-delete) Entra-ból, ne hagyjunk "szemetet" magunk után.

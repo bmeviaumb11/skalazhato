@@ -142,8 +142,6 @@ A hivatalos útmutató [harmadik része](https://learn.microsoft.com/en-us/azure
 
 A *Node Pool* fülön kell méreteznünk a klasztert. Ez hallgatói előfizetés esetén nem egyszerű, mert csak bizonyos virtuális gép típusok érhetőek el, azok is csak kis számban. Ráadásul a kínálat időben és régiók mentén folyamatosan változik. Az aktuális kínálat az [Azure portálon](https://learn.microsoft.com/en-us/azure/quotas/view-quotas) követhető.
 
-Ugyanezen a fülön jelöljük be: *Enable virtual nodes*.
-
 !!! warning "Kvóta növelése - elméletben"
     Számos kvóta elvileg a portálon keresztül is [növelhető](https://learn.microsoft.com/en-us/azure/quotas/per-vm-quota-requests), de ez hallgatói előfizetés esetében általában nem működik.
 
@@ -169,7 +167,7 @@ Az *Integrations* fülön válasszuk ki az ACR-ünket.
 
 A többi fülön hagyjuk meg az alapértelmezett értékeket. 
 
-1. Indítsuk el alétrehozási folyamatot.  
+1. Indítsuk el a létrehozási folyamatot.  
 
 2. A létrehozás végeztével (10-15 perc is lehet!) [fedezzük fel a klaszter logikai szerkezetét az Azure portálon keresztül](https://learn.microsoft.com/en-us/azure/aks/kubernetes-portal?tabs=azure-cli#view-kubernetes-resources). 
 
