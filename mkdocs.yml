@@ -99,10 +99,12 @@ nav:
       - information/GitHub.md
       - information/GitHub-Actions.md
       - information/certification.md
-  - "Gyakorlatok / Laborok":
+  - "Kisházi":
       - homework/01-docker/index.md      
       - homework/02-kubernetes/index.md
       - homework/03-communication/index.md
+      - homework/04-aks/index.md
+      - homework/05-azurescale/index.md
   - "Nagyházi":      
       - homework/pontrendszer.md
       - homework/mslearning.md
