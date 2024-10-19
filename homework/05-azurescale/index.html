@@ -951,7 +951,7 @@
 <p>Az útmutató szerint a replikaszámnak vissza kellene állnia háromra, de ez az AKS-be választott VM CPU erősségétől függően nem biztos, hogy bekövetkezik. A podok terhelését a HPA az igényelt CPU-hoz viszonyítja (0,5 CPU az igényelt és 0,5 CPU-t használ = 100% terhelés). Ha rossz az igényelt CPU érték beállítás, akkor nem a várt viselkedést kaphatjuk. Ellenőrizd <a href="https://github.com/Azure-Samples/aks-store-demo/blob/abc38d094c09d421f6bb6ec6b900651992a7da14/aks-store-quickstart.yaml#L249">a store-front által igényelt CPU-t</a> és ha szükséges, módosítsd, hogy bejövő kérés hiányában a minimum értékre álljon vissza.</p>
 <div class="admonition tip">
 <p class="admonition-title">HPA monitorozása</p>
-<p>Egyszerűen monitorozhatjuk a HPA tevékenységét a <code>kubectl describe hpa $hpa_name</code> paranccsal.</p>
+<p>Egyszerűen monitorozhatjuk a HPA tevékenységét a <code>kubectl describe hpa $hpa_name</code> <a href="https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-horizontalpodautoscaler-in-kubectl">paranccsal</a>.</p>
 </div>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
@@ -997,7 +997,7 @@
 <p>A technikai felhasználó az alanykeresőben a sima ember felhasználókkal egy kategóriában van, nem a managed identity-k között.</p>
 </div>
 <h3 id="24-terhelesteszt-nunit-unit-teszt-projektkent">2.4 Terhelésteszt NUnit unit teszt projektként<a class="headerlink" href="#24-terhelesteszt-nunit-unit-teszt-projektkent" title="Permanent link">&para;</a></h3>
-<p>A klónozott kiinduló repó könyvtárában hozzunk létre egy új mappát, lépjünk bele, majd hozzunk létre egy NUnit projektet a .NET CLI segítségével. Adjuk hozzá az Azure Load Test automatizálását megvalósító <a href="https://github.com/abstracta/jmeter-dotnet-dsl">.NET könyvtárat</a> is.</p>
+<p>Lépjünk be a klónozott kiinduló repó <em>azloadtest</em> könyvtárába, majd hozzunk létre egy <a href="https://nunit.org/">NUnit</a> projektet a .NET CLI segítségével. Adjuk hozzá az Azure Load Test automatizálását megvalósító <a href="https://github.com/abstracta/jmeter-dotnet-dsl">.NET könyvtárat</a> is.</p>
 <div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>new<span class="w"> </span>nunit
 dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w"> </span>Abstracta.JmeterDsl.Azure<span class="w"> </span>--version<span class="w"> </span><span class="m">0</span>.6
 </code></pre></div>
@@ -1065,8 +1065,8 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
           </path>
         </svg>
       </span>
-      <span title="2024. október 19. 17:40:24">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-19T17:40:24+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-19</span>
+      <span title="2024. október 19. 20:10:01">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-19T20:10:01+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-19</span>
       </span>
     </span>
 
