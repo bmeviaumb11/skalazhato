@@ -13,6 +13,10 @@
         <link rel="canonical" href="https://bmeviaumb11.github.io/skalazhato/homework/04-aks/">
       
       
+        <link rel="prev" href="../03-communication/">
+      
+      
+        <link rel="next" href="../05-azurescale/">
       
       
       <link rel="icon" href="../../favicon.ico">
@@ -260,14 +264,16 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../01-docker/" class="md-tabs__link">
           
   
-  Gyakorlatok / Laborok
+  Kisházi
 
         </a>
       </li>
@@ -490,37 +496,42 @@
       
   
   
+    
   
   
+  
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   <span class="md-ellipsis">
-    Gyakorlatok / Laborok
+    Kisházi
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            Gyakorlatok / Laborok
+            Kisházi
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -578,6 +589,301 @@
   
   <span class="md-ellipsis">
     03 - Kommunikációs megoldások
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    04 - Azure Kubernetes Services
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    04 - Azure Kubernetes Services
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cél
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elokovetelmenyek" class="md-nav__link">
+    <span class="md-ellipsis">
+      Előkövetelmények
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elokeszulet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Előkészület
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Előkészület">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git-repository-letrehozasa-es-letoltese" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git repository létrehozása és letöltése
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0-feladat" class="md-nav__link">
+    <span class="md-ellipsis">
+      0. Feladat
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0. Feladat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#azure-portal-ajanlott-beallitasok" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure portál ajánlott beállítások
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-elofizetes-ellenorzese" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure előfizetés ellenőrzése
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-cli-ellenorzese" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure CLI ellenőrzése
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eroforrascsoport-letrehozasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erőforráscsoport létrehozása
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-feladat" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Feladat
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Feladat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aks-bevezeto-mintaalkalmazas-helyi-kiprobalasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      AKS bevezető - mintaalkalmazás helyi kipróbálása
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-container-registry-letrehozasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure Container Registry létrehozása
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kontenerek-feltoltese-acr-be" class="md-nav__link">
+    <span class="md-ellipsis">
+      Konténerek feltöltése ACR-be
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aks-letrehozasa-meretezese" class="md-nav__link">
+    <span class="md-ellipsis">
+      AKS létrehozása, méretezése
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mintaalkalmazas-telepitese" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mintaalkalmazás telepítése
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-feladat" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Feladat
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Feladat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-nevter-letrehozasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Névtér létrehozása
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-traefik-telepites-kulso-helm-chart-forrasbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Traefik - telepítés külső helm chart forrásból
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-adatbazisok-telepites-k8s-yaml-fajlokkal" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Adatbázisok - telepítés k8s YAML fájlokkal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-sajat-mikroszolgaltatasok-telepites-nem-annyira-kulso-helm-chart-forrasbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Saját mikroszolgáltatások - telepítés nem annyira külső helm chart forrásból
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-feladat-talan-a-legfontosabb" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Feladat - talán a legfontosabb
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-azurescale/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 - Skálázás Azure-ban
   </span>
   
 
@@ -1130,7 +1436,7 @@ docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRN
 </li>
 </ol>
 <h3 id="mintaalkalmazas-telepitese">Mintaalkalmazás telepítése<a class="headerlink" href="#mintaalkalmazas-telepitese" title="Permanent link">&para;</a></h3>
-<p>A hivatalos útmutató <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-application?tabs=azure-cli">negyedik része</a> alapján telepítsük a mintaalkalmazást. Az ACR login szerver és a K8S service külső IP címe is megszerezhető az Azure portálról. Az útmutató rész végére érve ne töröljük a telepítést.</p>
+<p>A hivatalos útmutató <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-application?tabs=azure-cli">negyedik része</a> alapján telepítsük a mintaalkalmazást. Az ACR login szerver és a K8S service külső IP címe is megszerezhető az Azure portálról. Az útmutató rész végére érve <strong>ne</strong> töröljük a telepítést.</p>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
 <p>Készíts egy képernyőképet (<code>f1.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin látszik:</p>
@@ -1237,8 +1543,8 @@ docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRN
           </path>
         </svg>
       </span>
-      <span title="2024. október 19. 17:40:24">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-19T17:40:24+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-19</span>
+      <span title="2024. október 19. 20:54:49">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-19T20:54:49+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-19</span>
       </span>
     </span>
 
