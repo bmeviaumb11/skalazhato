@@ -67,7 +67,7 @@ Skálázd a store-front deploymentet HPA-val a [hivatalos útmutatót](https://l
 Az útmutató szerint a replikaszámnak vissza kellene állnia háromra, de ez az AKS-be választott VM CPU erősségétől függően nem biztos, hogy bekövetkezik. A podok terhelését a HPA az igényelt CPU-hoz viszonyítja (0,5 CPU az igényelt és 0,5 CPU-t használ = 100% terhelés). Ha rossz az igényelt CPU érték beállítás, akkor nem a várt viselkedést kaphatjuk. Ellenőrizd [a store-front által igényelt CPU-t](https://github.com/Azure-Samples/aks-store-demo/blob/abc38d094c09d421f6bb6ec6b900651992a7da14/aks-store-quickstart.yaml#L249) és ha szükséges, módosítsd, hogy bejövő kérés hiányában a minimum értékre álljon vissza.
 
 !!! tip "HPA monitorozása"
-    Egyszerűen monitorozhatjuk a HPA tevékenységét a `kubectl describe hpa $hpa_name` paranccsal.
+    Egyszerűen monitorozhatjuk a HPA tevékenységét a `kubectl describe hpa $hpa_name` [paranccsal](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-horizontalpodautoscaler-in-kubectl).
 
 
 !!! example "BEADANDÓ"
@@ -122,7 +122,7 @@ Az Azure RBAC felületek viszont nincsenek tiltva, az [útmutató](https://learn
 
 ### 2.4 Terhelésteszt NUnit unit teszt projektként
 
-A klónozott kiinduló repó könyvtárában hozzunk létre egy új mappát, lépjünk bele, majd hozzunk létre egy NUnit projektet a .NET CLI segítségével. Adjuk hozzá az Azure Load Test automatizálását megvalósító [.NET könyvtárat](https://github.com/abstracta/jmeter-dotnet-dsl) is.
+Lépjünk be a klónozott kiinduló repó *azloadtest* könyvtárába, majd hozzunk létre egy [NUnit](https://nunit.org/) projektet a .NET CLI segítségével. Adjuk hozzá az Azure Load Test automatizálását megvalósító [.NET könyvtárat](https://github.com/abstracta/jmeter-dotnet-dsl) is.
 
 ```bash
 dotnet new nunit
