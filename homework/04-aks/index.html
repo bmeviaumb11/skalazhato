@@ -1,0 +1,1317 @@
+
+<!doctype html>
+<html lang="hu" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Tóth Tibor, Simon Gábor">
+      
+      
+        <link rel="canonical" href="https://bmeviaumb11.github.io/skalazhato/homework/04-aks/">
+      
+      
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.9">
+    
+    
+      
+        <title>04 - Azure Kubernetes Services - BMEVIAUMB11 - Skálázható szoftverek</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f2e4d321.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../extra-material-theme.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="aut" data-md-color-primary="aut" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#04-azure-kubernetes-services" class="md-skip">
+          Kihagyás
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Élőfej">
+    <a href="../.." title="BMEVIAUMB11 - Skálázható szoftverek" class="md-header__button md-logo" aria-label="BMEVIAUMB11 - Skálázható szoftverek" data-md-component="logo">
+      
+  <img src="../../logo-bme-aut.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BMEVIAUMB11 - Skálázható szoftverek
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              04 - Azure Kubernetes Services
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="aut" data-md-color-primary="aut" data-md-color-accent="red"  aria-label="Váltás sötét témára"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Váltás sötét témára" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="indigo"  aria-label="Váltás világos témára"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Váltás világos témára" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Keresés" placeholder="Keresés" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Keresés">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Törlés" aria-label="Törlés" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Keresés inicializálása
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/bmeviaumb11/skalazhato" title="Főoldalra ugrás" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviaumb11/skalazhato
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Lapok" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Skálázható szoftverek
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../information/contributing/" class="md-tabs__link">
+          
+  
+  Tudnivalók
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../01-docker/" class="md-tabs__link">
+          
+  
+  Gyakorlatok / Laborok
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../pontrendszer/" class="md-tabs__link">
+          
+  
+  Nagyházi
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigáció" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BMEVIAUMB11 - Skálázható szoftverek" class="md-nav__button md-logo" aria-label="BMEVIAUMB11 - Skálázható szoftverek" data-md-component="logo">
+      
+  <img src="../../logo-bme-aut.png" alt="logo">
+
+    </a>
+    BMEVIAUMB11 - Skálázható szoftverek
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/bmeviaumb11/skalazhato" title="Főoldalra ugrás" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    bmeviaumb11/skalazhato
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Skálázható szoftverek
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tudnivalók
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tudnivalók
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information/contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hozzájárulás az anyaghoz
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information/GitHub/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Feladatok beadása (GitHub)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information/GitHub-Actions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GitHub Actions ismertető
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information/certification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Megajánlott jegyként elfogadott Microsoft minősítések
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Gyakorlatok / Laborok
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Gyakorlatok / Laborok
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 - Konténerizáció
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-kubernetes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 - Kubernetes, Helm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-communication/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 - Kommunikációs megoldások
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Nagyházi
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Nagyházi
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pontrendszer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pontrendszer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mslearning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NHF pontokért elszámolható Azure tananyagok
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cél
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elokovetelmenyek" class="md-nav__link">
+    <span class="md-ellipsis">
+      Előkövetelmények
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elokeszulet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Előkészület
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Előkészület">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git-repository-letrehozasa-es-letoltese" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git repository létrehozása és letöltése
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0-feladat" class="md-nav__link">
+    <span class="md-ellipsis">
+      0. Feladat
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0. Feladat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#azure-portal-ajanlott-beallitasok" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure portál ajánlott beállítások
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-elofizetes-ellenorzese" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure előfizetés ellenőrzése
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-cli-ellenorzese" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure CLI ellenőrzése
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eroforrascsoport-letrehozasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erőforráscsoport létrehozása
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-feladat" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Feladat
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Feladat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aks-bevezeto-mintaalkalmazas-helyi-kiprobalasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      AKS bevezető - mintaalkalmazás helyi kipróbálása
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-container-registry-letrehozasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure Container Registry létrehozása
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kontenerek-feltoltese-acr-be" class="md-nav__link">
+    <span class="md-ellipsis">
+      Konténerek feltöltése ACR-be
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aks-letrehozasa-meretezese" class="md-nav__link">
+    <span class="md-ellipsis">
+      AKS létrehozása, méretezése
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mintaalkalmazas-telepitese" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mintaalkalmazás telepítése
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-feladat" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Feladat
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Feladat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-nevter-letrehozasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Névtér létrehozása
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-traefik-telepites-kulso-helm-chart-forrasbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Traefik - telepítés külső helm chart forrásból
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-adatbazisok-telepites-k8s-yaml-fajlokkal" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Adatbázisok - telepítés k8s YAML fájlokkal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-sajat-mikroszolgaltatasok-telepites-nem-annyira-kulso-helm-chart-forrasbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Saját mikroszolgáltatások - telepítés nem annyira külső helm chart forrásból
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-feladat-talan-a-legfontosabb" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Feladat - talán a legfontosabb
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/bmeviaumb11/skalazhato/edit/master/docs/homework/04-aks/index.md" title="Oldal szerkesztése" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="04-azure-kubernetes-services">04 - Azure Kubernetes Services<a class="headerlink" href="#04-azure-kubernetes-services" title="Permanent link">&para;</a></h1>
+<h2 id="cel">Cél<a class="headerlink" href="#cel" title="Permanent link">&para;</a></h2>
+<p>A labor célja megismerni:</p>
+<ul>
+<li>az AKS szolgáltatást és a legfontosabb kapcsolódó szolgáltatásokat (ACR) </li>
+<li>az AKS alkalmazások telepítésének különböző módszereit</li>
+<li>az AKS legalapvetőbb megfigyelési funkcióit </li>
+</ul>
+<h2 id="elokovetelmenyek">Előkövetelmények<a class="headerlink" href="#elokovetelmenyek" title="Permanent link">&para;</a></h2>
+<p>A laborleírás cross-platform eszközöket használ. A labor linuxon (kubuntu) lett kidolgozva.</p>
+<ul>
+<li>Korábbi laborok infrastruktúrájából: <code>docker</code>, <code>docker compose</code></li>
+<li>Azure <a href="https://azure.microsoft.com/en-us/free/students">hallgatói előfizetés</a></li>
+<li>Azure <a href="https://azure.github.io/kubelogin/install.html">kubelogin és kubectl</a><ul>
+<li>felülírhatja a korábban telepített <code>kubectl</code> binárist </li>
+</ul>
+</li>
+<li><a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli">Azure CLI</a> v2.61 vagy újabb</li>
+<li>Helm CLI<ul>
+<li><a href="https://helm.sh/docs/intro/install/">Helm</a></li>
+<li>A Helm CLI legyen elérhető PATH-on</li>
+</ul>
+</li>
+</ul>
+<h2 id="elokeszulet">Előkészület<a class="headerlink" href="#elokeszulet" title="Permanent link">&para;</a></h2>
+<p>A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamatát <a href="../../information/GitHub/">GitHub</a>.</p>
+<div class="admonition danger">
+<p class="admonition-title">PR név</p>
+<p><img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/2757.svg" title=":exclamation:" /> Beadásnál a pull request neve legyen: <em>hf4</em> <img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/2757.svg" title=":exclamation:" /></p>
+</div>
+<h3 id="git-repository-letrehozasa-es-letoltese">Git repository létrehozása és letöltése<a class="headerlink" href="#git-repository-letrehozasa-es-letoltese" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Moodle-ben keresd meg a laborhoz tartozó meghívó URL-jét és annak segítségével hozd létre a saját repository-dat.</li>
+<li>Várd meg, míg elkészül a repository, majd checkout-old ki.</li>
+<li>Hozz létre egy új ágat <code>megoldas</code> néven, és ezen az ágon dolgozz.</li>
+<li>A <code>neptun.txt</code> fájlba írd bele a Neptun kódodat. A fájlban semmi más ne szerepeljen, csak egyetlen sorban a Neptun kód 6 karaktere.</li>
+</ol>
+<div class="admonition danger">
+<p class="admonition-title">NEPTUN</p>
+<p><img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/2757.svg" title=":exclamation:" /> A feladatokban a <code>neptun</code> kifejezés helyett a saját neptunkódunkat helyettesítsük be minden esetben <img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/2757.svg" title=":exclamation:" /></p>
+</div>
+<h2 id="0-feladat">0. Feladat<a class="headerlink" href="#0-feladat" title="Permanent link">&para;</a></h2>
+<h3 id="azure-portal-ajanlott-beallitasok">Azure portál ajánlott beállítások<a class="headerlink" href="#azure-portal-ajanlott-beallitasok" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Lépjünk be az <a href="https://portal.azure.com">Azure portálra</a></p>
+</li>
+<li>
+<p>Jobb felül nyissuk meg a beállításokat (fogaskerék ikon).</p>
+</li>
+<li>
+<p>Állítsuk a <a href="https://learn.microsoft.com/en-us/azure/azure-portal/set-preferences#language--region">nyelvi beállításokat</a> (felülről a harmadik menüpont). A nyelv legyen angol, a régiós formátum legyen magyar. Az <strong>Apply</strong> gombbal alkalmazzuk a beállításokat.</p>
+</li>
+<li>
+<p>Visszatérve a portál beállításokhoz, nyissuk meg a <a href="https://learn.microsoft.com/en-us/azure/azure-portal/set-preferences#directories--subscriptions">tenantjaink listáját</a> (felülről az első menüpont, <em>Dictionaries + subscriptions</em>). Ellenőrizzük a táblázatban, hogy a BME tenant-e az aktív (<em>Current</em>) tenantunk. Ha nem, a <strong>Switch</strong> gombbal váltsunk át rá.</p>
+</li>
+</ol>
+<h3 id="azure-elofizetes-ellenorzese">Azure előfizetés ellenőrzése<a class="headerlink" href="#azure-elofizetes-ellenorzese" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Nyissuk meg az <a href="https://learn.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id#find-your-azure-subscription">előfizetések listáját</a>: a keresőben vagy a bal oldali menüben keressük ki a <em>Subscriptions</em> oldalt és nyissuk meg.</p>
+</li>
+<li>
+<p>Több előfizetést is láthatunk egy táblázatban, a hallgató előfizetésünk <em>Azure for Students</em> néven jön létre és a szerepkörünk (<em>My role</em>) <em>Account admin</em>. Nyissuk meg a hallgatói előfizetésünket.</p>
+</li>
+<li>
+<p>Az áttekintő oldalról (<em>Overview</em>) az előfizetés azonosítóját (<em>Subscription ID</em>) érdemes elmenteni, mert gyakran lesz rá szükség.</p>
+</li>
+<li>
+<p>Ugyanezen az oldalon van egy <a href="https://www.microsoftazuresponsorships.com/">link a hallgatói kreditjeinket kezelő oldalra</a>. Ezen a külső oldalon ellenőrizzük, hogy megvan-e a 100$-nyi kreditünk (<em>Check your balance</em>).</p>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Azure költségek</p>
+<p>Ha költséges erőforrásokat hoztunk létre, akkor különösen fontos rendszeresen ellenőrizni ezen az oldalon a maradék keretünket.</p>
+</div>
+<h3 id="azure-cli-ellenorzese">Azure CLI ellenőrzése<a class="headerlink" href="#azure-cli-ellenorzese" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Ellenőrizzük a verziószám(ok) kiírásával, hogy az Azure CLI elérhető-e.
+    <div class="highlight"><pre><span></span><code>az<span class="w"> </span>version
+</code></pre></div></p>
+</li>
+<li>
+<p>Parancssorból <a href="https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli-interactively">csatlakozzunk az Azure előfizetésünkhöz</a>. Csatlakozáskor listázódnak az előfizetések, válasszuk a hallgatói előfizetést.
+    <div class="highlight"><pre><span></span><code>az<span class="w"> </span>login
+</code></pre></div></p>
+<div class="admonition tip">
+<p class="admonition-title">Aktuális előfizetés az Azure CLI-ben</p>
+<p>Az Azure CLI parancsok általában nem kérik be az előfizetés azonosítóját, hanem egy globális beállításból veszik, amit belépéskor (<code>az login</code>) is beállít. Fontos, hogy mindig a megfelelő előfizetés legyen beállítva. Az <code>az account set -s &lt;előfizetés azonosító&gt;</code> paranccsal tudunk előfizetést váltani.</p>
+</div>
+</li>
+</ol>
+<div class="admonition danger">
+<p class="admonition-title">Közös Azure régió</p>
+<p>Fontos, hogy minden Azure erőforrás lehetőleg azonos régióban legyen. Ez a közös régió <strong>North Europe</strong> legyen. Ha bármilyen okból ezt nem tudod tartani, akkor is az erőforrásaid ugyanabban az európai régióban legyenek (pl. <em>Germany West Central</em>). </p>
+</div>
+<h3 id="eroforrascsoport-letrehozasa">Erőforráscsoport létrehozása<a class="headerlink" href="#eroforrascsoport-letrehozasa" title="Permanent link">&para;</a></h3>
+<p>Hozz létre új erőforráscsoportot <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal#create-resource-groups">ezen útmutatót követve</a> a hallgató előfizetés alá <em>viaumb11</em> néven a közös Azure régióban (lásd fentebb).</p>
+<div class="admonition danger">
+<p class="admonition-title">Alapértelmezett Azure erőforráscsoport</p>
+<p>A továbbiakban ezt az erőforráscsoportot add meg minden Azure erőforrás létrehozásakor.</p>
+</div>
+<h2 id="1-feladat">1. Feladat<a class="headerlink" href="#1-feladat" title="Permanent link">&para;</a></h2>
+<h3 id="aks-bevezeto-mintaalkalmazas-helyi-kiprobalasa">AKS bevezető - mintaalkalmazás helyi kipróbálása<a class="headerlink" href="#aks-bevezeto-mintaalkalmazas-helyi-kiprobalasa" title="Permanent link">&para;</a></h3>
+<p>A labor során a hivatalos AKS bevezető gyakorlatot követjük némi módosítással. Az <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-app?tabs=azure-cli">első rész</a> egy példaalkalmazást mutat be.</p>
+<p>Kövesd az útmutatót, mely a korábbi gyakorlatokon megismert <code>docker</code> és <code>docker compose</code> parancsokat használ.</p>
+<h3 id="azure-container-registry-letrehozasa">Azure Container Registry létrehozása<a class="headerlink" href="#azure-container-registry-letrehozasa" title="Permanent link">&para;</a></h3>
+<p>A hivatalos útmutató <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-acr?tabs=azure-cli">második része</a> egy Azure Container Registry konténer tároló Azure CLI-ből történő létrehozásáról és feltöltéséről szól. Kezdő Azure használóknak inkább az Azure portál ajánlott, mert ott szemléletesebben látszódik minden beállítás. Emiatt inkább az <a href="https://learn.microsoft.com/en-us/azure/container-registry/container-registry-get-started-portal?tabs=azure-cli#create-a-container-registry">Azure portálos útmutatót</a> kövesd, az alábbi beállításokkal:</p>
+<ul>
+<li>Name: <em>acr</em> előtag + neptun kód (pl.<em>npt123</em> neptun kód esetén <em>acrnpt123</em>)</li>
+<li>Resource group: az alapértelmezett Azure erőforráscsoport (lásd fentebb)</li>
+<li>Location: közös Azure régió (lásd fentebb)</li>
+<li>Pricing plan / SKU: Basic</li>
+</ul>
+<p>Azure CLI-vel (<code>az acr login</code>) <a href="https://learn.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest#az-acr-login">regisztráljuk is az ACR-t a docker környezetünkbe</a> tárolóként.</p>
+<h3 id="kontenerek-feltoltese-acr-be">Konténerek feltöltése ACR-be<a class="headerlink" href="#kontenerek-feltoltese-acr-be" title="Permanent link">&para;</a></h3>
+<p>A hivatalos útmutató <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-acr?tabs=azure-cli">második része</a> az ACR build szolgáltatását használja, amivel könnyen lehet a fejlesztői gép erőforrásait kímélve lehetne a lemezképeket megépíteni. Az építéshez szükséges kontextust (forráskód, YAML) tölti csak fel, a kiinduló lemezkép és az építési folyamat is az ACR-en belül történik. Sajnos ez a szolgáltatás <a href="https://learn.microsoft.com/en-us/azure/container-registry/container-registry-tasks-overview">jelenleg csak fizetős Azure előfizetésekben érhető el</a>, hallgatóiban nem. Szerencsére az első feladatrész során a lemezképek elkészültek, így <a href="https://docs.docker.com/get-started/docker-concepts/building-images/build-tag-and-publish-an-image/">azokat feltölthetjük</a>.</p>
+<ol>
+<li>
+<p>Tag-eljük meg az alábbi három <em>aks-store-demo</em> lemezképet. Az $ACRNAME helyére helyettesítsük be az ACR-ünk nevét (<em>acr+neptun kód</em>).</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>tag<span class="w"> </span>aks-store-demo-product-service<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/azure-samples/aks-store-demo/product-service
+docker<span class="w"> </span>tag<span class="w"> </span>aks-store-demo-store-front<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/azure-samples/aks-store-demo/store-front
+docker<span class="w"> </span>tag<span class="w"> </span>aks-store-demo-order-service<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/azure-samples/aks-store-demo/order-service
+</code></pre></div>
+</li>
+<li>
+<p>Töltsük fel a képeket.</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/azure-samples/aks-store-demo/store-front
+docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/azure-samples/aks-store-demo/order-service
+docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/azure-samples/aks-store-demo/product-service
+</code></pre></div>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">ACR által használt tárhely</p>
+<p>Az ACR Azure portálos oldalán belül a <em>Metrics</em> menüpontban a <em>Storage used</em> nevű <a href="https://learn.microsoft.com/en-us/azure/container-registry/monitor-container-registry-reference#supported-metrics-for-microsoftcontainerregistryregistries">metrikát</a> kiválasztva ellenőrizhetjük az ACR által használt tárhelyet, illetve annak időbeli változását. Másik lehetőség az <em>Overview</em> menüponton belül a <em>Monitoring</em> alfül.</p>
+</div>
+<h3 id="aks-letrehozasa-meretezese">AKS létrehozása, méretezése<a class="headerlink" href="#aks-letrehozasa-meretezese" title="Permanent link">&para;</a></h3>
+<p>A hivatalos útmutató <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster?tabs=azure-cli">harmadik része</a> az AKS-t Azure CLI-vel hozza létre. Helyette kövesd <a href="https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-portal?tabs=azure-cli">az Azure portálos utat</a> a következő általános beállításokkal:</p>
+<ul>
+<li>Name: <em>aks</em> előtag + neptun kód (pl.<em>npt123</em> neptun kód esetén <em>aksnpt123</em>)</li>
+<li>Resource group: az alapértelmezett Azure erőforráscsoport (lásd fentebb)</li>
+<li>Cluster preset configuration: Dev/Test</li>
+<li>Region: közös Azure régió (lásd fentebb)</li>
+<li>Authentication and Authorization: Microsoft Entra ID authentication with Azure RBAC</li>
+</ul>
+<p>A <em>Node Pool</em> fülön kell méreteznünk a klasztert. Ez hallgatói előfizetés esetén nem egyszerű, mert csak bizonyos virtuális gép típusok érhetőek el, azok is csak kis számban. Ráadásul a kínálat időben és régiók mentén folyamatosan változik. Az aktuális kínálat az <a href="https://learn.microsoft.com/en-us/azure/quotas/view-quotas">Azure portálon</a> követhető.</p>
+<div class="admonition warning">
+<p class="admonition-title">Kvóta növelése - elméletben</p>
+<p>Számos kvóta elvileg a portálon keresztül is <a href="https://learn.microsoft.com/en-us/azure/quotas/per-vm-quota-requests">növelhető</a>, de ez hallgatói előfizetés esetében általában nem működik.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">User node pool</p>
+<p>Semmiképp ne adjunk a klaszterhez <strong>user</strong> node poolt, mert akkor a skálázásra végképp nem marad kvótánk. Csak a system node poolba vegyünk olcsóbb, max. 2 magos virtuális gépeket.</p>
+</div>
+<p>A system node pool méretezésekor érdemes a <em>Choose a size</em> opció által feldobott felületen a pontosan 2 magos (lehet rá szűrni), <em>D</em> betűvel kezdődő kódú kiméretek közül próbálkozni (D2s_v3, D2as_v4, DS2_v2). A felület mutatja a havi költséget is (<em>Cost/month</em>), a 60-90 EUR/VM költség már jónak számít.</p>
+<div class="admonition warning">
+<p class="admonition-title">System node pool szabályok</p>
+<p>A kiválasztott kiméretnek még az AKS <a href="https://learn.microsoft.com/en-us/azure/aks/use-system-pools?tabs=azure-cli#system-and-user-node-pools">system node pool-ra vonatkozó minimum feltételeknek</a> is meg kell felelni. B sorozatú kiméretek például nem használhatók.</p>
+</div>
+<p>A VM kiméret választás után a <em>Node Pool</em> fülre visszatérve az Azure ellenőrzi a legtöbb szabályt. Ha nem látunk hibaüzenetet, akkor jó esélyeink vannak.</p>
+<figure>
+  <a class="glightbox" href="images/quotaerror.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="quotaerror.png" src="images/quotaerror.png" /></a>
+  <figcaption>Nincs meg ehhez a jóárasított VM kimérethez a szükséges kvótánk</figcaption>
+</figure>
+<div class="admonition danger">
+<p class="admonition-title">Free AKS korlátozás</p>
+<p>A legnagyobb terhelésnek kitett Azure régiókban (pl. <em>West Europe</em>) előfordulhat, hogy korlátozzák az ingyenes (csak a neve ingyenes!) csomagú AKS-ek létrehozását.</p>
+</div>
+<p>Az <em>Integrations</em> fülön válasszuk ki az ACR-ünket.</p>
+<p>A többi fülön hagyjuk meg az alapértelmezett értékeket. </p>
+<ol>
+<li>
+<p>Indítsuk el a létrehozási folyamatot.  </p>
+</li>
+<li>
+<p>A létrehozás végeztével (10-15 perc is lehet!) <a href="https://learn.microsoft.com/en-us/azure/aks/kubernetes-portal?tabs=azure-cli#view-kubernetes-resources">fedezzük fel a klaszter logikai szerkezetét az Azure portálon keresztül</a>. </p>
+</li>
+<li>
+<p>Ellenőrizzük, hogy tudunk-e csatlakozni a kubectl eszközünkkel. Erre a legkényelmesebb mód, ha az AKS-ünk Azure Portal oldalának <em>Overview</em> menüpontját megnyitva, a vízszintes menüben a <em>Connect</em> gombot megnyomva, <a href="https://learn.microsoft.com/en-us/azure/aks/kubernetes-portal?tabs=azure-cli#connect-to-your-cluster">az előre elkészített parancsokat használjuk</a>. Futtassunk le egy-két lekérdező <code>kubectl</code> parancsot.</p>
+</li>
+<li>
+<p>Kukkantsuk meg a klasztert alkotó Azure infrastruktúraszolgáltatásokat: a <em>Properties</em> menüpontban az <em>Infrastructure resource group</em> linkre kattintva átugorhatunk az ezen szolgáltatásokat összefogó erőforráscsoportba.</p>
+</li>
+</ol>
+<h3 id="mintaalkalmazas-telepitese">Mintaalkalmazás telepítése<a class="headerlink" href="#mintaalkalmazas-telepitese" title="Permanent link">&para;</a></h3>
+<p>A hivatalos útmutató <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-application?tabs=azure-cli">negyedik része</a> alapján telepítsük a mintaalkalmazást. Az ACR login szerver és a K8S service külső IP címe is megszerezhető az Azure portálról. Az útmutató rész végére érve ne töröljük a telepítést.</p>
+<div class="admonition example">
+<p class="admonition-title">BEADANDÓ</p>
+<p>Készíts egy képernyőképet (<code>f1.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin látszik:</p>
+<ul>
+<li>a futó alkalmazás böngészőben, böngésző címsorban az alkalmazás (IP) címével</li>
+<li>parancssorban a kapcsolódó k8s <em>service</em> adatai (<code>kubectl get service store-front</code>)</li>
+<li>parancssorban az alkalmazás k8s <em>deployment</em> erőforrásai a lemezképek azonosítóival együtt (<code>kubectl get deployment -o wide</code>). </li>
+</ul>
+</div>
+<h2 id="2-feladat">2. Feladat<a class="headerlink" href="#2-feladat" title="Permanent link">&para;</a></h2>
+<p>A k8s házi <em>todoapp</em>-ját is telepítsük ugyanebbe az AKS-be, egy külön <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/">kubernetes névtérbe</a>.</p>
+<h3 id="21-nevter-letrehozasa">2.1 Névtér létrehozása<a class="headerlink" href="#21-nevter-letrehozasa" title="Permanent link">&para;</a></h3>
+<p>Ez egyszerű:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>todoapp
+</code></pre></div>
+<h3 id="22-traefik-telepites-kulso-helm-chart-forrasbol">2.2 Traefik - telepítés külső helm chart forrásból<a class="headerlink" href="#22-traefik-telepites-kulso-helm-chart-forrasbol" title="Permanent link">&para;</a></h3>
+<p>Itt most kiengedjük a traefik-et a publikus internetre, LoadBalancer objektumot hozunk létre NodePort helyett, de mivel ez az <a href="https://github.com/traefik/traefik-helm-chart/blob/b8725498c2445da8ecc06f156ca69ddc1a56cce4/traefik/values.yaml#L728">alapbeállítás</a>, így nem kell szinte semmi ilyesmit állítgatni. Csak az IngressRoute-ot kell <a href="https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md#access-traefik-dashboard-without-exposing-it">létrehozatni</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span>helm<span class="w"> </span>install<span class="w"> </span>traefik<span class="w"> </span>traefik/traefik<span class="w"> </span>--namespace<span class="w"> </span>todoapp<span class="w"> </span>--set<span class="w"> </span>ingressRoute.dashboard.enabled<span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+<p>Ezután már lehet port-átirányítani.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>port-forward<span class="w"> </span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>todoapp<span class="w"> </span>-l<span class="w"> </span><span class="s2">&quot;app.kubernetes.io/name=traefik&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&quot;{.items[0].metadata.name}&quot;</span><span class="k">)</span><span class="w"> </span><span class="m">9000</span>:9000<span class="w"> </span>-n<span class="w"> </span>todoapp
+</code></pre></div>
+<p>Ezután a <a href="http://localhost:9000/dashboard/">http://localhost:9000/dashboard/</a> címen érhető el a traefik dashboard (amíg a <code>port-forward</code> parancs fut).</p>
+<h3 id="23-adatbazisok-telepites-k8s-yaml-fajlokkal">2.3 Adatbázisok - telepítés k8s YAML fájlokkal<a class="headerlink" href="#23-adatbazisok-telepites-k8s-yaml-fajlokkal" title="Permanent link">&para;</a></h3>
+<p>Próbáljuk ki egy-az-egyben a k8s házi módszerét. Töltsük le valahová az adatbázisok <a href="https://github.com/bmeviaumb11/skalazhato-szoftverek-bmeviaumb11-2024-hf-2024-kubernetes-hf-kiindulo-kubernetes-1/tree/main/todoapp/kubernetes/db">k8s YAML fájljait tartalmazó mappát</a> (vagy navigáljunk a k8s házink könyvtárába). A <code>db</code> mappa szülőkönyvtárban állva:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>db<span class="w"> </span>-n<span class="w"> </span>todoapp
+</code></pre></div>
+<p>Meglepő lehet, de ez szinte teljesen jól működik: nincs megadva storage class, így az AKS alapértelmezett storage class-a érvényesül, ami standard SSD lemezeket hoz létre, és ezek csatolódnak fel. Ezen lemezek élettartama az AKS élettartamához kötött (de nem a K8S objektumok élettartamához!), így az AKS törlésével ezek is törlődnek. </p>
+<div class="admonition tip">
+<p class="admonition-title">AKS/K8S storage class-ok</p>
+<p>Így kérdezhetjük le őket: <code>kubectl get sc</code>. Az alapértelmezett storage class tulajdonságai: <code>kubectl describe sc default</code>. Látható, hogy a létrehozó (provisioner) <code>disk.csi.azure.com</code>, aminek paraméterként a <code>skuname=StandardSSD_LRS</code> beállítást kapja meg, tehát nem meglepő, hogy <a href="https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types#disk-type-comparison">Azure Disk Standard SSD</a> jön létre.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Diszkek, mint Azure erőforrások</p>
+<p>A lemezeket, mint Azure erőforrás is megfigyelhetjük, ha újra rákukkantunk az infrastruktúraszolgáltatásos erőforráscsoportra: két új 2 GiB méretű Standard SSD diszk is létrejött. Mivel a provisioner (az AKS platform) kezeli ezeket a lemezeket, ezért logikus, hogy ide kerülnek.</p>
+</div>
+<p>Pár perc elteltével, ha ránézünk pod listára (megfelelő <code>kubectl</code> paranccsal vagy <a href="https://learn.microsoft.com/en-us/azure/aks/kubernetes-portal?tabs=azure-cli#view-kubernetes-resources">Azure portal Workloads menüpontban</a>) láthatjuk, hogy gond van az elasticsearch poddal, folyamatosan újraindul.</p>
+<p>Kérdezzük le a pod logját: ezt is megtehetjük <code>kubectl</code> paranccsal vagy <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-livedata-overview#view-aks-resource-live-logs">Azure portálon</a>. Az elasticsearch folyamat nem tud dolgozni a csatolt köteten (volume) jogosultsági gondok miatt. Az elasticsearch folyamat saját <a href="https://github.com/elastic/elasticsearch/blob/v7.17.17/distribution/docker/src/docker/Dockerfile#L164"><em>elasticsearch</em> linux felhasználó nevében fut</a>, az AKS viszont nem tud erről a felhasználóról, így a kötethez alapértelmezetten nem lesz joga. Oldjuk meg a problémát egy új init konténerrel, vegyünk fel egy újat a meglévők mellé a <em>elasticsearch-statefulset.yaml</em>-be, ami root felhasználó nevében futva a kötet tulajdonosává teszi az <em>elasticsearch</em> felhasználót (uid:1000, gid:1000).</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">init-permissions</span>
+<span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alpine</span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="s">&quot;sh&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-c&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;chown</span><span class="nv"> </span><span class="s">-R</span><span class="nv"> </span><span class="s">1000:1000</span><span class="nv"> </span><span class="s">/usr/share/elasticsearch/data&quot;</span><span class="w"> </span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">volumeMounts</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">elasticsearch-data</span>
+<span class="w">    </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/share/elasticsearch/data</span><span class="w">      </span>
+</code></pre></div>
+<p>Mehet egy újabb próba a korábbi <code>kubectl apply</code> paranccsal. Egyértelműbb a változtatás alkalmazása, ha ki is töröljük az elasticsearch pod-ot. Ezt is megtehetjük Azure portálról és <code>kubectl</code> paranccsal is. Ezután már nem szabad folyamatos újraindulást tapasztalunk a podok között.</p>
+<div class="admonition tip">
+<p class="admonition-title">ECK</p>
+<p>Elasticsearch telepítésére egy modernebb módszer az <em>Elastic Cloud on Kubernetes</em> disztribúció, például <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-install-helm.html">helm chartként</a>.</p>
+</div>
+<h3 id="24-sajat-mikroszolgaltatasok-telepites-nem-annyira-kulso-helm-chart-forrasbol">2.4 Saját mikroszolgáltatások - telepítés nem annyira külső helm chart forrásból<a class="headerlink" href="#24-sajat-mikroszolgaltatasok-telepites-nem-annyira-kulso-helm-chart-forrasbol" title="Permanent link">&para;</a></h3>
+<p>A tárgy <a href="https://portal.azure.com/#@m365.bme.hu/resource/subscriptions/b83ae5ef-4ef6-4ccb-bb4b-e9f187873feb/resourceGroups/infra/providers/Microsoft.ContainerRegistry/registries/viaumb11acr/overview">közös ACR-jába</a> felkerültek a k8s házi mikroszolgáltatásai helm chartként, illetve a hivatkozott konténerek is. Elvileg minden Teams csapattag kapott ehhez hozzáférést, letöltéshez <a href="https://learn.microsoft.com/en-us/azure/container-registry/container-registry-roles?tabs=azure-cli"><code>AcrPull</code> jogot</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Saját jog ellenőrzése</p>
+<p>Ellenőrizheted a hozzáférésed ehhez vagy bármilyen más Azure erőforráshoz az <a href="https://learn.microsoft.com/en-us/azure/role-based-access-control/check-access#step-3-check-your-access">Azure portálon</a>.</p>
+</div>
+<p>Megfelelő jogok birtokában közvetlenül, saját gép érintése nélkül <a href="https://learn.microsoft.com/en-us/azure/container-registry/container-registry-import-images?tabs=azure-cli#import-from-a-registry-in-a-different-subscription">másolhatunk</a> lemezképeket, helm chartokat ACR-ek között. Az alábbi példa alapján másold át a 3 szükséges lemezképet (<em>todos</em>, <em>users</em>, <em>web</em>; mindegyikből a v2 tag). A helm chartot nem szükséges másolni: azt a fejlesztői gépünknek kell elérni, a lemezképeket viszont az AKS-nek, ami csak a saját ACR-ünket látja csak, a közös tárgy ACR-t nem.</p>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>acr<span class="w"> </span>import<span class="w"> </span>--name<span class="w"> </span><span class="nv">$ACRNAME</span><span class="w"> </span>--source<span class="w"> </span>todos:v2<span class="w"> </span>--registry<span class="w"> </span>/subscriptions/b83ae5ef-4ef6-4ccb-bb4b-e9f187873feb/resourceGroups/infra/providers/Microsoft.ContainerRegistry/registries/viaumb11acr
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">ACR repo felfedezése</p>
+<p>Az elérhető lemezképeket, helm chartokat is felfedezheted <a href="https://learn.microsoft.com/en-us/azure/container-registry/container-registry-repositories">a portálon</a>.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Alternatíva - helm publikálás ACR-be</p>
+<p>A saját k8s házid megoldásának mikroszolgáltatásait is publikálhatod a saját ACR-edbe. Ehhez a <code>IMAGE_TAG="v2" REGISTRY_URL="$ACRNAME.azurecr.io"  docker compose build --push</code> parancsot használhatod.</p>
+</div>
+<p>Csatlakoztassuk a központi ACR-t helm repo-ként. Az alábbi egy <em>bash</em>-specifikus példa:</p>
+<div class="highlight"><span class="filename">bash</span><pre><span></span><code>az<span class="w"> </span>acr<span class="w"> </span>login<span class="w"> </span>--name<span class="w"> </span>viaumb11acr<span class="w"> </span>--expose-token<span class="w"> </span>--output<span class="w"> </span>tsv<span class="w"> </span>--query<span class="w"> </span>accessToken<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>helm<span class="w"> </span>registry<span class="w"> </span>login<span class="w"> </span>viaumb11acr.azurecr.io<span class="w"> </span>--username<span class="w"> </span><span class="s2">&quot;00000000-0000-0000-0000-000000000000&quot;</span><span class="w"> </span>--password-stdin
+</code></pre></div>
+<p>Kérdezzük le a helm chart beállításait.</p>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>show<span class="w"> </span>values<span class="w"> </span>oci://viaumb11acr.azurecr.io/helm/todoapp
+</code></pre></div>
+<p>A k8s házihoz képest új beállítás került be, az <strong>image.registry</strong>, amivel a lemezképek registry azonosítóit állíthatjuk. Ezt kell a saját ACR-ünkre állítani, amit az AKS-ünk elér. A tag beállítások már korábban megvoltak, azoknak egyezniük kell az átmásolt képek tagjeivel.</p>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>todoapp<span class="w"> </span>oci://viaumb11acr.azurecr.io/helm/todoapp<span class="w"> </span>--version<span class="w"> </span><span class="m">0</span>.1.0<span class="w"> </span>--namespace<span class="w"> </span>todoapp<span class="w"> </span>--set<span class="w"> </span>image.registry<span class="o">=</span><span class="nv">$ACRNAME</span>.azurecr.io<span class="w"> </span>--set<span class="w"> </span>todos.tag<span class="o">=</span>v2<span class="w"> </span>--set<span class="w"> </span>web.tag<span class="o">=</span>v2<span class="w"> </span>--set<span class="w"> </span>users.tag<span class="o">=</span>v2
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Lemezkép letöltés ellenpróba</p>
+<p>Opcionálisan próbáld ki, mi történik, ha a registry-t nem állítod be. Telepített verzió leszedése: <code>helm uninstall todoapp --namespace todoapp</code>.</p>
+</div>
+<p>Jöhet a fő próba: az Azure portálról vagy parancssorból (<code>kubectl</code>) szerezzük meg a traefik service külső IP-jét és nyissuk meg böngészőből (https helyett sima http-n). Vegyünk fel pár feladatot.</p>
+<div class="admonition tip">
+<p class="admonition-title">Kitekintés - külső források</p>
+<p>Nagyvállalati környezetben a külső források elérése gyakran tiltott (pl. tűzfalszabályokkal), ezen források biztonsági és egyéb szempontok miatt  alapértelmezetten megbízhatatlannak számítanak. A docker alapértelmezett forrása, a Docker Hub például  korlátozásokat (rate limiting) <a href="https://medium.com/@alaa.barqawi/docker-rate-limit-with-azure-container-instance-and-aks-4449cede66dd">vezetett be</a> az AKS-es letöltésekre is. Mindezek miatt a nagyvállalti klaszterek csak belső céges repository-kat használhatnak, amiket egy dedikált csapat kezel: megfelelő ellenőrzés után emelnek be külső vagy belső fejlesztésű elemeket (artifaktokat). Emiatt fontos, hogy minden telepítési egység (pl. helm chart) paraméterezhető legyen a függőségeinek elérhetősége kapcsán.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">BEADANDÓ</p>
+<p>Készíts egy képernyőképet (<code>f2.1.png</code>) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval. Látszódjon a weboldal címe is.</p>
+<p>Készíts egy másik képernyőképet (<code>f2.2.png</code>) és commitold azt be ezt is a házi feladat repó gyökerébe, ahol az Azure portálon látszik az AKS infrastruktúra erőforráscsoportjának (MC_ kezdetű) áttekintő nézete (<em>Overview</em>). Látszódjon a portálra belépett felhasználó azonosítója a jobb felső sarokban.</p>
+<p>Készíts egy másik képernyőképet (<code>f2.3.png</code>) és commitold azt be ezt is a házi feladat repó gyökerébe, ahol a végállapotban látszik parancssorban mindkét alkalmazás k8s <em>deployment</em> erőforrásai a lemezképek azonosítóival együtt (<code>kubectl get deployment -o wide</code> és <code>kubectl get deployment -n todoapp -o wide</code>)</p>
+</div>
+<h2 id="3-feladat-talan-a-legfontosabb">3. Feladat - talán a legfontosabb<a class="headerlink" href="#3-feladat-talan-a-legfontosabb" title="Permanent link">&para;</a></h2>
+<div class="admonition danger">
+<p class="admonition-title">AKS törlése</p>
+<p>Beadás után, ha egyből folytatod a következő házival, akkor hagyd meg, egyébként töröld az AKS-t. Ajánlott egyből folytatni, különben újra létre kell majd hoznod, és fel kell töltened az AKS-t.</p>
+</div>
+  <hr>
+  <div class="md-source-file">
+    <span class="md-source-file__fact"> <span class="md-icon" title="Utolsó frissítés"> <svg
+          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path
+            d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z">
+          </path>
+        </svg>
+      </span>
+      <span title="2024. október 19. 17:40:24">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-19T17:40:24+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-19</span>
+      </span>
+    </span>
+
+    
+
+    <span class="md-source-file__fact">
+      <span class="md-icon" title="Szerzők">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path
+            d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z">
+          </path>
+        </svg>
+      </span>
+      <span>Szerzők</span>
+      <nav><a href="https://github.com/kszicsillag" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gábor Simon">
+          <img src="https://avatars.githubusercontent.com/u/1849897?u=1d3aa9b07d07da9a2b04d86a97ec4060c3280592&v=4?size=72" alt="@Gábor Simon">
+        </a></nav>      
+    </span>
+  </div>
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Vissza a tetejére
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; BME VIK AUT
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top", "search.suggest", "content.action.edit", "toc.follow", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "search.result.more.one": "1 tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.more.other": "# tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.term.missing": "\u00dcres", "select.version": "Verzi\u00f3v\u00e1lt\u00e1s"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
