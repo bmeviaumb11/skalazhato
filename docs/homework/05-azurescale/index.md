@@ -165,6 +165,9 @@ public void LoadTest()
 }
 ```
 
+!!! warning "Load Testing erőforrás azonosítók"
+    Fontos, hogy a kódban pontosan szerepeljenek a Load Testing erőforrás azonosító adatai (előfizetés, erőforráscsoport neve, erőforrás neve), mert ha nem találja meg ezek alapján az erőforrást, akkor megpróbálja létrehozni, de arra nem adtunk neki jogot.
+
 Állítsd össze az `AZURE_CREDS` környezeti változó értékét a technikai felhasználó kapcsán elmentett JSON alapján: kettősponttal elválasztva a BME tenant azonosítója (*tenant*), a technikai felhasználó azonosítója (*appId*) és a titok (*password*). [Indítsd](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-test) a tesztet:
 
 ```bash
