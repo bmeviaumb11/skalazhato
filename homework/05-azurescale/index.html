@@ -1296,6 +1296,10 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
 <p>Állítsd össze az <code>AZURE_CREDS</code> környezeti változó értékét a technikai felhasználó kapcsán elmentett JSON alapján: kettősponttal elválasztva a BME tenant azonosítója (<em>tenant</em>), a technikai felhasználó azonosítója (<em>appId</em>) és a titok (<em>password</em>). <a href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-test">Indítsd</a> a tesztet:</p>
 <div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">AZURE_CREDS</span><span class="o">=</span><span class="s2">&quot;00000000-0000-0000-0000-000000000000:00000000-0000-0000-0000-000000000000:xyxyyxy.xyyxyxyx&quot;</span>
 </code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Titok vs. git</p>
+<p>Az AZURE_CREDS értékét ne égesd be a kódba, ne kerüljön be git-be!</p>
+</div>
 <p>A tesztnek automatikusan létre kell jönnie az Azure Load Testing szolgáltatáson belül és el kell indulnia. A lefutást kövesd az Azure portálon: Load Testing erőforrás <em>Tests</em> menüpontja, ott a teszt, majd azon belül tesztlefutás (<em>Test runs</em> rész).</p>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
@@ -1321,8 +1325,8 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
           </path>
         </svg>
       </span>
-      <span title="2024. október 19. 21:10:25">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-19T21:10:25+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-19</span>
+      <span title="2024. október 19. 21:22:00">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-19T21:22:00+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-19</span>
       </span>
     </span>
 
