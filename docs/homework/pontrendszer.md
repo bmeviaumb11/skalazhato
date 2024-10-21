@@ -24,18 +24,21 @@ A házi feladat otthon, önállóan elkészítendő mikroszolgáltatások archit
 - A minimum elvárásokat teljesítő rendszer **24** pontot ér
 
 !!! tip
-
     Külső (pl. Microsoft-os) demók, mintaalkalmazások (elemei) felhasználhatók, de ezt külön jelezni kell bemutatáskor. A nem jelzett, de átvett részletek plágiumnak számítanak. A demókból összefércelt egymáshoz nem kapcsolódó funkciókupacokat nem díjazzuk.
     
 !!! tip
-
     Az órai demókban vagy mintaalkalmazásban megvalósított funkciók átvételéért pont nem adható, de azok tovább átdolgozhatóak saját implementációnak.
 
 ### Kötelező leadandók
 
-- forráskód (saját)
-- "dokumentáció" leadása a házi feladattal együtt, ami megcélzott platformonként egy darab architektúra ábrából ([példa](https://learn.microsoft.com/en-us/samples/azure-samples/serverless-microservices-reference-architecture/serverless-microservices-reference-architecture/)) áll. Az ábrán látszanak a mikroszolgáltatások és a köztük lévő kapcsolatok
-- [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) a megszerzendő jogcímekről és a pontszámukról. Elég a jogcímek rövidített neve. Példa:
+A házi feladatot a moodle-ben publikált GitHub Classroom meghívóval generált repository-ban szükséges beadni a kis házi feladatokhoz hasonlóan. Viszont ezt szóban is meg kell védeni a laborvezetőnél előre egyeztetett időpontban a vizsgaidőszakban.
+
+A beadott repository struktúrája:
+
+- `src` mappa: forráskód (saját)
+- `architecture.png`: "dokumentáció" leadása a házi feladattal együtt, min egy darab architektúra ábrából ([példa](https://learn.microsoft.com/en-us/samples/azure-samples/serverless-microservices-reference-architecture/serverless-microservices-reference-architecture/)) áll. Az ábrán látszanak a mikroszolgáltatások és a köztük lévő kapcsolatok.
+    - Ha több platformra is elkészül a házi, akkor annyi architektúra ábrát kell készeíteni.
+- `points.csv`: [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) a megszerzendő jogcímekről és a pontszámukról és azok szummája. Elég a jogcímek rövidített neve. Példa:
 
     ```
     MIN;24
@@ -43,7 +46,8 @@ A házi feladat otthon, önállóan elkészítendő mikroszolgáltatások archit
     ...
     Sum;82
     ```
-- Ha [Azure tananyagot dolgoztál fel](./mslearning.md), [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) az elvégzett képzési tervekről és a hosszuról **percben**. A végén külön sorban összegezd a perceket. Példa:
+    
+- `azure-learn.csv`: Opcionális: Ha [Azure tananyagot dolgoztál fel](./mslearning.md), [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) az elvégzett képzési tervekről és a hosszukról **percben**. A végén külön sorban összegezd a perceket. Példa:
 
     ```
     Microsoft Azure Fundamentals: Describe Azure architecture and services;205
