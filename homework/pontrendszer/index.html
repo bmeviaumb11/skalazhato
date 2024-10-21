@@ -1088,17 +1088,24 @@
 <p>Az órai demókban vagy mintaalkalmazásban megvalósított funkciók átvételéért pont nem adható, de azok tovább átdolgozhatóak saját implementációnak.</p>
 </div>
 <h3 id="kotelezo-leadandok">Kötelező leadandók<a class="headerlink" href="#kotelezo-leadandok" title="Permanent link">&para;</a></h3>
+<p>A házi feladatot a moodle-ben publikált GitHub Classroom meghívóval generált repository-ban szükséges beadni a kis házi feladatokhoz hasonlóan. Viszont ezt szóban is meg kell védeni a laborvezetőnél előre egyeztetett időpontban a vizsgaidőszakban.</p>
+<p>A beadott repository struktúrája:</p>
 <ul>
-<li>forráskód (saját)</li>
-<li>"dokumentáció" leadása a házi feladattal együtt, ami megcélzott platformonként egy darab architektúra ábrából (<a href="https://learn.microsoft.com/en-us/samples/azure-samples/serverless-microservices-reference-architecture/serverless-microservices-reference-architecture/">példa</a>) áll. Az ábrán látszanak a mikroszolgáltatások és a köztük lévő kapcsolatok</li>
+<li><code>src</code> mappa: forráskód (saját)</li>
+<li><code>architecture.png</code>: "dokumentáció" leadása a házi feladattal együtt, min egy darab architektúra ábrából (<a href="https://learn.microsoft.com/en-us/samples/azure-samples/serverless-microservices-reference-architecture/serverless-microservices-reference-architecture/">példa</a>) áll. Az ábrán látszanak a mikroszolgáltatások és a köztük lévő kapcsolatok.<ul>
+<li>Ha több platformra is elkészül a házi, akkor annyi architektúra ábrát kell készeíteni.</li>
+</ul>
+</li>
 <li>
-<p><a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> a megszerzendő jogcímekről és a pontszámukról. Elég a jogcímek rövidített neve. Példa:</p>
-<p><div class="highlight"><pre><span></span><code>MIN;24
+<p><code>points.csv</code>: <a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> a megszerzendő jogcímekről és a pontszámukról és azok szummája. Elég a jogcímek rövidített neve. Példa:</p>
+<div class="highlight"><pre><span></span><code>MIN;24
 IaC;10
 ...
 Sum;82
 </code></pre></div>
-- Ha <a href="../mslearning/">Azure tananyagot dolgoztál fel</a>, <a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> az elvégzett képzési tervekről és a hosszuról <strong>percben</strong>. A végén külön sorban összegezd a perceket. Példa:</p>
+</li>
+<li>
+<p><code>azure-learn.csv</code>: Opcionális: Ha <a href="../mslearning/">Azure tananyagot dolgoztál fel</a>, <a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> az elvégzett képzési tervekről és a hosszukról <strong>percben</strong>. A végén külön sorban összegezd a perceket. Példa:</p>
 <div class="highlight"><pre><span></span><code>Microsoft Azure Fundamentals: Describe Azure architecture and services;205
 AZ-400: Development for enterprise DevOps;405
 Összesen;610
@@ -1395,8 +1402,8 @@ AZ-400: Development for enterprise DevOps;405
           </path>
         </svg>
       </span>
-      <span title="2024. október 18. 16:18:36">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-18T16:18:36+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-18</span>
+      <span title="2024. október 21. 08:56:54">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-21T08:56:54+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-21</span>
       </span>
     </span>
 
