@@ -96,7 +96,7 @@ Most laboron nem nézünk példát több Policy használatára, de szóba jöhet
 Az előadás anyagban találtok egy összetettebb szekvencia diagrammot, az ajánlott összetételről.
 
 !!! example "BEADANDÓ"
-    Készíts egy `f1.png`-t, amiben látszik a .NET Aspire dashboardon a Trace fülön a retry policy hatása a hívásokra. A hívások között legyenek sikeres és sikertelen hívások is, és látszódjon, hogy a sikertelen hívások újrapróbálkozásokkal sikeresekké válnak.
+    A feladathoz tartozó forráskódot commitold be és készíts egy `f1.png`-t, amiben látszik a .NET Aspire dashboardon a Trace fülön a retry policy hatása a hívásokra. A hívások között legyenek sikeres és sikertelen hívások is, és látszódjon, hogy a sikertelen hívások újrapróbálkozásokkal sikeresekké válnak.
 
 ## 2. Feladat - Aszinkron kommunikáció RabbitMQ-val
 
@@ -232,7 +232,7 @@ Térjünk át a fogadó oldalra.
         * Ha azt tapasztaljuk, hogy `skipped` üzenetsorba kerülnek az üzenetek, akkor a küldő oldal rendben működött, de valamiért a fogadó oldal nem tudott a megadott üzenettípusra egyszer sem feliratkozni helyesen.
 
 !!! example "BEADANDÓ"
-    Készíts egy `f2.png`-t, amiben látszik a .NET Aspire dashboardon a _Structured_ fülön a küldő és fogadó oldali logbejegyzések.
+    A feladathoz tartozó forráskódot commitold be és készíts egy `f2.png`-t, amiben látszik a .NET Aspire dashboardon a _Structured_ fülön a küldő és fogadó oldali logbejegyzések.
 
 ??? note "Kitekintés"
 
