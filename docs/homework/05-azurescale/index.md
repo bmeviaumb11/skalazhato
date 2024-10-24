@@ -41,7 +41,7 @@ Ha megvan az alkalmazásokkal feltöltött AKS, az AKS háziból, akkor nincs te
 
 ## 1. Feladat
 
-### 1.1 Container Insights bekapcsolása replikaszám monitorozása
+### 1.1 Container Insights bekapcsolása, replikaszám monitorozása
 
 Kapcsoljuk be a Container Insights szolgáltatást az AKS-ünkön [az útmutató](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/kubernetes-monitoring-enable?tabs=cli#existing-cluster-prometheus-container-insights-and-grafana) szerint. Prometheus és Grafana nem szükséges. A többi beállítás maradhat alapértelmezett. A bekapcsolás létrehoz egy *Log Analytics Workspace*-t (LAWS) és instrumentálja az AKS-t, hogy a monitorozási adatokat a LAWS-ba küldje.
 
