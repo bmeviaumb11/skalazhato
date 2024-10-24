@@ -1267,11 +1267,7 @@
 </ul>
 </li>
 <li><a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli">Azure CLI</a> v2.61 vagy újabb</li>
-<li>Helm CLI<ul>
-<li><a href="https://helm.sh/docs/intro/install/">Helm</a></li>
-<li>A Helm CLI legyen elérhető PATH-on</li>
-</ul>
-</li>
+<li><a href="https://helm.sh/docs/intro/install/">Helm CLI</a> - legyen elérhető PATH-on</li>
 </ul>
 <h2 id="elokeszulet">Előkészület<a class="headerlink" href="#elokeszulet" title="Permanent link">&para;</a></h2>
 <p>A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamatát <a href="../../information/GitHub/">GitHub</a>.</p>
@@ -1388,6 +1384,7 @@ docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRN
 <p>Az ACR Azure portálos oldalán belül a <em>Metrics</em> menüpontban a <em>Storage used</em> nevű <a href="https://learn.microsoft.com/en-us/azure/container-registry/monitor-container-registry-reference#supported-metrics-for-microsoftcontainerregistryregistries">metrikát</a> kiválasztva ellenőrizhetjük az ACR által használt tárhelyet, illetve annak időbeli változását. Másik lehetőség az <em>Overview</em> menüponton belül a <em>Monitoring</em> alfül.</p>
 </div>
 <h3 id="aks-letrehozasa-meretezese">AKS létrehozása, méretezése<a class="headerlink" href="#aks-letrehozasa-meretezese" title="Permanent link">&para;</a></h3>
+<p>Azure-ban minden erőforrás létrehozás, kezelés, stb. REST API-k segítségével történik, ezeket az API-kat ún. <em>resource provider</em>-ek ajánlják ki. Egy adott szolgáltatásnak általában saját resource providere van, de nem mindegyik van alapból bekapcsolva egy adott előfizetésen. Előfizetés tulajdonosként ezzel általában nem kell foglalkoznunk, egy szolgáltatás létrehozásakor a kapcsolódó resource provider automatikusan bekapcsolódik. Néhány esetben mégis szükség lehet arra, hogy kézzel kapcsoljunk be (regisztráljunk) provider-eket. Ilyen eset lehet, ha AKS létrehozás <strong>előtt</strong> a portál vCPU kvótákat ellenőriz - mint mindenhez, ehhez is API-t kell hívni. Ezért az AKS létrehozása előtt <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider-1">ezen útmutató</a> alapján ellenőrizzük, hogy a <em>Microsoft.Compute</em> provider regisztrálva van-e. Ha nincs, regisztráljuk.</p>
 <p>A hivatalos útmutató <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster?tabs=azure-cli">harmadik része</a> az AKS-t Azure CLI-vel hozza létre. Helyette kövesd <a href="https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-portal?tabs=azure-cli">az Azure portálos utat</a> a következő általános beállításokkal:</p>
 <ul>
 <li>Name: <em>aks</em> előtag + neptun kód (pl.<em>npt123</em> neptun kód esetén <em>aksnpt123</em>)</li>
@@ -1543,8 +1540,8 @@ docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRN
           </path>
         </svg>
       </span>
-      <span title="2024. október 19. 20:54:49">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-19T20:54:49+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-19</span>
+      <span title="2024. október 24. 12:08:22">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-24T12:08:22+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-24</span>
       </span>
     </span>
 
