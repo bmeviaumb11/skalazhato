@@ -235,12 +235,11 @@ További szabályok:
 ### Egyéb
 
 - **{BASE}** A minimum elvárásokat teljesítő rendszer: **24** pont
-
 - **{ALLHF}** Minden félévközi házi feladat (6 db.) teljesítése. Nem arányosítható - csak akkor adható, ha *minden* házi teljesített: **6** pont
-
+    - **NEM szükséges a CSV-ben szerepeltetni, moodle-ben automatikusan számított pont**
 - **{MSLEARN}** Azure tananyagok elsajátítása, kizárólag a [külön leírt követelmények](mslearning.md) szerint: max. **24** pont
-
-- **{CONTRIB}** Visszacsatolás. A véglegesített pontrendszer vagy tananyag javítása, bővítése, módosítása pull request-tel. Helyesírási hiba is lehet, de az oktatók döntenek, hogy pontot ér-e a módosítás. Többször is megszerezhető. **0-2** pont, összesen max. **6** pont
+- **{CONTRIB}** Visszacsatolás. A véglegesített pontrendszer vagy tananyag javítása, bővítése, módosítása pull request-tel. Helyesírási hiba is lehet, de az oktatók döntenek, hogy pontot ér-e a módosítás. Többször is megszerezhető. **0-2** pont, összesen max. **6** pont.
+    - **NEM szükséges a CSV-ben szerepeltetni, moodle-ben kezelendő pont az oktatók által**
 
 ## Ponthatárok
 
