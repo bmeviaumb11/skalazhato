@@ -113,81 +113,91 @@ További szabályok:
 
 - **{GRPC}** gRPC alapú kommunikáció használata legalább egy mikroszolgáltatás esetében: **7** pont
 
-- **{NOERR}** Hibatűrést növelő kommunikációs minták alkalmazása külső komponensek segítségével (pl. [Polly](https://www.pollydocs.org/), [Resilience4j](https://github.com/resilience4j/resilience4j), [Tenacity](https://github.com/jd/tenacity)). Saját minta implementációért nem jár pont. Ha az API gateway valósítja meg, szintén nem jár pont. **X** pont
+- **{NOERR}** Hibatűrést növelő kommunikációs minták alkalmazása külső komponensek segítségével (pl. [Polly](https://www.pollydocs.org/), [Resilience4j](https://github.com/resilience4j/resilience4j), [Tenacity](https://github.com/jd/tenacity)). Saját minta implementációért nem jár pont. Ha az API gateway valósítja meg, szintén nem jár pont. **5** pont
 
-- **{APIGW}** Saját telepítésű API gateway használata. Csak az [itt felsorolt](https://gateway-api.sigs.k8s.io/implementations/) implementációk számítanak: **X-Y** pont
+- **{APIGW}** Saját telepítésű API gateway használata. Csak az [itt felsorolt](https://gateway-api.sigs.k8s.io/implementations/) implementációk számítanak: **5-10** pont
 
-    - Traefik használata útvonalválasztásra: X pont
-    - Más, saját telepítésű API gateway használata: Z pont
+    - Traefik használata útvonalválasztásra: 5 pont
+    - Más, saját telepítésű API gateway használata: 10 pont
 
 - **{APIGW+AUTH}** A szolgáltatás authentikációjának kiszervezése API gateway-be  (csak az [itt felsorolt](https://gateway-api.sigs.k8s.io/implementations/) API gateway implementációk számítanak) forward authentikáció használatával: **7-12** pont
 
     - OAuth proxy használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (pl. KeyCloak, Entra) felé továbbítva: 12 pont
     - Egyéb egyszerű saját dummy authentikációs szolgáltatás felé továbbítva: 7 pont
 
-- **{MSGCOMM}** Üzenetsor alapú kommunikáció mikroszolgáltatások között saját telepítésű (pl. RabbitMQ konténer) üzenetsor, üzenetkezelő (messaging) szolgáltatással
+- **{ASYNCCOMM}** Aszinkron, üzenetsor alapú kommunikáció mikroszolgáltatások között saját telepítésű (pl. RabbitMQ konténer) üzenetsor, üzenetkezelő (messaging) szolgáltatással: **5-15** pont
 
-- **{CACHE}** Saját telepítésű (pl. Redis konténer) használata kifejezetten cache-elésre legalább egy művelet esetén: **X** pont
+    - Integrációs esemény eventualy consistency adatkezeléshez: 5 pont
+    - Transactional Outbox pattern alkalmazása: 5 pont
+    - Idempotens megvalósítás pl. deduplication elven: 5 pont
 
-- **{HELM}** A szolgáltatás kubernetes-en belül futó része Helm chart-on keresztül telepíthető. Szükséges demonstrálni a rendszer frissítését a chart segítségével: **X** pont
+- **{SAGA}** Saga minta implementálása legalább egy folyamat esetén **15** pont
 
-- **{ACRBUILD}** Legalább egy saját konténer build-elése Azure Container Registry-ben: **X-Y** pont
+- **{EVENTSOURCING}** Event Sourcing minta alkalmazása **15 pont**
 
-    - ad-hoc build saját gépről feltöltött context alapján: **X** pont
-    - build valamilyen triggerre (pl. commit egy adott git ágra): **Y** pont
+- **{CQRS}** és mediátor minta alkalmazása legalább egy szolgáltatás megvalósítása során. **5 pont**
 
-- **{K8SJOB}** Kubernetes Job objektum használata, lefuttatása védéskor: **X** pont
+- **{DDD}** tervezési elvek demonstrálása Event Storming alapú üzleti folyamattervezéssel. A pontot extra ábra(k) elkészítésével szükséges demonstrálni, és a védésen bemutatni szükséges a tervek hatását az architektúrára, implementációra: **5 pont**
 
-- **{K8SCRONJOB}** Kubernetes CronJob objektum használata, korábbi lefutás demonstrálása védéskor: **X** pont
+- **{ACTOR}** Actor minta alkalmazása legalább egy állapottal rendelkező szolgáltatás esetében magas szintű keretrendszerek segítéségével pl.: Microsoft Orleans, AKKA.NET: **20 pont**
 
-- **{K8SCMAP}** Kubernetes ConfigMap objektum használata valamely konfigurációs beállítás tárolására: **X** pont
+- **{CACHE}** Saját telepítésű (pl. Redis konténer) használata kifejezetten cache-elésre legalább egy művelet esetén: **5** pont
 
-- **{K8SSECRET}** Kubernetes Secret objektum használata titok tárolására: **X-Y** pont
+- **{HELM}** A szolgáltatás kubernetes-en belül futó része Helm chart-on keresztül telepíthető. Szükséges demonstrálni a rendszer frissítését a chart segítségével: **10** pont
+
+- **{ACRBUILD}** Legalább egy saját konténer build-elése Azure Container Registry-ben: **10-12** pont
+
+    - ad-hoc build saját gépről feltöltött context alapján: **7** pont
+    - build valamilyen triggerre (pl. commit egy adott git ágra): **12** pont
+
+- **{K8SJOB}** Kubernetes Job objektum használata, lefuttatása védéskor: **5** pont
+
+- **{K8SCRONJOB}** Kubernetes CronJob objektum használata, korábbi lefutás demonstrálása védéskor: **5** pont
+
+- **{K8SCMAP}** Kubernetes ConfigMap objektum használata valamely konfigurációs beállítás tárolására: **5** pont
+
+- **{K8SSECRET}** Kubernetes Secret objektum használata titok tárolására: **5-7** pont
     
-    - titok közvetlen feltöltése Secret objektumba: **X** pont
-    - titkok leképezése saját Azure Key Vault-ból Akv2k8s-re építve: **Y** pont
+    - titok közvetlen feltöltése Secret objektumba: **5** pont
+    - titkok leképezése saját Azure Key Vault-ból Akv2k8s-re építve: **7** pont
 
-- **{OT}** OpenTelemetry alkalmazása különféle célokra: naplózásra, metrikák monitorozásra, elosztott nyomkövetésre. Open Telemetry Collector komponens és valamilyen aggregátor felület használata kötelező (pl. Jaeger, Grafana, Azure Monitor), amin védéskor a naplókat, metrikákat, elosztott nyomkövetést be kell tudni mutatni: **X-Z** pont
+- **{OT}** OpenTelemetry alkalmazása különféle célokra: struktúrált naplózásra, metrikák monitorozásra, elosztott nyomkövetésre. Open Telemetry Collector komponens és valamilyen aggregátor felület használata kötelező (pl. Jaeger, Grafana, Azure Monitor), amin védéskor a naplókat, metrikákat, elosztott nyomkövetést be kell tudni mutatni: **5-20** pont
 
-    - egyfajta célra **X** pont 
-    - kétfajta célra **Y** pont
-    - mindhárom célra **Z** pont
-    - [exportálás *Azure Monitor*-ba](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/azuremonitorexporter/README.md) **W** pont
+    - egyfajta célra **5** pont 
+    - kétfajta célra **10** pont
+    - mindhárom célra **15** pont
+    - [exportálás *Azure Monitor*-ba](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/azuremonitorexporter/README.md) **+5** pont
 
-- **{HSC}** Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell **X-Y** pont
+- **{HSC}** Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell **10-20** pont
 
-    - Horizontal Pod AutoScaler alapú: **X** pont 
-    - [KEDA](https://keda.sh/) alapú, valamilyen adat, esemény alapján: **Y** pont
+    - Horizontal Pod AutoScaler alapú: **10** pont 
+    - [KEDA](https://keda.sh/) alapú, valamilyen adat, esemény alapján: **10** pont
 
-- **{K8SNS}** Több példány (verzió) telepítése ugyanabba a környezetbe K8S namespace-ek vagy Azure Function [deployemnet slot](https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal)-ok használatával. *Azure Container Apps* platform esetén külön *Container Apps* példány használható: **X** pont
+- **{K8SNS}** Több példány (verzió) telepítése ugyanabba a környezetbe K8S namespace-ek vagy Azure Function [deployemnet slot](https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal)-ok használatával. *Azure Container Apps* platform esetén külön *Container Apps* példány használható: **15** pont
 
-- **{CICD}** CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója elkészül és kitelepül: **X-Y** pont
+- **{CICD}** CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója elkészül és kitelepül: **10-20** pont
 
-    - egy platformra telepít: **X** pont 
-    - két platformra telepít **Y** pont
-  
-- **{SAGA}** Saga minta implementálása legalább egy folyamat esetén **X** pont
+    - egy platformra telepít: **10** pont 
+    - két platformra telepít **20** pont
 
-- **{CHAOS}** Chaos engineering eszköz alkalmazása (pl. [chaos mesh](https://chaos-mesh.org/docs/)). Védésen szemléltetés káosz teszt futtatással: **X** pont
-
-- Event Sourcing, CQRS?
+- **{CHAOS}** Chaos engineering eszköz alkalmazása (pl. [chaos mesh](https://chaos-mesh.org/docs/)). Védésen szemléltetés káosz teszt futtatással: **10** pont
 
 - Környezetkezelés?
 
 ### On-premise futó rendszerekhez
 
-- **{OPDB2}** Legalább kétfajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: **X** pont
+- **{OPDB2}** Legalább kétfajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: **10** pont
 
-- **{OPACR}** Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure Container Registry-ből: **X-Y** pont
+- **{OPACR}** Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure Container Registry-ből: **5-10** pont
 
-    - anonim eléréssel: **X** pont
-    - image pull secret-tel: **Y** pont
+    - anonim eléréssel: **5** pont
+    - image pull secret-tel: **10** pont
 
-- **{OPARC}** On-premise Kubernetes bekötése Azure Arc-ba: **X-Y** pont
+- **{OPARC}** On-premise Kubernetes bekötése Azure Arc-ba: **10-20** pont
 
-    - A szolgáltatás on-premise [Azure Function engine](https://learn.microsoft.com/en-us/azure/app-service/overview-arc-integration)-en fut (**preview!**) **+Y** pont
+    - A szolgáltatás on-premise [Azure Function engine](https://learn.microsoft.com/en-us/azure/app-service/overview-arc-integration)-en fut (**preview!**) **+10** pont
 
-- **{OPSTR}** Tartós tár, pl. lokális mappa csatolása klaszterbe. **X** pont
+- **{OPSTR}** Tartós tár, pl. lokális mappa csatolása klaszterbe. **5** pont
 
 ### Azure alapon futó rendszerekhez
 
@@ -212,19 +222,19 @@ További szabályok:
 
 - **{AZKVAU}** Titkok lekérése saját *Azure Key Vault*-ból managed identity alapú hozzáféréssel: **7** pont
 
-- **{AZMSG}** A mikroszolgáltatások közötti kommunikáció kiszervezése valamely [Azure üzenetkezelő szolgáltatásba](https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services) (pl. Service Bus) managed identity alapú hozzáféréssel: **X** pont
+- **{AZMSG}** A mikroszolgáltatások közötti kommunikáció kiszervezése valamely [Azure üzenetkezelő szolgáltatásba](https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services) (pl. Service Bus) managed identity alapú hozzáféréssel: **5** pont
 
-- **{AZACA}** *Azure Container Apps* skálázása szabály alapján: **X** pont
+- **{AZACA}** *Azure Container Apps* skálázása szabály alapján: **5** pont
 
-- **{AZMP}** Metrikák bekötése *Azure Managed Prometheus*-ba: **X** pont
+- **{AZMP}** Metrikák bekötése *Azure Managed Prometheus*-ba: **5** pont
 
-- **{AZAILOG}** Naplók bekötése *Azure Application Insights*-ba: **X** pont
+- **{AZAILOG}** Naplók bekötése *Azure Application Insights*-ba: **5** pont
 
-- **{AZTEL}** Különféle telemetriák - naplók, metrikák, elosztott nyomkövetés bekötése *Azure Managed Grafana*-ba vagy *Azure Monitor (Application Insights-ba)*. Védésen szemléltetés a telemetriának megfelelő vizualizációkon, vagy naplók esetén lekérdezésken, keresztül: **X-Z** pont
+- **{AZTEL}** Különféle telemetriák - naplók, metrikák, elosztott nyomkövetés bekötése *Azure Managed Grafana*-ba vagy *Azure Monitor (Application Insights-ba)*. Védésen szemléltetés a telemetriának megfelelő vizualizációkon, vagy naplók esetén lekérdezésken, keresztül: **5-15** pont
 
-    - Egyféle telemetria: **X** pont
-    - Kétféle telemetria: **Y** pont
-    - Háromféle telemetria: **Z** pont
+    - Egyféle telemetria: **5** pont
+    - Kétféle telemetria: **10** pont
+    - Háromféle telemetria: **15** pont
 
 - **{AZCS}** [*Azure Chaos Studio*](https://learn.microsoft.com/en-us/azure/chaos-studio/) használata káosz teszt futtatására: **7** pont
 
