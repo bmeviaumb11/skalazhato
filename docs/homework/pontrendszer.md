@@ -115,7 +115,7 @@ További szabályok:
 
 - **{NOERR}** Hibatűrést növelő kommunikációs minták alkalmazása külső komponensek segítségével (pl. [Polly](https://www.pollydocs.org/), [Resilience4j](https://github.com/resilience4j/resilience4j), [Tenacity](https://github.com/jd/tenacity)). Saját minta implementációért nem jár pont. Ha az API gateway valósítja meg, szintén nem jár pont. **5** pont
 
-- **{APIGW}** Saját telepítésű API gateway használata. Csak az [itt felsorolt](https://gateway-api.sigs.k8s.io/implementations/) implementációk számítanak: **5-10** pont
+- **{APIGW}** Saját telepítésű API gateway használata. Saját implementációért nem jár pont.: **5-10** pont
 
     - Traefik használata útvonalválasztásra: 5 pont
     - Más, saját telepítésű API gateway használata: 10 pont
@@ -131,21 +131,21 @@ További szabályok:
     - Transactional Outbox pattern alkalmazása: 5 pont
     - Idempotens megvalósítás pl. deduplication elven: 5 pont
 
-- **{SAGA}** Saga minta implementálása legalább egy folyamat esetén **15** pont
+- **{SAGA}** Saga minta implementálása legalább egy folyamat esetén, hibakezeléssel és kompenzáció megvalósításával **15** pont
 
 - **{EVENTSOURCING}** Event Sourcing minta alkalmazása **15 pont**
 
 - **{CQRS}** és mediátor minta alkalmazása legalább egy szolgáltatás megvalósítása során. **5 pont**
 
-- **{DDD}** tervezési elvek demonstrálása Event Storming alapú üzleti folyamattervezéssel. A pontot extra ábra(k) elkészítésével szükséges demonstrálni, és a védésen bemutatni szükséges a tervek hatását az architektúrára, implementációra: **5 pont**
+- **{DDD}** tervezési elvek demonstrálása Event Storming alapú üzleti folyamattervezéssel. A pontot extra ábra(k) elkészítésével szükséges demonstrálni, amin az Event Storming során megtervezett folyamat kerül dokumentálásra. A védésen bemutatni szükséges a tervek hatását az architektúrára, implementációra: **5 pont**
 
-- **{ACTOR}** Actor minta alkalmazása legalább egy állapottal rendelkező szolgáltatás esetében magas szintű keretrendszerek segítéségével pl.: Microsoft Orleans, AKKA.NET: **20 pont**
+- **{ACTOR}** Actor minta alkalmazása legalább egy állapottal rendelkező szolgáltatás esetében magas szintű keretrendszerek segítéségével pl.: Microsoft Orleans, AKKA.NET: **15 pont**
 
 - **{CACHE}** Saját telepítésű (pl. Redis konténer) használata kifejezetten cache-elésre legalább egy művelet esetén: **5** pont
 
 - **{HELM}** A szolgáltatás kubernetes-en belül futó része Helm chart-on keresztül telepíthető. Szükséges demonstrálni a rendszer frissítését a chart segítségével: **10** pont
 
-- **{ACRBUILD}** Legalább egy saját konténer build-elése Azure Container Registry-ben: **10-12** pont
+- **{ACRBUILD}** Legalább egy saját konténer build-elése Azure Container Registry-ben (jelenleg hallgatói előfizetéssel nem teljesíthető): **7-12** pont
 
     - ad-hoc build saját gépről feltöltött context alapján: **7** pont
     - build valamilyen triggerre (pl. commit egy adott git ágra): **12** pont
@@ -161,28 +161,26 @@ További szabályok:
     - titok közvetlen feltöltése Secret objektumba: **5** pont
     - titkok leképezése saját Azure Key Vault-ból Akv2k8s-re építve: **7** pont
 
-- **{OT}** OpenTelemetry alkalmazása különféle célokra: struktúrált naplózásra, metrikák monitorozásra, elosztott nyomkövetésre. Open Telemetry Collector komponens és valamilyen aggregátor felület használata kötelező (pl. Jaeger, Grafana, Azure Monitor), amin védéskor a naplókat, metrikákat, elosztott nyomkövetést be kell tudni mutatni: **5-20** pont
+- **{OT}** OpenTelemetry alkalmazása különféle célokra: struktúrált naplózásra, metrikák monitorozásra, elosztott nyomkövetésre. Open Telemetry Collector komponens és valamilyen aggregátor felület használata kötelező a klaszteren belül (pl. Jaeger, Grafana, Azure Monitor), amin védéskor a naplókat, metrikákat, elosztott nyomkövetést be kell tudni mutatni: **5-20** pont
 
     - egyfajta célra **5** pont 
-    - kétfajta célra **10** pont
-    - mindhárom célra **15** pont
+    - kétfajta célra **7** pont
+    - mindhárom célra **10** pont
     - [exportálás *Azure Monitor*-ba](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/azuremonitorexporter/README.md) **+5** pont
 
-- **{HSC}** Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell **10-20** pont
+- **{HSC}** Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell **5-10** pont
 
-    - Horizontal Pod AutoScaler alapú: **10** pont 
+    - Horizontal Pod AutoScaler alapú: **5** pont
     - [KEDA](https://keda.sh/) alapú, valamilyen adat, esemény alapján: **10** pont
 
-- **{K8SNS}** Több példány (verzió) telepítése ugyanabba a környezetbe K8S namespace-ek vagy Azure Function [deployemnet slot](https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal)-ok használatával. *Azure Container Apps* platform esetén külön *Container Apps* példány használható: **15** pont
+- **{K8SNS}** Több példány (verzió) telepítése ugyanabba a környezetbe K8S namespace-ek vagy Azure Function [deployemnet slot](https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal)-ok használatával. *Azure Container Apps* platform esetén külön *Container Apps* példány használható: **7** pont
 
 - **{CICD}** CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója elkészül és kitelepül: **10-20** pont
 
     - egy platformra telepít: **10** pont 
-    - két platformra telepít **20** pont
+    - két platformra telepít **15** pont
 
-- **{CHAOS}** Chaos engineering eszköz alkalmazása (pl. [chaos mesh](https://chaos-mesh.org/docs/)). Védésen szemléltetés káosz teszt futtatással: **10** pont
-
-- Környezetkezelés?
+- **{CHAOS}** Chaos engineering eszköz alkalmazása (pl. [chaos mesh](https://chaos-mesh.org/docs/)). Védésen szemléltetés káosz teszt futtatással: **7** pont
 
 ### On-premise futó rendszerekhez
 
@@ -191,7 +189,7 @@ További szabályok:
 - **{OPACR}** Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure Container Registry-ből: **5-10** pont
 
     - anonim eléréssel: **5** pont
-    - image pull secret-tel: **10** pont
+    - authentikációval pl. image pull secret-tel: **10** pont
 
 - **{OPARC}** On-premise Kubernetes bekötése Azure Arc-ba: **10-20** pont
 
@@ -226,15 +224,11 @@ További szabályok:
 
 - **{AZACA}** *Azure Container Apps* skálázása szabály alapján: **5** pont
 
-- **{AZMP}** Metrikák bekötése *Azure Managed Prometheus*-ba: **5** pont
-
-- **{AZAILOG}** Naplók bekötése *Azure Application Insights*-ba: **5** pont
-
-- **{AZTEL}** Különféle telemetriák - naplók, metrikák, elosztott nyomkövetés bekötése *Azure Managed Grafana*-ba vagy *Azure Monitor (Application Insights-ba)*. Védésen szemléltetés a telemetriának megfelelő vizualizációkon, vagy naplók esetén lekérdezésken, keresztül: **5-15** pont
+- **{AZTEL}** Különféle telemetriák - naplók, metrikák, elosztott nyomkövetés bekötése egy Azure szolgáltatásokba (pl. *Azure Managed Grafana*, *Azure Monitor*, *Application Insights*). Védésen szemléltetés a telemetriának megfelelő vizualizációkon, vagy naplók esetén lekérdezésken, keresztül: **5-10** pont
 
     - Egyféle telemetria: **5** pont
-    - Kétféle telemetria: **10** pont
-    - Háromféle telemetria: **15** pont
+    - Kétféle telemetria: **7** pont
+    - Háromféle telemetria: **10** pont
 
 - **{AZCS}** [*Azure Chaos Studio*](https://learn.microsoft.com/en-us/azure/chaos-studio/) használata káosz teszt futtatására: **7** pont
 
@@ -246,10 +240,8 @@ További szabályok:
 
 - **{BASE}** A minimum elvárásokat teljesítő rendszer: **24** pont
 - **{ALLHF}** Minden félévközi házi feladat (6 db.) teljesítése. Nem arányosítható - csak akkor adható, ha *minden* házi teljesített: **6** pont
-    - **NEM szükséges a CSV-ben szerepeltetni, moodle-ben automatikusan számított pont**
 - **{MSLEARN}** Azure tananyagok elsajátítása, kizárólag a [külön leírt követelmények](mslearning.md) szerint: max. **24** pont
 - **{CONTRIB}** Visszacsatolás. A véglegesített pontrendszer vagy tananyag javítása, bővítése, módosítása pull request-tel. Helyesírási hiba is lehet, de az oktatók döntenek, hogy pontot ér-e a módosítás. Többször is megszerezhető. **0-2** pont, összesen max. **6** pont.
-    - **NEM szükséges a CSV-ben szerepeltetni, moodle-ben kezelendő pont az oktatók által**
 
 ## Ponthatárok
 
