@@ -1,3 +1,7 @@
+---
+authors: tibitoth
+---
+
 # Hozzájárulás az anyaghoz
 
 Az anyag terjedelméből adandóan apróbb hibák esetenként hiányosságok jelentkezhetnek a laborokban.

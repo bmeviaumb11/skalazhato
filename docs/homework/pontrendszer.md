@@ -1,4 +1,9 @@
+---
+authors: kszicsillag,tibitoth
+---
+
 # Pontrendszer
+
 *Még nincs véglegesítve 2024. őszi félévre*
 
 A házi feladat otthon, önállóan elkészítendő mikroszolgáltatások architektúrára épülő és konténertechnológiát használó szoftverrendszer elkészítése és működőképes állapotban való bemutatása.
@@ -19,18 +24,21 @@ A házi feladat otthon, önállóan elkészítendő mikroszolgáltatások archit
 - A minimum elvárásokat teljesítő rendszer **24** pontot ér
 
 !!! tip
-
     Külső (pl. Microsoft-os) demók, mintaalkalmazások (elemei) felhasználhatók, de ezt külön jelezni kell bemutatáskor. A nem jelzett, de átvett részletek plágiumnak számítanak. A demókból összefércelt egymáshoz nem kapcsolódó funkciókupacokat nem díjazzuk.
     
 !!! tip
-
     Az órai demókban vagy mintaalkalmazásban megvalósított funkciók átvételéért pont nem adható, de azok tovább átdolgozhatóak saját implementációnak.
 
 ### Kötelező leadandók
 
-- forráskód (saját)
-- "dokumentáció" leadása a házi feladattal együtt, ami megcélzott platformonként egy darab architektúra ábrából ([példa](https://learn.microsoft.com/en-us/samples/azure-samples/serverless-microservices-reference-architecture/serverless-microservices-reference-architecture/)) áll. Az ábrán látszanak a mikroszolgáltatások és a köztük lévő kapcsolatok
-- [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) a megszerzendő jogcímekről és a pontszámukról. Elég a jogcímek rövidített neve. Példa:
+A házi feladatot a moodle-ben publikált GitHub Classroom meghívóval generált repository-ban szükséges beadni a kis házi feladatokhoz hasonlóan. Viszont ezt szóban is meg kell védeni a laborvezetőnél előre egyeztetett időpontban a vizsgaidőszakban.
+
+A beadott repository struktúrája:
+
+- `src` mappa: forráskód (saját)
+- `architecture.png`: "dokumentáció" leadása a házi feladattal együtt, min egy darab architektúra ábrából ([példa](https://learn.microsoft.com/en-us/samples/azure-samples/serverless-microservices-reference-architecture/serverless-microservices-reference-architecture/)) áll. Az ábrán látszanak a mikroszolgáltatások és a köztük lévő kapcsolatok.
+    - Ha több platformra is elkészül a házi, akkor annyi architektúra ábrát kell készeíteni.
+- `points.csv`: [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) a megszerzendő jogcímekről és a pontszámukról és azok szummája. Elég a jogcímek rövidített neve. Példa:
 
     ```
     MIN;24
@@ -38,7 +46,8 @@ A házi feladat otthon, önállóan elkészítendő mikroszolgáltatások archit
     ...
     Sum;82
     ```
-- Ha [Azure tananyagot dolgoztál fel](./mslearning.md), [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) az elvégzett képzési tervekről és a hosszuról **percben**. A végén külön sorban összegezd a perceket. Példa:
+    
+- `azure-learn.csv`: Opcionális: Ha [Azure tananyagot dolgoztál fel](./mslearning.md), [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) az elvégzett képzési tervekről és a hosszukról **percben**. A végén külön sorban összegezd a perceket. Példa:
 
     ```
     Microsoft Azure Fundamentals: Describe Azure architecture and services;205
@@ -167,71 +176,70 @@ További szabályok:
 
 ### On-premise futó rendszerekhez
 
-- Legalább kétfajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: **X** pont
+- **{OPDB2}** Legalább kétfajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: **X** pont
 
-- Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure Container Registry-ből: **X-Y** pont
+- **{OPACR}** Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure Container Registry-ből: **X-Y** pont
 
     - anonim eléréssel: **X** pont
     - image pull secret-tel: **Y** pont
 
-- On-premise Kubernetes bekötése Azure Arc-ba: **X-Y** pont
+- **{OPARC}** On-premise Kubernetes bekötése Azure Arc-ba: **X-Y** pont
 
     - A szolgáltatás on-premise [Azure Function engine](https://learn.microsoft.com/en-us/azure/app-service/overview-arc-integration)-en fut (**preview!**) **+Y** pont
 
-- Tartós tár, pl. lokális mappa csatolása klaszterbe. **X** pont
+- **{OPSTR}** Tartós tár, pl. lokális mappa csatolása klaszterbe. **X** pont
 
 ### Azure alapon futó rendszerekhez
 
-- Legalább kétfajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, CosmosDB). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: **10** pont
+- **{AZDB2}** Legalább kétfajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, CosmosDB). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: **10** pont
 
 !!! tip
     
     30 napig ingyenes (többször is aktiválható!) [Cosmos DB](https://cosmos.azure.com/try/)
 
-- [Azure Redis](https://azure.microsoft.com/en-us/products/cache) szolgáltatás használata kifejezetten cache-elésre saját telepítésű cache helyett, legalább egy művelet esetén: **5** pont
+- **{AZRED}** [Azure Redis](https://azure.microsoft.com/en-us/products/cache) szolgáltatás használata kifejezetten cache-elésre saját telepítésű cache helyett, legalább egy művelet esetén: **5** pont
 
-- Valamely [hivatalosan támogatott AKS ingress opció](https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options) használata saját telepítésű ingress / api gateway helyett: **7** pont
+- **{AZING}** Valamely [hivatalosan támogatott AKS ingress opció](https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options) használata saját telepítésű ingress / api gateway helyett: **7** pont
 
-- *Azure API Management* használata gateway-ként. A kliensről jövő kérés előbb az API Management gateway-be fut be, ami az Azure-os klaszterben futó ingress vagy [Azure Function-ök](https://azure.microsoft.com/en-us/blog/benefits-of-using-azure-api-management-with-microservices/) felé továbbít: **7** pont
+- **{AZAPIMGW}** *Azure API Management* használata gateway-ként. A kliensről jövő kérés előbb az API Management gateway-be fut be, ami az Azure-os klaszterben futó ingress vagy [Azure Function-ök](https://azure.microsoft.com/en-us/blog/benefits-of-using-azure-api-management-with-microservices/) felé továbbít: **7** pont
 
-- Authentikáció kiszervezése *Azure API Management* szolgáltatásba ([példa](https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad)): **8** pont
+- **{AZAPIMAUTH}** Authentikáció kiszervezése *Azure API Management* szolgáltatásba ([példa](https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad)): **8** pont
 
-- Konténerek vagy helm chart(ok) letöltése Azure-beli klaszterbe vagy *Azure Function*-be saját *Azure Container Registry*-ből: **3-7** pont
+- **{AZACR}** Konténerek vagy helm chart(ok) letöltése Azure-beli klaszterbe vagy *Azure Function*-be saját *Azure Container Registry*-ből: **3-7** pont
 
     - ACR admin felhasználó nevében: **3** pont
     - managed identity alapú hozzáféréssel: **7** pont
 
-- Titkok lekérése saját *Azure Key Vault*-ból managed identity alapú hozzáféréssel: **7** pont
+- **{AZKVAU}** Titkok lekérése saját *Azure Key Vault*-ból managed identity alapú hozzáféréssel: **7** pont
 
-- A mikroszolgáltatások közötti kommunikáció kiszervezése valamely [Azure üzenetkezelő szolgáltatásba](https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services) (pl. Service Bus) managed identity alapú hozzáféréssel: **X** pont
+- **{AZMSG}** A mikroszolgáltatások közötti kommunikáció kiszervezése valamely [Azure üzenetkezelő szolgáltatásba](https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services) (pl. Service Bus) managed identity alapú hozzáféréssel: **X** pont
 
-- *Azure Container Apps* skálázása szabály alapján: **X** pont
+- **{AZACA}** *Azure Container Apps* skálázása szabály alapján: **X** pont
 
-- Metrikák bekötése *Azure Managed Prometheus*-ba: **X** pont
+- **{AZMP}** Metrikák bekötése *Azure Managed Prometheus*-ba: **X** pont
 
-- Naplók bekötése *Azure Application Insights*-ba: **X** pont
+- **{AZAILOG}** Naplók bekötése *Azure Application Insights*-ba: **X** pont
 
-- Különféle telemetriák - naplók, metrikák, elosztott nyomkövetés bekötése *Azure Managed Grafana*-ba vagy *Azure Monitor (Application Insights-ba)*. Védésen szemléltetés a telemetriának megfelelő vizualizációkon, vagy naplók esetén lekérdezésken, keresztül: **X-Z** pont
+- **{AZTEL}** Különféle telemetriák - naplók, metrikák, elosztott nyomkövetés bekötése *Azure Managed Grafana*-ba vagy *Azure Monitor (Application Insights-ba)*. Védésen szemléltetés a telemetriának megfelelő vizualizációkon, vagy naplók esetén lekérdezésken, keresztül: **X-Z** pont
 
     - Egyféle telemetria: **X** pont
     - Kétféle telemetria: **Y** pont
     - Háromféle telemetria: **Z** pont
 
-- [*Azure Chaos Studio*](https://learn.microsoft.com/en-us/azure/chaos-studio/) használata káosz teszt futtatására: **7** pont
+- **{AZCS}** [*Azure Chaos Studio*](https://learn.microsoft.com/en-us/azure/chaos-studio/) használata káosz teszt futtatására: **7** pont
 
-- Tartós tár, például Azure Disk, Azure Files csatolása AKS, ACA klaszterbe vagy [Azure Function-be](https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares): **5** pont
+- **{AZSTR}** Tartós tár, például Azure Disk, Azure Files csatolása AKS, ACA klaszterbe vagy [Azure Function-be](https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares): **5** pont
 
-- [*Durable Functions*](https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview) használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: **5** pont
+- **{AZFDF}** [*Durable Functions*](https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview) használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: **5** pont
 
 ### Egyéb
 
-- A minimum elvárásokat teljesítő rendszer: **24** pont
-
-- Minden félévközi házi feladat (6 db.) teljesítése. Nem arányosítható - csak akkor adható, ha *minden* házi teljesített: **6** pont
-
-- Azure tananyagok elsajátítása, kizárólag a [külön leírt követelmények](mslearning.md) szerint: max. **24** pont
-
-- Visszacsatolás. A véglegesített pontrendszer vagy tananyag javítása, bővítése, módosítása pull request-tel. Helyesírási hiba is lehet, de az oktatók döntenek, hogy pontot ér-e a módosítás. Többször is megszerezhető. **0-2** pont, összesen max. **6** pont
+- **{BASE}** A minimum elvárásokat teljesítő rendszer: **24** pont
+- **{ALLHF}** Minden félévközi házi feladat (6 db.) teljesítése. Nem arányosítható - csak akkor adható, ha *minden* házi teljesített: **6** pont
+    - **NEM szükséges a CSV-ben szerepeltetni, moodle-ben automatikusan számított pont**
+- **{MSLEARN}** Azure tananyagok elsajátítása, kizárólag a [külön leírt követelmények](mslearning.md) szerint: max. **24** pont
+- **{CONTRIB}** Visszacsatolás. A véglegesített pontrendszer vagy tananyag javítása, bővítése, módosítása pull request-tel. Helyesírási hiba is lehet, de az oktatók döntenek, hogy pontot ér-e a módosítás. Többször is megszerezhető. **0-2** pont, összesen max. **6** pont.
+    - **NEM szükséges a CSV-ben szerepeltetni, moodle-ben kezelendő pont az oktatók által**
 
 ## Ponthatárok
 

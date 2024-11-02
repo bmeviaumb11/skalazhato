@@ -89,7 +89,7 @@ plugins:
       # not a vanilla yaml syntax, only works with mkdocs.yaml because of pyyaml_env_tag
       enabled: !ENV [IsAuthorsPluginEnabled, false]
       github_token: !ENV [GITHUB_TOKEN, '']
-      repository: bmeaut/mkdocs-course-materials-template
+      repository: bmeviaumb11/skalazhato
       branch: master
 
 nav:
@@ -99,9 +99,12 @@ nav:
       - information/GitHub.md
       - information/GitHub-Actions.md
       - information/certification.md
-  - "Gyakorlatok / Laborok":
+  - "Kisházi":
       - homework/01-docker/index.md      
       - homework/02-kubernetes/index.md
+      - homework/03-communication/index.md
+      - homework/04-aks/index.md
+      - homework/05-azurescale/index.md
   - "Nagyházi":      
       - homework/pontrendszer.md
       - homework/mslearning.md

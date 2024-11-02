@@ -1,3 +1,7 @@
+---
+authors: tibitoth
+---
+
 # 01 - Konténerizáció
 
 ## Cél
