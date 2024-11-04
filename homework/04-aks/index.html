@@ -1311,7 +1311,7 @@
 <p>Nyissuk meg az <a href="https://learn.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id#find-your-azure-subscription">előfizetések listáját</a>: a keresőben vagy a bal oldali menüben keressük ki a <em>Subscriptions</em> oldalt és nyissuk meg.</p>
 </li>
 <li>
-<p>Több előfizetést is láthatunk egy táblázatban, a hallgató előfizetésünk <em>Azure for Students</em> néven jön létre és a szerepkörünk (<em>My role</em>) <em>Account admin</em>. Nyissuk meg a hallgatói előfizetésünket.</p>
+<p>Több előfizetést is láthatunk egy táblázatban, a hallgató előfizetésünk <em>Azure for Students</em> néven jön létre és a szerepkörünk (<em>My role</em>) <em>Account admin</em> vagy <em>Owner</em>. Nyissuk meg a hallgatói előfizetésünket.</p>
 </li>
 <li>
 <p>Az áttekintő oldalról (<em>Overview</em>) az előfizetés azonosítóját (<em>Subscription ID</em>) érdemes elmenteni, mert gyakran lesz rá szükség.</p>
@@ -1441,6 +1441,10 @@ docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRN
 </ol>
 <h3 id="mintaalkalmazas-telepitese">Mintaalkalmazás telepítése<a class="headerlink" href="#mintaalkalmazas-telepitese" title="Permanent link">&para;</a></h3>
 <p>A hivatalos útmutató <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-application?tabs=azure-cli">negyedik része</a> alapján telepítsük a mintaalkalmazást. Az ACR login szerver és a K8S service külső IP címe is megszerezhető az Azure portálról. Az útmutató rész végére érve <strong>ne</strong> töröljük a telepítést.</p>
+<div class="admonition warning">
+<p class="admonition-title">K8S erőforráskorlátok</p>
+<p>A mintaalkalmazás korábbi verziójában némely konténer <a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/">erőforráslimitje</a> nagyon alacsony volt (pl. 10 MB memória), amit igen könnyű volt átlépni és ilyenkor az ütemező folyamatosan ki-kilőtte a podot (hibaüzenet valami hasonló volt: <em>container init was OOM-killed (memory limit too low?)</em>), a ráépülő szolgáltatás nem tudott rendben működni. Az aktuális verzióban ezt már <a href="https://github.com/Azure-Samples/aks-store-demo/commit/afe11f4ca94a154f43c3b72187b8684c048e608b#diff-46a7464f533643281cbe9a01070701f8acfc30f993f74ece069958ef3e3c4767R191">javították</a> a <em>product-service</em> konténer esetében. Ha hasonló hibajelenséget észleltek, akár a helyi K8S-ben, akár AKS-ben, nyugodtan állítsátok a hibát jelző konténer limitjét a YAML-ben.</p>
+</div>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
 <p>Készíts egy képernyőképet (<code>f1.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin látszik:</p>
@@ -1547,8 +1551,8 @@ docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRN
           </path>
         </svg>
       </span>
-      <span title="2024. november 2. 16:14:46">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-02T16:14:46+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-02</span>
+      <span title="2024. november 4. 19:26:06">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-04T19:26:06+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-04</span>
       </span>
     </span>
 
