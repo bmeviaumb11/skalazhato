@@ -216,10 +216,13 @@ Itt most kiengedjük a traefik-et a publikus internetre, LoadBalancer objektumot
 Ezután már lehet port-átirányítani.
 
 ```bash
-kubectl port-forward $(kubectl get pods -n todoapp -l "app.kubernetes.io/name=traefik" -o jsonpath="{.items[0].metadata.name}") 9000:9000 -n todoapp
+kubectl port-forward $(kubectl get pods -n todoapp -l "app.kubernetes.io/name=traefik" -o jsonpath="{.items[0].metadata.name}") 8080:8080 -n todoapp
 ```
 
-Ezután a http://localhost:9000/dashboard/ címen érhető el a traefik dashboard (amíg a `port-forward` parancs fut).
+Ezután a http://localhost:8080/dashboard/ címen érhető el a traefik dashboard (amíg a `port-forward` parancs fut).
+
+!!!warning "Alapértelmezett port változása"
+    A korábbi helm chart verziókban (v33 előtt) az alapértelmezett port 9000 volt. A lokálisan gyorsítótárazott verzió lekérdezése: `helm search repo traefik/traefik` (*CHART VERSION* oszlop). Ha ez még v33 előtti és frissítenénk az új verzióra, akkor `helm repo update`. 
 
 ### 2.3 Adatbázisok - telepítés k8s YAML fájlokkal
 
