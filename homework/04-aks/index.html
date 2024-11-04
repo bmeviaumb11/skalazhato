@@ -1465,9 +1465,13 @@ docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRN
 <div class="highlight"><pre><span></span><code><span class="w"> </span>helm<span class="w"> </span>install<span class="w"> </span>traefik<span class="w"> </span>traefik/traefik<span class="w"> </span>--namespace<span class="w"> </span>todoapp<span class="w"> </span>--set<span class="w"> </span>ingressRoute.dashboard.enabled<span class="o">=</span><span class="nb">true</span>
 </code></pre></div>
 <p>Ezután már lehet port-átirányítani.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>port-forward<span class="w"> </span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>todoapp<span class="w"> </span>-l<span class="w"> </span><span class="s2">&quot;app.kubernetes.io/name=traefik&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&quot;{.items[0].metadata.name}&quot;</span><span class="k">)</span><span class="w"> </span><span class="m">9000</span>:9000<span class="w"> </span>-n<span class="w"> </span>todoapp
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>port-forward<span class="w"> </span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>todoapp<span class="w"> </span>-l<span class="w"> </span><span class="s2">&quot;app.kubernetes.io/name=traefik&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&quot;{.items[0].metadata.name}&quot;</span><span class="k">)</span><span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>-n<span class="w"> </span>todoapp
 </code></pre></div>
-<p>Ezután a <a href="http://localhost:9000/dashboard/">http://localhost:9000/dashboard/</a> címen érhető el a traefik dashboard (amíg a <code>port-forward</code> parancs fut).</p>
+<p>Ezután a <a href="http://localhost:8080/dashboard/">http://localhost:8080/dashboard/</a> címen érhető el a traefik dashboard (amíg a <code>port-forward</code> parancs fut).</p>
+<div class="admonition warning">
+<p class="admonition-title">Alapértelmezett port változása</p>
+<p>A korábbi helm chart verziókban (v33 előtt) az alapértelmezett port 9000 volt. A lokálisan gyorsítótárazott verzió lekérdezése: <code>helm search repo traefik/traefik</code> (<em>CHART VERSION</em> oszlop). Ha ez még v33 előtti és frissítenénk az új verzióra, akkor <code>helm repo update</code>. </p>
+</div>
 <h3 id="23-adatbazisok-telepites-k8s-yaml-fajlokkal">2.3 Adatbázisok - telepítés k8s YAML fájlokkal<a class="headerlink" href="#23-adatbazisok-telepites-k8s-yaml-fajlokkal" title="Permanent link">&para;</a></h3>
 <p>Próbáljuk ki egy-az-egyben a k8s házi módszerét. Töltsük le valahová az adatbázisok <a href="https://github.com/bmeviaumb11/skalazhato-szoftverek-bmeviaumb11-2024-hf-2024-kubernetes-hf-kiindulo-kubernetes-1/tree/main/todoapp/kubernetes/db">k8s YAML fájljait tartalmazó mappát</a> (vagy navigáljunk a k8s házink könyvtárába). A <code>db</code> mappa szülőkönyvtárban állva:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>db<span class="w"> </span>-n<span class="w"> </span>todoapp
@@ -1551,8 +1555,8 @@ docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRN
           </path>
         </svg>
       </span>
-      <span title="2024. november 4. 19:26:06">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-04T19:26:06+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-04</span>
+      <span title="2024. november 4. 20:28:48">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-04T20:28:48+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-04</span>
       </span>
     </span>
 
