@@ -28,7 +28,7 @@ A kiinduló projekt egy .NET 8 alapú alkalmazás két mikroszolgáltatást tart
 * **Order**: egy egyszerű REST webszolgáltatás, ami használja a Catalog szolgáltatást
     * A REST-es végpont elérését a hívó oldalon OpenAPI leíróból generált kliens oldali osztályokon keresztül érjük el. (lásd VS / Order projekt / Connected Services / Manage Connected Services / swagger Client).
     * Ez a kliens oldali kód `HttpClient` segítségével hívja meg a Catalog szolgáltatást.
-* **AppHost**: .NET Aspire alapó AppHost projekt, ami megkönnyíti az elosztott alkalmazások futtatását fejlesztés során. 
+* **AppHost**: .NET Aspire alapú AppHost projekt, ami megkönnyíti az elosztott alkalmazások futtatását fejlesztés során. 
   Koncepciójában a Docker Compose-hoz hasonló, de C# nyelven írható YAML helyett, és nem csak .NET alkalmazásokat támogat.
     * biztosítja a komponensek megfigyelhetőségét OpenTelemetry segítségével (Strukturált naplózás, Nyomkövetés, Metrikák)
     * és a Service Discovery-t konfigurációk kezelésén keresztül
