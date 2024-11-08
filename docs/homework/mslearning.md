@@ -4,7 +4,7 @@ authors: kszicsillag
 
 # NHF pontokért elszámolható Azure tananyagok
 
-*Még nincs véglegesítve 2024. őszi félévre*
+*Véglegesítve 2024. őszi félévre 2024. november 8-án*
 
 Kizárólag az alább meghatározott Azure tananyagok elsajátításáért NHF pontok szerezhetők.
 
@@ -29,7 +29,9 @@ Szintén elfogadjuk az alábbi minősítéses oldalakon a felkészülési anyago
 - [Microsoft Certified: Azure Administrator Associate](https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/?practice-assessment-type=certification#certification-prepare-for-the-exam)
 - [Microsoft Certified: DevOps Engineer Expert](https://learn.microsoft.com/en-us/credentials/certifications/devops-engineer/)
 
-**Nem** számítanak be a félévközi házikban előírt Microsoft Learn modulok képzési tervei.
+**Nem** számítanak be a félévközi házikban előírt Microsoft Learn modulok képzési tervei. 2024. őszi félévében ezek az alábbiak:
+
+- [AZ-204: Implement Azure Functions](https://learn.microsoft.com/en-us/training/paths/implement-azure-functions/)
 
 !!! tip
 
@@ -37,11 +39,11 @@ Szintén elfogadjuk az alábbi minősítéses oldalakon a felkészülési anyago
 
 !!! warning
 
-    Az összes elvégzett képzési tervet ugyanazon egyetemi M365 (@edu.bme.hu) account-otokkal belépve végezzétek el
+    Az összes elvégzett képzési tervet ugyanazon egyetemi M365 (@edu.bme.hu) account-otokkal belépve végezzétek el.
 
 !!! warning
 
-    A részben elvégzett képzési tervek, illetve olyan modulok, ahol a tartalmazó képzési terv nincs elvégezve - nem elfogadhatók
+    A részben elvégzett képzési tervek, illetve olyan modulok, ahol a tartalmazó képzési terv nincs elvégezve - nem elfogadhatók.
 
 ## Védés
 
