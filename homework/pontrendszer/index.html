@@ -837,15 +837,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ponthatarok" class="md-nav__link">
-    <span class="md-ellipsis">
-      Ponthatárok
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#a-szabalyrendszer-valtozasa" class="md-nav__link">
     <span class="md-ellipsis">
       A szabályrendszer változása
@@ -1017,15 +1008,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ponthatarok" class="md-nav__link">
-    <span class="md-ellipsis">
-      Ponthatárok
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#a-szabalyrendszer-valtozasa" class="md-nav__link">
     <span class="md-ellipsis">
       A szabályrendszer változása
@@ -1070,7 +1052,7 @@
 <li>saját gépen futó (on-premise) Kubernetes (K8S)</li>
 <li>saját gépen futó (on-premise) docker compose</li>
 <li>Azure Kubernetes Services (AKS)</li>
-<li>Azure Functions</li>
+<li>Azure Functions (AZF)</li>
 <li>Azure Container Apps (ACA)</li>
 </ul>
 </li>
@@ -1186,8 +1168,8 @@ AZ-400: Development for enterprise DevOps;405
 <li>
 <p><strong>{IaC}</strong> IaC (terraform, Bicep - <em>ez Azure-only!</em>, stb.) eszközzel legalább az üzleti funkciókat futtató architektúrarész (K8S / AKS / Azure Function App platform) felépítése és lebontása. A visszaépítés végén az alkalmazásnak működnie kell, nem elég például egy üres AKS-t visszaépíteni. Védésen nem kell demózni (sokáig tartana), de platformonként egy felépítésről és egy lebontásról egy-egy kimeneti naplót be kell tudni mutatni. <strong>7</strong>-<strong>10</strong> pont</p>
 <ul>
-<li>egyik platform telepítés (pl. Azure-os) felépítése-lebontása 7 pont</li>
-<li>mindkét platform felépítése-lebontása 10 pont</li>
+<li>egyik platform telepítés (pl. Azure-os) felépítése-lebontása <strong>7</strong> pont</li>
+<li>mindkét platform felépítése-lebontása <strong>10</strong> pont</li>
 </ul>
 </li>
 <li>
@@ -1197,38 +1179,46 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{GRPC}</strong> gRPC alapú kommunikáció használata legalább egy mikroszolgáltatás esetében: <strong>7</strong> pont</p>
 </li>
 <li>
-<p><strong>{NOERR}</strong> Hibatűrést növelő kommunikációs minták alkalmazása külső komponensek segítségével (pl. <a href="https://www.pollydocs.org/">Polly</a>, <a href="https://github.com/resilience4j/resilience4j">Resilience4j</a>, <a href="https://github.com/jd/tenacity">Tenacity</a>). Saját minta implementációért nem jár pont. Ha az API gateway valósítja meg, szintén nem jár pont. <strong>5</strong> pont</p>
+<p><strong>{NOERR}</strong> Hibatűrést növelő kommunikációs minták alkalmazása külső komponensek segítségével (pl. <a href="https://www.pollydocs.org/">Polly</a>, <a href="https://github.com/resilience4j/resilience4j">Resilience4j</a>, <a href="https://github.com/jd/tenacity">Tenacity</a>).  <strong>5</strong> pont</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Saját mintaimplementációért nem jár pont. Ha az API gateway valósítja meg, szintén nem jár pont.</p>
+</div>
 </li>
 <li>
-<p><strong>{APIGW}</strong> Saját telepítésű API gateway használata. Saját implementációért nem jár pont.: <strong>5-10</strong> pont</p>
+<p><strong>{APIGW}</strong> Saját telepítésű API gateway használata. <strong>5-10</strong> pont</p>
 <ul>
-<li>Traefik használata útvonalválasztásra: 5 pont</li>
-<li>Más, saját telepítésű API gateway használata: 10 pont</li>
+<li>Traefik használata útvonalválasztásra: <strong>5</strong> pont</li>
+<li>Más, saját telepítésű API gateway használata: <strong>10</strong> pont</li>
 </ul>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Saját gateway implementációért nem jár pont.</p>
+</div>
 </li>
 <li>
-<p><strong>{APIGW+AUTH}</strong> A szolgáltatás authentikációjának kiszervezése API gateway-be  (csak az <a href="https://gateway-api.sigs.k8s.io/implementations/">itt felsorolt</a> API gateway implementációk számítanak) forward authentikáció használatával: <strong>7-12</strong> pont</p>
+<p><strong>{APIGW+AUTH}</strong> A szolgáltatás authentikációjának kiszervezése API gateway-be forward authentikáció használatával: <strong>7-12</strong> pont</p>
 <ul>
-<li>OAuth proxy használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (pl. KeyCloak, Entra) felé továbbítva: 12 pont</li>
-<li>Egyéb egyszerű saját dummy authentikációs szolgáltatás felé továbbítva: 7 pont</li>
+<li>OAuth proxy használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (pl. KeyCloak, Entra) felé továbbítva: <strong>12</strong> pont</li>
+<li>Egyéb egyszerű saját dummy authentikációs szolgáltatás felé továbbítva: <strong>7</strong> pont</li>
 </ul>
 </li>
 <li>
 <p><strong>{ASYNCCOMM}</strong> Aszinkron, üzenetsor alapú kommunikáció mikroszolgáltatások között saját telepítésű (pl. RabbitMQ konténer) üzenetsor, üzenetkezelő (messaging) szolgáltatással: <strong>5-15</strong> pont</p>
 <ul>
-<li>Integrációs esemény eventualy consistency adatkezeléshez: 5 pont</li>
-<li>Transactional Outbox pattern alkalmazása: 5 pont</li>
-<li>Idempotens megvalósítás pl. deduplication elven: 5 pont</li>
+<li>Integrációs esemény eventually consistency adatkezeléshez: <strong>5</strong> pont</li>
+<li>Transactional Outbox pattern alkalmazása: <strong>5</strong> pont</li>
+<li>Idempotens megvalósítás pl. deduplication elven: <strong>5</strong> pont</li>
 </ul>
 </li>
 <li>
 <p><strong>{SAGA}</strong> Saga minta implementálása legalább egy folyamat esetén, hibakezeléssel és kompenzáció megvalósításával <strong>15</strong> pont</p>
 </li>
 <li>
-<p><strong>{EVENTSOURCING}</strong> Event Sourcing minta alkalmazása <strong>15 pont</strong></p>
+<p><strong>{EVENTSOURCING}</strong> Event Sourcing minta alkalmazása <strong>15</strong>  pont</p>
 </li>
 <li>
-<p><strong>{CQRS}</strong> és mediátor minta alkalmazása legalább egy szolgáltatás megvalósítása során. <strong>5 pont</strong></p>
+<p><strong>{CQRS}</strong> és mediátor minta alkalmazása legalább egy szolgáltatás megvalósítása során. <strong>5</strong> pont</p>
 </li>
 <li>
 <p><strong>{DDD}</strong> tervezési elvek demonstrálása Event Storming alapú üzleti folyamattervezéssel. A pontot extra ábra(k) elkészítésével szükséges demonstrálni, amin az Event Storming során megtervezett folyamat kerül dokumentálásra. A védésen bemutatni szükséges a tervek hatását az architektúrára, implementációra: <strong>5 pont</strong></p>
@@ -1243,11 +1233,15 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{HELM}</strong> A szolgáltatás kubernetes-en belül futó része Helm chart-on keresztül telepíthető. Szükséges demonstrálni a rendszer frissítését a chart segítségével: <strong>10</strong> pont</p>
 </li>
 <li>
-<p><strong>{ACRBUILD}</strong> Legalább egy saját konténer build-elése Azure Container Registry-ben (jelenleg hallgatói előfizetéssel nem teljesíthető): <strong>7-12</strong> pont</p>
+<p><strong>{ACRBUILD}</strong> Legalább egy saját konténer build-elése Azure Container Registry-ben: <strong>7-12</strong> pont</p>
 <ul>
 <li>ad-hoc build saját gépről feltöltött context alapján: <strong>7</strong> pont</li>
 <li>build valamilyen triggerre (pl. commit egy adott git ágra): <strong>12</strong> pont</li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Jelenleg hallgatói előfizetéssel nem megszerezhető, mert a szükséges szolgáltatás ilyen típusú előfizetéseken nem vehető igénybe.</p>
+</div>
 </li>
 <li>
 <p><strong>{K8SJOB}</strong> Kubernetes Job objektum használata, lefuttatása védéskor: <strong>5</strong> pont</p>
@@ -1259,20 +1253,27 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{K8SCMAP}</strong> Kubernetes ConfigMap objektum használata valamely konfigurációs beállítás tárolására: <strong>5</strong> pont</p>
 </li>
 <li>
-<p><strong>{K8SSECRET}</strong> Kubernetes Secret objektum használata titok tárolására: <strong>5-7</strong> pont</p>
+<p><strong>{K8SSECRET}</strong> Kubernetes Secret objektum használata titok tárolására: <strong>3</strong> pont</p>
+</li>
+<li>
+<p><strong>{AKV2K8S}</strong> AKS titkok leképezése K8S Secret objektumokba vagy podok környezetei változóira <a href="https://akv2k8s.io/">akv2k8s könyvtárral</a> vagy <a href="https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-driver">Azure Key Vault provider for Secrets Store CSI Driver-rel</a> (AKVSSCSID) <strong>5-7</strong> pont</p>
 <ul>
-<li>titok közvetlen feltöltése Secret objektumba: <strong>5</strong> pont</li>
-<li>titkok leképezése saját Azure Key Vault-ból Akv2k8s-re építve: <strong>7</strong> pont</li>
+<li>alapműködés: AKV -&gt; K8S Secret (akv2k8s), AKV -&gt; secret volume (AKVSSCSID): <strong>5</strong> pont</li>
+<li>extra funkciók kihasználása: AKV -&gt; környezeti változó (akv2k8s), AKV -&gt; K8S Secret (AKVSSCSID): <strong>7</strong> pont</li>
 </ul>
 </li>
 <li>
-<p><strong>{OT}</strong> OpenTelemetry alkalmazása különféle célokra: struktúrált naplózásra, metrikák monitorozásra, elosztott nyomkövetésre. Open Telemetry Collector komponens és valamilyen aggregátor felület használata kötelező a klaszteren belül (pl. Jaeger, Grafana, Azure Monitor), amin védéskor a naplókat, metrikákat, elosztott nyomkövetést be kell tudni mutatni: <strong>5-20</strong> pont</p>
+<p><strong>{OT}</strong> OpenTelemetry alkalmazása különféle célokra: strukturált naplózásra, metrikák monitorozásra, elosztott nyomkövetésre. <a href="https://opentelemetry.io/docs/collector/">OpenTelemetry Collector</a> komponens és valamilyen aggregátor felület használata kötelező a klaszteren belül (pl. Jaeger, Grafana, Azure Monitor), amin védéskor a naplókat, metrikákat, elosztott nyomkövetést be kell tudni mutatni: <strong>5-15</strong> pont</p>
 <ul>
 <li>egyfajta célra <strong>5</strong> pont </li>
 <li>kétfajta célra <strong>7</strong> pont</li>
 <li>mindhárom célra <strong>10</strong> pont</li>
 <li><a href="https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/azuremonitorexporter/README.md">exportálás <em>Azure Monitor</em>-ba</a> <strong>+5</strong> pont</li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">OpenTelemetry Collector vs Azure alapú környezetek</p>
+<p>Az OpenTelemetry Collector nem támogatott AZF környezetben. AKS és ACA környezetekbe elvileg telepíthető, de jelentős munka és ezekre <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-help-support-feedback?tabs=aspnetcore#can-i-use-the-opentelemetry-collector">sincs hivatalos MS támogatás</a> (<a href="https://techcommunity.microsoft.com/blog/azureobservabilityblog/making-azure-the-best-place-to-observe-your-apps-with-opentelemetry/3995896">még</a>). Ajánlott módszer: saját gépen futó klaszterben OpenTelemetry Collector alapú megoldás opcionálisan a monitor adatokat exportálva Azure Monitor-ba, míg Azure platformok esetében a specifikusan Azure-os jogcímek között leírt módszerek.</p>
+</div>
 </li>
 <li>
 <p><strong>{HSC}</strong> Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell <strong>5-10</strong> pont</p>
@@ -1282,10 +1283,10 @@ AZ-400: Development for enterprise DevOps;405
 </ul>
 </li>
 <li>
-<p><strong>{K8SNS}</strong> Több példány (verzió) telepítése ugyanabba a környezetbe K8S namespace-ek vagy Azure Function <a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal">deployemnet slot</a>-ok használatával. <em>Azure Container Apps</em> platform esetén külön <em>Container Apps</em> példány használható: <strong>7</strong> pont</p>
+<p><strong>{K8SNS}</strong> Több példány (verzió) telepítése ugyanabba a környezetbe K8S namespace-ek vagy Azure Function <a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal">deployment slot</a>-ok használatával. <em>Azure Container Apps</em> platform esetén külön <em>Container Apps</em> példány használható: <strong>7</strong> pont</p>
 </li>
 <li>
-<p><strong>{CICD}</strong> CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója elkészül és kitelepül: <strong>10-20</strong> pont</p>
+<p><strong>{CICD}</strong> CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója elkészül és kitelepül: <strong>10-15</strong> pont</p>
 <ul>
 <li>egy platformra telepít: <strong>10</strong> pont </li>
 <li>két platformra telepít <strong>15</strong> pont</li>
@@ -1304,7 +1305,7 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{OPACR}</strong> Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure Container Registry-ből: <strong>5-10</strong> pont</p>
 <ul>
 <li>anonim eléréssel: <strong>5</strong> pont</li>
-<li>authentikációval pl. image pull secret-tel: <strong>10</strong> pont</li>
+<li>autentikációval pl. image pull secret-tel: <strong>10</strong> pont</li>
 </ul>
 </li>
 <li>
@@ -1319,13 +1320,13 @@ AZ-400: Development for enterprise DevOps;405
 </ul>
 <h3 id="azure-alapon-futo-rendszerekhez">Azure alapon futó rendszerekhez<a class="headerlink" href="#azure-alapon-futo-rendszerekhez" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>{AZDB2}</strong> Legalább kétfajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, CosmosDB). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: <strong>10</strong> pont</li>
-</ul>
+<li>
+<p><strong>{AZDB2}</strong> Legalább kétfajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, CosmosDB). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: <strong>10</strong> pont</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>30 napig ingyenes (többször is aktiválható!) <a href="https://cosmos.azure.com/try/">Cosmos DB</a></p>
 </div>
-<ul>
+</li>
 <li>
 <p><strong>{AZRED}</strong> <a href="https://azure.microsoft.com/en-us/products/cache">Azure Redis</a> szolgáltatás használata kifejezetten cache-elésre saját telepítésű cache helyett, legalább egy művelet esetén: <strong>5</strong> pont</p>
 </li>
@@ -1346,7 +1347,7 @@ AZ-400: Development for enterprise DevOps;405
 </ul>
 </li>
 <li>
-<p><strong>{AZKVAU}</strong> Titkok lekérése saját <em>Azure Key Vault</em>-ból managed identity alapú hozzáféréssel: <strong>7</strong> pont</p>
+<p><strong>{AZKVAU}</strong> Titkok lekérése saját <em>Azure Key Vault</em>-ból passwordless hozzáféréssel (pl. managed identity, workload identity): <strong>3</strong> pont</p>
 </li>
 <li>
 <p><strong>{AZMSG}</strong> A mikroszolgáltatások közötti kommunikáció kiszervezése valamely <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services">Azure üzenetkezelő szolgáltatásba</a> (pl. Service Bus) managed identity alapú hozzáféréssel: <strong>5</strong> pont</p>
@@ -1355,12 +1356,44 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{AZACA}</strong> <em>Azure Container Apps</em> skálázása szabály alapján: <strong>5</strong> pont</p>
 </li>
 <li>
-<p><strong>{AZTEL}</strong> Különféle telemetriák - naplók, metrikák, elosztott nyomkövetés bekötése egy Azure szolgáltatásokba (pl. <em>Azure Managed Grafana</em>, <em>Azure Monitor</em>, <em>Application Insights</em>). Védésen szemléltetés a telemetriának megfelelő vizualizációkon, vagy naplók esetén lekérdezésken, keresztül: <strong>5-10</strong> pont</p>
+<p><strong>{AKSMON}</strong> AKS monitorozása, különféle telemetria típusok (strukturált naplók, metrikák, elosztott nyomkövetés) gyűjtése és megjelenítése Azure Monitor szolgáltatásban Azure Monitor agent-tel vagy agent nélkül Azure Monitor OpenTelemetry disztribúcióval  <strong>3-10</strong> pont</p>
 <ul>
-<li>Egyféle telemetria: <strong>5</strong> pont</li>
-<li>Kétféle telemetria: <strong>7</strong> pont</li>
-<li>Háromféle telemetria: <strong>10</strong> pont</li>
+<li>strukturált naplók vagy metrikák gyűjtése: <strong>3</strong> pont</li>
+<li>strukturált naplók és metrikák gyűjtése: <strong>5</strong> pont</li>
+<li>alkalmazás szintű OpenTelemetry telemetriák küldése közvetlenül (agent nélkül) Azure Monitor-ba az Azure Monitor OpenTelemetry disztribúcióval: <strong>+5</strong> pont</li>
 </ul>
+</li>
+<li>
+<p><strong>{OTAZURE}</strong> AKS/ACA/AZF platformon futó alkalmazásból alkalmazás szintű OpenTelemetry telemetriák küldése közvetlenül (agent nélkül) Azure Monitor-ba <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-enable">Azure Monitor OpenTelemetry disztribúcióval</a>: <strong>10</strong> pont </p>
+</li>
+<li>
+<p><strong>{AKSMON}</strong> AKS monitorozása, különféle telemetria típusok (strukturált naplók, metrikák, elosztott nyomkövetés) gyűjtése és megjelenítése Azure Monitor szolgáltatásban <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/containers/kubernetes-monitoring-enable?tabs=cli">Azure Monitor agent-tel</a>  <strong>3-5</strong> pont</p>
+<ul>
+<li>strukturált naplók vagy metrikák gyűjtése: <strong>3</strong> pont</li>
+<li>strukturált naplók és metrikák gyűjtése: <strong>5</strong> pont</li>
+</ul>
+</li>
+<li>
+<p><strong>{ACAMON}</strong> ACA <a href="https://learn.microsoft.com/en-us/azure/container-apps/opentelemetry-agents?tabs=arm">monitorozása OpenTelemetry agent-tel</a>. Naplók és elosztott nyomkövetési adatok gyűjtése és megjelenítése Azure Monitor-ban (App Insights): <strong>10 pont</strong></p>
+<div class="admonition warning">
+<p class="admonition-title">Előzetes verzió</p>
+<p>Az ACA OpenTelemetry Agent még csak előzetes verziós.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Platformonként csak egy OpenTelemetry integrációs módszerért (vagy agent alapú vagy közvetlen) jár pont.</p>
+</div>
+</li>
+<li>
+<p><strong>{AZFMON}</strong> AZF <a href="https://learn.microsoft.com/en-us/azure/azure-functions/opentelemetry-howto">monitorozása beépített OpenTelemetry integrációval</a>. Naplók és elosztott nyomkövetési adatok gyűjtése és megjelenítése Azure Monitor-ban (App Insights): <strong>10 pont</strong></p>
+<div class="admonition warning">
+<p class="admonition-title">Előzetes verzió</p>
+<p>Az AZF beépített OpenTelemetry integrációja még csak előzetes verziós.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Platformonként csak egy OpenTelemetry integrációs módszerért (vagy beépített vagy közvetlen) jár pont.</p>
+</div>
 </li>
 <li>
 <p><strong>{AZCS}</strong> <a href="https://learn.microsoft.com/en-us/azure/chaos-studio/"><em>Azure Chaos Studio</em></a> használata káosz teszt futtatására: <strong>7</strong> pont</p>
@@ -1379,13 +1412,12 @@ AZ-400: Development for enterprise DevOps;405
 <li><strong>{MSLEARN}</strong> Azure tananyagok elsajátítása, kizárólag a <a href="../mslearning/">külön leírt követelmények</a> szerint: max. <strong>24</strong> pont</li>
 <li><strong>{CONTRIB}</strong> Visszacsatolás. A véglegesített pontrendszer vagy tananyag javítása, bővítése, módosítása pull request-tel. Helyesírási hiba is lehet, de az oktatók döntenek, hogy pontot ér-e a módosítás. Többször is megszerezhető. <strong>0-2</strong> pont, összesen max. <strong>6</strong> pont.</li>
 </ul>
-<h2 id="ponthatarok">Ponthatárok<a class="headerlink" href="#ponthatarok" title="Permanent link">&para;</a></h2>
 <h2 id="a-szabalyrendszer-valtozasa">A szabályrendszer változása<a class="headerlink" href="#a-szabalyrendszer-valtozasa" title="Permanent link">&para;</a></h2>
 <p>Véglegesítés után is fenntartjuk a jogot</p>
 <ul>
 <li>a pontszerzési jogcímek halmazának bővítésére</li>
 <li>a pontszámok növelésére és egyéb hallgatóknak előnyös változtatásokra</li>
-<li>pontosításra, helyesírási hibák javítására</li>
+<li>pontosításra, helyesírási hibák, formázás javítására</li>
 <li>egyéb változtatásra egyetemi szabályok változása miatt (pl. járványhelyzet miatt)</li>
 </ul>
 <p>A pontrendszer, véglegesítés után is, általatok is módosítható/bővíthető. Ezt pull request formájában egy megfelelő indoklással nyújthatjátok be, de a PR benyújtása nem jelenti annak az automatikus elfogadását, arról minden esetben a tárgy oktatói döntenek.</p>
@@ -1399,8 +1431,8 @@ AZ-400: Development for enterprise DevOps;405
           </path>
         </svg>
       </span>
-      <span title="2024. október 28. 12:44:06">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-28T12:44:06+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-28</span>
+      <span title="2024. november 9. 17:27:38">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-09T17:27:38+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-09</span>
       </span>
     </span>
 
