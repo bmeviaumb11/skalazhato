@@ -1163,7 +1163,7 @@ AZ-400: Development for enterprise DevOps;405
 <h3 id="altalanos-es-cross-technologia">Általános és cross-technológia<a class="headerlink" href="#altalanos-es-cross-technologia" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p><strong>{PLAT2}</strong> A szolgáltatás két különféle orkesztrációs/platformon fut, egymástól függetlenül, tehát a teljes szolgáltatás két egymástól független telepítéssel rendelkezik (pl. on-premise K8S és AKS). Nem kell, hogy minden nem-üzleti funkció (pl. authentikáció) ugyanolyan komplex legyen a két telepítésben, csak az üzleti funkciók képességei egyezzenek. Legalább az egyik platformnak Azure-ban kell futnia: <strong>20</strong> pont</p>
+<p><strong>{PLAT2}</strong> A szolgáltatás két különféle orkesztrációs/platformon fut, egymástól függetlenül, tehát a teljes szolgáltatás két egymástól független telepítéssel rendelkezik (pl. on-premise K8S és AKS). Nem kell, hogy minden nem-üzleti funkció (pl. autentikáció) ugyanolyan komplex legyen a két telepítésben, csak az üzleti funkciók képességei egyezzenek. Legalább az egyik platformnak Azure-ban kell futnia: <strong>20</strong> pont</p>
 </li>
 <li>
 <p><strong>{IaC}</strong> IaC (terraform, Bicep - <em>ez Azure-only!</em>, stb.) eszközzel legalább az üzleti funkciókat futtató architektúrarész (K8S / AKS / Azure Function App platform) felépítése és lebontása. A visszaépítés végén az alkalmazásnak működnie kell, nem elég például egy üres AKS-t visszaépíteni. Védésen nem kell demózni (sokáig tartana), de platformonként egy felépítésről és egy lebontásról egy-egy kimeneti naplót be kell tudni mutatni. <strong>7</strong>-<strong>10</strong> pont</p>
@@ -1182,25 +1182,23 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{NOERR}</strong> Hibatűrést növelő kommunikációs minták alkalmazása külső komponensek segítségével (pl. <a href="https://www.pollydocs.org/">Polly</a>, <a href="https://github.com/resilience4j/resilience4j">Resilience4j</a>, <a href="https://github.com/jd/tenacity">Tenacity</a>).  <strong>5</strong> pont</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Saját mintaimplementációért nem jár pont. Ha az API gateway valósítja meg, szintén nem jár pont.</p>
+<p>Saját mintaimplementációért nem jár pont. Ha az (API/App) gateway valósítja meg, szintén nem jár pont.</p>
 </div>
 </li>
 <li>
-<p><strong>{APIGW}</strong> Saját telepítésű API gateway használata. <strong>5-10</strong> pont</p>
-<ul>
-<li>Traefik használata útvonalválasztásra: <strong>5</strong> pont</li>
-<li>Más, saját telepítésű API gateway használata: <strong>10</strong> pont</li>
-</ul>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>Saját gateway implementációért nem jár pont.</p>
-</div>
-</li>
-<li>
-<p><strong>{APIGW+AUTH}</strong> A szolgáltatás authentikációjának kiszervezése API gateway-be forward authentikáció használatával: <strong>7-12</strong> pont</p>
+<p><strong>{APIGW+AUTH}</strong> A szolgáltatás autentikációjának kiszervezése (API/App) gateway-be forward autentikáció használatával: <strong>7-12</strong> pont</p>
 <ul>
 <li>OAuth proxy használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (pl. KeyCloak, Entra) felé továbbítva: <strong>12</strong> pont</li>
-<li>Egyéb egyszerű saját dummy authentikációs szolgáltatás felé továbbítva: <strong>7</strong> pont</li>
+<li>Egyéb egyszerű saját dummy autentikációs szolgáltatás felé továbbítva: <strong>7</strong> pont</li>
+</ul>
+</li>
+<li>
+<p><strong>{AZAPIMGMT}</strong> <em>Azure API Management</em> használata. A kliensről jövő minden API kérés áthalad az API Management gateway-en mielőtt eljutna a klaszterbe vagy az <a href="https://azure.microsoft.com/en-us/blog/benefits-of-using-azure-api-management-with-microservices/">Azure Function-ökhöz</a>. Legalább egy <a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-policies">policy-t</a> érvényesít. <strong>7-17</strong> pont</p>
+<ul>
+<li>Egy platformon: <strong>7</strong> pont</li>
+<li>Két platformon, ebből az egyik on-premise (self-hosted mód) <strong>+5</strong> pont</li>
+<li>Több API verzió támogatása API Management szolgáltatás segítségével <strong>+3</strong> pont</li>
+<li>Mock válaszok legalább egy API művelethez, API Management szolgáltatás segítségével <strong>+2</strong> pont</li>
 </ul>
 </li>
 <li>
@@ -1317,7 +1315,16 @@ AZ-400: Development for enterprise DevOps;405
 <li>
 <p><strong>{OPSTR}</strong> Tartós tár, pl. lokális mappa csatolása klaszterbe. <strong>5</strong> pont</p>
 </li>
+<li>
+<p><strong>{GW}</strong> Saját telepítésű (API/App) gateway használata. <strong>5-10</strong> pont</p>
+<ul>
+<li>Traefik használata útvonalválasztásra: <strong>5</strong> pont</li>
+<li>Más, saját telepítésű (API/App) gateway használata: <strong>10</strong> pont</li>
 </ul>
+</li>
+</ul>
+<p>!!! danger
+  Saját gateway implementációért nem jár pont.</p>
 <h3 id="azure-alapon-futo-rendszerekhez">Azure alapon futó rendszerekhez<a class="headerlink" href="#azure-alapon-futo-rendszerekhez" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
@@ -1331,13 +1338,14 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{AZRED}</strong> <a href="https://azure.microsoft.com/en-us/products/cache">Azure Redis</a> szolgáltatás használata kifejezetten cache-elésre saját telepítésű cache helyett, legalább egy művelet esetén: <strong>5</strong> pont</p>
 </li>
 <li>
-<p><strong>{AZING}</strong> Valamely <a href="https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options">hivatalosan támogatott AKS ingress opció</a> használata saját telepítésű ingress / api gateway helyett: <strong>7</strong> pont</p>
+<p><strong>{AZING}</strong> Gateway/Ingress Azure szolgáltatásra (kivéve Azure API Management) vagy AKS kiterjesztésre építve. <strong>7-10</strong> pont</p>
+<ul>
+<li>AKS esetén valamely <a href="https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options">hivatalosan támogatott AKS ingress opció</a>: <strong>10</strong> pont</li>
+<li>Egyéb Azure szolgáltatás (pl. Azure App Gateway; kivéve Azure API Management): <strong>7</strong> pont</li>
+</ul>
 </li>
 <li>
-<p><strong>{AZAPIMGW}</strong> <em>Azure API Management</em> használata gateway-ként. A kliensről jövő kérés előbb az API Management gateway-be fut be, ami az Azure-os klaszterben futó ingress vagy <a href="https://azure.microsoft.com/en-us/blog/benefits-of-using-azure-api-management-with-microservices/">Azure Function-ök</a> felé továbbít: <strong>7</strong> pont</p>
-</li>
-<li>
-<p><strong>{AZAPIMAUTH}</strong> Authentikáció kiszervezése <em>Azure API Management</em> szolgáltatásba (<a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad">példa</a>): <strong>8</strong> pont</p>
+<p><strong>{AZAPIMAUTH}</strong> Authentikáció kiszervezése <em>Azure API Management</em> szolgáltatásba (<a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad">példa</a>): <strong>7</strong> pont</p>
 </li>
 <li>
 <p><strong>{AZACR}</strong> Konténerek vagy helm chart(ok) letöltése Azure-beli klaszterbe vagy <em>Azure Function</em>-be saját <em>Azure Container Registry</em>-ből: <strong>3-7</strong> pont</p>
@@ -1431,8 +1439,8 @@ AZ-400: Development for enterprise DevOps;405
           </path>
         </svg>
       </span>
-      <span title="2024. november 9. 17:27:38">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-09T17:27:38+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-09</span>
+      <span title="2024. november 13. 15:20:41">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-13T15:20:41+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-13</span>
       </span>
     </span>
 
