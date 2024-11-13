@@ -102,7 +102,7 @@ További szabályok:
 
 ### Általános és cross-technológia
 
-- **{PLAT2}** A szolgáltatás két különféle orkesztrációs/platformon fut, egymástól függetlenül, tehát a teljes szolgáltatás két egymástól független telepítéssel rendelkezik (pl. on-premise K8S és AKS). Nem kell, hogy minden nem-üzleti funkció (pl. authentikáció) ugyanolyan komplex legyen a két telepítésben, csak az üzleti funkciók képességei egyezzenek. Legalább az egyik platformnak Azure-ban kell futnia: **20** pont
+- **{PLAT2}** A szolgáltatás két különféle orkesztrációs/platformon fut, egymástól függetlenül, tehát a teljes szolgáltatás két egymástól független telepítéssel rendelkezik (pl. on-premise K8S és AKS). Nem kell, hogy minden nem-üzleti funkció (pl. autentikáció) ugyanolyan komplex legyen a két telepítésben, csak az üzleti funkciók képességei egyezzenek. Legalább az egyik platformnak Azure-ban kell futnia: **20** pont
 
 - **{IaC}** IaC (terraform, Bicep - *ez Azure-only!*, stb.) eszközzel legalább az üzleti funkciókat futtató architektúrarész (K8S / AKS / Azure Function App platform) felépítése és lebontása. A visszaépítés végén az alkalmazásnak működnie kell, nem elég például egy üres AKS-t visszaépíteni. Védésen nem kell demózni (sokáig tartana), de platformonként egy felépítésről és egy lebontásról egy-egy kimeneti naplót be kell tudni mutatni. **7**-**10** pont
 
@@ -116,20 +116,19 @@ További szabályok:
 - **{NOERR}** Hibatűrést növelő kommunikációs minták alkalmazása külső komponensek segítségével (pl. [Polly](https://www.pollydocs.org/), [Resilience4j](https://github.com/resilience4j/resilience4j), [Tenacity](https://github.com/jd/tenacity)).  **5** pont
 
     !!! danger
-        Saját mintaimplementációért nem jár pont. Ha az API gateway valósítja meg, szintén nem jár pont.
+        Saját mintaimplementációért nem jár pont. Ha az (API/App) gateway valósítja meg, szintén nem jár pont.
 
-- **{APIGW}** Saját telepítésű API gateway használata. **5-10** pont
-
-    - Traefik használata útvonalválasztásra: **5** pont
-    - Más, saját telepítésű API gateway használata: **10** pont
-
-    !!! danger
-        Saját gateway implementációért nem jár pont.
-
-- **{APIGW+AUTH}** A szolgáltatás authentikációjának kiszervezése API gateway-be forward authentikáció használatával: **7-12** pont
+- **{APIGW+AUTH}** A szolgáltatás autentikációjának kiszervezése (API/App) gateway-be forward autentikáció használatával: **7-12** pont
 
     - OAuth proxy használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (pl. KeyCloak, Entra) felé továbbítva: **12** pont
-    - Egyéb egyszerű saját dummy authentikációs szolgáltatás felé továbbítva: **7** pont
+    - Egyéb egyszerű saját dummy autentikációs szolgáltatás felé továbbítva: **7** pont
+
+- **{AZAPIMGMT}** *Azure API Management* használata. A kliensről jövő minden API kérés áthalad az API Management gateway-en mielőtt eljutna a klaszterbe vagy az [Azure Function-ökhöz](https://azure.microsoft.com/en-us/blog/benefits-of-using-azure-api-management-with-microservices/). Legalább egy [policy-t](https://learn.microsoft.com/en-us/azure/api-management/api-management-policies) érvényesít. **7-17** pont
+
+    - Egy platformon: **7** pont
+    - Két platformon, ebből az egyik on-premise (self-hosted mód) **+5** pont
+    - Több API verzió támogatása API Management szolgáltatás segítségével **+3** pont
+    - Mock válaszok legalább egy API művelethez, API Management szolgáltatás segítségével **+2** pont
 
 - **{ASYNCCOMM}** Aszinkron, üzenetsor alapú kommunikáció mikroszolgáltatások között saját telepítésű (pl. RabbitMQ konténer) üzenetsor, üzenetkezelő (messaging) szolgáltatással: **5-15** pont
 
@@ -210,6 +209,14 @@ További szabályok:
 
 - **{OPSTR}** Tartós tár, pl. lokális mappa csatolása klaszterbe. **5** pont
 
+- **{GW}** Saját telepítésű (API/App) gateway használata. **5-10** pont
+
+    - Traefik használata útvonalválasztásra: **5** pont
+    - Más, saját telepítésű (API/App) gateway használata: **10** pont
+
+  !!! danger
+  Saját gateway implementációért nem jár pont.
+
 ### Azure alapon futó rendszerekhez
 
 - **{AZDB2}** Legalább kétfajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, CosmosDB). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: **10** pont
@@ -219,11 +226,12 @@ További szabályok:
 
 - **{AZRED}** [Azure Redis](https://azure.microsoft.com/en-us/products/cache) szolgáltatás használata kifejezetten cache-elésre saját telepítésű cache helyett, legalább egy művelet esetén: **5** pont
 
-- **{AZING}** Valamely [hivatalosan támogatott AKS ingress opció](https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options) használata saját telepítésű ingress / api gateway helyett: **7** pont
+- **{AZING}** Gateway/Ingress Azure szolgáltatásra (kivéve Azure API Management) vagy AKS kiterjesztésre építve. **7-10** pont
 
-- **{AZAPIMGW}** *Azure API Management* használata gateway-ként. A kliensről jövő kérés előbb az API Management gateway-be fut be, ami az Azure-os klaszterben futó ingress vagy [Azure Function-ök](https://azure.microsoft.com/en-us/blog/benefits-of-using-azure-api-management-with-microservices/) felé továbbít: **7** pont
-
-- **{AZAPIMAUTH}** Authentikáció kiszervezése *Azure API Management* szolgáltatásba ([példa](https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad)): **8** pont
+    - AKS esetén valamely [hivatalosan támogatott AKS ingress opció](https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options): **10** pont
+    - Egyéb Azure szolgáltatás (pl. Azure App Gateway; kivéve Azure API Management): **7** pont
+  
+- **{AZAPIMAUTH}** Authentikáció kiszervezése *Azure API Management* szolgáltatásba ([példa](https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad)): **7** pont
 
 - **{AZACR}** Konténerek vagy helm chart(ok) letöltése Azure-beli klaszterbe vagy *Azure Function*-be saját *Azure Container Registry*-ből: **3-7** pont
 
