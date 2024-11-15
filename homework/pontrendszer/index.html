@@ -1166,7 +1166,7 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{PLAT2}</strong> A szolgáltatás két különféle orkesztrációs/platformon fut, egymástól függetlenül, tehát a teljes szolgáltatás két egymástól független telepítéssel rendelkezik (pl. on-premise K8S és AKS). Nem kell, hogy minden nem-üzleti funkció (pl. autentikáció) ugyanolyan komplex legyen a két telepítésben, csak az üzleti funkciók képességei egyezzenek. Legalább az egyik platformnak Azure-ban kell futnia: <strong>20</strong> pont</p>
 </li>
 <li>
-<p><strong>{IaC}</strong> IaC (terraform, Bicep - <em>ez Azure-only!</em>, stb.) eszközzel legalább az üzleti funkciókat futtató architektúrarész (K8S / AKS / Azure Function App platform) felépítése és lebontása. A visszaépítés végén az alkalmazásnak működnie kell, nem elég például egy üres AKS-t visszaépíteni. Védésen nem kell demózni (sokáig tartana), de platformonként egy felépítésről és egy lebontásról egy-egy kimeneti naplót be kell tudni mutatni. <strong>7</strong>-<strong>10</strong> pont</p>
+<p><strong>{IaC}</strong> IaC (terraform, Bicep - <em>ez Azure-only!</em>, stb.) eszközzel legalább az üzleti funkciókat futtató architektúrarész (K8S / AKS / Azure Function App platform) felépítése és lebontása. A visszaépítés végén az alkalmazásnak működnie kell, nem elég például egy üres AKS-t visszaépíteni. Védésen nem kell demózni (sokáig tartana), de platformonként egy felépítésről és egy lebontásról egy-egy kimeneti naplót be kell tudni mutatni. Nem kell a teljes felépítés-lebontás folyamatot az IaC eszközzel megvalósítani, ki lehet egészíteni egyéb autmatizációval, szkripttel. <strong>7</strong>-<strong>10</strong> pont</p>
 <ul>
 <li>egyik platform telepítés (pl. Azure-os) felépítése-lebontása <strong>7</strong> pont</li>
 <li>mindkét platform felépítése-lebontása <strong>10</strong> pont</li>
@@ -1216,10 +1216,10 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{EVENTSOURCING}</strong> Event Sourcing minta alkalmazása <strong>15</strong>  pont</p>
 </li>
 <li>
-<p><strong>{CQRS}</strong> és mediátor minta alkalmazása legalább egy szolgáltatás megvalósítása során. <strong>5</strong> pont</p>
+<p><strong>{CQRS}</strong> CQRS és mediátor minta alkalmazása legalább egy szolgáltatás megvalósítása során. <strong>5</strong> pont</p>
 </li>
 <li>
-<p><strong>{DDD}</strong> tervezési elvek demonstrálása Event Storming alapú üzleti folyamattervezéssel. A pontot extra ábra(k) elkészítésével szükséges demonstrálni, amin az Event Storming során megtervezett folyamat kerül dokumentálásra. A védésen bemutatni szükséges a tervek hatását az architektúrára, implementációra: <strong>5 pont</strong></p>
+<p><strong>{DDD}</strong> DDD tervezési elvek demonstrálása Event Storming alapú üzleti folyamattervezéssel. A pontot extra ábra(k) elkészítésével szükséges demonstrálni, amin az Event Storming során megtervezett folyamat kerül dokumentálásra. A védésen bemutatni szükséges a tervek hatását az architektúrára, implementációra: <strong>5 pont</strong></p>
 </li>
 <li>
 <p><strong>{ACTOR}</strong> Actor minta alkalmazása legalább egy állapottal rendelkező szolgáltatás esetében magas szintű keretrendszerek segítéségével pl.: Microsoft Orleans, AKKA.NET: <strong>15 pont</strong></p>
@@ -1274,7 +1274,7 @@ AZ-400: Development for enterprise DevOps;405
 </div>
 </li>
 <li>
-<p><strong>{HSC}</strong> Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell <strong>5-10</strong> pont</p>
+<p><strong>{HSC}</strong> Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell. <strong>5-10</strong> pont</p>
 <ul>
 <li>Horizontal Pod AutoScaler alapú: <strong>5</strong> pont</li>
 <li><a href="https://keda.sh/">KEDA</a> alapú, valamilyen adat, esemény alapján: <strong>10</strong> pont</li>
@@ -1307,8 +1307,9 @@ AZ-400: Development for enterprise DevOps;405
 </ul>
 </li>
 <li>
-<p><strong>{OPARC}</strong> On-premise Kubernetes bekötése Azure Arc-ba: <strong>10-20</strong> pont</p>
+<p><strong>{OPARC}</strong> On-premise Kubernetes bekötése Azure Arc-ba: <strong>5-15</strong> pont</p>
 <ul>
+<li>A szolgáltatás bekötése <strong>5 pont</strong></li>
 <li>A szolgáltatás on-premise <a href="https://learn.microsoft.com/en-us/azure/app-service/overview-arc-integration">Azure Function engine</a>-en fut (<strong>preview!</strong>) <strong>+10</strong> pont</li>
 </ul>
 </li>
@@ -1414,6 +1415,13 @@ AZ-400: Development for enterprise DevOps;405
 <li>
 <p><strong>{AZACI}</strong> Legalább egy pod/szolgáltatás futtatása Azure Container Instance szolgáltatáson az AKS <a href="https://learn.microsoft.com/en-us/azure/aks/virtual-nodes">virtual node</a> képességére építve. <strong>7</strong> pont</p>
 </li>
+<li>
+<p><strong>{AZACI}</strong> AKS node szintű skálázás cluster autoscaler-rel. Védésen a (vissza)skálázást demonstrálni kell. <strong>7</strong> pont</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Jelenleg hallgatói előfizetéssel ez a pont valószínűleg nem megszerezhető, mert a szükséges vCPU kvóták az ilyen típusú előfizetéseken túl alacsonyak.</p>
+</div>
+</li>
 </ul>
 <h3 id="egyeb">Egyéb<a class="headerlink" href="#egyeb" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1441,8 +1449,8 @@ AZ-400: Development for enterprise DevOps;405
           </path>
         </svg>
       </span>
-      <span title="2024. november 15. 16:46:01">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-15T16:46:01+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-15</span>
+      <span title="2024. november 15. 17:05:26">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-15T17:05:26+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-15</span>
       </span>
     </span>
 
