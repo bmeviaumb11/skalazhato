@@ -120,7 +120,7 @@ További szabályok:
 
 - **{APIGW+AUTH}** A szolgáltatás autentikációjának kiszervezése (API/App) gateway-be forward autentikáció használatával: **7-12** pont
 
-    - OAuth proxy használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (pl. KeyCloak, Entra) felé továbbítva: **12** pont
+    - OAuth proxy vagy self-hosted/felhőben futó [Azure API Management gateway](https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad) használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (pl. KeyCloak, Entra) felé továbbítva: **12** pont
     - Egyéb egyszerű saját dummy autentikációs szolgáltatás felé továbbítva: **7** pont
 
 - **{AZAPIMGMT}** *Azure API Management* használata. A kliensről jövő minden API kérés áthalad az API Management gateway-en mielőtt eljutna a klaszterbe vagy az [Azure Function-ökhöz](https://azure.microsoft.com/en-us/blog/benefits-of-using-azure-api-management-with-microservices/). Legalább egy [policy-t](https://learn.microsoft.com/en-us/azure/api-management/api-management-policies) érvényesít. **7-17** pont
@@ -209,7 +209,7 @@ További szabályok:
 
 - **{OPSTR}** Tartós tár, pl. lokális mappa csatolása klaszterbe. **5** pont
 
-- **{GW}** Saját telepítésű (API/App) gateway használata. **5-10** pont
+- **{GW}** Saját telepítésű (API/App) gateway használata. Kivéve self-hosted Azure API Management. **5-10** pont
 
     - Traefik használata útvonalválasztásra: **5** pont
     - Más, saját telepítésű (API/App) gateway használata: **10** pont
@@ -231,8 +231,6 @@ További szabályok:
     - AKS esetén valamely [hivatalosan támogatott AKS ingress opció](https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options): **10** pont
     - Egyéb Azure szolgáltatás (pl. Azure App Gateway; kivéve Azure API Management): **7** pont
   
-- **{AZAPIMAUTH}** Authentikáció kiszervezése *Azure API Management* szolgáltatásba ([példa](https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad)): **7** pont
-
 - **{AZACR}** Konténerek vagy helm chart(ok) letöltése Azure-beli klaszterbe vagy *Azure Function*-be saját *Azure Container Registry*-ből: **3-7** pont
 
     - ACR admin felhasználó nevében: **3** pont
