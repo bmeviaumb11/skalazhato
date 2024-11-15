@@ -215,7 +215,7 @@ További szabályok:
     - Más, saját telepítésű (API/App) gateway használata: **10** pont
 
   !!! danger
-  Saját gateway implementációért nem jár pont.
+      Saját gateway implementációért nem jár pont.
 
 ### Azure alapon futó rendszerekhez
 
