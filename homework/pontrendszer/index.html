@@ -1188,7 +1188,7 @@ AZ-400: Development for enterprise DevOps;405
 <li>
 <p><strong>{APIGW+AUTH}</strong> A szolgáltatás autentikációjának kiszervezése (API/App) gateway-be forward autentikáció használatával: <strong>7-12</strong> pont</p>
 <ul>
-<li>OAuth proxy használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (pl. KeyCloak, Entra) felé továbbítva: <strong>12</strong> pont</li>
+<li>OAuth proxy vagy self-hosted/felhőben futó <a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad">Azure API Management gateway</a> használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (pl. KeyCloak, Entra) felé továbbítva: <strong>12</strong> pont</li>
 <li>Egyéb egyszerű saját dummy autentikációs szolgáltatás felé továbbítva: <strong>7</strong> pont</li>
 </ul>
 </li>
@@ -1316,7 +1316,7 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{OPSTR}</strong> Tartós tár, pl. lokális mappa csatolása klaszterbe. <strong>5</strong> pont</p>
 </li>
 <li>
-<p><strong>{GW}</strong> Saját telepítésű (API/App) gateway használata. <strong>5-10</strong> pont</p>
+<p><strong>{GW}</strong> Saját telepítésű (API/App) gateway használata. Kivéve self-hosted Azure API Management. <strong>5-10</strong> pont</p>
 <ul>
 <li>Traefik használata útvonalválasztásra: <strong>5</strong> pont</li>
 <li>Más, saját telepítésű (API/App) gateway használata: <strong>10</strong> pont</li>
@@ -1343,9 +1343,6 @@ AZ-400: Development for enterprise DevOps;405
 <li>AKS esetén valamely <a href="https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options">hivatalosan támogatott AKS ingress opció</a>: <strong>10</strong> pont</li>
 <li>Egyéb Azure szolgáltatás (pl. Azure App Gateway; kivéve Azure API Management): <strong>7</strong> pont</li>
 </ul>
-</li>
-<li>
-<p><strong>{AZAPIMAUTH}</strong> Authentikáció kiszervezése <em>Azure API Management</em> szolgáltatásba (<a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad">példa</a>): <strong>7</strong> pont</p>
 </li>
 <li>
 <p><strong>{AZACR}</strong> Konténerek vagy helm chart(ok) letöltése Azure-beli klaszterbe vagy <em>Azure Function</em>-be saját <em>Azure Container Registry</em>-ből: <strong>3-7</strong> pont</p>
@@ -1439,8 +1436,8 @@ AZ-400: Development for enterprise DevOps;405
           </path>
         </svg>
       </span>
-      <span title="2024. november 15. 09:34:04">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-15T09:34:04+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-15</span>
+      <span title="2024. november 15. 09:43:24">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-15T09:43:24+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-15</span>
       </span>
     </span>
 
