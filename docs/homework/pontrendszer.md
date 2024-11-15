@@ -31,7 +31,7 @@ A házi feladat otthon, önállóan elkészítendő mikroszolgáltatások archit
 
 ### Kötelező leadandók
 
-A házi feladatot a moodle-ben publikált GitHub Classroom meghívóval generált repository-ban szükséges beadni a kis házi feladatokhoz hasonlóan. Viszont ezt szóban is meg kell védeni a laborvezetőnél előre egyeztetett időpontban a vizsgaidőszakban.
+A házi feladatot a moodle-ben publikált GitHub Classroom meghívóval generált repository-ban szükséges beadni a kis házi feladatokhoz hasonlóan. Viszont szóban is meg kell védeni a laborvezetőnél előre egyeztetett időpontban a vizsgaidőszakban.
 
 A beadott repository struktúrája:
 
