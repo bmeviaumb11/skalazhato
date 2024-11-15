@@ -214,8 +214,8 @@ További szabályok:
     - Traefik használata útvonalválasztásra: **5** pont
     - Más, saját telepítésű (API/App) gateway használata: **10** pont
 
-  !!! danger
-      Saját gateway implementációért nem jár pont.
+    !!! danger
+        Saját gateway implementációért nem jár pont.
 
 ### Azure alapon futó rendszerekhez
 
@@ -275,6 +275,8 @@ További szabályok:
 - **{AZSTR}** Tartós tár, például Azure Disk, Azure Files csatolása AKS, ACA klaszterbe vagy [Azure Function-be](https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares): **5** pont
 
 - **{AZFDF}** [*Durable Functions*](https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview) használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: **5** pont
+
+- **{AZACI}** Legalább egy pod/szolgáltatás futtatása Azure Container Instance szolgáltatáson az AKS [virtual node](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes) képességére építve. **7** pont
 
 ### Egyéb
 
