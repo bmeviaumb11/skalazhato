@@ -104,7 +104,7 @@ További szabályok:
 
 - **{PLAT2}** A szolgáltatás két különféle orkesztrációs/platformon fut, egymástól függetlenül, tehát a teljes szolgáltatás két egymástól független telepítéssel rendelkezik (pl. on-premise K8S és AKS). Nem kell, hogy minden nem-üzleti funkció (pl. autentikáció) ugyanolyan komplex legyen a két telepítésben, csak az üzleti funkciók képességei egyezzenek. Legalább az egyik platformnak Azure-ban kell futnia: **20** pont
 
-- **{IaC}** IaC (terraform, Bicep - *ez Azure-only!*, stb.) eszközzel legalább az üzleti funkciókat futtató architektúrarész (K8S / AKS / Azure Function App platform) felépítése és lebontása. A visszaépítés végén az alkalmazásnak működnie kell, nem elég például egy üres AKS-t visszaépíteni. Védésen nem kell demózni (sokáig tartana), de platformonként egy felépítésről és egy lebontásról egy-egy kimeneti naplót be kell tudni mutatni. **7**-**10** pont
+- **{IaC}** IaC (terraform, Bicep - *ez Azure-only!*, stb.) eszközzel legalább az üzleti funkciókat futtató architektúrarész (K8S / AKS / Azure Function App platform) felépítése és lebontása. A visszaépítés végén az alkalmazásnak működnie kell, nem elég például egy üres AKS-t visszaépíteni. Védésen nem kell demózni (sokáig tartana), de platformonként egy felépítésről és egy lebontásról egy-egy kimeneti naplót be kell tudni mutatni. Nem kell a teljes felépítés-lebontás folyamatot az IaC eszközzel megvalósítani, ki lehet egészíteni egyéb autmatizációval, szkripttel. **7**-**10** pont
 
     - egyik platform telepítés (pl. Azure-os) felépítése-lebontása **7** pont
     - mindkét platform felépítése-lebontása **10** pont
@@ -140,9 +140,9 @@ További szabályok:
 
 - **{EVENTSOURCING}** Event Sourcing minta alkalmazása **15**  pont
 
-- **{CQRS}** és mediátor minta alkalmazása legalább egy szolgáltatás megvalósítása során. **5** pont
+- **{CQRS}** CQRS és mediátor minta alkalmazása legalább egy szolgáltatás megvalósítása során. **5** pont
 
-- **{DDD}** tervezési elvek demonstrálása Event Storming alapú üzleti folyamattervezéssel. A pontot extra ábra(k) elkészítésével szükséges demonstrálni, amin az Event Storming során megtervezett folyamat kerül dokumentálásra. A védésen bemutatni szükséges a tervek hatását az architektúrára, implementációra: **5 pont**
+- **{DDD}** DDD tervezési elvek demonstrálása Event Storming alapú üzleti folyamattervezéssel. A pontot extra ábra(k) elkészítésével szükséges demonstrálni, amin az Event Storming során megtervezett folyamat kerül dokumentálásra. A védésen bemutatni szükséges a tervek hatását az architektúrára, implementációra: **5 pont**
 
 - **{ACTOR}** Actor minta alkalmazása legalább egy állapottal rendelkező szolgáltatás esetében magas szintű keretrendszerek segítéségével pl.: Microsoft Orleans, AKKA.NET: **15 pont**
 
@@ -180,7 +180,7 @@ További szabályok:
     !!! warning "OpenTelemetry Collector vs Azure alapú környezetek"
         Az OpenTelemetry Collector nem támogatott AZF környezetben. AKS és ACA környezetekbe elvileg telepíthető, de jelentős munka és ezekre [sincs hivatalos MS támogatás](https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-help-support-feedback?tabs=aspnetcore#can-i-use-the-opentelemetry-collector) ([még](https://techcommunity.microsoft.com/blog/azureobservabilityblog/making-azure-the-best-place-to-observe-your-apps-with-opentelemetry/3995896)). Ajánlott módszer: saját gépen futó klaszterben OpenTelemetry Collector alapú megoldás opcionálisan a monitor adatokat exportálva Azure Monitor-ba, míg Azure platformok esetében a specifikusan Azure-os jogcímek között leírt módszerek.
 
-- **{HSC}** Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell **5-10** pont
+- **{HSC}** Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell. **5-10** pont
 
     - Horizontal Pod AutoScaler alapú: **5** pont
     - [KEDA](https://keda.sh/) alapú, valamilyen adat, esemény alapján: **10** pont
@@ -203,8 +203,8 @@ További szabályok:
     - anonim eléréssel: **5** pont
     - autentikációval pl. image pull secret-tel: **10** pont
 
-- **{OPARC}** On-premise Kubernetes bekötése Azure Arc-ba: **10-20** pont
-
+- **{OPARC}** On-premise Kubernetes bekötése Azure Arc-ba: **5-15** pont
+    - A szolgáltatás bekötése **5 pont**
     - A szolgáltatás on-premise [Azure Function engine](https://learn.microsoft.com/en-us/azure/app-service/overview-arc-integration)-en fut (**preview!**) **+10** pont
 
 - **{OPSTR}** Tartós tár, pl. lokális mappa csatolása klaszterbe. **5** pont
@@ -277,6 +277,11 @@ További szabályok:
 - **{AZFDF}** [*Durable Functions*](https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview) használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: **5** pont
 
 - **{AZACI}** Legalább egy pod/szolgáltatás futtatása Azure Container Instance szolgáltatáson az AKS [virtual node](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes) képességére építve. **7** pont
+  
+- **{AZACI}** AKS node szintű skálázás cluster autoscaler-rel. Védésen a (vissza)skálázást demonstrálni kell. **7** pont
+
+    !!! warning
+        Jelenleg hallgatói előfizetéssel ez a pont valószínűleg nem megszerezhető, mert a szükséges vCPU kvóták az ilyen típusú előfizetéseken túl alacsonyak.
 
 ### Egyéb
 
