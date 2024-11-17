@@ -4,7 +4,7 @@ authors: kszicsillag,tibitoth
 
 # Pontrendszer
 
-*Még nincs véglegesítve 2024. őszi félévre*
+*Véglegesítve 2024. őszi félévre 2024. november 17-én*
 
 A házi feladat otthon, önállóan elkészítendő mikroszolgáltatások architektúrára épülő és konténertechnológiát használó szoftverrendszer elkészítése és működőképes állapotban való bemutatása.
 
@@ -157,7 +157,6 @@ További szabályok:
       
     !!! warning
         Jelenleg hallgatói előfizetéssel nem megszerezhető, mert a szükséges szolgáltatás ilyen típusú előfizetéseken nem vehető igénybe.
-  
 
 - **{K8SJOB}** Kubernetes Job objektum használata, lefuttatása védéskor: **5** pont
 
