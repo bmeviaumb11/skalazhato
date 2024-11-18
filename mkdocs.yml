@@ -105,6 +105,7 @@ nav:
       - homework/03-communication/index.md
       - homework/04-aks/index.md
       - homework/05-azurescale/index.md
+      - homework/06-serverless/index.md
   - "Nagyházi":      
       - homework/pontrendszer.md
       - homework/mslearning.md
