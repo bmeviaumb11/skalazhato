@@ -80,7 +80,8 @@ Terhelés (Load Configuration):
 - Test duration (minutes): *5*
 - Spike load multiplier : *5*
 - Spike hold time (minutes) : *3*
-- Load distribution: elég az alapértelmezett 1 db. régió
+- Load distribution: elég az alapértelmezett 1 db
+- régió: közös Azure régió (lásd AKS házi)
 - Test traffic mode: *public*
 
 A *Run test after creation*  opció bekapcsolása miatt a teszt elkészülte után le is fog futni a teszt, nem kell külön elindítani. Várjuk meg míg a teszt lefut (az Azure Load Testing erőforrásunk Tests menüpontjában tudjuk követni). 
@@ -108,7 +109,7 @@ Számoljunk becsült költséget a terhelés teszt Azure Function oldalára (a t
 Egyetlen oszlopnak kell kiemelkednie, ennek az értéke kell (egeret fölötte tartva is kiírja). Számold ki a terhelésteszt költségét az [árlista](https://azure.microsoft.com/en-us/pricing/details/functions/) alapján úgy, hogy a bennefoglalt erőforrásokat (*az első x db. hívás ingyenes*) nem veszed figyelembe.
 
 !!! warning "Mértékegységváltás"
-    Az érték mértékegysége MB*ms (megabájt-milliszekundum), az ár viszont GB*s-ban (gigabájt-szekundum) van megadva. Az átváltáshoz segítség az [útmutatóban](https://learn.microsoft.com/en-us/azure/azure-functions/monitor-functions-reference?tabs=consumption-plan#metrics).
+    Az érték mértékegysége MB*ms (megabájt-milliszekundum), az ár viszont GB*s-ban (gigabájt-szekundum) van megadva. Az átváltáshoz segítség az [útmutatóban](https://learn.microsoft.com/en-us/azure/azure-functions/functions-consumption-costs?tabs=flex-consumtion-plan%2Cportal#function-app-level-metrics).
 
 !!! example "BEADANDÓ" 
     Készíts egy képernyőképet az Azure portálról (`f2.2.png`) és commitold azt be a házi feladat repó gyökerébe, amin látszik a *Function Execution Unit* metrikából készített oszlopdiagramon a terhelés teszt hatása (kiugrás). A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarka környékén a Function neve.
