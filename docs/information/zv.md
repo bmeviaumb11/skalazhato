@@ -5,6 +5,40 @@
 
 ## 2024
 
+1. Mikroszolgáltatás architektúra jellemzői, összehasonlítva a monolitikus architektúrával. Előnyök és hártányok bemutatása technológiai, munkaszervezési és DevOps szempontból.
+
+1. Konténerizáció jellemzői, összehasonlítva egyéb virtualizációs megoldásokkal.
+
+1. Docker mint konténerizációs platform jellemzői és alapvető működése. Infrastructure-as-Code elv és annak használata Dockerfile-okkal és konténer orchesztráción keresztül Docker Compose alapokon.
+
+1. Kubernetes alapú konténer orchesztrációs platform jellemzői, alapvető felépítése és működése.
+
+1. Kubernetes erőforrások konfigurációja parancssoros eszközökkel és IaC elven leírókkal és Helm chartokkal.
+
+1. API Gateway tervezési minta bemutatása és jelentősége mikroszolgáltatás architektúrában. API Gateway használata Kubernetes környezetben.
+
+1. Állapot- és adatkezelés általános jellemzői mikroszolgáltatások architektúrában. 
+
+1. CAP tétel, és annak kapcsán Enventual Consistency elv ismertetése. Saga tervezési minta bemutatása.
+
+1. Szolgáltatások közötti kommunikációs lehetőségek ismertetése. Aszinkron, esemény alapú kommunikációs megoldások részeletes ismertetése.
+
+1. Hibatűrést megvalósító tervezési minták használata a kommunikációk során. Contract-First megközelítés a kommunikáció tervezése és implementációja során.
+
+1. Megfigyelhetőség eszköztárának általános bemutatása, majd azon belül a naplózás részletes bemutatása.
+
+1. Megfigyelhetőség eszköztárának általános bemutatása, majd azon belül a metrikák gyűjtésének részletes bemutatása.
+
+1. Megfigyelhetőség eszköztárának általános bemutatása, majd azon belül az elosztott nyomkövetés részletes bemutatása az OpenTelemetry szabványon keresztül.
+
+1. Domain-Driven-Design alapú alkalmazás fejlesztési módszertan ismertetése, annak alapfogalmain keresztül. Event Storming folyamat és eseményvezérelt szemlélet használata a tervezés és implementáció során.
+
+1. Event Sourcing tervezési minta ismertetése. Probléma bemutatása és a rá adott megoldás, illetve a megoldás előnyei hátrányai. 
+
+1. Rétegezett tervezési minták alkalmazása az implementáció során: többrétegű architektúra, vertical slices, clean architecture. Modular monolith tervezési el alkalmazása zöldmező alkalmazások fejlesztésénél. Mikrofrontend archiektúra jellemzői és alkalmazásterülete.
+
+1. CQRS és Mediátor tervezési minták kombinált alkalmazásának bemutatása.
+
 1. Felhő alapú számítástechnika alaptulajdonságai, fő jellemzői. Fizikai kiépítése. Skálázás és rendelkezésre állás. Szolgáltatásmodellek.
 
 1. Felhőszolgáltatók és szolgáltatásaik. Felhő előnyei, hátrányai.
