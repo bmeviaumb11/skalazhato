@@ -99,6 +99,7 @@ nav:
       - information/GitHub.md
       - information/GitHub-Actions.md
       - information/certification.md
+      - information/zv.md
   - "Kisházi":
       - homework/01-docker/index.md      
       - homework/02-kubernetes/index.md
