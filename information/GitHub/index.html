@@ -515,6 +515,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#feladat-modosulasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feladat módosulása
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -914,6 +923,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#feladat-modosulasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feladat módosulása
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -938,7 +956,7 @@
 
 
 <h1 id="feladatok-beadasa-github">Feladatok beadása (GitHub)<a class="headerlink" href="#feladatok-beadasa-github" title="Permanent link">&para;</a></h1>
-<p>A feladatok beadásához a GitHub platformot használjuk. Minden labor beadása egy-egy GitHub repository-ban történik, melyet a feladatleírásban található linken keresztül kapsz meg. A labor feladatainak megoldását ezen repository-ban kell elkészítened, és ide kell feltöltened. A kész megoldás beadása a repository-ba való feltöltés után egy un. <em>pull request</em> formájában történik, amelyet a laborvezetődhöz rendelsz.</p>
+<p>A feladatok beadásához a GitHub platformot használjuk. Minden labor beadása egy-egy GitHub repository-ban történik, melyet a feladatleírásban található linken keresztül kapsz meg. A labor feladatainak megoldását ezen repository-ban kell elkészítened, és ide kell feltöltened. A kész megoldás beadása a repository-ba való feltöltés után egy un. <em>pull request</em> (PR) formájában történik, amelyet a laborvezetődhöz rendelsz.</p>
 <div class="admonition important">
 <p class="admonition-title">FONTOS</p>
 <p>Az itt leírt formai előírások betartása elvárás. A nem ilyen formában beadott megoldásokat nem értékeljük.</p>
@@ -1064,7 +1082,7 @@ git<span class="w"> </span>push
 <p><a class="glightbox" href="../images/github-create-pull-request-1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="GitHub create pull request" src="../images/github-create-pull-request-1.png" /></a></p>
 <p>A <em>pull request</em>-et a fenti menüben is létrehozhatod. Fontos, hogy a megfelelő brancheket válaszd ki: <code>main</code>-be megy a <code>megoldas</code> ág. NE a kiinduló repository main ágára mutasson a PR, hanem a saját fork-od <code>main</code> ágára!</p>
 <p><a class="glightbox" href="../images/github-create-pull-request-2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="GitHub create pull request" src="../images/github-create-pull-request-2.png" /></a></p>
-<p>Ha minden rendben sikerült, a menüben fent látod a kis "1" számot a <em>Pull request</em> elem mellett, jelezve, hogy van egy nyitott pull request. <strong>DE MÉG NEM VÉGEZTÉL!</strong></p>
+<p>Ha minden rendben sikerült, a menüben fent látod a kis "1" számot a <em>pull request</em> elem mellett, jelezve, hogy van egy nyitott pull request. <strong>DE MÉG NEM VÉGEZTÉL!</strong></p>
 <p><a class="glightbox" href="../images/github-create-pull-request-4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="GitHub create pull request" src="../images/github-create-pull-request-4.png" /></a></p>
 </li>
 <li>
@@ -1101,12 +1119,14 @@ git<span class="w"> </span>push
 </li>
 </ol>
 <h2 id="kapott-eredmennyel-kapcsolatban-kerdes-vagy-reklamacio">Kapott eredménnyel kapcsolatban kérdés vagy reklamáció<a class="headerlink" href="#kapott-eredmennyel-kapcsolatban-kerdes-vagy-reklamacio" title="Permanent link">&para;</a></h2>
-<p>Ha a feladatok értékelésével vagy az eredménnyel kapcsolatban kérdést tennél fel, vagy reklamálnál, használd a Pull Request kommentelési lehetőségét erre. Annak érdekében, hogy a laborvezető biztosan értesüljön a kérdésről használd a <code>@név</code> <a href="https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#mentioning-people-and-teams">mention</a> funkciót a <strong>laborvezetőd</strong> megnevezéséhez. Erről automatikusan kapni fog egy email értesítést.</p>
+<p>Ha a feladatok értékelésével vagy az eredménnyel kapcsolatban kérdést tennél fel, vagy reklamálnál, használd a pull request kommentelési lehetőségét erre. Annak érdekében, hogy a laborvezető biztosan értesüljön a kérdésről használd a <code>@név</code> <a href="https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#mentioning-people-and-teams">mention</a> funkciót a <strong>laborvezetőd</strong> megnevezéséhez. Erről automatikusan kapni fog egy email értesítést.</p>
 <p><a class="glightbox" href="../images/github-question-in-pr.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="GitHub PR kérdés" src="../images/github-question-in-pr.png" /></a></p>
 <div class="admonition warning">
 <p class="admonition-title">Reklamáció csak indoklással</p>
 <p>Ha nem értesz egyet az értékeléssel, a bizonyítás téged terhel, azaz alá kell támasztanod a reklamációd (pl. annak leírásával, hogyan tesztelted a megoldásod, és mi bizonyítja a helyességét).</p>
 </div>
+<h2 id="feladat-modosulasa">Feladat módosulása<a class="headerlink" href="#feladat-modosulasa" title="Permanent link">&para;</a></h2>
+<p>Előfordulhat, hogy a kiadott feladat menet közben, az egyéni repository létrehozását követően módosul. A változásokat az oktatók küldik ki: egy pull request fog megjelenni a repository-tokban. A PR célága alapértelmezésben a főág, viszont a változtatásoknak a megoldásban is meg kell jelennie. Ha még nem hoztad létre a megoldás ágat, akkor a PR minden további nélkül behúzható. Ha már létrehoztad a megoldás ágat, <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/changing-the-base-branch-of-a-pull-request">állítsd át a PR célágát</a> a megoldás ágra, majd merge-ld a PR-t. Ha mégis rossz ágra került a változás és így nem került rá a megoldás ágra, akkor utólag is átviheted a változásokat a megoldás ágra pull request-tel vagy pull request nélküli merge művelettel. </p>
   <hr>
   <div class="md-source-file">
     <span class="md-source-file__fact"> <span class="md-icon" title="Utolsó frissítés"> <svg
@@ -1116,8 +1136,8 @@ git<span class="w"> </span>push
           </path>
         </svg>
       </span>
-      <span title="2024. október 18. 16:13:12">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-10-18T16:13:12+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-10-18</span>
+      <span title="2024. december 6. 10:24:45">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-12-06T10:24:45+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-12-06</span>
       </span>
     </span>
 
@@ -1134,6 +1154,8 @@ git<span class="w"> </span>push
       <span>Szerzők</span>
       <nav><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@tibitoth">
           <img src="https://avatars.githubusercontent.com/tibitoth?size=72" alt="@tibitoth">
+        </a><a href="https://github.com/kszicsillag" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gábor Simon">
+          <img src="https://avatars.githubusercontent.com/u/1849897?u=1d3aa9b07d07da9a2b04d86a97ec4060c3280592&v=4?size=72" alt="@Gábor Simon">
         </a></nav>      
     </span>
   </div>
