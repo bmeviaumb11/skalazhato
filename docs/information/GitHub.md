@@ -4,7 +4,7 @@ authors: tibitoth
 
 # Feladatok beadása (GitHub)
 
-A feladatok beadásához a GitHub platformot használjuk. Minden labor beadása egy-egy GitHub repository-ban történik, melyet a feladatleírásban található linken keresztül kapsz meg. A labor feladatainak megoldását ezen repository-ban kell elkészítened, és ide kell feltöltened. A kész megoldás beadása a repository-ba való feltöltés után egy un. _pull request_ formájában történik, amelyet a laborvezetődhöz rendelsz.
+A feladatok beadásához a GitHub platformot használjuk. Minden labor beadása egy-egy GitHub repository-ban történik, melyet a feladatleírásban található linken keresztül kapsz meg. A labor feladatainak megoldását ezen repository-ban kell elkészítened, és ide kell feltöltened. A kész megoldás beadása a repository-ba való feltöltés után egy un. _pull request_ (PR) formájában történik, amelyet a laborvezetődhöz rendelsz.
 
 !!! important "FONTOS"
     Az itt leírt formai előírások betartása elvárás. A nem ilyen formában beadott megoldásokat nem értékeljük.
@@ -138,7 +138,7 @@ Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló
 
     ![GitHub create pull request](images/github-create-pull-request-2.png)
 
-    Ha minden rendben sikerült, a menüben fent látod a kis "1" számot a _Pull request_ elem mellett, jelezve, hogy van egy nyitott pull request. **DE MÉG NEM VÉGEZTÉL!**
+    Ha minden rendben sikerült, a menüben fent látod a kis "1" számot a _pull request_ elem mellett, jelezve, hogy van egy nyitott pull request. **DE MÉG NEM VÉGEZTÉL!**
 
     ![GitHub create pull request](images/github-create-pull-request-4.png)
 
@@ -176,9 +176,14 @@ Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló
 
 ## Kapott eredménnyel kapcsolatban kérdés vagy reklamáció
 
-Ha a feladatok értékelésével vagy az eredménnyel kapcsolatban kérdést tennél fel, vagy reklamálnál, használd a Pull Request kommentelési lehetőségét erre. Annak érdekében, hogy a laborvezető biztosan értesüljön a kérdésről használd a `@név` [mention](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#mentioning-people-and-teams) funkciót a **laborvezetőd** megnevezéséhez. Erről automatikusan kapni fog egy email értesítést.
+Ha a feladatok értékelésével vagy az eredménnyel kapcsolatban kérdést tennél fel, vagy reklamálnál, használd a pull request kommentelési lehetőségét erre. Annak érdekében, hogy a laborvezető biztosan értesüljön a kérdésről használd a `@név` [mention](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#mentioning-people-and-teams) funkciót a **laborvezetőd** megnevezéséhez. Erről automatikusan kapni fog egy email értesítést.
 
 ![GitHub PR kérdés](images/github-question-in-pr.png)
 
 !!! warning "Reklamáció csak indoklással"
     Ha nem értesz egyet az értékeléssel, a bizonyítás téged terhel, azaz alá kell támasztanod a reklamációd (pl. annak leírásával, hogyan tesztelted a megoldásod, és mi bizonyítja a helyességét).
+
+## Feladat módosulása
+
+Előfordulhat, hogy a kiadott feladat menet közben, az egyéni repository létrehozását követően módosul. A változásokat az oktatók küldik ki: egy pull request fog megjelenni a repository-tokban. A PR célága alapértelmezésben a főág, viszont a változtatásoknak a megoldásban is meg kell jelennie. Ha még nem hoztad létre a megoldás ágat, akkor a PR minden további nélkül behúzható. Ha már létrehoztad a megoldás ágat, [állítsd át a PR célágát](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/changing-the-base-branch-of-a-pull-request) a megoldás ágra, majd merge-ld a PR-t. Ha mégis rossz ágra került a változás és így nem került rá a megoldás ágra, akkor utólag is átviheted a változásokat a megoldás ágra pull request-tel vagy pull request nélküli merge művelettel. 
+
