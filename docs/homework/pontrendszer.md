@@ -193,6 +193,11 @@ További szabályok:
 
 - **{CHAOS}** Chaos engineering eszköz alkalmazása (pl. [chaos mesh](https://chaos-mesh.org/docs/)). Védésen szemléltetés káosz teszt futtatással: **7** pont
 
+- **{EXTAPI}** külső online (SaaS) szolgáltatás (pl. Azure AI, Twitter, Facebook, Google Maps, Bing Maps, stb.) integrálása API-n keresztül, autentikációt végrehajtva **5-7** pont
+
+    - egyszerű REST-jellegű webes API, SDK használat nélkül, egyszerű API kulcs alapú autentikáció **5** pont
+    - SDK-val / REST API-val, iparilag elfogadott, elterjedt autentikációs protokollt (pl. OIDC) végrehajtva **7** pont
+
 ### On-premise futó rendszerekhez
 
 - **{OPDB2}** Legalább kétfajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: **10** pont
