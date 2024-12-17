@@ -103,7 +103,7 @@ Az Azure Function metrikák (*Metrics*) menüpontjában [monitorozzuk](https://l
 Számoljunk becsült költséget a terhelés teszt Azure Function oldalára (a terhelés teszt lefuttatásának is van költsége az Azure Load Testing erőforrás oldalán). Ehhez a *Function Execution Unit* metrikát figyeljük:
 
 - aggregáció: Sum
-- a jobb felső sarokban úgy állítsuk be az időtartamot, hogy teszt miatti kiugrás jól látható legyen, ugyanitt a felbontás (*time granularity*) legyen legyen hosszabb mint a teszt (pl. 15 perc)
+- a jobb felső sarokban úgy állítsuk be az időtartamot, hogy teszt miatti kiugrás jól látható legyen, ugyanitt a felbontás (*time granularity*) legyen hosszabb mint a teszt (pl. 15 perc)
 - grafikon típusa: oszlopdiagram (*Bar chart*)
 
 Egyetlen oszlopnak kell kiemelkednie, ennek az értéke kell (egeret fölötte tartva is kiírja). Számold ki a terhelésteszt költségét az [árlista](https://azure.microsoft.com/en-us/pricing/details/functions/) alapján úgy, hogy a bennefoglalt erőforrásokat (*az első x db. hívás ingyenes*) nem veszed figyelembe.
