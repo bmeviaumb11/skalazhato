@@ -1,7 +1,10 @@
 # Záróvizsga tételsor
 
+Közvetlen link ezen tételsorra: https://bit.ly/skalazhatozv
+
 !!! warning 
     Ez a tételsor kifejezetten záróvizsgára készült, nem a tárgy szóbeli vizsgájához. 
+
 
 ## 2024
 
