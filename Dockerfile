@@ -1,4 +1,4 @@
-FROM squidfunk/mkdocs-material:9.5.9
+FROM squidfunk/mkdocs-material:9.6.18
 
 # required for mkdocs-git-committers-plugin-2
 RUN apk add --no-cache --virtual .build-deps gcc libc-dev libxslt-dev && \
@@ -9,7 +9,8 @@ RUN apk add --no-cache --virtual .build-deps gcc libc-dev libxslt-dev && \
 RUN pip install --no-cache-dir \
   mkdocs-git-revision-date-localized-plugin \
   git+https://github.com/tibitoth/mkdocs-git-committers-plugin-2.git@master \
-  mkdocs-glightbox
+  mkdocs-glightbox \
+  mkdocs-open-in-new-tab
 
 RUN git config --global --add safe.directory /github/workspace
 
@@ -23,4 +24,4 @@ ENTRYPOINT []
 # (to build the docs without serve: just override the cmd with "mkdocs build" when
 # executing docker run. This can be used when runnig this docker image as github action
 # in the CI pipeline)
-CMD mkdocs serve --dev-addr=0.0.0.0:8000
+CMD ["mkdocs", "serve", "--dev-addr=0.0.0.0:8000"]
