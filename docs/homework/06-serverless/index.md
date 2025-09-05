@@ -1,5 +1,7 @@
 # 06 - Serverless
 
+*Nincs frissítve 2025. őszi félévre!*
+
 ## Cél
 
 A labor célja megismerni az Azure elsődleges serverless technológiáját, az Azure Functions-t.

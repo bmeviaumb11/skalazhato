@@ -4,6 +4,8 @@ authors: tibitoth
 
 # 02 - Kubernetes, Helm
 
+*Nincs frissítve 2025. őszi félévre!*
+
 ## Cél
 
 A labor célja:

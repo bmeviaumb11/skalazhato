@@ -7,6 +7,8 @@ authors: tibitoth
 Az anyag terjedelméből adandóan apróbb hibák esetenként hiányosságok jelentkezhetnek a laborokban.
 Ha egy ilyennel találkozol és úgy döntesz szeretnél segíteni hallgatótársaidnak, azt a következőkben leírtak alapján tudod megtenni.
 
+Korábban közzétett, az adott félévre még nem frissített anyagokban (*Nincs frissítve xxx félévre!* jelöléssel) természetes módon előfordulhatnak elavult részek, ezeket nem kell külön jelezni.
+
 !!! quote "Plusz pont jegyzet javításért"
 
     Más tantárgyak mintájára itt is szeretnénk plusz pontot adni a jegyzet open-source hozzájárulásaiért.

@@ -4,6 +4,8 @@ authors: tibitoth
 
 # 03 - Kommunikációs megoldások
 
+*Nincs frissítve 2025. őszi félévre!*
+
 ## Cél
 
 A házi feladat célja az elosztott alkalmazások fejlesztése során felmerülő megoldások alapszintű gyakorlása.

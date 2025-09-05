@@ -1,5 +1,7 @@
 # 05 - Skálázás Azure-ban
 
+*Nincs frissítve 2025. őszi félévre!*
+
 ## Cél
 
 A labor célja megismerni az AKS skálázási módjait, illetve Azure Load Testing szolgáltatással tesztelni is az automatikus skálázás működését.

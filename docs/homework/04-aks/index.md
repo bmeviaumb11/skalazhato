@@ -1,5 +1,7 @@
 # 04 - Azure Kubernetes Services
 
+*Nincs frissítve 2025. őszi félévre!*
+
 ## Cél
 
 A labor célja megismerni:
