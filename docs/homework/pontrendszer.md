@@ -87,19 +87,17 @@ Ha mégis ezeket választanád, néhány tipp:
 
 ## Pontrendszer
 
-Az elkészített rendszer egyes képességeire az alábbiak szerint pontok kaphatóak. A végső jegy az összpontszámból adódik.
+Az elkészített rendszer egyes képességeire az alábbiak szerint pontok kaphatóak. A végső jegy az összpontszámból adódik. A közepes szintet el nem érő megoldások nem kaphatnak megajánlott jegyet.
 
 | Jegy  | Pont   |
 |-------|--------|
 | 5     | 80-100 |
 | 4     | 67-79  |
 | 3     | 54-66  |
-| 2     | 40-53  |
-| 1     | 0-39   |
 
 További szabályok:
 
- - ahol egy pontszám van feltüntetve, ott részpontszám alapesetben nem kapható. Tól-ig-es megadásnál, ahol alesetekre van bontva a jogcím, ott az alesetekre részpontszám nem kapható. Ahol csak maximum van feltüntetve, ott részpontszám kapható. 
+ - ahol egy pontszám van feltüntetve, ott részpontszám alapesetben nem kapható. Tól-ig-es megadásnál, ahol alesetekre van bontva a jogcím, ott az alesetekre részpontszám nem kapható. Ahol csak maximum van feltüntetve, ott részpontszám kapható.
  - egy jogcímen csak egyszer szerezhető pont, kivéve ahol ezt külön jelezzük
 
 ### Általános és cross-technológia
