@@ -4,7 +4,9 @@ authors: kszicsillag,tibitoth
 
 # Pontrendszer
 
-*Véglegesítve 2024. őszi félévre 2024. november 17-én*
+*Nincs véglegesítve 2025. őszi félévre*
+
+<!-- *Véglegesítve 2024. őszi félévre 2024. november 8-án* -->
 
 A házi feladat otthon, önállóan elkészítendő mikroszolgáltatások architektúrára épülő és konténertechnológiát használó szoftverrendszer elkészítése és működőképes állapotban való bemutatása.
 
