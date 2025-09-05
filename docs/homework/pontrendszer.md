@@ -293,9 +293,9 @@ Minősítésekből összesen **25** pont szerezhető. A megszerzett minősítés
 
 - **{AZ900}** [Microsoft Certified: Azure Fundamentals](https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals) minősítés megszerzése **15** pont
 
-- **{AZ100}** [Microsoft Certified: Azure Administrator](https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator) Associate minősítés megszerzése **20** pont
+- **{AZ100}** [Microsoft Certified: Azure Administrator Associate](https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator)  minősítés megszerzése **20** pont
 
-- **{AZ200}** [Microsoft Certified: Azure Developer](https://learn.microsoft.com/en-us/credentials/certifications/azure-developer) Associate minősítés megszerzése **25** pont
+- **{AZ200}** [Microsoft Certified: Azure Developer Associate](https://learn.microsoft.com/en-us/credentials/certifications/azure-developer) minősítés megszerzése **25** pont
 
 ### Egyéb
 
