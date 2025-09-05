@@ -287,6 +287,16 @@ További szabályok:
     !!! warning
         Jelenleg hallgatói előfizetéssel ez a pont valószínűleg nem megszerezhető, mert a szükséges vCPU kvóták az ilyen típusú előfizetéseken túl alacsonyak.
 
+### Microsoft minősítések
+
+Minősítésekből összesen **25** pont szerezhető. A megszerzett minősítések felkészülési anyagainak elsajátítása után [pont](mslearning.md) nem kapható. A minősítéseket listázó [oldalra](https://learn.microsoft.com) belépve kell igazolni a minősítés megszerzését.
+
+- **{AZ900}** Microsoft Certified: Azure Fundamentals minősítés megszerzése **15** pont
+
+- **{AZ100}** Microsoft Certified: Azure Administrator Associate minősítés megszerzése **20** pont
+
+- **{AZ200}** Microsoft Certified: Azure Developer Associate minősítés megszerzése **25** pont
+
 ### Egyéb
 
 - **{BASE}** A minimum elvárásokat teljesítő rendszer: **24** pont
