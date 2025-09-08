@@ -4,8 +4,6 @@ authors: tibitoth
 
 # 01 - Konténerizáció
 
-*Nincs frissítve 2025. őszi félévre!*
-
 ## Cél
 
 A labor célja megismerni a Docker konténerek használatának alapjait és a leggyakrabban használt Docker CLI parancsokat.
@@ -413,7 +411,7 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
    A Dockerfile egy szöveges fájl, ami tartalmazza az image létrehozásának lépéseit, mint egy recept.
 
     ```dockerfile
-    FROM python:3.12-slim
+    FROM python:3.13-slim
 
     WORKDIR /app
     COPY . /app
@@ -509,7 +507,7 @@ A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett 
     ```yaml
     services:
       redis:
-        image: redis:7.2-alpine
+        image: redis:8.2-alpine
         networks:
           - homework_network
       web:
@@ -659,8 +657,8 @@ Alap image-ek, amikre tipikusan saját alkalmazást építünk:
     - [Alpine](https://hub.docker.com/_/alpine),
 - Futtató platformok
     - .NET Runtime ASP.NET Core-ral, pl. `mcr.microsoft.com/dotnet/aspnet:8.0`
-    - [NodeJS](https://hub.docker.com/_/node) pl. `node:22.4-alpine`
-    - [Python](https://hub.docker.com/_/python) pl. `python:3.12-slim`
+    - [NodeJS](https://hub.docker.com/_/node) pl. `node:24.7-alpine`
+    - [Python](https://hub.docker.com/_/python) pl. `python:3.13-slim`
 - [scratch](https://hub.docker.com/_/scratch): üres image, speciális esetek, pl. go, vagy distro készítéshez
 
 A kész image-ek, amiket pedig felhasználunk:
@@ -696,7 +694,7 @@ Ilyen esetben a következő lehetőségeink vannak:
       -e 'ACCEPT_EULA=Y'
       -e 'SA_PASSWORD=yourStrong(!)Password'
       -p 1433:1433
-      mcr.microsoft.com/mssql/server:2017-CU8-ubuntu
+      mcr.microsoft.com/mssql/server:2022-CU20-GDR1-ubuntu-22.04
     ```
 
 - Becsatolhatjuk a saját konfigurációs fájljainkat a konténerbe.
@@ -706,7 +704,7 @@ Ilyen esetben a következő lehetőségeink vannak:
     ```yaml
     services:
       redis:
-        image: redis:7.2-alpine
+        image: redis:8.2-alpine
         volumes:
           - my-redis.conf:/usr/local/etc/redis/redis.conf
     ```
