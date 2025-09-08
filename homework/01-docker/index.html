@@ -1413,7 +1413,6 @@
 
 
 <h1 id="01-kontenerizacio">01 - Konténerizáció<a class="headerlink" href="#01-kontenerizacio" title="Permanent link">¶</a></h1>
-<p><em>Nincs frissítve 2025. őszi félévre!</em></p>
 <h2 id="cel">Cél<a class="headerlink" href="#cel" title="Permanent link">¶</a></h2>
 <p>A labor célja megismerni a Docker konténerek használatának alapjait és a leggyakrabban használt Docker CLI parancsokat.</p>
 <h2 id="elokovetelmenyek">Előkövetelmények<a class="headerlink" href="#elokovetelmenyek" title="Permanent link">¶</a></h2>
@@ -1805,7 +1804,7 @@ Redis
 <li>
 <p>Készíts egy <code>Dockerfile</code> nevű fájt (kiterjesztés nélkül!) az alábbi tartalommal.
    A Dockerfile egy szöveges fájl, ami tartalmazza az image létrehozásának lépéseit, mint egy recept.</p>
-<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.12-slim</span>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.13-slim</span>
 
 <span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
 <span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>/app
@@ -1898,7 +1897,7 @@ Redis
 <p>Dolgozzunk a repository gyökerébe (tehát ne az előzőleg használt almappába) és készítsünk ide egy <code>docker-compose.yaml</code> nevű fájlt az alábbi tartalommal.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">redis</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis:7.2-alpine</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis:8.2-alpine</span>
 <span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">homework_network</span>
 <span class="w">  </span><span class="nt">web</span><span class="p">:</span>
@@ -2045,8 +2044,8 @@ Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálha
 </li>
 <li>Futtató platformok<ul>
 <li>.NET Runtime ASP.NET Core-ral, pl. <code>mcr.microsoft.com/dotnet/aspnet:8.0</code></li>
-<li><a href="https://hub.docker.com/_/node">NodeJS</a> pl. <code>node:22.4-alpine</code></li>
-<li><a href="https://hub.docker.com/_/python">Python</a> pl. <code>python:3.12-slim</code></li>
+<li><a href="https://hub.docker.com/_/node">NodeJS</a> pl. <code>node:24.7-alpine</code></li>
+<li><a href="https://hub.docker.com/_/python">Python</a> pl. <code>python:3.13-slim</code></li>
 </ul>
 </li>
 <li><a href="https://hub.docker.com/_/scratch">scratch</a>: üres image, speciális esetek, pl. go, vagy distro készítéshez</li>
@@ -2087,7 +2086,7 @@ Ilyen esetben a következő lehetőségeink vannak:</p>
 <span class="w">  </span>-e<span class="w"> </span><span class="s1">'ACCEPT_EULA=Y'</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="s1">'SA_PASSWORD=yourStrong(!)Password'</span>
 <span class="w">  </span>-p<span class="w"> </span><span class="m">1433</span>:1433
-<span class="w">  </span>mcr.microsoft.com/mssql/server:2017-CU8-ubuntu
+<span class="w">  </span>mcr.microsoft.com/mssql/server:2022-CU20-GDR1-ubuntu-22.04
 </code></pre></div>
 </li>
 <li>
@@ -2096,7 +2095,7 @@ Ilyen esetben a következő lehetőségeink vannak:</p>
   Ha elkészítjük a testreszabott konfigurációs fájlt, akkor a <code>docker-compose.yaml</code> leírásban a következő módon tudjuk ezt a fájlt becsatolni a konténer indulásakor.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">redis</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis:7.2-alpine</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis:8.2-alpine</span>
 <span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-redis.conf:/usr/local/etc/redis/redis.conf</span>
 </code></pre></div>
@@ -2120,8 +2119,8 @@ Amikor a környezeti változó már nem elegendő a testreszabáshoz, ez a javas
           </path>
         </svg>
       </span>
-      <span title="2025. szeptember 5. 09:55:13">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 5. 09:55:13 CEST"><span class="timeago" datetime="2025-09-05T09:55:13+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 5. 09:55:13 CEST">2025-09-05</span>
+      <span title="2025. szeptember 8. 09:17:01">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 8. 09:17:01 CEST"><span class="timeago" datetime="2025-09-08T09:17:01+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 8. 09:17:01 CEST">2025-09-08</span>
       </span>
     </span>
 
