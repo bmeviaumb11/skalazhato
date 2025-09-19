@@ -297,12 +297,14 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
     Az image neve valójában nem `ubuntu`, hanem `index.docker.io/ubuntu:latest`
 
       - `index.docker.io` registry szerver elérési útvonala
-      - `ubuntu` image neve (lehet többszintű is)
+      - `ubuntu` image elérési útvonala a registry-n belül (ebben a példában csak egy elemből áll: ubuntu).
       - `:latest` tag neve
+
+    Az egyes registry-k eltérnek abban, hogy az elérési útvonal felépítése milyen logikát követ, mit jelentenek az egyes hierarchiaszintek.
 
     Jogosultság szempontból két fajta registry létezhet: publikus (pl. Docker Hub) és privát. Privát registry esetén `docker login <url>` és `docker logout <url>` szükséges az authentikációhoz.
 
-    Letöltés a registry-ből: `docker pull mcr.microsoft.com/dotnet/aspnet:8.0`
+    Letöltés a registry-ből: `docker pull mcr.microsoft.com/dotnet/aspnet:8.0`. Itt az elérési útvonal (path) már többelemű: `mcr.microsoft.com/dotnet/aspnet:8.0`, ahol a path komponensek: `dotnet/aspnet`.
     
     Ugyan a _run_ parancs is letölti, de csak akkor, ha még nem létezik. Nem ellenőrzi viszont, hogy nincs-e újabb image verzió publikálva. A _pull_ mindig frisset szed le.
 
@@ -323,7 +325,7 @@ Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most 
     docker stop <id|name>
     ```
 
-1. Az előbbi parancs készített egy image-et, aminek kiírta a hash-ét. Ellenőrizd, hogy tényleg létezik-e ez az image:
+1. A `commit` parancs készített egy image-et, aminek kiírta a hash-ét. Ellenőrizd, hogy tényleg létezik-e ez az image:
 
     ```cmd
     docker images
@@ -364,7 +366,7 @@ Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most 
 
 Az előző feladatban az image készítését manuálisan végeztük el, ami nem jól verziózható, és reprodukálhatósági problémákat okozhat.
 
-Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszerrel, ami egy REST végpontot definiál és szolgál ki. Az adatokat (egy számláló) Redis adatbázisból olvassa és írja, és egy üdvözlő üzenetet ad vissza környezeti változó alapján.
+Készítsünk egy egyszerű webalkalmazást Pythonban a Flask nevű keretrendszerrel, ami egy REST végpontot definiál és szolgál ki. Az adatokat (egy számláló) Redis adatbázisból olvassa és írja, és egy üdvözlő üzenetet ad vissza környezeti változó alapján.
 
 1. Nyisd meg a házi repositorydat Visual Studio Code-ban.
 
@@ -435,7 +437,7 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
 
     A Dockerfile lépései:
    
-    - `FROM`: az alap image, amire építjük a sajátunkat. Mi most a Python 3.12-slim image-et használjuk.
+    - `FROM`: az alap image, amire építjük a sajátunkat. Mi most a Python 3.13-slim image-et használjuk.
     - `WORKDIR`: a konténerben a munkakönyvtár, a további műveletek ebben a könyvtárban lesznek.
     - `COPY`: a host gépről a konténerbe másoljuk a fájlokat. A `.` jelenti a build kontextus mappáját, esetünkben a `pythonweb` mappát.
     - `RUN`: a build/image készítés során lefuttatandó parancsok. Itt a `requirements.txt` fájlban felsorolt Python csomagokat telepítjük a python csomagkezelővel (pip).
@@ -475,7 +477,7 @@ Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszer
 
     2. Buildeljük le ismét a fenti image-et: `docker build -t python-neptun:v1 .`
 
-        Menet közben látni fogjuk a következő sort a build logban: _Sending build context to Docker daemon 111.4MB_, és azt is tapasztalni fogjuk, hogy ez el tart egy kis ideig.
+        Menet közben látni fogjuk a következő sort a build logban: _Sending build context to Docker daemon [many MB/GB]_, és azt is tapasztalni fogjuk, hogy ez el tart egy kis ideig.
 
         A `docker build` parancs végén a `.` az aktuális könyvtár. Ezzel tudatjuk a Docker-rel, hogy a buildeléshez ezt a _kontextust_ használja, azon fájlok legyenek elérhetőek a build során, amelyek ebben a kontextusban vannak. A `Dockerfile`-ban a `COPY` így **relatív** útvonallal hivatkozik a kontextusban levő fájlokra.
 
@@ -532,7 +534,7 @@ A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett 
         - `build`: a build kontextusban lévő mappából építi az image-t
         - `ports`: a konténer által kiajánlott portokat jelzi. Mi most webalkalmazást készítünk, ezért a konténer 80-as portját mappeljük a host 5000-es portjára.
         - `depends_on`: a konténer indításának sorrendjét jelzi. A `web` konténer csak akkor indul, ha a `redis` konténer már fut.
-    - `networks`: a konténerek közötti hálózatokat definiálja. A `homework_network` nevű hálózatot használjuk bridge módban, ami a konténerek között adatkapcsolati réteg szintű összeköttetést jelent. Erre hivatkozunk a konténerek `networks` tulajdonságában is.
+    - `networks`: a konténerek közötti hálózatokat definiálja. A `homework_network` nevű hálózatot [bridge módban](https://docs.docker.com/network/drivers/bridge/) hozzuk létre, amely egy elkülönített, virtuális hálózatot biztosít a konténerek számára a host gépen belül. A bridge mód lehetővé teszi, hogy a hálózathoz csatlakozó konténerek saját IP-címet kapjanak, egymással közvetlenül kommunikáljanak, miközben a host hálózatától is el vannak választva. Erre a hálózatra hivatkozunk a konténerek `networks` tulajdonságában.
 
 2. Nyiss egy konzolt ugyanebbe a mappába. Indítsd el az alkalmazásokat az alábbi paranccsal:
 
@@ -554,13 +556,13 @@ A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett 
     Készíts egy képernyőképet (f3.1.png) és commitold azt be a házi feladat repó gyökerébe, amin a fenti weboldal látszik a böngészőben és a futó konténerek listája a konzolban.
 
 !!! note "docker-compose üzemeltetéshez"
-    A docker-compose alkalmas üzemeltetésre is. A `docker-compose.yaml` fájl nem csak fejlesztői környezetet ír le, hanem üzemeltetéshez szükséges környezetet is. Ha a compose fájlt megfelelően írjuk meg (pl. használjuk a [`restart` direktívát](https://docs.docker.com/compose/compose-file/#restart) is), az elindított szolgáltatások automatikusan újraindulnak a rendszer indulásakor.
+    A docker-compose alkalmas üzemeltetésre is. A `docker-compose.yaml` fájl nem csak fejlesztői környezetet ír le, hanem üzemeltetéshez szükséges környezetet is. Ha a compose fájlt megfelelően írjuk meg (pl. használjuk a [`restart` direktívát](https://docs.docker.com/reference/compose-file/services/#restart) is), az elindított szolgáltatások automatikusan újraindulnak a rendszer indulásakor.
 
     Ugyanakkor a docker-compose nem helyettesíti a Kubernetes-t vagy más konténer orkesztrációs megoldásokat, mert azok sokkal komplexebb feladatokat is meg tudnak oldani (pl. skálázás, load balancing, stb.).
 
 ### 3.2 Több compose yaml fájl
 
-A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon. Alapértelmezésként a `docker-compose.yaml` kiterjesztésű fájlt **és** ezzel összefésülve a `docker-compose.override.yaml` fájlt használja.
+A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon. Alapértelmezésként a `docker-compose.yaml` vagy `compose.yaml` kiterjesztésű fájlt **és** ezzel összefésülve a `docker-compose.override.yaml` fájlt használja.
 
 1. Készíts egy `docker-compose.override.yaml` fájlt a másik compose yaml mellé az alábbi tartalommal, amiben a redis konténer naplózását állítjuk át verbose szintre.
 
@@ -624,10 +626,10 @@ A `docker init` paranccsal egy megadott technológiához tartozó, docker alapú
     ```cmd
     docker init
     ```
-    Ez a lépés létrehoz egy `Dockerfile`-t a projektben, ami ráadásul multi-stage build megoldást tartalmaz, ami a fordítási, publikálási és futtatási fázisokat különválasztja (több `FROM` utasítás amik egymásra hivatkoznak).
+    Ez a lépés létrehoz egy `Dockerfile`-t a projektben, ami ráadásul multi-stage build megoldást tartalmaz: a fordítási, publikálási és futtatási fázisokat különválasztja (több `FROM` utasítás amik egymásra hivatkoznak).
     Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálható legyen egy szeparált .NET SDK-t tartalmazó konténerben. A publikálás pedig egy kisebb méretű image-be történik, ami már csak a .NET futtatókörnyezetet tartalmazza.
 
-    Ezen felül létrejön még .dockerignore fájl is, valamint egy egy service-t hivatkozó Docker compose is.
+    Ezen felül létrejön még .dockerignore fájl, valamint egy Docker compose fájl is.
 
 4. Futtassuk a docker compose configurációt (`docker-compose up` - Windows vagy `docker compose up` - Linux). Az alapértelmezetten felkínált lehetőségek általában megfelelőek, csak végig kell ++enter++ -ezni. Böngészőben nyissuk meg a localhost címen a docker init-nek megadott portot pl. http://localhost:8080.
 
@@ -644,7 +646,7 @@ A `docker init` paranccsal egy megadott technológiához tartozó, docker alapú
 
 ### Image-ek használata
 
-Konténer alapú fejlesztésnél tehát két féle image-et használunk:
+Konténer alapú fejlesztésnél tehát kétféle image-et használunk:
 
 - amit magunk készítünk egy adott alap image-re épülve,
 - illetve kész image-eket, amiket csak futtatunk (és esetleg konfigurálunk).
@@ -652,9 +654,9 @@ Konténer alapú fejlesztésnél tehát két féle image-et használunk:
 Alap image-ek, amikre tipikusan saját alkalmazást építünk:
 
 - Linux disztribúciók
-    - [Ubuntu](https://hub.docker.com/_/ubuntu),
-    - [Debian](https://hub.docker.com/_/debian),
-    - [Alpine](https://hub.docker.com/_/alpine),
+    - [Ubuntu](https://hub.docker.com/_/ubuntu)
+    - [Debian](https://hub.docker.com/_/debian)
+    - [Alpine](https://hub.docker.com/_/alpine)
 - Futtató platformok
     - .NET Runtime ASP.NET Core-ral, pl. `mcr.microsoft.com/dotnet/aspnet:8.0`
     - [NodeJS](https://hub.docker.com/_/node) pl. `node:24.7-alpine`
