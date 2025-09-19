@@ -486,7 +486,7 @@ Hozzuk létre ezeket a szabályokat, kezdjük az mikroszolgáltatásokkal.
 1. Érvényesítsük a módosítást.
 
     ```cmd
-    kubectl apply -f store-demo/kubernetes/app
+    kubectl apply -f storeapp/hf-kubernetes/app
     ```
 
 1. Nyissuk meg a Traefik dashboardját és vizsgáljuk meg a konfigurált végpontot, majd próbáljuk ki a működését a <http://localhost:32080/api/products> címen.
