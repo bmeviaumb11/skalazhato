@@ -588,6 +588,9 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
     helm upgrade storeapp --install storeapp --set virtualCustomer.ordersPerHour=10 --set virtualWorker.ordersPerHour=20 --set neptun=neptun_kod
     ```
 
+!!! note "Helm chartok használata"
+    Természetesen a teljes alkalmazást felkészíthetnénk helm chart alapú telepítésre, de ez most túlmutat a házi feladat keretein. A koncepció a fenti feladatból is megérthető: azzal, hogy a yaml leírók sablonozhatókká válnak, több olyan paramétert is bevezethetünk ezen az új absztrakciós szinten, amit például egy külső forrásból akarunk beállítani, így rugalmasabbá válik a konfogirációnk (pl.: CI/CD folyamatokból, környezetenként eltérő értékekre).
+
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (`f4.1.png`) és commitold azt be a házi feladat repó gyökerébe, ahol az újonnan létrehozott futó pod-ok látszanak.
 
