@@ -9,30 +9,30 @@ authors: tibitoth
 A labor célja:
 
 - megismerni a Kubernetes használatának alapjait
-  - a *podok*, *Deployment-ek* és *ReplicaSet-ek* létrehozását és kezelését,
-  - a leggyakrabban használt `kubectl` parancsokat.
+    - a *podok*, *Deployment-ek* és *ReplicaSet-ek* létrehozását és kezelését,
+    - a leggyakrabban használt `kubectl` parancsokat.
 - egy alkalmazás telepítése Kubernetes klaszterbe és a frissítés módjának megismerése.
-  - A telepítéshez és frissítéshez részben Helm chartot, részben magunk által elkészített YAML erőforrás leírókat használunk.
+    - A telepítéshez és frissítéshez részben Helm chartot, részben magunk által elkészített YAML erőforrás leírókat használunk.
 
 ## Előkövetelmények
 
 A labor Windows platformon lett kidolgozva, de Linuxon is hasonlóan működik.
 
 - Kubernetes
-  - Bármely felhő platform által biztosított klaszter
-  - Linux platformon: [minikube](https://kubernetes.io/docs/start)
-  - Windows platformon: Docker Desktop
+    - Bármely felhő platform által biztosított klaszter
+    - Linux platformon: [minikube](https://kubernetes.io/docs/start)
+    - Windows platformon: Docker Desktop
 - [kubectl](https://kubernetes.io/docs/tasks/tools/)
-  - A binárisa legyen elérhető PATH-on.
+    - A binárisa legyen elérhető PATH-on.
 - Egy kubernetes-t menedzselni képes GUI, például:
-  - [VS Code Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
-  - [Lens](https://k8slens.dev/)
-  - [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
-  - [Rider](https://www.jetbrains.com/help/rider/Kubernetes.html) - hallgatói fiókkal ingyenes
-  - [k9s](https://k9scli.io/)
+    - [VS Code Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
+    - [Lens](https://k8slens.dev/)
+    - [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
+    - [Rider](https://www.jetbrains.com/help/rider/Kubernetes.html) - hallgatói fiókkal ingyenes
+    - [k9s](https://k9scli.io/)
 - Helm CLI
-  - [Helm](https://helm.sh/docs/intro/install/)
-  - A Helm CLI legyen elérhető PATH-on.
+    - [Helm](https://helm.sh/docs/intro/install/)
+    - A Helm CLI legyen elérhető PATH-on.
 
 ## Előkészület
 
@@ -262,8 +262,9 @@ kubectl logs -f <podnév>
 
 ### Célok
 
-A célunk a kiinduló repóban lévő, megrendeléseket kezelő konténeralapú, külön álló (mikro)szolgáltatásokra épülő webalkalmazás telepítése Kubernetes-be.
-A rendszerünk az alábbit komponensekből áll:
+A célunk a kiinduló repóban lévő (`storeapp` mappa), megrendeléseket kezelő konténeralapú, külön álló (mikro)szolgáltatásokra épülő webalkalmazás telepítése Kubernetes-be. Forrás: <https://github.com/Azure-Samples/aks-store-demo>
+
+A rendszer az alábbit komponensekből áll:
 
 ![TODO](images/k8s.drawio.png)
 
@@ -364,9 +365,9 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
 
 ### 3.2 Adatbázisok telepítése
 
-Az adatbázisainkat a már megírt YAML leírókkal telepítjük. Ez a leíró fájl már rendelkezésünkre áll a kiinduló repository `store-demo` almappájában.
+Az adatbázisainkat a már megírt YAML leírókkal telepítjük. Ez a leíró fájl már rendelkezésünkre áll a kiinduló repository `storeapp` almappájában.
 
-1. Vizsgáljuk meg a repository `store-demo/kubernetes/db` könyvtárában lévő YAML leírókat.
+1. Vizsgáljuk meg a repository `storeapp/hf-kubernetes/db` könyvtárában lévő YAML leírókat.
 
      - MongoDB: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk
      - RabbitMQ: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk
@@ -374,32 +375,41 @@ Az adatbázisainkat a már megírt YAML leírókkal telepítjük. Ez a leíró f
 1. Telepítsük az adatbázisokat:
 
     ```cmd
-    kubectl apply -f store-demo/kubernetes/db
+    kubectl apply -f storeapp/hf-kubernetes/db
     ```
 
     !!! tip ""
         A `kubectl apply` parancs `-f` kapcsolója ha mappát kap, akkor a mappában lévő összes yaml fájlt alkalmazza.
 
 1. Ellenőrizzük, hogy az adatbázis podok elindulnak-e (pl.: GUI-val). Minden a *default* névtérbe kellett települjön.
-1. Nézzük meg a *Persistent Volume* és *Persistent Volumen Claim*-eket.
 
 ### 3.3 Alkalmazásunk telepítése
 
-Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a `store-demo/kubernetes/app` könyvtárban.
+Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a `storeapp/hf-kubernetes/app` könyvtárban.
 
 1. Nézzük meg a leírókat.
 
-2. Telepítsük az alkalmazásokat:
+1. Telepítsük az alkalmazásokat:
 
     ```cmd
-    kubectl apply -f store-demo/kubernetes/app
+    kubectl apply -f storeapp/hf-kubernetes/app
     ```
 
-3. Ellenőrizzük, hogy létrejöttek a Deployment-ek podok, stb.
+1. Ellenőrizzük, hogy létrejöttek a Deployment-ek podok. A *store-front* és *store-admin* podoknak nem fognak tudni elindulni, mert a leíró olyan (lokális) image-eket használnak, amelyek nincsenek lebuildelve a gépünkön. A többi szolgáltatás esetében egy távoli publikus konténer registry-ből húzza le a szükséges image-eket.
 
-4. TODO: még nincs ingress szabály ezért próbáljuk ki port forwarddal a *store-web* szolgáltatást:
+1. Ezeket az image-eket az `storeapp/src/store-admin` és `storeapp/src/store-front` könyvtárban tudjuk lebuildelni. Nyissunk egy új terminál ablakot, navigáljunk el a `storeapp` megfelelő könyvtárába, és futtassuk a `docker build` parancsokat:
 
-??? tip "Ha mégsem zöldülnek ki"
+    ```cmd
+    cd storeapp/src/store-front
+    docker build -t store-front:local .
+    cd ../store-admin
+    docker build -t store-admin:local .
+    ```
+
+    !!! tip "Pod újraindítása"
+        Ha nem akarjuk kivárni az rendszer általi újraindítást töröljük ki a pod-ot kézzel, aminek hatására a deployment létrehoz egy új pod-ot, ami már a helyi image-t fogja használni.
+
+    ??? tip "Ha mégsem zöldülnek ki"
 
         1. Egyes Linuxos gépeken nem vállnak alapvetően láthatóvá a minikube-on belül az image-ek. Az ilyen gépeken érdemes a következő parancs előtt az `eval $(minikube docker-env)` parancsot kiadni.
         Ezt követően ebben a terminál ablakban adjuk ki az image build paracsomat, valamint a k8s apply parancsokat is.
@@ -408,38 +418,41 @@ Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a `store-d
         Lehet, hogy nem a minikube-ban vannak a docker image-ek. Ekkor PowerShellben a `& minikube -p minikube docker-env --shell powershell | Invoke-Expression` paranccsal tudod elérni, hogy a minikube-ban lévő docker daemont használd.
         Ha ez a parancs `❌  Exiting due to MK_USAGE: the docker-env command only supports the docker and containerd runtimes` errort dobna: Add ki a `minikube delete` parancsot, majd indítsd el a következő módon: `minikube start --driver=docker --container-runtime=docker`
 
+1. Mivel még nincs ingress szabály ezért próbáljuk ki port forwarddal a `store-front` szolgáltatást a 3000-es porton. Az oldal betölt, de nem éri el a `product-service` szolgáltatást, mert nincs ingress szabály.
+
 ### 3.4 Ingress szabályok
 
 Az alkalmazásunkban még nincsenek ingress szabályok, ezért az Ingress Controller (most a Traefik) nem tudja, hogy a bejövő kéréseket hova kell továbbítani.
 Hozzuk létre ezeket a szabályokat, kezdjük az mikroszolgáltatásokkal.
 
-1. A `store-demo/kubernetes/app` könyvtárban módosítsuk a `product-service.yaml` fájlt, és adjuk hozzá a következő Ingress erőforrást:
+1. A `storeapp/hf-kubernetes/app` könyvtárban módosítsuk a `product-service.yaml` fájlt, és adjuk hozzá a következő Ingress erőforrást:
 
     ```yaml
     ---
     apiVersion: networking.k8s.io/v1
     kind: Ingress
     metadata:
-    name: products
-    labels:
+      name: products
+      labels:
         app.kubernetes.io/name: products
         storedemo.tier: backend
-    annotations:
+      annotations:
         traefik.ingress.kubernetes.io/router.entrypoints: web
+        traefik.ingress.kubernetes.io/router.middlewares: product-stripprefix@kubernetescrd
     spec:
-    rules:
+      rules:
         - http:
             paths:
-            - path: /api/products
+              - path: /api/products
                 pathType: Prefix
                 backend:
-                service:
+                  service:
                     name: product-service
                     port:
-                    number: 3002
+                      number: 3002
     ```
 
-    Van viszont egy probléma: a `product-service` szolgáltatás nem a /api/products útvonalon várja a kéréseket, hanem a / útvonalon.
+    Van viszont egy probléma: a `product-service` szolgáltatás nem a `/api/products` útvonalon várja a kéréseket, hanem a `/` útvonalon.
     A `/api/products` útvonalat csak a frontend ismeri.
     Ezt a problémát a Traefik *middleware* funkciójával tudjuk megoldani.
     A middleware-ek a Traefik-ben olyan komponensek, amelyek a bejövő kéréseket módosítják, mielőtt továbbítanák azokat a backend szolgáltatások felé.
@@ -453,53 +466,57 @@ Hozzuk létre ezeket a szabályokat, kezdjük az mikroszolgáltatásokkal.
     apiVersion: traefik.io/v1alpha1
     kind: Middleware
     metadata:
-    name: product-stripprefix
+      name: product-stripprefix
     spec:
-    stripPrefix:
+      stripPrefix:
         prefixes:
-        - /api/products
+          - /api/products
     ```
 
 1. A `product-service.yaml` fájlban adjuk hozzá a következő részt az Ingress erőforráshoz, az `annotations` szekcióba:
 
     ```yaml
     annotations:
-      traefik.ingress.kubernetes.io/router.middlewares: product-stripprefix@kubernetescrd
+      traefik.ingress.kubernetes.io/router.middlewares: default-product-stripprefix@kubernetescrd
     ```
 
     !!! warning "Namespace"
-        Ha a middleware-t nem a default névtérbe telepítettük, akkor a middleware neve tartalmazza a névteret is: `namespace-product-stripprefix@kubernetescrd`
+        A middleware neve tartalmazza a névteret is: `namespace-product-stripprefix@kubernetescrd`
 
-1. Érvényesítsük a módosítást, és próbáljuk ki a működését a <localhost:32080/api/products> címen
+1. Érvényesítsük a módosítást.
 
     ```cmd
     kubectl apply -f store-demo/kubernetes/app
     ```
 
+1. Nyissuk meg a Traefik dashboardját és vizsgáljuk meg a konfigurált végpontot, majd próbáljuk ki a működését a <http://localhost:32080/api/products> címen.
+
+    ![Traefik products](images/traefik-products.png)
+
 1. Hasonlóan adjuk hozzá az Ingress szabályokat és a szükséges middleware-eket a `order-service.yaml` és a `makeline-service.yaml` fájlokhoz is.
-   Mind a két esetben a szolgáltatások a / gyökér útvonalon várják a kéréseket, míg az Ingress szabályokban a `/api/orders` és `/api/makeline` útvonalakat kell használni.
+   Mind a két esetben a szolgáltatások a `/` gyökér útvonalon várják a kéréseket, míg az Ingress szabályokban a `/api/orders` és `/api/makeline` útvonalakat kell használni.
 
 1. Vegyük fel a publukus frontend szolgáltatás Ingress szabályát is a `store-web.yaml` fájlba.
-   Itt nem szükséges a middleware, mert a frontend szolgáltatás a `/` gyökér útvonalon várja a kéréseket.
+   **Itt nem szükséges a middleware**, mert a frontend szolgáltatás a `/` gyökér útvonalon várja a kéréseket az ingress-en keresztül is és a webszervben is.
 
 1. Vegyük fel az admin frontend szolgáltatás Ingress szabályát is az `store-admin.yaml` fájlba.
-   Az ingress-t úgy konfiguráljuk fel, hogy a `/admin` útvonalra érkező kéréseket továbbítsa a `store-admin` szolgáltatásnak.
+   Az ingress-t úgy konfiguráljuk fel, hogy a `/admin` útvonalra érkező kéréseket továbbítsa a `store-admin` szolgáltatás `/` útvonalára.
 
-1. Érvényesítsük a módosításokat, és próbáljuk ki az alakalmazásunkat a <http://localhost:32080> és a <http://localhost:32080/admin> címen. Tesztelendő funkciók at a Beadandó részben találhatók.
+1. Érvényesítsük a módosításokat, és próbáljuk ki az alakalmazásunkat a <http://localhost:32080> és a <http://localhost:32080/admin> címen. A tesztelendő funkciókat az alábbi Beadandó részben találhatod.
 
 !!! example "BEADANDÓ"
     Készíts az alábbi tesztesetekről képernyőképeket, és commitold be a házi feladat repó gyökerébe:
 
     - Admin felület
-      - Az admin felületen megjelennek a termékek a *Products* menüpont alatt. (`f3.4.1.png`)
-      - Az *Edit* gombra kattintva módosítsuk a termék nevét, hogy tartalmazza a NEPTUN kódunkat, majd mentsük el és nézzük meg a változást a listában. (`f3.4.2.png`)
+        - Az admin felületen megjelennek a termékek a *Products* menüpont alatt. (`f3.4.1.png`)
+        - Az *Edit* gombra kattintva módosítsuk a termék nevét, hogy tartalmazza a NEPTUN kódunkat, majd mentsük el és nézzük meg a változást a listában. (`f3.4.2.png`)
     - Publikus oldal
-      - A főoldalon megjelennek a termékek (a NEPTUN kódunkat tartalmazó is). (`f3.4.3.png`)
-      - Egy NEPTUN kódot tartalmazó termék kiválasztásával a termék részletei is megjelennek. (`f3.4.4.png`)
-      - Az *Add to cart* gombra kattintva a termék bekerül a kosárba.
-      - A *Cart* szövegre kattintva megjelenik a kosár tartalma. (`f3.4.5.png`)
-      - A *Proceed to checkout* gombra kattintva a rendelés elküldhető (sikeres üzenet). (`f3.4.6.png`)
+        - A főoldalon megjelennek a termékek (a NEPTUN kódunkat tartalmazó is). (`f3.4.3.png`)
+        - Egy NEPTUN kódot tartalmazó termék kiválasztásával a termék részletei is megjelennek. (`f3.4.4.png`)
+        - Az *Add to cart* gombra kattintva a termék bekerül a kosárba.
+        - A *Cart* szövegre kattintva megjelenik a kosár tartalma. (`f3.4.5.png`)
+        - A *Proceed to checkout* gombra kattintva a rendelés elküldhető (sikeres üzenet). (`f3.4.6.png`)
     - Admin felület
-      - Az *Orders* menüpont alatt megjelennek a beérkezett (friss) rendelések.
-      - A megrendelésre kattintva megjelennek a rendelés részletei, ami tartalmazza a NEPTUN kódunkat is. (`f3.4.7.png`)
-      - A *Complete Order* gombra kattintva az állapot módosítás sikeres a rendelés állapota *Completed*-re változik. (`f3.4.8.png`)
+        - Az *Orders* menüpont alatt megjelennek a beérkezett (friss) rendelések.
+        - A megrendelésre kattintva megjelennek a rendelés részletei, ami tartalmazza a NEPTUN kódunkat is. (`f3.4.7.png`)
+        - A *Complete Order* gombra kattintva az állapot módosítás sikeres a rendelés állapota *Completed*-re változik. (`f3.4.8.png`)
