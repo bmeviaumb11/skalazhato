@@ -859,9 +859,33 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#34-alkalmazas-frissitese-helm-charttal" class="md-nav__link">
+  <a href="#34-ingress-szabalyok" class="md-nav__link">
     <span class="md-ellipsis">
-      3.4 Alkalmazás frissítése Helm charttal
+      3.4 Ingress szabályok
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-feladat" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Feladat
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Feladat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm-chart-keszitese" class="md-nav__link">
+    <span class="md-ellipsis">
+      Helm chart készítése
     </span>
   </a>
   
@@ -1297,9 +1321,33 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#34-alkalmazas-frissitese-helm-charttal" class="md-nav__link">
+  <a href="#34-ingress-szabalyok" class="md-nav__link">
     <span class="md-ellipsis">
-      3.4 Alkalmazás frissítése Helm charttal
+      3.4 Ingress szabályok
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-feladat" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Feladat
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Feladat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm-chart-keszitese" class="md-nav__link">
+    <span class="md-ellipsis">
+      Helm chart készítése
     </span>
   </a>
   
@@ -1335,7 +1383,6 @@
 
 
 <h1 id="02-kubernetes-helm">02 - Kubernetes, Helm<a class="headerlink" href="#02-kubernetes-helm" title="Permanent link">¶</a></h1>
-<p><em>Nincs frissítve 2025. őszi félévre!</em></p>
 <h2 id="cel">Cél<a class="headerlink" href="#cel" title="Permanent link">¶</a></h2>
 <p>A labor célja:</p>
 <ul>
@@ -1422,18 +1469,18 @@ Láthatjuk mind a kliens, mind a klaszter verzió információit.</p>
 <p>A <code>kubectl</code> egy konkrét klaszterhez csatlakozik. Nézzük meg, milyen klasztereket ismer:</p>
 <div class="highlight"><pre><span></span><code>kubectl config get-contexts
 </code></pre></div>
-<ul>
-<li>Ha több klaszterrel dolgoznánk, itt láthatnánk őket.</li>
+</li>
+<li>
+<p>Ha több klaszterrel dolgoznánk, itt láthatnánk őket.</p>
+</li>
 <li>Ezek valójában egy konfigurációs fájlban vannak: <code>%userprofile%/.kube/config</code></li>
 <li>Váltani a <code>kubectl config use-context &lt;név&gt;</code> parancssal lehet.</li>
 <li>Minden parancsnál külön megadhatjuk a kontextust a <code>--context</code> kapcsolóval, de inkább az implicit contextust szoktuk használni.</li>
 <li>Kontextus beállításról részletesebben <a href="https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-context-and-configuration">itt</a>.</li>
 </ul>
-</li>
-</ul>
 <div class="admonition tip">
 <p class="admonition-title">Kubernetes GUI</p>
-<p>A feladatokban lévő műveletek szinte mindegyike elvégezhető a GUI (pl.: VS Code kubernetes kiegészítő) segítségével is. A labor leírásaiban a <code>kubectl</code> parancsokat fogjuk használni, de a GUI is használható. </p>
+<p>A feladatokban lévő műveletek szinte mindegyike elvégezhető a GUI (pl.: VS Code kubernetes kiegészítő) segítségével is. A labor leírásaiban a <code>kubectl</code> parancsokat fogjuk használni, de a GUI is használható.</p>
 </div>
 <h2 id="1-feladat">1. Feladat<a class="headerlink" href="#1-feladat" title="Permanent link">¶</a></h2>
 <h3 id="podok-es-nevterek-listazasa">Podok és névterek listázása<a class="headerlink" href="#podok-es-nevterek-listazasa" title="Permanent link">¶</a></h3>
@@ -1465,14 +1512,12 @@ Láthatjuk mind a kliens, mind a klaszter verzió információit.</p>
 <ol>
 <li>
 <p>Hozzunk létre egy új YAML fájt a repositorynk gyökerébe <code>createpod.yml</code> néven, az alábbi követelmények mentén</p>
-</li>
-<li>
-<p>a kubernetes leíró Pod-ot definiál</p>
-</li>
+<ul>
+<li>a kubernetes leíró Pod-ot definiál</li>
 <li>a pod neve legyen <code>counter-neptun</code> a <strong>saját neptunkóddal</strong> kiegészítve</li>
 <li>a pod egy konténert tartalmazzon, amely az <code>ubuntu</code> képből indul</li>
-<li>
-<p>a konténer egy bash parancsot futtasson, ami kiírja a <em>NEPTUN</em> kódodat és 5 másodpercenként kiírja az aktuális időt.</p>
+<li>a konténer egy bash parancsot futtasson, ami kiírja a <em>NEPTUN</em> kódodat és 5 másodpercenként kiírja az aktuális időt.</li>
+</ul>
 </li>
 <li>
 <p>A konzolunkban navigáljunk el abba a könyvtárba, ahol a YAML fájl van, majd hozzuk létre a podot:</p>
@@ -1589,20 +1634,66 @@ Ehelyett valójában egy új podot kell létrehozni indirekt módon a deployment
 </details>
 <h2 id="3-feladat">3. Feladat<a class="headerlink" href="#3-feladat" title="Permanent link">¶</a></h2>
 <h3 id="celok">Célok<a class="headerlink" href="#celok" title="Permanent link">¶</a></h3>
-<p>A célunk a kiinduló repóban lévő, todo-kat kezelő konténeralapú, külön álló (mikro)szolgáltatásokra épülő webalkalmazás telepítése Kubernetes-be.
-A rendszerünk alapvetően három fajta komponensből épül fel:</p>
-<ul>
-<li>az általunk megvalósított mikroszolgáltatások (backendek és frontend),</li>
-<li>az adatbázis rendszerek (MongoDB, Elasticsearch és Redis),</li>
-<li>valamint az api gateway.</li>
-</ul>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/todo-k8s.drawio.png" data-desc-position="bottom"><img alt="TODO App architektúra" src="images/todo-k8s.drawio.png"></a></p>
-<p>Célunk nem csak az egyszeri telepítés, hanem az alkalmazás naprakészen tartásához a folyamatos frissítés lehetőségének megteremtése.
-A fenti komponensek azonban nem ugyanolyan frissítési ciklussal rendelkeznek: a saját komponenseink gyakran fognak változni, míg az adatbázisok és az api gateway ritkán frissül.
-A telepítést ennek megfelelően most ketté vágjuk:</p>
+<p>A célunk a kiinduló repóban lévő (<code>storeapp</code> mappa), megrendeléseket kezelő konténeralapú, külön álló (mikro)szolgáltatásokra épülő webalkalmazás telepítése Kubernetes-be. Forrás: <a href="https://github.com/Azure-Samples/aks-store-demo">https://github.com/Azure-Samples/aks-store-demo</a></p>
+<p>A rendszer az alábbit komponensekből áll:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/k8s.drawio.png" data-desc-position="bottom"><img alt="TODO" src="images/k8s.drawio.png"></a></p>
+<table>
+<thead>
+<tr>
+<th>Szolgáltatás</th>
+<th>Leírás</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mongodb</td>
+<td>MongoDB példány az adatok tárolásához</td>
+</tr>
+<tr>
+<td>rabbitmq</td>
+<td>RabbitMQ a megrendelési üzenetsorhoz</td>
+</tr>
+<tr>
+<td>makeline-service</td>
+<td>Ez a szolgáltatás kezeli a rendelések feldolgozását (üzenetsorból) és perzisztálását (db-be) (Golang)</td>
+</tr>
+<tr>
+<td>order-service</td>
+<td>Ez a szolgáltatás a rendelések leadására szolgál, ami az üzenetsorba küld üzeneteket (Javascript)</td>
+</tr>
+<tr>
+<td>product-service</td>
+<td>Ez a szolgáltatás a termékek CRUD műveleteit végzi memóriában, perzisztens tár nélkül (Rust)</td>
+</tr>
+<tr>
+<td>store-front</td>
+<td>Webalkalmazás, amelyen keresztül a vásárlók rendeléseket adhatnak le (Vue.js)</td>
+</tr>
+<tr>
+<td>store-admin</td>
+<td>Webalkalmazás, amelyet az üzlet dolgozói használnak a sorban lévő rendelések megtekintésére és a termékek kezelésére (Vue.js)</td>
+</tr>
+<tr>
+<td>traefik</td>
+<td>API gateway és Ingress Controller</td>
+</tr>
+<tr>
+<td>virtual-customer</td>
+<td>Ütemezetten szimulálja a rendelés létrehozását (Rust)</td>
+</tr>
+<tr>
+<td>virtual-worker</td>
+<td>Ütemezetten szimulálja a rendelés teljesítését (Rust)</td>
+</tr>
+</tbody>
+</table>
+<p>Feladatunk a következő:</p>
 <ol>
-<li>Az api gateway-t és az adatbázisokat egyszer telepítjük manuálisan.</li>
-<li>Az alkalmazásunk saját komponenseihez YAML alapú leírókat készítünk, amit <code>kubectl apply</code> segítségével fogunk telepíteni, illetve ezeket a leírókat Helm-mel fogjuk kezelni.</li>
+<li>Telepítsük a Traefik api gateway-t Helm chart-tal.</li>
+<li>Telepítsük a MongoDB és RabbitMQ komponenseket YAML leírókkal.</li>
+<li>Telepítsük az alkalmazásunk saját komponenseit YAML leírókkal.</li>
+<li>Hozzuk létre az Ingress szabályokat, hogy a Traefik tudja, hova továbbítsa a bejövő kéréseket.</li>
+<li>Ellenőrizzük, hogy minden szolgáltatás elérhető-e a Traefik-en keresztül.</li>
 </ol>
 <h3 id="30-helm">3.0 Helm<a class="headerlink" href="#30-helm" title="Permanent link">¶</a></h3>
 <p>Ellenőrizzük, hogy a <code>helm</code> CLI elérhető-e:</p>
@@ -1613,7 +1704,7 @@ A telepítést ennek megfelelően most ketté vágjuk:</p>
 <p>A feladat során a Helm 3-as verzióját fogjuk használni. A korábbi verziója koncepcióban azonos, de működésében eltérő.</p>
 </div>
 <h3 id="31-ingress-controller-api-gateway-telepitese-helm-charttal">3.1 Ingress Controller (api gateway) telepítése Helm charttal<a class="headerlink" href="#31-ingress-controller-api-gateway-telepitese-helm-charttal" title="Permanent link">¶</a></h3>
-<p>A Traefik-et <a href="https://github.com/traefik/traefik-helm-chart">Helm charttal</a> fogjuk telepíteni, mert a Traefik helyes működéséhez a Traefik konténer (Deployment) mellett egyéb elemekre is szükség lesz (klaszteren belüli hozzáférés szabályzás miatt).</p>
+<p>A Traefik-et <a href="https://github.com/traefik/traefik-helm-chart">Helm charttal</a> fogjuk telepíteni, mert a Traefik helyes működéséhez a Traefik konténer (Deployment) mellett egyéb <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">CRD</a> elemekre is szükség lesz a konfigurációhoz.</p>
 <div class="admonition warning">
 <p class="admonition-title">Chart-ok ellenőrzése</p>
 <p>A Helm chartok nagy része harmadik féltől származik, így a klaszterünbe való telepítés előtt a tartalmukat érdemes alaposan megnézni.</p>
@@ -1637,6 +1728,8 @@ helm repo update
 <div class="admonition info">
 <p class="admonition-title">Publikus eléréshez</p>
 <p>A Traefik jelen konfigurációban <em>NodePort</em> service típussal van konfigurálva, ami azt jelenti, lokálisan, helyben a megadott porton lesz csak elérhető. Ha publikusan elérhető klaszterben dolgozunk, akkor tipikusan <em>LoadBalancer</em> service típust fogunk kérni, hogy publikus IP címet is kapjon a Traefik.</p>
+<p>Továbbá itt az alapértelmezett 80-as port helyett a 32080-as portot használjuk, hogy ne ütközzön a gépünkön esetlegesen futó egyéb szolgáltatásokkal.
+Így a klaszterünk belépési pontja a <a href="http://localhost:32080">http://localhost:32080</a> címen lesz elérhető.</p>
 </div>
 </li>
 <li>
@@ -1652,36 +1745,35 @@ helm repo update
    Ezt most megkerülve <code>kubectl</code> segítségével egy helyi portra továbbítjuk a Traefik dashboard-ot (és a telepítéskor insecure módba kapcsoltuk).
    A port átirányítást próbáljuk most a VSCode Kubernetes extension segítségével:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/traefik-dashboard-port-forward.png" data-desc-position="bottom"><img alt="Traefik port forward" src="images/traefik-dashboard-port-forward.png"></a></p>
-<p>Fogadjuk el az elapértelmezett értékeket (<code>9100:metrics 9000:traefik 8000:web 8443:websecure</code>). Így a Traefik dashboard a <code>localhost:9000/dashboard/</code> címen lesz elérhető.</p>
+<p>Fogadjuk el az alapértelmezett értékeket (<code>9100:metrics 8080:traefik 8000:web 8443:websecure</code>). Így a Traefik dashboard a <a href="http://localhost:8080/dashboard">http://localhost:8080/dashboard</a> címen lesz elérhető.</p>
 <details class="tip">
 <summary>Port forward parancs</summary>
 <p>Ahogy látjuk a GUI-s K8S eszközök is csak a <code>kubectl port-forward</code> parancsot használják a háttérben.</p>
 <p>Ha nem használunk GUI-t, akkor a port forward parancs a következő, amibe ráadásul nem égettük bele a pod nevét:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>port-forward<span class="w"> </span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--selector<span class="w"> </span><span class="s2">"app.kubernetes.io/name=traefik"</span><span class="w"> </span>--output<span class="o">=</span>name<span class="k">)</span><span class="w"> </span><span class="m">9100</span>:9100<span class="w"> </span><span class="m">9000</span>:9000<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span><span class="m">8443</span>:8443<span class="w"> </span>-n<span class="w"> </span>default
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>port-forward<span class="w"> </span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--selector<span class="w"> </span><span class="s2">"app.kubernetes.io/name=traefik"</span><span class="w"> </span>--output<span class="o">=</span>name<span class="k">)</span><span class="w"> </span><span class="m">9100</span>:9100<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span><span class="m">8443</span>:8443<span class="w"> </span>-n<span class="w"> </span>default
 </code></pre></div>
 </details>
 </li>
 <li>
-<p>Nézzük meg a Traefik dashboardot: <a href="http://localhost:9000/dashboard/">http://localhost:9000/dashboard/</a> (a végén kell a perjel!)</p>
+<p>Nézzük meg a Traefik dashboardot: <a href="http://localhost:8080/dashboard/">http://localhost:8080/dashboard/</a></p>
 </li>
 </ol>
 <div class="admonition note">
 <p>Ha frissíteni szeretnénk később a Traefik-et, akkor azt a <code>helm upgrade traefik traefik/traefik ...</code> paranccsal tudjuk megtenni.</p>
 </div>
 <h3 id="32-adatbazisok-telepitese">3.2 Adatbázisok telepítése<a class="headerlink" href="#32-adatbazisok-telepitese" title="Permanent link">¶</a></h3>
-<p>Az adatbázisainkat saját magunk által megírt YAML leíróval telepítjük. Ez a leíró fájl már rendelkezésünkre áll a kiinduló repository todoapp almappájában.</p>
+<p>Az adatbázisainkat a már megírt YAML leírókkal telepítjük. Ez a leíró fájl már rendelkezésünkre áll a kiinduló repository <code>storeapp</code> almappájában.</p>
 <ol>
 <li>
-<p>Vizsgáljuk meg a repository <code>todoapp/kubernetes/db</code> könyvtárában lévő YAML leírókat.</p>
+<p>Vizsgáljuk meg a repository <code>storeapp/hf-kubernetes/db</code> könyvtárában lévő YAML leírókat.</p>
 <ul>
-<li>Redis: Deployment-ként telepítjük és nem csatolunk hozzá diszket, mert úgyis csak cache-nek használjuk</li>
 <li>MongoDB: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk</li>
-<li>Elasticsearch: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk</li>
+<li>RabbitMQ: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk</li>
 </ul>
 </li>
 <li>
 <p>Telepítsük az adatbázisokat:</p>
-<div class="highlight"><pre><span></span><code>kubectl apply -f todoapp/kubernetes/db
+<div class="highlight"><pre><span></span><code>kubectl apply -f storeapp/hf-kubernetes/db
 </code></pre></div>
 <div class="admonition tip">
 <p>A <code>kubectl apply</code> parancs <code>-f</code> kapcsolója ha mappát kap, akkor a mappában lévő összes yaml fájlt alkalmazza.</p>
@@ -1690,85 +1782,171 @@ helm repo update
 <li>
 <p>Ellenőrizzük, hogy az adatbázis podok elindulnak-e (pl.: GUI-val). Minden a <em>default</em> névtérbe kellett települjön.</p>
 </li>
-<li>Nézzük meg a <em>Persistent Volume</em> és <em>Persistent Volumen Claim</em>-eket.</li>
 </ol>
 <h3 id="33-alkalmazasunk-telepitese">3.3 Alkalmazásunk telepítése<a class="headerlink" href="#33-alkalmazasunk-telepitese" title="Permanent link">¶</a></h3>
-<p>Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a <em>kubernetes/app</em> könyvtárban.</p>
+<p>Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a <code>storeapp/hf-kubernetes/app</code> könyvtárban.</p>
 <ol>
 <li>
-<p>Nézzük meg a leírókat. Az előbb látott Deployment és Service mellet Ingress-t is látni fogunk.</p>
+<p>Nézzük meg a leírókat.</p>
 </li>
 <li>
 <p>Telepítsük az alkalmazásokat:</p>
-<div class="highlight"><pre><span></span><code>kubectl apply -f todoapp/kubernetes/app
+<div class="highlight"><pre><span></span><code>kubectl apply -f storeapp/hf-kubernetes/app
 </code></pre></div>
 </li>
 <li>
-<p>Ellenőrizzük, hogy létrejöttek a Deployment-ek podok, stb. Viszont vegyük észre, hogy piros lesz még pár dolog. A hiba oka, hogy a hivatkozott image-eket nem találja a rendszer.</p>
+<p>Ellenőrizzük, hogy létrejöttek a Deployment-ek podok. A <em>store-front</em> és <em>store-admin</em> podoknak nem fognak tudni elindulni, mert a leíró olyan (lokális) image-eket használnak, amelyek nincsenek lebuildelve a gépünkön. A többi szolgáltatás esetében egy távoli publikus konténer registry-ből húzza le a szükséges image-eket.</p>
 </li>
 <li>
-<p>Navigáljunk el az <code>src</code> könyvtárba, és buildeljük le az alkalmazást docker-compose segítségével úgy, hogy a megfelelő taggel ellátjuk az image-eket. Az app könyvtárban lévő YAML fájlok a <em>v1</em> tagre hivatkoznak (<code>image: todoapp/todos:v1</code>), így ehhez érdemes igazodnunk. A tag-et beállíthatjuk környezeti változóból.</p>
-<ul>
-<li>
-<p>Powershell-ben</p>
-<div class="highlight"><pre><span></span><code><span class="nv">$env:IMAGE_TAG</span><span class="p">=</span><span class="s2">"v1"</span>
-<span class="n">docker</span> <span class="n">compose</span> <span class="n">build</span>
+<p>Ezeket az image-eket az <code>storeapp/src/store-admin</code> és <code>storeapp/src/store-front</code> könyvtárban tudjuk lebuildelni. Nyissunk egy új terminál ablakot, navigáljunk el a <code>storeapp</code> megfelelő könyvtárába, és futtassuk a <code>docker build</code> parancsokat:</p>
+<div class="highlight"><pre><span></span><code>cd storeapp/src/store-front
+docker build -t store-front:local .
+cd ../store-admin
+docker build -t store-admin:local .
 </code></pre></div>
-</li>
-<li>
-<p>Windows Command Prompt-ban</p>
-<div class="highlight"><pre><span></span><code>setx IMAGE_TAG "v1"
-docker compose build
-</code></pre></div>
-</li>
-<li>
-<p>Linux bash-ben</p>
-<div class="highlight"><pre><span></span><code><span class="nv">IMAGE_TAG</span><span class="o">=</span><span class="s2">"v1"</span><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>build
-</code></pre></div>
-</li>
-</ul>
-</li>
-<li>
-<p>A build folyamat végén előállnak helyben az image-ek, pl. <code>todoapp/web:v1</code> taggel. Ha távoli registry-be szeretnénk feltölteni őket, akkor taggelhetnénk őket a registry-nek megfelelően. A helyi fejlesztéshez nincs szükségünk ehhez, mert a helyben elindított Kubernetes "látja" a Docker helyi image-eit.</p>
-</li>
-<li>
-<p>Menjünk vissza az erőforrásainkhoz. Egy kicsit várjunk, és azt kell lássuk, hogy az eddig piros elemek kizöldülnek (GUI függően frissítésre lehet szükség). A Kubernetes folyamatosan törekszik az elvárt állapot elérésére, ezért a nem elérhető image-einket újra és újra megpróbálta elérni, míg nem sikerült.</p>
-</li>
-<li>
-<p>Próbáljuk ki az alkalmazást a <a href="http://localhost:32080">http://localhost:32080</a> címen.</p>
-</li>
-</ol>
 <div class="admonition tip">
-<p>Egyes Linuxos gépeken előfordulhat, hogy a <a href="http://localhost:8000">http://localhost:8000</a> címen lesz elérhető az alkalmazás, a korábban javasolt port forward parancsot követően.</p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">BEADANDÓ</p>
-<p>Készíts egy képernyőképet (<code>f3.3.png</code>) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval.</p>
+<p class="admonition-title">Pod újraindítása</p>
+<p>Ha nem akarjuk kivárni az rendszer általi újraindítást töröljük ki a pod-ot kézzel, aminek hatására a deployment létrehoz egy új pod-ot, ami már a helyi image-t fogja használni.</p>
 </div>
 <details class="tip">
 <summary>Ha mégsem zöldülnek ki</summary>
-<div class="highlight"><pre><span></span><code>1. Egyes Linuxos gépeken nem vállnak alapvetően láthatóvá a minikube-on belül az image-ek. Az ilyen gépeken érdemes a következő parancs előtt az `eval $(minikube docker-env)` parancsot kiadni.
-Ezt követően ebben a terminál ablakban adjuk ki az image build paracsomat, valamint a k8s apply parancsokat is.
-
-2. Ugyanez Windows-os + minikube powershellel:
-Lehet, hogy nem a minikube-ban vannak a docker image-ek. Ekkor PowerShellben a `&amp; minikube -p minikube docker-env --shell powershell | Invoke-Expression` paranccsal tudod elérni, hogy a minikube-ban lévő docker daemont használd.
-Ha ez a parancs `❌  Exiting due to MK_USAGE: the docker-env command only supports the docker and containerd runtimes` errort dobna: Add ki a `minikube delete` parancsot, majd indítsd el a következő módon: `minikube start --driver=docker --container-runtime=docker`
-</code></pre></div>
-</details>
-<h3 id="34-alkalmazas-frissitese-helm-charttal">3.4 Alkalmazás frissítése Helm charttal<a class="headerlink" href="#34-alkalmazas-frissitese-helm-charttal" title="Permanent link">¶</a></h3>
-<p>Tegyük fel, hogy az alkalmazásunkból újabb verzió készül, és szeretnénk frissíteni.
-A fentebb használt YAML leírókat azért (is) a verziókezelőben tároljuk, mert így a telepítési "útmutatók" is verziózottak.
-Tehát nincs más dolgunk, mit a konténer image-ek elkészítése után a Deployment-ekben a megfelelő tag-ek lecserélése, és a <code>kubectl apply</code> paranccsal a telepítés frissítése.</p>
-<p>A Tag-ek frissítéséhez a YAML fájlokba minden alkalommal bele kell írnunk.
-Jó lenne, ha az image tag-et mint egy változó tudnánk a telepítés során átadni.
-Erre szolgál a Helm: készítsünk egy <em>chart</em>-ot a szolgáltatásainknak.
-A <em>chart</em> a telepítés leíró neve, ami gyakorlatilag YAML fájlok gyűjteménye egy speciális szintaktikával kiegészítve.</p>
 <ol>
 <li>
-<p>Hozzuk létre a repository-nkban a <code>todoapp/helmchart</code> mappát majd a konzolban navigáljunk oda.</p>
+<p>Egyes Linuxos gépeken nem vállnak alapvetően láthatóvá a minikube-on belül az image-ek. Az ilyen gépeken érdemes a következő parancs előtt az <code>eval $(minikube docker-env)</code> parancsot kiadni.
+Ezt követően ebben a terminál ablakban adjuk ki az image build paracsomat, valamint a k8s apply parancsokat is.</p>
 </li>
 <li>
-<p>Készítsünk egy új, üres chart-ot: <code>helm create todoapp</code>. Ez létrehoz egy <em>todoapp</em> nevű chartot egy azonos nevű könyvtárban.</p>
+<p>Ugyanez Windows-os + minikube powershellel:
+Lehet, hogy nem a minikube-ban vannak a docker image-ek. Ekkor PowerShellben a <code>&amp; minikube -p minikube docker-env --shell powershell | Invoke-Expression</code> paranccsal tudod elérni, hogy a minikube-ban lévő docker daemont használd.
+Ha ez a parancs <code>❌  Exiting due to MK_USAGE: the docker-env command only supports the docker and containerd runtimes</code> errort dobna: Add ki a <code>minikube delete</code> parancsot, majd indítsd el a következő módon: <code>minikube start --driver=docker --container-runtime=docker</code></p>
+</li>
+</ol>
+</details>
+</li>
+<li>
+<p>Mivel még nincs ingress szabály ezért próbáljuk ki port forwarddal a <code>store-front</code> szolgáltatást a 3000-es porton. Az oldal betölt, de nem éri el a <code>product-service</code> szolgáltatást, mert nincs ingress szabály.</p>
+</li>
+</ol>
+<h3 id="34-ingress-szabalyok">3.4 Ingress szabályok<a class="headerlink" href="#34-ingress-szabalyok" title="Permanent link">¶</a></h3>
+<p>Az alkalmazásunkban még nincsenek ingress szabályok, ezért az Ingress Controller (most a Traefik) nem tudja, hogy a bejövő kéréseket hova kell továbbítani.
+Hozzuk létre ezeket a szabályokat, kezdjük az mikroszolgáltatásokkal.</p>
+<ol>
+<li>
+<p>A <code>storeapp/hf-kubernetes/app</code> könyvtárban módosítsuk a <code>product-service.yaml</code> fájlt, és adjuk hozzá a következő Ingress erőforrást:</p>
+<div class="highlight"><pre><span></span><code><span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networking.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ingress</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">products</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">app.kubernetes.io/name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">products</span>
+<span class="w">    </span><span class="nt">storedemo.tier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">backend</span>
+<span class="w">  </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">traefik.ingress.kubernetes.io/router.entrypoints</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web</span>
+<span class="w">    </span><span class="nt">traefik.ingress.kubernetes.io/router.middlewares</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">product-stripprefix@kubernetescrd</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">rules</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">http</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">paths</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/api/products</span>
+<span class="w">            </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Prefix</span>
+<span class="w">            </span><span class="nt">backend</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">service</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">product-service</span>
+<span class="w">                </span><span class="nt">port</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3002</span>
+</code></pre></div>
+<p>Van viszont egy probléma: a <code>product-service</code> szolgáltatás nem a <code>/api/products</code> útvonalon várja a kéréseket, hanem a <code>/</code> útvonalon.
+A <code>/api/products</code> útvonalat csak a frontend ismeri.
+Ezt a problémát a Traefik <em>middleware</em> funkciójával tudjuk megoldani.
+A middleware-ek a Traefik-ben olyan komponensek, amelyek a bejövő kéréseket módosítják, mielőtt továbbítanák azokat a backend szolgáltatások felé.
+A Traefik-ben van egy <em>StripPrefix</em> middleware, amely eltávolítja a megadott prefixet a kérés URL-jéből.
+Ezt a middleware-t kell alkalmaznunk a <code>products</code> Ingress-re.</p>
+</li>
+<li>
+<p>A <code>product-service.yaml</code> fájlban definiáljuk a middleware CRD erőforrást az Ingress szabályunk előtt:</p>
+<div class="highlight"><pre><span></span><code><span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">traefik.io/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Middleware</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">product-stripprefix</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">stripPrefix</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">prefixes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/api/products</span>
+</code></pre></div>
+</li>
+<li>
+<p>A <code>product-service.yaml</code> fájlban adjuk hozzá a következő részt az Ingress erőforráshoz, az <code>annotations</code> szekcióba:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">traefik.ingress.kubernetes.io/router.middlewares</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default-product-stripprefix@kubernetescrd</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Namespace</p>
+<p>A middleware neve tartalmazza a névteret is: <code>namespace-product-stripprefix@kubernetescrd</code></p>
+</div>
+</li>
+<li>
+<p>Érvényesítsük a módosítást.</p>
+<div class="highlight"><pre><span></span><code>kubectl apply -f storeapp/hf-kubernetes/app
+</code></pre></div>
+</li>
+<li>
+<p>Nyissuk meg a Traefik dashboardját és vizsgáljuk meg a konfigurált végpontot, majd próbáljuk ki a működését a <a href="http://localhost:32080/api/products">http://localhost:32080/api/products</a> címen.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/traefik-products.png" data-desc-position="bottom"><img alt="Traefik products" src="images/traefik-products.png"></a></p>
+</li>
+<li>
+<p>Hasonlóan adjuk hozzá az Ingress szabályokat és a szükséges middleware-eket a <code>order-service.yaml</code> és a <code>makeline-service.yaml</code> fájlokhoz is.
+   Mind a két esetben a szolgáltatások a <code>/</code> gyökér útvonalon várják a kéréseket, míg az Ingress szabályokban a <code>/api/orders</code> és <code>/api/makeline</code> útvonalakat kell használni.</p>
+</li>
+<li>
+<p>Vegyük fel a publikus frontend szolgáltatás Ingress szabályát is a <code>store-web.yaml</code> fájlba.
+   <strong>Itt nem szükséges a middleware</strong>, mert a frontend szolgáltatás a <code>/</code> gyökér útvonalon várja a kéréseket az ingress-en keresztül is és a webszervben is.</p>
+</li>
+<li>
+<p>Vegyük fel az admin frontend szolgáltatás Ingress szabályát is az <code>store-admin.yaml</code> fájlba.
+   Az ingress-t úgy konfiguráljuk fel, hogy a <code>/admin</code> útvonalra érkező kéréseket továbbítsa a <code>store-admin</code> szolgáltatás <code>/</code> útvonalára.</p>
+</li>
+<li>
+<p>Érvényesítsük a módosításokat, és próbáljuk ki az alkalmazásunkat a <a href="http://localhost:32080">http://localhost:32080</a> és a <a href="http://localhost:32080/admin">http://localhost:32080/admin</a> címen. A tesztelendő funkciókat az alábbi Beadandó részben találhatod.</p>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">BEADANDÓ</p>
+<p>Készíts az alábbi tesztesetekről képernyőképeket, és commitold be a házi feladat repó gyökerébe:</p>
+<ul>
+<li>Admin felület<ul>
+<li>Az admin felületen megjelennek a termékek a <em>Products</em> menüpont alatt. (<code>f3.4.1.png</code>)</li>
+<li>Az <em>Edit</em> gombra kattintva módosítsuk a termék nevét, hogy tartalmazza a NEPTUN kódunkat, majd mentsük el és nézzük meg a változást a listában. (<code>f3.4.2.png</code>)</li>
+</ul>
+</li>
+<li>Publikus oldal<ul>
+<li>A főoldalon megjelennek a termékek (a NEPTUN kódunkat tartalmazó is). (<code>f3.4.3.png</code>)</li>
+<li>Egy NEPTUN kódot tartalmazó termék kiválasztásával a termék részletei is megjelennek. (<code>f3.4.4.png</code>)</li>
+<li>Az <em>Add to cart</em> gombra kattintva a termék bekerül a kosárba.</li>
+<li>A <em>Cart</em> szövegre kattintva megjelenik a kosár tartalma. (<code>f3.4.5.png</code>)</li>
+<li>A <em>Proceed to checkout</em> gombra kattintva a rendelés elküldhető (sikeres üzenet). (<code>f3.4.6.png</code>)</li>
+</ul>
+</li>
+<li>Admin felület<ul>
+<li>Az <em>Orders</em> menüpont alatt megjelennek a beérkezett (friss) rendelések.</li>
+<li>A megrendelésre kattintva megjelennek a rendelés részletei, ami tartalmazza a NEPTUN kódunkat is. (<code>f3.4.7.png</code>)</li>
+<li>A <em>Complete Order</em> gombra kattintva az állapot módosítás sikeres a rendelés állapota <em>Completed</em>-re változik. (<code>f3.4.8.png</code>)</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="4-feladat">4. Feladat<a class="headerlink" href="#4-feladat" title="Permanent link">¶</a></h2>
+<p>Helm chartot eddig meglévő komponensek paraméterezhető telepítésére használtunk. Készítsünk most mi Helm chartot a <em>virtual-customer</em> és <em>virtual-worker</em> szolgáltatások paraméterezhető telepítéséhez.</p>
+<h3 id="helm-chart-keszitese">Helm chart készítése<a class="headerlink" href="#helm-chart-keszitese" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p>Hozzuk létre a repository-nkban a <code>/storeapp/helmchart</code> mappát majd a konzolban navigáljunk oda.</p>
+</li>
+<li>
+<p>Készítsünk egy új, üres chart-ot, az alábbi paranccsal, ami létrehoz egy <em>storeapp</em> nevű chartot egy azonos nevű könyvtárban.</p>
+<div class="highlight"><pre><span></span><code>helm create storeapp
+</code></pre></div>
 </li>
 <li>
 <p>Nézzük meg a chart fájljait.</p>
@@ -1778,71 +1956,46 @@ A <em>chart</em> a telepítés leíró neve, ami gyakorlatilag YAML fájlok gyű
 <li><code>.helmignore</code> azon fájlokat listázza, amelyeket a chart értelmezésekor nem kell figyelembe venni.</li>
 <li><code>templates</code> könyvtárban vannak a template fájlok, amik a generálás alapjául szolgálnak.</li>
 </ul>
-<p>A Helm egy olyan template nyelvet használ, amelyben változó behelyettesítések, ciklusok, egyszerű szövegműveletek támogatottak. Mi most csak a változó behelyettesítést fogjuk használni.</p>
+<p>A Helm egy olyan template nyelvet használ, amelyben változó behelyettesítések, ciklusok, egyszerű szövegműveletek támogatottak.</p>
 </li>
 <li>
-<p>Töröljük ki a <code>templates</code> könyvtárból az összes fájlt a <code>_helpers.tpl</code> kivételével.</p>
+<p>Töröljük ki a <code>templates</code> könyvtárból az összes fájlt a <code>_helpers.tpl</code> kivételével. Töröljük ki a <code>values.yaml</code> fájlból is a tartalmat.</p>
 </li>
 <li>
-<p>Másoljuk helyette be ide a korábban a telepítéshez használt YAML fájljainkat a <code>todoapp/kubernetes/app</code> mappából (3 darab).</p>
+<p>Másoljuk be a <code>storeapp/hf-kubernetes/simulation</code> mappából a <code>virtual-customer.yaml</code> és <code>virtual-worker.yaml</code> fájlokat a <code>templates</code> könyvtárba.</p>
 </li>
 <li>
-<p>Szerkesszük meg a <code>todos.yaml</code> fájl tartalmát. Leegyszerűsítve az alábbiakra lesz szükség:</p>
+<p>Módosítsuk a fenti két yaml leírót a következő követelmények szerint a helm szintaktika használatával:</p>
 <ul>
-<li>
-<p>Ha <em>Visual Studio Code</em>-ot használunk, akkor telepítsük a <a href="https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools"><code>ms-kubernetes-tools.vscode-kubernetes-tools</code></a> extension-t. Így kapunk némi segítséget a szintaktikával.</p>
-</li>
-<li>
-<p>Mindenhol, ahol <code>labels</code> vagy <code>matchLabels</code> szerepel, még egy sort fel kell vennünk:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">app.kubernetes.io/instance</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Release.Name</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-</code></pre></div>
-<p>Ez egy implicit változót helyettesít be: a <em>release</em> nevét. Ezzel azonosítja a Helm a telepítés és frissítés során, hogy mely elemeket kell frissítenie, melyek tartoznak a fennhatósága alá.</p>
-</li>
-<li>
-<p>A pod-ban az image beállításához használjunk változót:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">todoapp/todos:{{ .Values.todos.tag }}</span>
-</code></pre></div>
-<div class="admonition warning">
-<p class="admonition-title">Whitespace</p>
-<p>Figyeljünk oda, hogy a változó behelyettesítés során hova kell whitespace-t rakni és hova nem.</p>
-</div>
-</li>
+<li>Az erőforrások metaadatai (pl. <code>metadata.name</code>, <code>selector.matchLabels.app</code>, <code>containers.name</code>, <code>template.metadata.labels.app</code>) tartalmazzák a <code>neptun</code> kódunkat pl.: <code>virtual-customer-neptun</code>, ebből a neptun kódot a <code>values.yaml</code> fájlban definiált <code>neptun</code> változóból helyettesítsük be.</li>
+<li>A deployment leírók legyen feltételesen végrehajtva, tehát csak akkor jöjjenek létre az erőforrások, ha a <code>values.yaml</code> fájlban a <code>virtualCustomer.enabled</code> illetve <code>virtualWorker.enabled</code> értéke true.</li>
+<li>A <code>virtualCustomer</code> és <code>virtualWorker</code> pod-ok  <code>ORDERS_PER_HOUR</code> környezeti változóji legyenek paraméterezhetőek a <code>values.yaml</code> fájlban a <code>virtualCustomer.ordersPerHour</code> és <code>virtualWorker.ordersPerHour</code> változójával.</li>
 </ul>
-</li>
-<li>
-<p>Definiáljuk az előbbi változó alapértelmezett értékét. A <code>values.yaml</code> fájlban (egy könyvtárral feljebb) töröljünk ki mindent, és vegyük fel ezt a kulcsot:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">todos</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-</code></pre></div>
-</li>
-<li>
-<p>A másik két komponens YAML leíróival is hasonlóan kell eljárnunk: vegyünk fel egy-egy kulcsot komponensenként és hivatkozzunk a kulcsra az adott komponens pod leírójának <code>image:</code> értékében.</p>
-</li>
-<li>
-<p>A továbbiakhoz el kell távolítanunk az előbb telepített alkalmazásunkat, mert összeakadna a Helm-mel. Ezt a parancsot a telepítéshez korábban használt <code>app</code> alkönyvtár szülőkönyvtárában adjuk ki:</p>
-<div class="highlight"><pre><span></span><code>kubectl delete -f app
-</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Helm template szintaktika</p>
+<p>A Helm template szintaktikájáról részletesen olvashatsz <a href="https://helm.sh/docs/chart_template_guide/">itt</a>.</p>
+</div>
 </li>
 <li>
 <p>Nézzük meg a template-eket kiértékelve.</p>
-<ul>
-<li>A chartunk könyvtárából lépjünk eggyel feljebb, hogy a <code>todoapp</code> chart könyvtár az aktuális könyvtárban legyen.</li>
+</li>
 <li>
-<p>Futtassuk le csak a template generálást a telepítés nélkül: </p>
-<div class="highlight"><pre><span></span><code>helm install todoapp --debug --dry-run todoapp
+<p>Lépjünk vissza a <code>storeapp/helmchart</code> könyvtárba:</p>
+</li>
+<li>
+<p>Futtassuk le csak a template generálást a telepítés nélkül:</p>
+<div class="highlight"><pre><span></span><code>helm install storeapp --debug --dry-run storeapp
 </code></pre></div>
 </li>
 <li>
-<p>A release-nek <em>todoapp</em> nevet választottunk. Ez a Helm release azonosítója.</p>
+<p>A release-nek <em>storeapp</em> nevet választottunk. Ez a Helm release azonosítója.</p>
 </li>
 <li>
-<p>Konzolra megkapjuk a kiértékelt YAML-öket. Ellenőrizzük a kimenetben, hogy a <code>release</code> és <code>tag</code> változók rendben behelyettesítődtek.</p>
-</li>
-</ul>
+<p>Konzolra megkapjuk a kiértékelt YAML-öket. Ellenőrizzük a kimenetben, hogy a rendben behelyettesítődtek-e.</p>
 </li>
 <li>
-<p>Telepítsük (újra) az alkalmazást a chart segítségével:</p>
-<div class="highlight"><pre><span></span><code>helm upgrade todoapp --install todoapp
+<p>Telepítsük az alkalmazás komponenseit a chart segítségével:</p>
+<div class="highlight"><pre><span></span><code>helm upgrade storeapp --install storeapp
 </code></pre></div>
 <ul>
 <li>Az <code>upgrade</code> parancs és az <code>--install</code> kapcsoló telepít, ha nem létezik, ill. frissít, ha már létezik ilyen telepítés.</li>
@@ -1852,24 +2005,18 @@ A <em>chart</em> a telepítés leíró neve, ami gyakorlatilag YAML fájlok gyű
 <p>Nézzük meg, hogy a Helm szerint létezik-e a release: <code>helm list</code></p>
 </li>
 <li>
-<p>Próbáljuk ki az alkalmazást a <a href="http://localhost:32080">http://localhost:32080</a> címen.</p>
+<p>Próbáljuk ki az alkalmazást a <a href="http://localhost:32080/admin">http://localhost:32080/admin</a> címen, és vegyük észre, hogy a megrendelések automatikusan érkeznek a virtuális vásárlóktól és lezárulnak a virtuális dolgozók által.</p>
 </li>
 <li>
-<p>Ezen chart segítségével frissítsük egy új képpel az alkalmazásunkat. A korábban használt <code>docker compose build</code> paranccsal készítsük el az új docker image-eket, csak most <em>v2</em> taggel. Például Windows parancssorban:</p>
-<div class="highlight"><pre><span></span><code>$env:IMAGE_TAG="v2"
-docker compose build
-</code></pre></div>
-</li>
-<li>
-<p>A tag-et a values fájlból felül tudjuk definiálni telepítési paraméterben <code>--set</code>, pl. ha a "v2" az új tag, akkor egy paranccsal tudjuk frissíteni:</p>
-<div class="highlight"><pre><span></span><code>helm upgrade todoapp --install todoapp --set todos.tag=v2 --set web.tag=v2 --set users.tag=v2
+<p>A változók értékeit a values fájlból definiáljuk felül a telepítési parancsban a <code>--set</code> kapcsolóval.</p>
+<div class="highlight"><pre><span></span><code>helm upgrade storeapp --install storeapp --set virtualCustomer.ordersPerHour=10 --set virtualWorker.ordersPerHour=20 --set neptun=neptun_kod
 </code></pre></div>
 </li>
 </ol>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
-<p>Készíts egy képernyőképet (<code>f3.4.png</code>) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval.</p>
-<p>Készíts egy képernyőképet (<code>f3.5.png</code>) és commitold azt be a házi feladat repó gyökerébe, demonstrálod, hogy létrejött a helm release k8s-ben v2-es taggel.</p>
+<p>Készíts egy képernyőképet (<code>f4.1.png</code>) és commitold azt be a házi feladat repó gyökerébe, ahol az újonnan létrehozott futó pod-ok látszanak.</p>
+<p>Készíts egy képernyőképet (<code>f4.2.png</code>) és commitold azt be a házi feladat repó gyökerébe, demonstrálod, hogy létrejött a helm release k8s-ben a felüldefiniált környezeti változókkal.</p>
 </div>
   <hr>
   <div class="md-source-file">
@@ -1878,8 +2025,8 @@ docker compose build
           </path>
         </svg>
       </span>
-      <span title="2025. szeptember 5. 09:55:13">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 5. 09:55:13 CEST"><span class="timeago" datetime="2025-09-05T09:55:13+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 5. 09:55:13 CEST">2025-09-05</span>
+      <span title="2025. szeptember 19. 15:41:18">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 19. 15:41:18 CEST"><span class="timeago" datetime="2025-09-19T15:41:18+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 19. 15:41:18 CEST">2025-09-19</span>
       </span>
     </span>
 
@@ -1895,10 +2042,6 @@ docker compose build
       <span>Szerzők</span>
       <nav><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@tibitoth">
           <img src="https://avatars.githubusercontent.com/tibitoth?size=72" alt="@tibitoth">
-        </a><a href="https://github.com/1majom" target="_blank" rel="noopener noreferrer" class="md-author" title="@Balazs Szenczy">
-          <img src="https://avatars.githubusercontent.com/u/79051687?u=aacf974d10022b92086f76099a422d1f4874a26a&amp;v=4?size=72" alt="@Balazs Szenczy">
-        </a><a href="https://github.com/Breinich" target="_blank" rel="noopener noreferrer" class="md-author" title="@Vencel Bajnok">
-          <img src="https://avatars.githubusercontent.com/u/74102716?u=55e714273918a271faff6115772605d7f130cf4b&amp;v=4?size=72" alt="@Vencel Bajnok">
         </a><a href="https://github.com/kszicsillag" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gábor Simon">
           <img src="https://avatars.githubusercontent.com/u/1849897?u=1d3aa9b07d07da9a2b04d86a97ec4060c3280592&amp;v=4?size=72" alt="@Gábor Simon">
         </a><a href="https://github.com/vandreas73" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
