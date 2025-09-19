@@ -550,7 +550,7 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
 
 1. Módosítsuk a fenti két yaml leírót a következő követelmények szerint a helm szintaktika használatával:
 
-    - A pod neve tartalmazza a `neptun` kódunkat pl.: `virtual-customer-neptun`, ebből a neptun kódot a `values.yaml` fájlban definiált változóból helyettesítsük be.
+    - Az erőforrások metaadatai (pl. `metadata.name`, `selector.matchLabels.app`, `containers.name`, `template.metadata.labels.app`) tartalmazzák a `neptun` kódunkat pl.: `virtual-customer-neptun`, ebből a neptun kódot a `values.yaml` fájlban definiált `neptun` változóból helyettesítsük be.
     - A deployment leírók legyen feltételesen végrehajtva, tehát csak akkor jöjjenek létre az erőforrások, ha a `values.yaml` fájlban a `virtualCustomer.enabled` illetve `virtualWorker.enabled` értéke true.
     - A `virtualCustomer` és `virtualWorker` pod-ok  `ORDERS_PER_HOUR` környezeti változóji legyenek paraméterezhetőek a `values.yaml` fájlban a `virtualCustomer.ordersPerHour` és `virtualWorker.ordersPerHour` változójával.
 
@@ -585,7 +585,7 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
 1. A változók értékeit a values fájlból definiáljuk felül a telepítési parancsban a `--set` kapcsolóval.
 
     ```cmd
-    helm upgrade storeapp --install storeapp --set virtualCustomer.ordersPerHour=10 --set virtualWorker.ordersPerHour=20
+    helm upgrade storeapp --install storeapp --set virtualCustomer.ordersPerHour=10 --set virtualWorker.ordersPerHour=20 --set neptun=neptun_kod
     ```
 
 !!! example "BEADANDÓ"
