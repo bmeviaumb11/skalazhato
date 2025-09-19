@@ -520,3 +520,75 @@ Hozzuk létre ezeket a szabályokat, kezdjük az mikroszolgáltatásokkal.
         - Az *Orders* menüpont alatt megjelennek a beérkezett (friss) rendelések.
         - A megrendelésre kattintva megjelennek a rendelés részletei, ami tartalmazza a NEPTUN kódunkat is. (`f3.4.7.png`)
         - A *Complete Order* gombra kattintva az állapot módosítás sikeres a rendelés állapota *Completed*-re változik. (`f3.4.8.png`)
+
+## 4. Feladat
+
+Helm chartot eddig meglévő komponensek paraméterezhető telepítésére használtunk. Készítsünk most mi Helm chartot a *virtual-customer* és *virtual-worker* szolgáltatások paraméterezhető telepítéséhez.
+
+### Helm chart készítése
+
+1. Hozzuk létre a repository-nkban a `/storeapp/helmchart` mappát majd a konzolban navigáljunk oda.
+
+1. Készítsünk egy új, üres chart-ot, az alábbi paranccsal, ami létrehoz egy *storeapp* nevű chartot egy azonos nevű könyvtárban.
+
+    ```cmd
+    helm create storeapp
+    ```
+
+1. Nézzük meg a chart fájljait.
+
+    - `Chart.yaml` a metaadatokat írja le.
+    - `values.yaml` írja le a változóink alapértelmezett értékeit.
+    - `.helmignore` azon fájlokat listázza, amelyeket a chart értelmezésekor nem kell figyelembe venni.
+    - `templates` könyvtárban vannak a template fájlok, amik a generálás alapjául szolgálnak.
+
+    A Helm egy olyan template nyelvet használ, amelyben változó behelyettesítések, ciklusok, egyszerű szövegműveletek támogatottak.
+
+1. Töröljük ki a `templates` könyvtárból az összes fájlt a `_helpers.tpl` kivételével. Töröljük ki a `values.yaml` fájlból is a tartalmat.
+
+1. Másoljuk be a `storeapp/hf-kubernetes/simulation` mappából a `virtual-customer.yaml` és `virtual-worker.yaml` fájlokat a `templates` könyvtárba.
+
+1. Módosítsuk a fenti két yaml leírót a következő követelmények szerint a helm szintaktika használatával:
+
+    - A pod neve tartalmazza a `neptun` kódunkat pl.: `virtual-customer-neptun`, ebből a neptun kódot a `values.yaml` fájlban definiált változóból helyettesítsük be.
+    - A deployment leírók legyen feltételesen végrehajtva, tehát csak akkor jöjjenek létre az erőforrások, ha a `values.yaml` fájlban a `virtualCustomer.enabled` illetve `virtualWorker.enabled` értéke true.
+    - A `virtualCustomer` és `virtualWorker` pod-ok  `ORDERS_PER_HOUR` környezeti változóji legyenek paraméterezhetőek a `values.yaml` fájlban a `virtualCustomer.ordersPerHour` és `virtualWorker.ordersPerHour` változójával.
+
+    !!! tip "Helm template szintaktika"
+        A Helm template szintaktikájáról részletesen olvashatsz [itt](https://helm.sh/docs/chart_template_guide/).
+
+1. Nézzük meg a template-eket kiértékelve.
+
+   - Lépjünk vissza a `storeapp/helmchart` könyvtárba:
+   - Futtassuk le csak a template generálást a telepítés nélkül:
+
+     ```cmd
+     helm install storeapp --debug --dry-run storeapp
+     ```
+
+   - A release-nek _storeapp_ nevet választottunk. Ez a Helm release azonosítója.
+
+   - Konzolra megkapjuk a kiértékelt YAML-öket. Ellenőrizzük a kimenetben, hogy a rendben behelyettesítődtek-e.
+
+1. Telepítsük az alkalmazás komponenseit a chart segítségével:
+
+    ```cmd
+    helm upgrade storeapp --install storeapp
+    ```
+
+    - Az `upgrade` parancs és az `--install` kapcsoló telepít, ha nem létezik, ill. frissít, ha már létezik ilyen telepítés.
+
+1. Nézzük meg, hogy a Helm szerint létezik-e a release: `helm list`
+
+1. Próbáljuk ki az alkalmazást a <http://localhost:32080/admin> címen, és vegyük észre, hogy a megrendelések automatikusan érkeznek a virtuális vásárlóktól és lezárulnak a virtuális dolgozók által.
+
+1. A változók értékeit a values fájlból definiáljuk felül a telepítési parancsban a `--set` kapcsolóval.
+
+    ```cmd
+    helm upgrade storeapp --install storeapp --set virtualCustomer.ordersPerHour=10 --set virtualWorker.ordersPerHour=20
+    ```
+
+!!! example "BEADANDÓ"
+    Készíts egy képernyőképet (`f4.1.png`) és commitold azt be a házi feladat repó gyökerébe, ahol az újonnan létrehozott futó pod-ok látszanak.
+
+    Készíts egy képernyőképet (`f4.2.png`) és commitold azt be a házi feladat repó gyökerébe, demonstrálod, hogy létrejött a helm release k8s-ben a felüldefiniált környezeti változókkal.
