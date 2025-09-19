@@ -1695,11 +1695,12 @@ Léteznek természetesen továbbiak is (Azure, Google, stb.).</p>
 <p>Az image neve valójában nem <code>ubuntu</code>, hanem <code>index.docker.io/ubuntu:latest</code></p>
 <ul>
 <li><code>index.docker.io</code> registry szerver elérési útvonala</li>
-<li><code>ubuntu</code> image neve (lehet többszintű is)</li>
+<li><code>ubuntu</code> image elérési útvonala a registry-n belül (ebben a példában csak egy elemből áll: ubuntu).</li>
 <li><code>:latest</code> tag neve</li>
 </ul>
+<p>Az egyes registry-k eltérnek abban, hogy az elérési útvonal felépítése milyen logikát követ, mit jelentenek az egyes hierarchiaszintek.</p>
 <p>Jogosultság szempontból két fajta registry létezhet: publikus (pl. Docker Hub) és privát. Privát registry esetén <code>docker login &lt;url&gt;</code> és <code>docker logout &lt;url&gt;</code> szükséges az authentikációhoz.</p>
-<p>Letöltés a registry-ből: <code>docker pull mcr.microsoft.com/dotnet/aspnet:8.0</code></p>
+<p>Letöltés a registry-ből: <code>docker pull mcr.microsoft.com/dotnet/aspnet:8.0</code>. Itt az elérési útvonal (path) már többelemű: <code>mcr.microsoft.com/dotnet/aspnet:8.0</code>, ahol a path komponensek: <code>dotnet/aspnet</code>.</p>
 <p>Ugyan a <em>run</em> parancs is letölti, de csak akkor, ha még nem létezik. Nem ellenőrzi viszont, hogy nincs-e újabb image verzió publikálva. A <em>pull</em> mindig frisset szed le.</p>
 </details>
 <p>Készítünk egy saját image-et, ami egy módosított <code>nginx</code> image-et fog tartalmazni a saját tartalmunkkal.
@@ -1719,7 +1720,7 @@ Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most 
 </code></pre></div>
 </li>
 <li>
-<p>Az előbbi parancs készített egy image-et, aminek kiírta a hash-ét. Ellenőrizd, hogy tényleg létezik-e ez az image:</p>
+<p>A <code>commit</code> parancs készített egy image-et, aminek kiírta a hash-ét. Ellenőrizd, hogy tényleg létezik-e ez az image:</p>
 <div class="highlight"><pre><span></span><code>docker images
 </code></pre></div>
 </li>
@@ -1758,7 +1759,7 @@ Add ki a következő parancsot a nem futó konténerek törléséhez és az idei
 </div>
 <h3 id="22-dockerfile">2.2 Dockerfile<a class="headerlink" href="#22-dockerfile" title="Permanent link">¶</a></h3>
 <p>Az előző feladatban az image készítését manuálisan végeztük el, ami nem jól verziózható, és reprodukálhatósági problémákat okozhat.</p>
-<p>Készítsünk egy egyszerű webalkalmazás Pythonban a Flask nevű keretrendszerrel, ami egy REST végpontot definiál és szolgál ki. Az adatokat (egy számláló) Redis adatbázisból olvassa és írja, és egy üdvözlő üzenetet ad vissza környezeti változó alapján.</p>
+<p>Készítsünk egy egyszerű webalkalmazást Pythonban a Flask nevű keretrendszerrel, ami egy REST végpontot definiál és szolgál ki. Az adatokat (egy számláló) Redis adatbázisból olvassa és írja, és egy üdvözlő üzenetet ad vissza környezeti változó alapján.</p>
 <ol>
 <li>
 <p>Nyisd meg a házi repositorydat Visual Studio Code-ban.</p>
@@ -1825,7 +1826,7 @@ Redis
 <p>Ez a parancs létrehoz egy image-et a Dockerfile alapján. A végén egy pont van, az is a parancs része, ami a build kontextust jelenti.</p>
 <p>A Dockerfile lépései:</p>
 <ul>
-<li><code>FROM</code>: az alap image, amire építjük a sajátunkat. Mi most a Python 3.12-slim image-et használjuk.</li>
+<li><code>FROM</code>: az alap image, amire építjük a sajátunkat. Mi most a Python 3.13-slim image-et használjuk.</li>
 <li><code>WORKDIR</code>: a konténerben a munkakönyvtár, a további műveletek ebben a könyvtárban lesznek.</li>
 <li><code>COPY</code>: a host gépről a konténerbe másoljuk a fájlokat. A <code>.</code> jelenti a build kontextus mappáját, esetünkben a <code>pythonweb</code> mappát.</li>
 <li><code>RUN</code>: a build/image készítés során lefuttatandó parancsok. Itt a <code>requirements.txt</code> fájlban felsorolt Python csomagokat telepítjük a python csomagkezelővel (pip).</li>
@@ -1866,7 +1867,7 @@ Redis
 </li>
 <li>
 <p>Buildeljük le ismét a fenti image-et: <code>docker build -t python-neptun:v1 .</code></p>
-<p>Menet közben látni fogjuk a következő sort a build logban: <em>Sending build context to Docker daemon 111.4MB</em>, és azt is tapasztalni fogjuk, hogy ez el tart egy kis ideig.</p>
+<p>Menet közben látni fogjuk a következő sort a build logban: <em>Sending build context to Docker daemon [many MB/GB]</em>, és azt is tapasztalni fogjuk, hogy ez el tart egy kis ideig.</p>
 <p>A <code>docker build</code> parancs végén a <code>.</code> az aktuális könyvtár. Ezzel tudatjuk a Docker-rel, hogy a buildeléshez ezt a <em>kontextust</em> használja, azon fájlok legyenek elérhetőek a build során, amelyek ebben a kontextusban vannak. A <code>Dockerfile</code>-ban a <code>COPY</code> így <strong>relatív</strong> útvonallal hivatkozik a kontextusban levő fájlokra.</p>
 <div class="admonition warning">
 <p class="admonition-title">Elérhető fájlok</p>
@@ -1923,7 +1924,7 @@ Redis
 <li><code>depends_on</code>: a konténer indításának sorrendjét jelzi. A <code>web</code> konténer csak akkor indul, ha a <code>redis</code> konténer már fut.</li>
 </ul>
 </li>
-<li><code>networks</code>: a konténerek közötti hálózatokat definiálja. A <code>homework_network</code> nevű hálózatot használjuk bridge módban, ami a konténerek között adatkapcsolati réteg szintű összeköttetést jelent. Erre hivatkozunk a konténerek <code>networks</code> tulajdonságában is.</li>
+<li><code>networks</code>: a konténerek közötti hálózatokat definiálja. A <code>homework_network</code> nevű hálózatot <a href="https://docs.docker.com/network/drivers/bridge/">bridge módban</a> hozzuk létre, amely egy elkülönített, virtuális hálózatot biztosít a konténerek számára a host gépen belül. A bridge mód lehetővé teszi, hogy a hálózathoz csatlakozó konténerek saját IP-címet kapjanak, egymással közvetlenül kommunikáljanak, miközben a host hálózatától is el vannak választva. Erre a hálózatra hivatkozunk a konténerek <code>networks</code> tulajdonságában.</li>
 </ul>
 </li>
 <li>
@@ -1947,11 +1948,11 @@ Redis
 </div>
 <div class="admonition note">
 <p class="admonition-title">docker-compose üzemeltetéshez</p>
-<p>A docker-compose alkalmas üzemeltetésre is. A <code>docker-compose.yaml</code> fájl nem csak fejlesztői környezetet ír le, hanem üzemeltetéshez szükséges környezetet is. Ha a compose fájlt megfelelően írjuk meg (pl. használjuk a <a href="https://docs.docker.com/compose/compose-file/#restart"><code>restart</code> direktívát</a> is), az elindított szolgáltatások automatikusan újraindulnak a rendszer indulásakor.</p>
+<p>A docker-compose alkalmas üzemeltetésre is. A <code>docker-compose.yaml</code> fájl nem csak fejlesztői környezetet ír le, hanem üzemeltetéshez szükséges környezetet is. Ha a compose fájlt megfelelően írjuk meg (pl. használjuk a <a href="https://docs.docker.com/reference/compose-file/services/#restart"><code>restart</code> direktívát</a> is), az elindított szolgáltatások automatikusan újraindulnak a rendszer indulásakor.</p>
 <p>Ugyanakkor a docker-compose nem helyettesíti a Kubernetes-t vagy más konténer orkesztrációs megoldásokat, mert azok sokkal komplexebb feladatokat is meg tudnak oldani (pl. skálázás, load balancing, stb.).</p>
 </div>
 <h3 id="32-tobb-compose-yaml-fajl">3.2 Több compose yaml fájl<a class="headerlink" href="#32-tobb-compose-yaml-fajl" title="Permanent link">¶</a></h3>
-<p>A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon. Alapértelmezésként a <code>docker-compose.yaml</code> kiterjesztésű fájlt <strong>és</strong> ezzel összefésülve a <code>docker-compose.override.yaml</code> fájlt használja.</p>
+<p>A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon. Alapértelmezésként a <code>docker-compose.yaml</code> vagy <code>compose.yaml</code> kiterjesztésű fájlt <strong>és</strong> ezzel összefésülve a <code>docker-compose.override.yaml</code> fájlt használja.</p>
 <ol>
 <li>
 <p>Készíts egy <code>docker-compose.override.yaml</code> fájlt a másik compose yaml mellé az alábbi tartalommal, amiben a redis konténer naplózását állítjuk át verbose szintre.</p>
@@ -2010,9 +2011,9 @@ Redis
 <p>Generáld az ASP.NET Core-hoz tartozó docker fájlokat</p>
 <p></p><div class="highlight"><pre><span></span><code>docker init
 </code></pre></div>
-Ez a lépés létrehoz egy <code>Dockerfile</code>-t a projektben, ami ráadásul multi-stage build megoldást tartalmaz, ami a fordítási, publikálási és futtatási fázisokat különválasztja (több <code>FROM</code> utasítás amik egymásra hivatkoznak).
+Ez a lépés létrehoz egy <code>Dockerfile</code>-t a projektben, ami ráadásul multi-stage build megoldást tartalmaz: a fordítási, publikálási és futtatási fázisokat különválasztja (több <code>FROM</code> utasítás amik egymásra hivatkoznak).
 Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálható legyen egy szeparált .NET SDK-t tartalmazó konténerben. A publikálás pedig egy kisebb méretű image-be történik, ami már csak a .NET futtatókörnyezetet tartalmazza.<p></p>
-<p>Ezen felül létrejön még .dockerignore fájl is, valamint egy egy service-t hivatkozó Docker compose is.</p>
+<p>Ezen felül létrejön még .dockerignore fájl, valamint egy Docker compose fájl is.</p>
 </li>
 <li>
 <p>Futtassuk a docker compose configurációt (<code>docker-compose up</code> - Windows vagy <code>docker compose up</code> - Linux). Az alapértelmezetten felkínált lehetőségek általában megfelelőek, csak végig kell <span class="keys"><kbd class="key-enter">Enter</kbd></span> -ezni. Böngészőben nyissuk meg a localhost címen a docker init-nek megadott portot pl. <a href="http://localhost:8080">http://localhost:8080</a>.</p>
@@ -2029,7 +2030,7 @@ Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálha
 </div>
 <h2 id="kitekintes">Kitekintés<a class="headerlink" href="#kitekintes" title="Permanent link">¶</a></h2>
 <h3 id="image-ek-hasznalata">Image-ek használata<a class="headerlink" href="#image-ek-hasznalata" title="Permanent link">¶</a></h3>
-<p>Konténer alapú fejlesztésnél tehát két féle image-et használunk:</p>
+<p>Konténer alapú fejlesztésnél tehát kétféle image-et használunk:</p>
 <ul>
 <li>amit magunk készítünk egy adott alap image-re épülve,</li>
 <li>illetve kész image-eket, amiket csak futtatunk (és esetleg konfigurálunk).</li>
@@ -2037,9 +2038,9 @@ Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálha
 <p>Alap image-ek, amikre tipikusan saját alkalmazást építünk:</p>
 <ul>
 <li>Linux disztribúciók<ul>
-<li><a href="https://hub.docker.com/_/ubuntu">Ubuntu</a>,</li>
-<li><a href="https://hub.docker.com/_/debian">Debian</a>,</li>
-<li><a href="https://hub.docker.com/_/alpine">Alpine</a>,</li>
+<li><a href="https://hub.docker.com/_/ubuntu">Ubuntu</a></li>
+<li><a href="https://hub.docker.com/_/debian">Debian</a></li>
+<li><a href="https://hub.docker.com/_/alpine">Alpine</a></li>
 </ul>
 </li>
 <li>Futtató platformok<ul>
@@ -2119,8 +2120,8 @@ Amikor a környezeti változó már nem elegendő a testreszabáshoz, ez a javas
           </path>
         </svg>
       </span>
-      <span title="2025. szeptember 8. 09:17:01">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 8. 09:17:01 CEST"><span class="timeago" datetime="2025-09-08T09:17:01+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 8. 09:17:01 CEST">2025-09-08</span>
+      <span title="2025. szeptember 19. 16:18:52">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 19. 16:18:52 CEST"><span class="timeago" datetime="2025-09-19T16:18:52+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 19. 16:18:52 CEST">2025-09-19</span>
       </span>
     </span>
 
