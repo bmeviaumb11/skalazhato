@@ -502,7 +502,7 @@ Hozzuk létre ezeket a szabályokat, kezdjük az mikroszolgáltatásokkal.
 1. Vegyük fel az admin frontend szolgáltatás Ingress szabályát is az `store-admin.yaml` fájlba.
    Az ingress-t úgy konfiguráljuk fel, hogy a `/admin` útvonalra érkező kéréseket továbbítsa a `store-admin` szolgáltatás `/` útvonalára.
 
-1. Érvényesítsük a módosításokat, és próbáljuk ki az alakalmazásunkat a <http://localhost:32080> és a <http://localhost:32080/admin> címen. A tesztelendő funkciókat az alábbi Beadandó részben találhatod.
+1. Érvényesítsük a módosításokat, és próbáljuk ki az alkalmazásunkat a <http://localhost:32080> és a <http://localhost:32080/admin> címen. A tesztelendő funkciókat az alábbi Beadandó részben találhatod.
 
 !!! example "BEADANDÓ"
     Készíts az alábbi tesztesetekről képernyőképeket, és commitold be a házi feladat repó gyökerébe:
