@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run MkDocs (Docker)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "docker run -it --rm -p 8000:8000 -v ${PWD}:/docs mkdocs",
+      "preLaunchTask": "Build MkDocs in Docker",
+      "serverReadyAction": {
+        "pattern": "Serving on http://0.0.0.0:8000/skalazhato/",
+        "uriFormat": "http://localhost:8000/skalazhato/",
+        "action": "openExternally"
+      }
+    }
+  ]
+}
