@@ -496,7 +496,7 @@ Hozzuk létre ezeket a szabályokat, kezdjük az mikroszolgáltatásokkal.
 1. Hasonlóan adjuk hozzá az Ingress szabályokat és a szükséges middleware-eket a `order-service.yaml` és a `makeline-service.yaml` fájlokhoz is.
    Mind a két esetben a szolgáltatások a `/` gyökér útvonalon várják a kéréseket, míg az Ingress szabályokban a `/api/orders` és `/api/makeline` útvonalakat kell használni.
 
-1. Vegyük fel a publukus frontend szolgáltatás Ingress szabályát is a `store-web.yaml` fájlba.
+1. Vegyük fel a publikus frontend szolgáltatás Ingress szabályát is a `store-web.yaml` fájlba.
    **Itt nem szükséges a middleware**, mert a frontend szolgáltatás a `/` gyökér útvonalon várja a kéréseket az ingress-en keresztül is és a webszervben is.
 
 1. Vegyük fel az admin frontend szolgáltatás Ingress szabályát is az `store-admin.yaml` fájlba.
