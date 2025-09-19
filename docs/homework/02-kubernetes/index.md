@@ -346,7 +346,7 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
 
     ![Traefik port forward](images/traefik-dashboard-port-forward.png)
 
-    Fogadjuk el az elapértelmezett értékeket (`9100:metrics 8080:traefik 8000:web 8443:websecure`). Így a Traefik dashboard a <http://localhost:8080/dashboard> címen lesz elérhető.
+    Fogadjuk el az alapértelmezett értékeket (`9100:metrics 8080:traefik 8000:web 8443:websecure`). Így a Traefik dashboard a <http://localhost:8080/dashboard> címen lesz elérhető.
 
     ??? tip "Port forward parancs"
 
