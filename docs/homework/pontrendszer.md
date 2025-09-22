@@ -150,7 +150,7 @@ További szabályok:
 
 - **{HELM}** A szolgáltatás kubernetes-en belül futó része Helm chart-on keresztül telepíthető. Szükséges demonstrálni a rendszer frissítését a chart segítségével: **10** pont
 
-- **{ACRBUILD}** Legalább egy saját konténer build-elése Azure Container Registry-ben: **7-12** pont
+- **{ACRBUILD}** Legalább egy saját konténer build-elése Azure vagy egyéb Container Registry-ben: **7-12** pont
 
     - ad-hoc build saját gépről feltöltött context alapján: **7** pont
     - build valamilyen triggerre (pl. commit egy adott git ágra): **12** pont
@@ -202,7 +202,7 @@ További szabályok:
 
 - **{OPDB2}** Legalább kétfajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: **10** pont
 
-- **{OPACR}** Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure Container Registry-ből: **5-10** pont
+- **{OPACR}** Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe saját Azure vagy egyéb Container Registry-ből: **5-10** pont
 
     - anonim eléréssel: **5** pont
     - autentikációval pl. image pull secret-tel: **10** pont
