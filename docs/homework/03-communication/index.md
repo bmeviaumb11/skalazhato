@@ -4,8 +4,6 @@ authors: tibitoth
 
 # 03 - Kommunikációs megoldások
 
-*Nincs frissítve 2025. őszi félévre!*
-
 ## Cél
 
 A házi feladat célja az elosztott alkalmazások fejlesztése során felmerülő megoldások alapszintű gyakorlása.
@@ -15,25 +13,25 @@ A házi feladat célja az elosztott alkalmazások fejlesztése során felmerül�
 * REST webszolgáltatások készítésének ismerete .NET platformon
     * A házi külön nem tér ki a REST szerű webszolgáltatások készítésének módszereire, arra a BSc szakirányos képzés [Adatvezérelt rendszerek](https://bmeviauac01.github.io/datadriven/hu/) és a [Szoftverfejlesztés .NET platformra](https://bmeviauav23.github.io/aspnetcorebook/) című választható tárgy anyagai az ajánlott irodalom.
 * Docker Desktop
-* [.NET SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (legalább v8.0.402)
+* [.NET SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (tesztelve: v8.0.414)
 * Visual Studio 2022
-    * kidolgozva: v17.11.4
+    * tesztelve: v17.14.15
     * ASP.NET and web development workload
-    * alternatívaként jó lehet a Rider is, az Aspire pluginnel
 * Házi repóban található kiinduló projekt
 
 ## Kiinduló projekt
 
-A kiinduló projekt egy .NET 8 alapú alkalmazás két mikroszolgáltatást tartalmaz:
+A kiinduló projekt egy .NET 8 alapú példa alkalmazás két mikroszolgáltatást tartalmaz:
 
 * **Catalog**: egy egyszerű REST webszolgáltatás, ami termékeket listáz egy memóriában tárolt listából, de szándékosan véletlenszerűen 503-as hibakóddal tér vissza.
 * **Order**: egy egyszerű REST webszolgáltatás, ami használja a Catalog szolgáltatást
     * A REST-es végpont elérését a hívó oldalon OpenAPI leíróból generált kliens oldali osztályokon keresztül érjük el. (lásd VS / Order projekt / Connected Services / Manage Connected Services / swagger Client).
     * Ez a kliens oldali kód `HttpClient` segítségével hívja meg a Catalog szolgáltatást.
-* **AppHost**: .NET Aspire alapú AppHost projekt, ami megkönnyíti az elosztott alkalmazások futtatását fejlesztés során. 
-  Koncepciójában a Docker Compose-hoz hasonló, de C# nyelven írható YAML helyett, és nem csak .NET alkalmazásokat támogat.
-    * biztosítja a komponensek megfigyelhetőségét OpenTelemetry segítségével (Strukturált naplózás, Nyomkövetés, Metrikák)
+* **AppHost**: .NET Aspire alapú AppHost projekt, ami megkönnyíti az elosztott alkalmazások futtatását fejlesztés során.
+  Koncepciójában a Docker Compose-hoz hasonló, de YAML helyett C# nyelven írható, és nem csak .NET alkalmazásokat támogat.
+    * biztosítja a komponensek megfigyelhetőségét OpenTelemetry segítségével (strukturált naplózás, elosztott nyomkövetés, metrikák)
     * és a Service Discovery-t konfigurációk kezelésén keresztül
+    * Ezen felül széleskörű integrációt biztosít különböző külső komponensekkel, és egy dashboardot is kapunk a komponensek állapotának nyomon követésére.
     * Bővebben az Aspire-ről: <https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview>
 
 ## 0. Feladat - Előkészületek
@@ -117,7 +115,7 @@ A .NET Aspire segítségével _AppHost_ projektbe vegyünk fel egy RabbitMQ erő
 Ehhez az alábbi NuGet csomagot kell felvenni.
 
 ```xml
-<PackageReference Include="Aspire.Hosting.RabbitMQ" Version="8.2.1" />
+<PackageReference Include="Aspire.Hosting.RabbitMQ" Version="9.4.2" />
 ```
 
 Vegyük fel a RabbitMQ-t az _AppHost_ projektbe, és a függőségeket erre az új erőforrásra.
@@ -165,7 +163,7 @@ Kezdjük a a küldő oldallal.
 1. Vegyük fel az _Order_ szolgáltatásba a következő NuGet csomagot.
 
     ```xml
-    <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.5" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.5.2" />
     ```
 
 2. Konfiguráljuk be a `Program` osztályban a MassTransit-ot, hogy RabbitMQ-t használjon.
@@ -196,14 +194,14 @@ Térjünk át a fogadó oldalra.
 1. A _Catalog_ szolgáltatás projektbe vegyük fel szintén az alábbi NuGet csomagot.
 
     ```xml
-    <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.5" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.5.2" />
     ```
 
 2. Szükségünk lesz egy az eseményt lekezelő osztályra is, aminek a MassTransit-os `IConsumer<IOrderCreatedEvent>` interfészt kell megvalósítania.
 
     * Vegyünk fel a Catalog projektbe egy `IntegrationEventHandlers` mappát, majd abba hozzunk létre egy új osztályt `OrderCreatedEventHandler` néven.
-    * Itt a kapott adatok alapján frissítsük az adatainkat: a mi Móricka példánkban a `ProductController`-ben lévő statikus listán dolgozunk. 
-     Nem kell most törődni az idempotens megvalósítással, azaz azzal, hogy többszöri üzenetküldés esetén ne legyen dupla módosítás.
+    * Itt a kapott adatok alapján frissítsük az adatainkat: a mi Móricka példánkban a `ProductController`-ben lévő statikus listán dolgozunk.
+      Nem kell most törődni az idempotens megvalósítással, azaz azzal, hogy többszöri üzenetküldés esetén ne legyen dupla módosítás.
     * Naplózzunk **strukturáltan** az `ILogger` segítségével infó szinten, hogy melyik termék raktárkészletét csökkentettük, és mennyi lett az új.
 
 3. Konfiguráljuk be a `Program.cs`-ben a MassTransit-ot, hogy RabbitMQ-t használjon, és az `IOrderCreatedEvent` eseményünket melyik `IConsumer` megvalósítás kezelje le, illetve a figyelendő végpontokat is konfiguráljuk be alapértelmezett módon.
@@ -233,15 +231,41 @@ Térjünk át a fogadó oldalra.
         * Ha azt tapasztaljuk hogy nem tud csatlakozni valamelyik szolgáltatás, akkor ellenőrizzük az Aspire AppHost projektet és a Connection Stringeket.
         * Ha azt tapasztaljuk, hogy `skipped` üzenetsorba kerülnek az üzenetek, akkor a küldő oldal rendben működött, de valamiért a fogadó oldal nem tudott a megadott üzenettípusra egyszer sem feliratkozni helyesen.
 
+5. Kössük be az OpenTelemetry-t a MassTransit-ba, hogy a küldött és fogadott üzenetek is megjelenjenek a nyomkövetési adatok között. Az alábbi kódrészlete vegyezzük fel mindkét szolgáltatás `Program.cs` fájljába.
+
+    ```csharp title="Skalazhato.HF3.Services.Order/Program.cs"
+    builder.Services.AddOpenTelemetry()
+        .WithMetrics(b => b.AddMeter(DiagnosticHeaders.DefaultListenerName))
+        .WithTracing(providerBuilder =>
+        {
+            providerBuilder.AddSource(DiagnosticHeaders.DefaultListenerName);
+        });
+    ```
+
+    ??? tip "Aspire community toolkit segédfüggvények"
+        Az Aspire community toolkit tartalmaz segédfüggvényeket a MassTransit és RabbitMQ konfigurálására, ami kicsit egyszerűsíti a konfigurációt, és automatikusan beállítja az OpenTelemetry integrációt is. Bővebben: <https://github.com/CommunityToolkit/Aspire/tree/main/src/CommunityToolkit.Aspire.MassTransit.RabbitMQ>
+
 !!! example "BEADANDÓ"
-    A feladathoz tartozó forráskódot commitold be és készíts egy `f2.png`-t, amiben látszik a .NET Aspire dashboardon a _Structured_ fülön a küldő és fogadó oldali logbejegyzések.
+    A feladathoz tartozó forráskódot commitold be és készíts egy `f2.1.png`-t, amiben látszik a .NET Aspire dashboardon a _Structured_ fülön a küldő és fogadó oldali logbejegyzések.
+
+    Illetve készíts egy `f2.2.png`-t, amiben látszik a Trace fülön az üzenetküldés és fogadás.
 
 ??? note "Kitekintés"
 
     1. A fenti példában nem törődtünk az idempotens megvalósítással, ez mindig külön tervezést igényel, az üzleti logikánk függvényében, de mindenképpen érdemes a tervezés során figyelni erre.
 
-    2. Mi most broadcast jellegű integrációs eseményt sütöttünk el.
+    1. Mi most broadcast jellegű integrációs eseményt sütöttünk el.
        Ne feledjünk van ennek egy másik variánsa is, amikor command szerű üzenetet küldünk egy másik szolgáltatásnak, és ott elvárjuk az esemény lefutását.
        Integrációs esemény során a fogadó félre van bízva, hogy mit kezd a kapott információval.
 
-    3. A MassTransit egy nagyon sokoldalú eszköz, ami nem csak RabbitMQ-val használható, hanem más üzenetsorokkal is, mint például Azure Service Bus, vagy akár In-Memory üzenetsorral is tesztelhető.
+    1. A MassTransit egy nagyon sokoldalú eszköz, ami nem csak RabbitMQ-val használható, hanem más üzenetsorokkal is, mint például Azure Service Bus, vagy akár In-Memory üzenetsorral is tesztelhető. Illetve támogat több összetett kommunikációs mintát is, mint például a Saga, Outbox pattern, stb.
+
+    1. Viszont a MassTransit a 9-es verziótól kezdve (2026Q1-től) már licenszköteles (fizetős) lesz, de a 8-as verzió még ingyenesen használható.
+       A MassTransit helyett használható másik nyílt forráskódú eszközök is:
+       - [Rebus](https://github.com/rebus-org/Rebus)
+       - [NServiceBus](https://particular.net/nservicebus) (szintén licenszköteles)
+       - [Brighter](https://github.com/BrighterCommand/Brighter)
+       - [Wolverine](https://wolverinefx.net/)
+       - [CAP](https://github.com/dotnetcore/CAP)
+       - [EasyNetQ](https://github.com/EasyNetQ/EasyNetQ) (RabbitMQ specifikus)
+       - stb.
