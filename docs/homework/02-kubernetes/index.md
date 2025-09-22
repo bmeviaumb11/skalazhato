@@ -2,7 +2,7 @@
 authors: tibitoth
 ---
 
-# 02 - Kubernetes, Helm
+# 02 - Kubernetes, Helm, Traefik
 
 ## Cél
 
