@@ -177,7 +177,7 @@ Kubernetes erőforrásokat tipikusan YAML leírókban definiálunk. A futtatás 
     Ha szeretnénk egy podban belépni, és ott dolgozni, akkor ezt a `kubectl exec` paranccsal tehetjük meg. Például:
 
     ```cmd
-    kubectl exec -it <podnév> /bin/bash
+    kubectl exec -it <podnév> -- /bin/bash
     ```
 
     A `-it` kapcsolók interaktív módot és terminált biztosítanak. A `/bin/bash` a shell, amit futtatni szeretnénk.
@@ -307,7 +307,7 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
 !!! warning "Chart-ok ellenőrzése"
     A Helm chartok nagy része harmadik féltől származik, így a klaszterünbe való telepítés előtt a tartalmukat érdemes alaposan megnézni.
 
-1. A Helm is repository-kkal dolgozik, ahonnan a chart-okat letölti. Ezeket regisztrálni kell. Regisztráljuk a Traefik hivatalos chart-ját tartalmazó repository-t, majd frissítsük az elérhető char-okat:
+1. A Helm is repository-kkal dolgozik, ahonnan a chart-okat letölti. Ezeket regisztrálni kell. Regisztráljuk a Traefik hivatalos chart-ját tartalmazó repository-t, majd frissítsük az elérhető chart-okat:
 
     ```cmd
     helm repo add traefik https://traefik.github.io/charts
@@ -397,7 +397,7 @@ Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a `storeap
 
 1. Ellenőrizzük, hogy létrejöttek a Deployment-ek podok. A *store-front* és *store-admin* podoknak nem fognak tudni elindulni, mert a leíró olyan (lokális) image-eket használnak, amelyek nincsenek lebuildelve a gépünkön. A többi szolgáltatás esetében egy távoli publikus konténer registry-ből húzza le a szükséges image-eket.
 
-1. Ezeket az image-eket az `storeapp/src/store-admin` és `storeapp/src/store-front` könyvtárban tudjuk lebuildelni. Nyissunk egy új terminál ablakot, navigáljunk el a `storeapp` megfelelő könyvtárába, és futtassuk a `docker build` parancsokat:
+1. Ezeket az image-eket a `storeapp/src/store-admin` és `storeapp/src/store-front` könyvtárban tudjuk lebuildelni. Nyissunk egy új terminál ablakot, navigáljunk el a `storeapp` megfelelő könyvtárába, és futtassuk a `docker build` parancsokat:
 
     ```cmd
     cd storeapp/src/store-front
@@ -407,7 +407,7 @@ Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a `storeap
     ```
 
     !!! tip "Pod újraindítása"
-        Ha nem akarjuk kivárni az rendszer általi újraindítást töröljük ki a pod-ot kézzel, aminek hatására a deployment létrehoz egy új pod-ot, ami már a helyi image-t fogja használni.
+        Ha nem akarjuk kivárni a rendszer általi újraindítást töröljük ki a pod-ot kézzel, aminek hatására a deployment létrehoz egy új pod-ot, ami már a helyi image-t fogja használni.
 
     ??? tip "Ha mégsem zöldülnek ki"
 
@@ -438,7 +438,6 @@ Hozzuk létre ezeket a szabályokat, kezdjük az mikroszolgáltatásokkal.
         storedemo.tier: backend
       annotations:
         traefik.ingress.kubernetes.io/router.entrypoints: web
-        traefik.ingress.kubernetes.io/router.middlewares: product-stripprefix@kubernetescrd
     spec:
       rules:
         - http:
@@ -496,7 +495,7 @@ Hozzuk létre ezeket a szabályokat, kezdjük az mikroszolgáltatásokkal.
 1. Hasonlóan adjuk hozzá az Ingress szabályokat és a szükséges middleware-eket a `order-service.yaml` és a `makeline-service.yaml` fájlokhoz is.
    Mind a két esetben a szolgáltatások a `/` gyökér útvonalon várják a kéréseket, míg az Ingress szabályokban a `/api/orders` és `/api/makeline` útvonalakat kell használni.
 
-1. Vegyük fel a publikus frontend szolgáltatás Ingress szabályát is a `store-web.yaml` fájlba.
+1. Vegyük fel a publikus frontend szolgáltatás Ingress szabályát is a `store-front.yaml` fájlba.
    **Itt nem szükséges a middleware**, mert a frontend szolgáltatás a `/` gyökér útvonalon várja a kéréseket az ingress-en keresztül is és a webszervben is.
 
 1. Vegyük fel az admin frontend szolgáltatás Ingress szabályát is az `store-admin.yaml` fájlba.
@@ -552,12 +551,12 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
 
     - Az erőforrások metaadatai (pl. `metadata.name`, `selector.matchLabels.app`, `containers.name`, `template.metadata.labels.app`) tartalmazzák a `neptun` kódunkat pl.: `virtual-customer-neptun`, ebből a neptun kódot a `values.yaml` fájlban definiált `neptun` változóból helyettesítsük be.
     - A deployment leírók legyen feltételesen végrehajtva, tehát csak akkor jöjjenek létre az erőforrások, ha a `values.yaml` fájlban a `virtualCustomer.enabled` illetve `virtualWorker.enabled` értéke true.
-    - A `virtualCustomer` és `virtualWorker` pod-ok  `ORDERS_PER_HOUR` környezeti változóji legyenek paraméterezhetőek a `values.yaml` fájlban a `virtualCustomer.ordersPerHour` és `virtualWorker.ordersPerHour` változójával.
+    - A `virtualCustomer` és `virtualWorker` pod-ok  `ORDERS_PER_HOUR` környezeti változói legyenek paraméterezhetőek a `values.yaml` fájlban a `virtualCustomer.ordersPerHour` és `virtualWorker.ordersPerHour` változójával.
 
     !!! tip "Helm template szintaktika"
         A Helm template szintaktikájáról részletesen olvashatsz [itt](https://helm.sh/docs/chart_template_guide/).
 
-1. Nézzük meg a template-eket kiértékelve.
+1. Nézzük meg a template-eket kiértékelve:
 
    - Lépjünk vissza a `storeapp/helmchart` könyvtárba:
    - Futtassuk le csak a template generálást a telepítés nélkül:
@@ -589,7 +588,7 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
     ```
 
 !!! note "Helm chartok használata"
-    Természetesen a teljes alkalmazást felkészíthetnénk helm chart alapú telepítésre, de ez most túlmutat a házi feladat keretein. A koncepció a fenti feladatból is megérthető: azzal, hogy a yaml leírók sablonozhatókká válnak, több olyan paramétert is bevezethetünk ezen az új absztrakciós szinten, amit például egy külső forrásból akarunk beállítani, így rugalmasabbá válik a konfogirációnk (pl.: CI/CD folyamatokból, környezetenként eltérő értékekre).
+    Természetesen a teljes alkalmazást felkészíthetnénk helm chart alapú telepítésre, de ez most túlmutat a házi feladat keretein. A koncepció a fenti feladatból is megérthető: azzal, hogy a yaml leírók sablonozhatókká válnak, több olyan paramétert is bevezethetünk ezen az új absztrakciós szinten, amit például egy külső forrásból akarunk beállítani, így rugalmasabbá válik a konfigurációnk (pl.: CI/CD folyamatokból, környezetenként eltérő értékekre).
 
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (`f4.1.png`) és commitold azt be a házi feladat repó gyökerébe, ahol az újonnan létrehozott futó pod-ok látszanak.
