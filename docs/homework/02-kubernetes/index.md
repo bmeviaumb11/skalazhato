@@ -369,8 +369,8 @@ Az adatbázisainkat a már megírt YAML leírókkal telepítjük. Ez a leíró f
 
 1. Vizsgáljuk meg a repository `storeapp/hf-kubernetes/db` könyvtárában lévő YAML leírókat.
 
-     - MongoDB: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk
-     - RabbitMQ: StatefulSet-ként telepítjük, és a perzisztens adattároláshoz dinamikus PersistentVolumeClaim-et használunk
+     - MongoDB: StatefulSet-ként telepítjük, Service-en keresztül érhető el és ConfigMap-et használunk
+     - RabbitMQ: StatefulSet-ként telepítjük, és Service-en keresztül érhető el
 
 1. Telepítsük az adatbázisokat:
 
