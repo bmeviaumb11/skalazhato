@@ -264,10 +264,9 @@ kubectl logs -f <podnév>
 
 A célunk a kiinduló repóban lévő (`storeapp` mappa), megrendeléseket kezelő konténeralapú, külön álló (mikro)szolgáltatásokra épülő webalkalmazás telepítése Kubernetes-be. Forrás: <https://github.com/Azure-Samples/aks-store-demo>
 
-A rendszer az alábbit komponensekből áll:
+A rendszer az alábbi komponensekből áll:
 
-![K8S Sample app architecture](images/k8s.drawio.png#only-light)
-![K8S Sample app architecture](images/k8s.drawio_whitebg.png#only-dark)
+![K8S Sample app architecture](images/k8s.drawio_whitebg.png)
 
 |Szolgáltatás|Leírás|
 |------------|------|
@@ -337,7 +336,7 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
     kubectl get pod
     ```
 
-    Látunk kell egy traefik kezdetű podot.
+    Látnunk kell egy traefik kezdetű podot.
 
 1. A Traefik dashboard-ja nem elérhető "kívülről".
    A dashboard segít minket látni a Traefik konfigurációját és működését.
