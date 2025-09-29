@@ -18,10 +18,10 @@ A labor célja:
 
 A labor Windows platformon lett kidolgozva, de Linuxon is hasonlóan működik.
 
-- Kubernetes
-    - Bármely felhő platform által biztosított klaszter
-    - Linux platformon: [minikube](https://kubernetes.io/docs/start)
-    - Windows platformon: Docker Desktop
+- Kubernetes, lehetőleg saját gépen futtatva
+    - bármilyen eltejedt vagy [CNCF minősített K8S](https://www.cncf.io/training/certification/software-conformance/)
+    - [Docker Desktop Kubernetes](https://docs.docker.com/desktop/features/kubernetes/)
+    - vagy [minikube](https://minikube.sigs.k8s.io/docs/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/)
     - A binárisa legyen elérhető PATH-on.
 - Egy kubernetes-t menedzselni képes GUI, például:
@@ -266,7 +266,8 @@ A célunk a kiinduló repóban lévő (`storeapp` mappa), megrendeléseket kezel
 
 A rendszer az alábbit komponensekből áll:
 
-![TODO](images/k8s.drawio.png)
+![K8S Sample app architecture](images/k8s.drawio.png#only-light)
+![K8S Sample app architecture](images/k8s.drawio_whitebg.png#only-dark)
 
 |Szolgáltatás|Leírás|
 |------------|------|
