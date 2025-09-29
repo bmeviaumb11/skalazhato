@@ -336,7 +336,7 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
     kubectl get pod
     ```
 
-    Látunk kell egy traefik kezdetű podot.
+    Látnunk kell egy traefik kezdetű podot.
 
 1. A Traefik dashboard-ja nem elérhető "kívülről".
    A dashboard segít minket látni a Traefik konfigurációját és működését.
