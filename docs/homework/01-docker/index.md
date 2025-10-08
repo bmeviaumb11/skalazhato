@@ -681,7 +681,7 @@ Gyakran az ilyen image-ek "majdnem" jók közvetlen felhasználásra, de azért 
 Ilyen esetben a következő lehetőségeink vannak:
 
 - Saját image-et készítünk kiindulva a számunkra megfelelő alap image-ből.
-  A saját image-ben módosíthatunk a konfigurációs fájlokat, avagy további fájlokat adhatunk az image-be.
+  A saját image-ben módosíthatjuk a konfigurációs fájlokat, avagy további fájlokat adhatunk az image-be.
   Ezt a megoldást alkalmazhatjuk például tipikusan weboldal kiszolgálásánál, ahol is a kiinduló image a webszerver, viszont a kiszolgálandó fájlokat még mellé kell tennünk.
 
 - Környezeti változókon (esetleg argumentumokon) keresztül konfiguráljuk a futtatandó szolgáltatást.
