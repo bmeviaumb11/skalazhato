@@ -1635,9 +1635,8 @@ Ehelyett valójában egy új podot kell létrehozni indirekt módon a deployment
 <h2 id="3-feladat">3. Feladat<a class="headerlink" href="#3-feladat" title="Permanent link">¶</a></h2>
 <h3 id="celok">Célok<a class="headerlink" href="#celok" title="Permanent link">¶</a></h3>
 <p>A célunk a kiinduló repóban lévő (<code>storeapp</code> mappa), megrendeléseket kezelő konténeralapú, külön álló (mikro)szolgáltatásokra épülő webalkalmazás telepítése Kubernetes-be. Forrás: <a href="https://github.com/Azure-Samples/aks-store-demo">https://github.com/Azure-Samples/aks-store-demo</a></p>
-<p>A rendszer az alábbit komponensekből áll:</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/k8s.drawio.png#only-light" data-desc-position="bottom"><img alt="K8S Sample app architecture" src="images/k8s.drawio.png#only-light"></a>
-<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/k8s.drawio_whitebg.png#only-dark" data-desc-position="bottom"><img alt="K8S Sample app architecture" src="images/k8s.drawio_whitebg.png#only-dark"></a></p>
+<p>A rendszer az alábbi komponensekből áll:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/k8s.drawio_whitebg.png" data-desc-position="bottom"><img alt="K8S Sample app architecture" src="images/k8s.drawio_whitebg.png"></a></p>
 <table>
 <thead>
 <tr>
@@ -1737,7 +1736,7 @@ helm repo update
 <p>Ellenőrizzük, hogy fut-e:</p>
 <div class="highlight"><pre><span></span><code>kubectl get pod
 </code></pre></div>
-<p>Látunk kell egy traefik kezdetű podot.</p>
+<p>Látnunk kell egy traefik kezdetű podot.</p>
 </li>
 <li>
 <p>A Traefik dashboard-ja nem elérhető "kívülről".
@@ -2029,8 +2028,8 @@ Ezt a middleware-t kell alkalmaznunk a <code>products</code> Ingress-re.</p>
           </path>
         </svg>
       </span>
-      <span title="2025. szeptember 29. 13:03:27">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 29. 13:03:27 CEST"><span class="timeago" datetime="2025-09-29T13:03:27+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 29. 13:03:27 CEST">2025-09-29</span>
+      <span title="2025. szeptember 29. 22:27:35">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 29. 22:27:35 CEST"><span class="timeago" datetime="2025-09-29T22:27:35+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 29. 22:27:35 CEST">2025-09-29</span>
       </span>
     </span>
 
@@ -2050,6 +2049,8 @@ Ezt a middleware-t kell alkalmaznunk a <code>products</code> Ingress-re.</p>
           <img src="https://avatars.githubusercontent.com/u/15632657?u=2c16435e4b23b66df25b30f6d44dce8c3639c1ef&amp;v=4?size=72" alt="@Vörös Asztrik">
         </a><a href="https://github.com/kszicsillag" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gábor Simon">
           <img src="https://avatars.githubusercontent.com/u/1849897?u=1d3aa9b07d07da9a2b04d86a97ec4060c3280592&amp;v=4?size=72" alt="@Gábor Simon">
+        </a><a href="https://github.com/tanaiadam" target="_blank" rel="noopener noreferrer" class="md-author" title="@Ádám Tanai">
+          <img src="https://avatars.githubusercontent.com/u/65241679?v=4?size=72" alt="@Ádám Tanai">
         </a><a href="https://github.com/vandreas73" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
           <img src="https://avatars.githubusercontent.com/u/113762114?u=72f34320e374884b31584a21539071340774aada&amp;v=4?size=72" alt="@None">
         </a></nav>      
