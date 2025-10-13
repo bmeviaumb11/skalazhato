@@ -262,10 +262,10 @@ Térjünk át a fogadó oldalra.
 
     1. Viszont a MassTransit a 9-es verziótól kezdve (2026Q1-től) már licenszköteles (fizetős) lesz, de a 8-as verzió még ingyenesen használható.
        A MassTransit helyett használható másik nyílt forráskódú eszközök is:
-       - [Rebus](https://github.com/rebus-org/Rebus)
-       - [NServiceBus](https://particular.net/nservicebus) (szintén licenszköteles)
-       - [Brighter](https://github.com/BrighterCommand/Brighter)
-       - [Wolverine](https://wolverinefx.net/)
-       - [CAP](https://github.com/dotnetcore/CAP)
-       - [EasyNetQ](https://github.com/EasyNetQ/EasyNetQ) (RabbitMQ specifikus)
-       - stb.
+          - [Rebus](https://github.com/rebus-org/Rebus)
+          - [NServiceBus](https://particular.net/nservicebus) (szintén licenszköteles)
+          - [Brighter](https://github.com/BrighterCommand/Brighter)
+          - [Wolverine](https://wolverinefx.net/)
+          - [CAP](https://github.com/dotnetcore/CAP)
+          - [EasyNetQ](https://github.com/EasyNetQ/EasyNetQ) (RabbitMQ specifikus)
+          - stb.
