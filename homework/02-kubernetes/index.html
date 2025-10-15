@@ -1977,20 +1977,20 @@ Ezt a middleware-t kell alkalmaznunk a <code>products</code> Ingress-re.</p>
 </li>
 <li>
 <p>Nézzük meg a template-eket kiértékelve:</p>
-</li>
-<li>
-<p>Lépjünk vissza a <code>storeapp/helmchart</code> könyvtárba:</p>
-</li>
-<li>
-<p>Futtassuk le csak a template generálást a telepítés nélkül:</p>
+<ul>
+<li>Lépjünk vissza a <code>storeapp/helmchart</code> könyvtárba:</li>
+<li>Futtassuk le csak a template generálást a telepítés nélkül:</li>
+</ul>
 <div class="highlight"><pre><span></span><code>helm install storeapp --debug --dry-run storeapp
 </code></pre></div>
-</li>
+<ul>
 <li>
 <p>A release-nek <em>storeapp</em> nevet választottunk. Ez a Helm release azonosítója.</p>
 </li>
 <li>
 <p>Konzolra megkapjuk a kiértékelt YAML-öket. Ellenőrizzük a kimenetben, hogy a rendben behelyettesítődtek-e.</p>
+</li>
+</ul>
 </li>
 <li>
 <p>Telepítsük az alkalmazás komponenseit a chart segítségével:</p>
@@ -2028,8 +2028,8 @@ Ezt a middleware-t kell alkalmaznunk a <code>products</code> Ingress-re.</p>
           </path>
         </svg>
       </span>
-      <span title="2025. szeptember 29. 22:27:35">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 29. 22:27:35 CEST"><span class="timeago" datetime="2025-09-29T22:27:35+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 29. 22:27:35 CEST">2025-09-29</span>
+      <span title="2025. október 15. 16:51:23">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. október 15. 16:51:23 CEST"><span class="timeago" datetime="2025-10-15T16:51:23+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. október 15. 16:51:23 CEST">2025-10-15</span>
       </span>
     </span>
 
