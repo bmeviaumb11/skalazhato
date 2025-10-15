@@ -558,16 +558,16 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
 
 1. Nézzük meg a template-eket kiértékelve:
 
-   - Lépjünk vissza a `storeapp/helmchart` könyvtárba:
-   - Futtassuk le csak a template generálást a telepítés nélkül:
-
-     ```cmd
-     helm install storeapp --debug --dry-run storeapp
-     ```
-
-   - A release-nek _storeapp_ nevet választottunk. Ez a Helm release azonosítója.
-
-   - Konzolra megkapjuk a kiértékelt YAML-öket. Ellenőrizzük a kimenetben, hogy a rendben behelyettesítődtek-e.
+    - Lépjünk vissza a `storeapp/helmchart` könyvtárba:
+    - Futtassuk le csak a template generálást a telepítés nélkül:
+ 
+      ```cmd
+      helm install storeapp --debug --dry-run storeapp
+      ```
+ 
+    - A release-nek _storeapp_ nevet választottunk. Ez a Helm release azonosítója.
+ 
+    - Konzolra megkapjuk a kiértékelt YAML-öket. Ellenőrizzük a kimenetben, hogy a rendben behelyettesítődtek-e.
 
 1. Telepítsük az alkalmazás komponenseit a chart segítségével:
 
