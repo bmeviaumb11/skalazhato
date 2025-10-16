@@ -231,7 +231,7 @@ Térjünk át a fogadó oldalra.
         * Ha azt tapasztaljuk hogy nem tud csatlakozni valamelyik szolgáltatás, akkor ellenőrizzük az Aspire AppHost projektet és a Connection Stringeket.
         * Ha azt tapasztaljuk, hogy `skipped` üzenetsorba kerülnek az üzenetek, akkor a küldő oldal rendben működött, de valamiért a fogadó oldal nem tudott a megadott üzenettípusra egyszer sem feliratkozni helyesen.
 
-5. Kössük be az OpenTelemetry-t a MassTransit-ba, hogy a küldött és fogadott üzenetek is megjelenjenek a nyomkövetési adatok között. Az alábbi kódrészlete vegyezzük fel mindkét szolgáltatás `Program.cs` fájljába.
+5. Kössük be az OpenTelemetry-t a MassTransit-ba, hogy a küldött és fogadott üzenetek is megjelenjenek a nyomkövetési adatok között. Az alábbi kódrészletet vegyük fel mindkét szolgáltatás `Program.cs` fájljába.
 
     ```csharp title="Skalazhato.HF3.Services.Order/Program.cs"
     builder.Services.AddOpenTelemetry()
