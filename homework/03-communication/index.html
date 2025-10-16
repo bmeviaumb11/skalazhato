@@ -1384,7 +1384,7 @@ A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes
 </div>
 </li>
 <li>
-<p>Kössük be az OpenTelemetry-t a MassTransit-ba, hogy a küldött és fogadott üzenetek is megjelenjenek a nyomkövetési adatok között. Az alábbi kódrészlete vegyezzük fel mindkét szolgáltatás <code>Program.cs</code> fájljába.</p>
+<p>Kössük be az OpenTelemetry-t a MassTransit-ba, hogy a küldött és fogadott üzenetek is megjelenjenek a nyomkövetési adatok között. Az alábbi kódrészletet vegyük fel mindkét szolgáltatás <code>Program.cs</code> fájljába.</p>
 <div class="highlight"><span class="filename">Skalazhato.HF3.Services.Order/Program.cs</span><pre><span></span><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddOpenTelemetry</span><span class="p">()</span>
 <span class="w">    </span><span class="p">.</span><span class="n">WithMetrics</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">AddMeter</span><span class="p">(</span><span class="n">DiagnosticHeaders</span><span class="p">.</span><span class="n">DefaultListenerName</span><span class="p">))</span>
 <span class="w">    </span><span class="p">.</span><span class="n">WithTracing</span><span class="p">(</span><span class="n">providerBuilder</span><span class="w"> </span><span class="o">=&gt;</span>
@@ -1439,8 +1439,8 @@ A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes
           </path>
         </svg>
       </span>
-      <span title="2025. október 13. 16:52:20">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. október 13. 16:52:20 CEST"><span class="timeago" datetime="2025-10-13T16:52:20+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. október 13. 16:52:20 CEST">2025-10-13</span>
+      <span title="2025. október 14. 19:53:32">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. október 14. 19:53:32 CEST"><span class="timeago" datetime="2025-10-14T19:53:32+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. október 14. 19:53:32 CEST">2025-10-14</span>
       </span>
     </span>
 
@@ -1458,6 +1458,8 @@ A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes
           <img src="https://avatars.githubusercontent.com/tibitoth?size=72" alt="@tibitoth">
         </a><a href="https://github.com/kszicsillag" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gábor Simon">
           <img src="https://avatars.githubusercontent.com/u/1849897?u=1d3aa9b07d07da9a2b04d86a97ec4060c3280592&amp;v=4?size=72" alt="@Gábor Simon">
+        </a><a href="https://github.com/neaxro" target="_blank" rel="noopener noreferrer" class="md-author" title="@Nemes Axel Roland">
+          <img src="https://avatars.githubusercontent.com/u/24318476?u=a91bb86ad360f90ce13f816010a07a725bbfc5ec&amp;v=4?size=72" alt="@Nemes Axel Roland">
         </a><a href="https://github.com/vandreas73" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
           <img src="https://avatars.githubusercontent.com/u/113762114?u=72f34320e374884b31584a21539071340774aada&amp;v=4?size=72" alt="@None">
         </a></nav>      
