@@ -92,11 +92,11 @@ Ez a Policy gyakorlatilag beépül a `HttpClient` Handler Pipeline-jába, így a
 !!! note "Polly általánosan"
     A Polly-t nem csak `HttpClient`-tel lehet használni, hanem tetszőleges kódban: össze lehet rakni egy Policy láncot, és abba beburkolni a kívánt függvényhívást. A Policy-ket akár karbantarthatjuk a DI konténerben is.
 
-Most laboron nem nézünk példát több Policy használatára, de szóba jöhetne még a Timeout, a Circuit breaker, Cache vagy akár a Fallback policy [is](https://github.com/App-vNext/Polly/blob/master/README.md).
-Az előadás anyagban találtok egy összetettebb szekvencia diagrammot, az ajánlott összetételről.
+Most laboron nem nézünk példát több Policy használatára, de szóba jöhetne még a `Timeout`, a `Circuit breaker`, `Cache` vagy akár a `Fallback` policy [is](https://github.com/App-vNext/Polly/blob/master/README.md).
+Az előadásanyagban találtok egy összetettebb szekvencia diagrammot, az ajánlott összetételről.
 
 !!! example "BEADANDÓ"
-    A feladathoz tartozó forráskódot commitold be és készíts egy `f1.png`-t, amiben látszik a .NET Aspire dashboardon a Trace fülön a retry policy hatása a hívásokra. A hívások között legyenek sikeres és sikertelen hívások is, és látszódjon, hogy a sikertelen hívások újrapróbálkozásokkal sikeresekké válnak.
+    A feladathoz tartozó forráskódot commitold be, és készíts egy `f1.png`-t, amiben látszik a .NET Aspire dashboardon a Trace fülön a retry policy hatása a hívásokra. A hívások között legyenek sikeres és sikertelen hívások is, és látszódjon, hogy a sikertelen hívások újrapróbálkozásokkal sikeresekké válnak.
 
 ## 2. Feladat - Aszinkron kommunikáció RabbitMQ-val
 
