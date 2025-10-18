@@ -14,13 +14,13 @@ A labor célja megismerni:
 
 A laborleírás cross-platform eszközöket használ. A labor linuxon (kubuntu) lett kidolgozva.
 
-- Korábbi laborok infrastruktúrájából: `docker`, `docker compose`
-    - Windows-on is [linux konténer módban](https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-10-linux#run-your-first-linux-container) 
+- Korábbi laborok infrastruktúrájából: `docker`, `docker compose`, `helm`
+    - Windows-on is [linux konténer módban](https://learn.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/set-up-linux-containers#run-your-first-linux-container) 
 - Azure [hallgatói előfizetés](https://azure.microsoft.com/en-us/free/students)
-- Azure [kubelogin és kubectl](https://azure.github.io/kubelogin/install.html)
-    - felülírhatja a korábban telepített `kubectl` binárist 
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) v2.61 vagy újabb
-- [Helm CLI](https://helm.sh/docs/intro/install/) - legyen elérhető PATH-on
+- Azure [kubelogin és kubectl](https://azure.github.io/kubelogin/install.html)
+    - az `az aks install-cli` felülírhatja a korábban telepített `kubectl` binárist
+
 
 ## Előkészület
 
@@ -43,7 +43,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
 
 ### Azure portál ajánlott beállítások
 
-1. Lépjünk be az [Azure portálra](https://portal.azure.com)
+1. Lépjünk be az [Azure portálra](https://portal.azure.com).
 
 2. Jobb felül nyissuk meg a beállításokat (fogaskerék ikon).
 
@@ -77,10 +77,10 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
     ```
    
     !!! tip "Aktuális előfizetés az Azure CLI-ben"
-        Az Azure CLI parancsok általában nem kérik be az előfizetés azonosítóját, hanem egy globális beállításból veszik, amit belépéskor (`az login`) is beállít. Fontos, hogy mindig a megfelelő előfizetés legyen beállítva. Az `az account set -s <előfizetés azonosító>` paranccsal tudunk előfizetést váltani.
+        Az Azure CLI parancsok általában nem kérik be az előfizetés azonosítóját, hanem egy globális beállításból veszik, amit belépéskor (`az login`) is beállítódik. Fontos, hogy mindig a megfelelő előfizetés legyen beállítva. Az `az account set -s <előfizetés azonosító>` paranccsal tudunk előfizetést váltani.
 
 !!! danger "Közös Azure régió"
-    Fontos, hogy minden Azure erőforrás lehetőleg azonos régióban legyen. Ez a közös régió **North Europe** legyen. Ha bármilyen okból ezt nem tudod tartani, akkor is az erőforrásaid ugyanabban az európai régióban legyenek (pl. *Germany West Central*). 
+    Fontos, hogy minden Azure erőforrás lehetőleg azonos régióban legyen. Ez a közös régió lehetőleg **North Europe** legyen. Ha bármilyen okból ezt nem tudod tartani, akkor is az erőforrásaid ugyanabban az európai régióban legyenek (pl. *Germany West Central*). 
 
 ### Erőforráscsoport létrehozása
 
