@@ -756,21 +756,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Előkészület">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#git-repository-letrehozasa-es-letoltese" class="md-nav__link">
-    <span class="md-ellipsis">
-      Git repository létrehozása és letöltése
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1074,21 +1059,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Előkészület">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#git-repository-letrehozasa-es-letoltese" class="md-nav__link">
-    <span class="md-ellipsis">
-      Git repository létrehozása és letöltése
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1235,9 +1205,9 @@
 <h1 id="05-skalazas-azure-ban">05 - Skálázás Azure-ban<a class="headerlink" href="#05-skalazas-azure-ban" title="Permanent link">¶</a></h1>
 <p><em>Nincs frissítve 2025. őszi félévre!</em></p>
 <h2 id="cel">Cél<a class="headerlink" href="#cel" title="Permanent link">¶</a></h2>
-<p>A labor célja megismerni az AKS skálázási módjait, illetve Azure Load Testing szolgáltatással tesztelni is az automatikus skálázás működését.</p>
+<p>A labor célja, hogy megismerjük az AKS skálázási módjait, illetve az Azure Load Testing szolgáltatással teszteljük az automatikus skálázás működését.</p>
 <h2 id="elokovetelmenyek">Előkövetelmények<a class="headerlink" href="#elokovetelmenyek" title="Permanent link">¶</a></h2>
-<p>A laborleírás cross-platform eszközöket használ. A labor linuxon (kubuntu v24.04) lett kidolgozva.</p>
+<p>A laborleírás cross-platform eszközöket használ, és Linuxon (Kubuntu v24.04) lett kidolgozva.</p>
 <ul>
 <li>Azure <a href="https://azure.microsoft.com/en-us/free/students">hallgatói előfizetés</a></li>
 <li>Azure <a href="https://azure.github.io/kubelogin/install.html">kubelogin és kubectl</a><ul>
@@ -1252,25 +1222,18 @@
 <li>JRE v8 vagy későbbi  (pl. <a href="https://adoptium.net/">Adoptium</a>), <code>java</code> parancs legyen a PATH-ban</li>
 </ul>
 <h2 id="elokeszulet">Előkészület<a class="headerlink" href="#elokeszulet" title="Permanent link">¶</a></h2>
-<p>A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamatát <a href="../../information/GitHub/">GitHub</a>.</p>
+<p>A feladatok megoldása során ne felejtsd el követni a feladat beadás <a href="../../information/GitHub/">folyamatát</a>.</p>
 <div class="admonition danger">
 <p class="admonition-title">PR név</p>
 <p><img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"> Beadásnál a pull request neve legyen: <em>hf5</em> <img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"></p>
 </div>
-<h3 id="git-repository-letrehozasa-es-letoltese">Git repository létrehozása és letöltése<a class="headerlink" href="#git-repository-letrehozasa-es-letoltese" title="Permanent link">¶</a></h3>
-<ol>
-<li>Moodle-ben keresd meg a laborhoz tartozó meghívó URL-jét és annak segítségével hozd létre a saját repository-dat.</li>
-<li>Várd meg, míg elkészül a repository, majd checkout-old ki.</li>
-<li>Hozz létre egy új ágat <code>megoldas</code> néven, és ezen az ágon dolgozz.</li>
-<li>A <code>neptun.txt</code> fájlba írd bele a Neptun kódodat. A fájlban semmi más ne szerepeljen, csak egyetlen sorban a Neptun kód 6 karaktere.</li>
-</ol>
 <div class="admonition danger">
 <p class="admonition-title">NEPTUN</p>
 <p><img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"> A feladatokban a <code>neptun</code> kifejezés helyett a saját neptunkódunkat helyettesítsük be minden esetben <img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"></p>
 </div>
 <h2 id="0-feladat">0. Feladat<a class="headerlink" href="#0-feladat" title="Permanent link">¶</a></h2>
 <h3 id="aks-workload-telepitese">AKS workload telepítése<a class="headerlink" href="#aks-workload-telepitese" title="Permanent link">¶</a></h3>
-<p>Ha megvan az alkalmazásokkal feltöltött AKS, az AKS háziból, akkor nincs teendő. Egyébként az <strong>AKS házi 1. feladata alapján</strong> hozz létre és telepítsd a  mintaalkalmazást egy saját AKS-be.</p>
+<p>Ha fut egy működő <em>store-front</em> webalkalmazás az AKS háziból az AKS-edben, akkor nincs teendő. Egyébként az <strong>AKS házi 1. feladata alapján</strong> hozz létre és telepítsd a  mintaalkalmazást.</p>
 <h2 id="1-feladat">1. Feladat<a class="headerlink" href="#1-feladat" title="Permanent link">¶</a></h2>
 <h3 id="11-container-insights-bekapcsolasa-replikaszam-monitorozasa">1.1 Container Insights bekapcsolása, replikaszám monitorozása<a class="headerlink" href="#11-container-insights-bekapcsolasa-replikaszam-monitorozasa" title="Permanent link">¶</a></h3>
 <p>Kapcsoljuk be a Container Insights szolgáltatást az AKS-ünkön <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/containers/kubernetes-monitoring-enable?tabs=cli#existing-cluster-prometheus-container-insights-and-grafana">az útmutató</a> szerint. Prometheus és Grafana nem szükséges. A többi beállítás maradhat alapértelmezett. A bekapcsolás létrehoz egy <em>Log Analytics Workspace</em>-t (LAWS) és instrumentálja az AKS-t, hogy a monitorozási adatokat a LAWS-ba küldje.</p>
@@ -1292,7 +1255,8 @@
 </div>
 <h3 id="12-manualis-skalazas-es-hpa-kiprobalasa">1.2 Manuális skálázás és HPA kipróbálása<a class="headerlink" href="#12-manualis-skalazas-es-hpa-kiprobalasa" title="Permanent link">¶</a></h3>
 <p>Skálázd a store-front deploymentet HPA-val a <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-scale?tabs=azure-cli#autoscale-pods">hivatalos útmutatót</a> követve. Várd meg amíg a hatás látszik a lekérdezés eredményében.</p>
-<p>Az útmutató szerint a replikaszámnak vissza kellene állnia háromra, de ez az AKS-be választott VM CPU erősségétől függően nem biztos, hogy bekövetkezik. A podok terhelését a HPA az igényelt CPU-hoz viszonyítja (0,5 CPU az igényelt és 0,5 CPU-t használ = 100% terhelés). Ha rossz az igényelt CPU érték beállítás, akkor nem a várt viselkedést kaphatjuk. Ellenőrizd <a href="https://github.com/Azure-Samples/aks-store-demo/blob/abc38d094c09d421f6bb6ec6b900651992a7da14/aks-store-quickstart.yaml#L249">a store-front által igényelt CPU-t</a> és ha szükséges, módosítsd, hogy bejövő kérés hiányában a minimum értékre álljon vissza.</p>
+<p>Az útmutató szerint a replikaszámnak vissza kellene állnia háromra, de ez az AKS-be választott VM CPU erősségétől függően nem biztos, hogy bekövetkezik. A podok terhelését a HPA az igényelt CPU-hoz viszonyítja (0,5 CPU az igényelt és 0,5 CPU-t használ = 100% terhelés). Ha rossz az igényelt CPU érték beállítás, akkor nem a várt viselkedést kaphatjuk. Egyik ilyen anomália, ha a podok már alapállapotban, terhelés nélkül több (vagy annyi) erőforrást fogyasztanak, mint a skálázási határérték. Ilyenkor hiába jönnek létre új podok, már tényleges munkavégzés nélkül túlterheltnek számítanak.</p>
+<p>Ellenőrizd <a href="https://github.com/Azure-Samples/aks-store-demo/blob/abc38d094c09d421f6bb6ec6b900651992a7da14/aks-store-quickstart.yaml#L249">a store-front által igényelt CPU-t</a> és ha szükséges, módosítsd, hogy bejövő kérés hiányában a minimum értékre álljon vissza.</p>
 <div class="admonition tip">
 <p class="admonition-title">HPA monitorozása</p>
 <p>Egyszerűen monitorozhatjuk a HPA tevékenységét a <code>kubectl describe hpa $hpa_name</code> <a href="https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-horizontalpodautoscaler-in-kubectl">paranccsal</a>.</p>
@@ -1307,7 +1271,11 @@
 <h3 id="21-hpa-erzekenyitese">2.1 HPA érzékenyítése<a class="headerlink" href="#21-hpa-erzekenyitese" title="Permanent link">¶</a></h3>
 <p>A k8s YAML fájlok átírásával és érvényesítésével (<code>kubectl apply</code>) állítsd át a HPA minimum replikaszám értékét 1-re, a store-front CPU igényét pedig egy kis értékre (pl. <em>10m</em>), de annyira ne legyen kicsi, hogy terhelés nélkül egynél több replika kelljen. A replikaszám grafikonon validáld, hogy a replikaszám terhelés nélkül beáll-e egyre.</p>
 <h3 id="22-azure-load-testing">2.2 Azure Load Testing<a class="headerlink" href="#22-azure-load-testing" title="Permanent link">¶</a></h3>
-<p>Hozz létre egy Azure Load Testing erőforrást (például az <a href="https://learn.microsoft.com/en-us/azure/load-testing/quickstart-create-and-run-load-test?tabs=portal#create-an-azure-load-testing-resource">útmutatót</a> követve) az alábbi beállításokkal:</p>
+<div class="admonition info">
+<p class="admonition-title">Azure App Testing vs Azure Load Testing</p>
+<p>Az <em>Azure App Testing</em> egy ernyő-meta-szolgáltatás, amely az <em>Azure Load Testing</em> és a <em>Playwright Workspaces</em> szolgáltatásokat fogja össze. Mivel technikai szinten <em>Azure Load Testing</em> erőforrásokat hozunk létre, ezért az anyagban <em>Azure Load Testing</em> néven hivatkozzuk a terhelésteszt szolgáltatást. A dokumentációs felületeken viszont gyakran az <a href="https://learn.microsoft.com/en-us/azure/app-testing/overview-what-is-azure-app-testing"><em>Azure App Testing</em></a> brand alá van besorolva.</p>
+</div>
+<p>Hozz létre egy Azure Load Testing erőforrást (például az <a href="https://learn.microsoft.com/en-us/azure/app-testing/load-testing/quickstart-create-and-run-load-test?tabs=portal#create-an-azure-load-testing-resource">útmutatót</a> követve) az alábbi beállításokkal:</p>
 <ul>
 <li>Name: <em>lt</em> előtag + neptun kód (pl.<em>npt123</em> neptun kód esetén <em>ltnpt123</em>)</li>
 <li>Resource group: az alapértelmezett Azure erőforráscsoport (lásd AKS házi)</li>
@@ -1334,7 +1302,7 @@
 <p>Az Azure RBAC felületek viszont nincsenek tiltva, az <a href="https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal">útmutató</a> alapján osszunk jogokat a technikai felhasználónak (két hozzárendelés): </p>
 <ol>
 <li>legyen <em>Reader</em> szerepköre (role) az alapértelmezett Azure erőforráscsoporton (scope), amiben a Load Testing szolgáltatást is létrehoztuk és </li>
-<li>legyen <a href="https://learn.microsoft.com/en-us/azure/load-testing/how-to-assign-roles#load-test-contributor"><em>Load Test Contributor</em></a> (role) a Load Testing erőforráson (scope)</li>
+<li>legyen <a href="https://learn.microsoft.com/en-us/azure/app-testing/load-testing/how-to-assign-roles#load-test-contributor"><em>Load Test Contributor</em></a> (role) a Load Testing erőforráson (scope)</li>
 </ol>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1343,11 +1311,11 @@
 <h3 id="24-terhelesteszt-nunit-unit-teszt-projektkent">2.4 Terhelésteszt NUnit unit teszt projektként<a class="headerlink" href="#24-terhelesteszt-nunit-unit-teszt-projektkent" title="Permanent link">¶</a></h3>
 <p>Lépjünk be a klónozott kiinduló repó <em>azloadtest</em> könyvtárába, majd hozzunk létre egy <a href="https://nunit.org/">NUnit</a> projektet a .NET CLI segítségével. Adjuk hozzá az Azure Load Test automatizálását megvalósító <a href="https://github.com/abstracta/jmeter-dotnet-dsl">.NET könyvtárat</a> is.</p>
 <div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>new<span class="w"> </span>nunit
-dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w"> </span>Abstracta.JmeterDsl.Azure<span class="w"> </span>--version<span class="w"> </span><span class="m">0</span>.6
+dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w"> </span>Abstracta.JmeterDsl.Azure<span class="w"> </span>--version<span class="w"> </span><span class="m">0</span>.8
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Abstracta.JmeterDsl</p>
-<p>Az <em>Abstracta.JmeterDsl</em> könyvtárak lehetővé teszik, hogy az Azure Load Testing tesztjeinket <a href="https://learn.microsoft.com/en-us/azure/load-testing/how-to-create-and-run-load-test-with-jmeter-script?tabs=portal">JMeter</a> XML szerkesztő eszközök helyett imperatív nyelven (<a href="https://abstracta.github.io/jmeter-java-dsl/">Java</a> vagy <a href="https://abstracta.github.io/jmeter-dotnet-dsl/">C#</a>), fluent jellegű API-val írjuk meg egy tesztprojektben. A csomag ebből a kód alapján egyrészt generálja a szükséges JMeter artifaktokat, majd ezekkel inicializálja a teszt végrehajtó motort (esetünkben Azure Load Test), elindítja a tesztet, végül begyűjti a lefutási statisztikákat, amikre assert feltételeket fogalmazhatunk meg.</p>
+<p>Az <em>Abstracta.JmeterDsl</em> könyvtárak lehetővé teszik, hogy az Azure Load Testing tesztjeinket <a href="https://learn.microsoft.com/en-us/azure/app-testing/load-testing/how-to-create-and-run-load-test-with-jmeter-script?tabs=portal">JMeter</a> XML szerkesztő eszközök helyett imperatív nyelven (<a href="https://abstracta.github.io/jmeter-java-dsl/">Java</a> vagy <a href="https://abstracta.github.io/jmeter-dotnet-dsl/">C#</a>), fluent jellegű API-val írjuk meg egy tesztprojektben. A csomag ebből a kód alapján egyrészt generálja a szükséges JMeter artifaktokat, majd ezekkel inicializálja a teszt végrehajtó motort (esetünkben Azure Load Test), elindítja a tesztet, végül begyűjti a lefutási statisztikákat, amikre assert feltételeket fogalmazhatunk meg.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Java</p>
@@ -1392,10 +1360,10 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
 <p class="admonition-title">Titok vs. git</p>
 <p>Az AZURE_CREDS értékét ne égesd be a kódba, ne kerüljön be git-be!</p>
 </div>
-<p>A tesztnek automatikusan létre kell jönnie az Azure Load Testing szolgáltatáson belül és el kell indulnia. A lefutást kövesd az Azure portálon: Load Testing erőforrás <em>Tests</em> menüpontja, ott a teszt, majd azon belül tesztlefutás (<em>Test runs</em> rész).</p>
+<p>A tesztnek automatikusan létre kell jönnie az Azure Load Testing szolgáltatáson belül, és el kell indulnia. A lefutást kövesd az Azure portálon: Load Testing erőforrás <em>Tests</em> menüpontja, ott a teszt, majd azon belül tesztlefutás (<em>Test runs</em> rész).</p>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
-<p>Készíts egy képernyőképet az Azure portálról (<code>f2.1.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin látszik a replikaszámos vonalgrafikon (Chart Type: Line) és a HPA hatása, ahogy a terhelésteszt miatt megnöveli, majd visszacsökkenti a replikaszámot a minimum értékre. A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarka környékén az AKS neve. Ha a hatás nem elég látványos, növeld a terhelést a <code>ThreadGroup</code> <code>threads</code> és <code>iterations</code> paramétereivel.</p>
+<p>Készíts egy képernyőképet az Azure portálról (<code>f2.1.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin látszik a replikaszámos vonalgrafikon (Chart Type: Line) és a HPA hatása, ahogy a terhelésteszt miatt <strong>megnöveli</strong>, majd <strong>visszacsökkenti</strong> a replikaszámot a minimum értékre. A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarka környékén az AKS neve. Ha a hatás nem elég látványos, növeld a terhelést a <code>ThreadGroup</code> <code>threads</code> és <code>iterations</code> paramétereivel.</p>
 <p>Készíts egy képernyőképet (<code>f2.2.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin <code>kubectl describe hpa</code> paranccsal szemlélteted a HPA skálázási eseményeit.</p>
 <p>Készíts egy képernyőképet (<code>f2.3.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin az Azure portálon látszik a tesztlefutások (<em>Test Runs</em>) listája. A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarkában a terhelés teszt neve.</p>
 </div>
@@ -1406,7 +1374,7 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
 <h2 id="3-feladat-talan-a-legfontosabb">3. Feladat - talán a legfontosabb<a class="headerlink" href="#3-feladat-talan-a-legfontosabb" title="Permanent link">¶</a></h2>
 <div class="admonition danger">
 <p class="admonition-title">Erőforrások törlése</p>
-<p>Beadás után törölj minden erőforráscsoportot az előfizetéseden belül. (Kivéve esetleg ami nem a kisházikhoz kellett.) A technikai felhasználót is érdemes <a href="https://learn.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az-ad-sp-delete">törölni</a> Entra-ból, ne hagyjunk "szemetet" magunk után.</p>
+<p>Beadás után törölj minden erőforráscsoportot az előfizetéseden belül (kivéve azt, amelyik nem a kisházikhoz kellett). A technikai felhasználót is érdemes <a href="https://learn.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az-ad-sp-delete">törölni</a> Entra-ból, ne hagyjunk "szemetet" magunk után.</p>
 </div>
   <hr>
   <div class="md-source-file">
@@ -1415,8 +1383,8 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
           </path>
         </svg>
       </span>
-      <span title="2025. szeptember 5. 09:55:13">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 5. 09:55:13 CEST"><span class="timeago" datetime="2025-09-05T09:55:13+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 5. 09:55:13 CEST">2025-09-05</span>
+      <span title="2025. október 31. 13:28:56">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. október 31. 13:28:56 CET"><span class="timeago" datetime="2025-10-31T13:28:56+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. október 31. 13:28:56 CET">2025-10-31</span>
       </span>
     </span>
 
@@ -1430,8 +1398,8 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
         </svg>
       </span>
       <span>Szerzők</span>
-      <nav><a href="https://github.com/kszicsillag" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gábor Simon">
-          <img src="https://avatars.githubusercontent.com/u/1849897?u=1d3aa9b07d07da9a2b04d86a97ec4060c3280592&amp;v=4?size=72" alt="@Gábor Simon">
+      <nav><a href="https://github.com/kszicsillag" target="_blank" rel="noopener noreferrer" class="md-author" title="@kszicsillag">
+          <img src="https://avatars.githubusercontent.com/kszicsillag?size=72" alt="@kszicsillag">
         </a></nav>      
     </span>
   </div>

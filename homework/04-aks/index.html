@@ -733,21 +733,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Előkészület">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#git-repository-letrehozasa-es-letoltese" class="md-nav__link">
-    <span class="md-ellipsis">
-      Git repository létrehozása és letöltése
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -881,27 +866,45 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#22-traefik-telepites-kulso-helm-chart-forrasbol" class="md-nav__link">
+  <a href="#22-extra-lemezkepek" class="md-nav__link">
     <span class="md-ellipsis">
-      2.2 Traefik - telepítés külső helm chart forrásból
+      2.2 Extra lemezképek
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#23-adatbazisok-telepites-k8s-yaml-fajlokkal" class="md-nav__link">
+  <a href="#23-mongodb-70" class="md-nav__link">
     <span class="md-ellipsis">
-      2.3 Adatbázisok - telepítés k8s YAML fájlokkal
+      2.3 MongoDB 7.0
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#24-sajat-mikroszolgaltatasok-telepites-nem-annyira-kulso-helm-chart-forrasbol" class="md-nav__link">
+  <a href="#24-lemezkepek-hivatkozasa" class="md-nav__link">
     <span class="md-ellipsis">
-      2.4 Saját mikroszolgáltatások - telepítés nem annyira külső helm chart forrásból
+      2.4 Lemezképek hivatkozása
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-traefik" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 Traefik
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-ingress" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 Ingress
     </span>
   </a>
   
@@ -1128,21 +1131,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Előkészület">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#git-repository-letrehozasa-es-letoltese" class="md-nav__link">
-    <span class="md-ellipsis">
-      Git repository létrehozása és letöltése
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1276,27 +1264,45 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#22-traefik-telepites-kulso-helm-chart-forrasbol" class="md-nav__link">
+  <a href="#22-extra-lemezkepek" class="md-nav__link">
     <span class="md-ellipsis">
-      2.2 Traefik - telepítés külső helm chart forrásból
+      2.2 Extra lemezképek
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#23-adatbazisok-telepites-k8s-yaml-fajlokkal" class="md-nav__link">
+  <a href="#23-mongodb-70" class="md-nav__link">
     <span class="md-ellipsis">
-      2.3 Adatbázisok - telepítés k8s YAML fájlokkal
+      2.3 MongoDB 7.0
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#24-sajat-mikroszolgaltatasok-telepites-nem-annyira-kulso-helm-chart-forrasbol" class="md-nav__link">
+  <a href="#24-lemezkepek-hivatkozasa" class="md-nav__link">
     <span class="md-ellipsis">
-      2.4 Saját mikroszolgáltatások - telepítés nem annyira külső helm chart forrásból
+      2.4 Lemezképek hivatkozása
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-traefik" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 Traefik
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-ingress" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 Ingress
     </span>
   </a>
   
@@ -1343,40 +1349,28 @@
 <h1 id="04-azure-kubernetes-services">04 - Azure Kubernetes Services<a class="headerlink" href="#04-azure-kubernetes-services" title="Permanent link">¶</a></h1>
 <p><em>Nincs frissítve 2025. őszi félévre!</em></p>
 <h2 id="cel">Cél<a class="headerlink" href="#cel" title="Permanent link">¶</a></h2>
-<p>A labor célja megismerni:</p>
-<ul>
-<li>az AKS szolgáltatást és a legfontosabb kapcsolódó szolgáltatásokat (ACR) </li>
-<li>az AKS alkalmazások telepítésének különböző módszereit</li>
-<li>az AKS legalapvetőbb megfigyelési funkcióit </li>
-</ul>
+<p>A labor célja megismerni magát az AKS szolgáltatást és a legfontosabb kapcsolódó szolgáltatásokat (ACR), valamint az AKS alkalmazások telepítésének különböző módszereit.</p>
 <h2 id="elokovetelmenyek">Előkövetelmények<a class="headerlink" href="#elokovetelmenyek" title="Permanent link">¶</a></h2>
-<p>A laborleírás cross-platform eszközöket használ. A labor linuxon (kubuntu) lett kidolgozva.</p>
+<p>A laborleírás cross-platform eszközöket használ. A labor Linuxon (Kubuntu) lett kidolgozva.</p>
 <ul>
-<li>Korábbi laborok infrastruktúrájából: <code>docker</code>, <code>docker compose</code><ul>
-<li>Windows-on is <a href="https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-10-linux#run-your-first-linux-container">linux konténer módban</a> </li>
+<li>Korábbi laborok infrastruktúrájából: <code>docker</code>, <code>docker compose</code>, <code>helm</code><ul>
+<li>Windows-on is <a href="https://learn.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/set-up-linux-containers#run-your-first-linux-container">linux konténer módban</a> </li>
 </ul>
 </li>
 <li>Azure <a href="https://azure.microsoft.com/en-us/free/students">hallgatói előfizetés</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli">Azure CLI</a> v2.61 vagy újabb</li>
 <li>Azure <a href="https://azure.github.io/kubelogin/install.html">kubelogin és kubectl</a><ul>
-<li>felülírhatja a korábban telepített <code>kubectl</code> binárist </li>
+<li>az <code>az aks install-cli</code> felülírhatja a korábban telepített <code>kubectl</code> binárist</li>
 </ul>
 </li>
-<li><a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli">Azure CLI</a> v2.61 vagy újabb</li>
-<li><a href="https://helm.sh/docs/intro/install/">Helm CLI</a> - legyen elérhető PATH-on</li>
+<li>Docker Hub eléréshez Docker Hub fiók és <a href="https://docs.docker.com/security/access-tokens/#create-a-personal-access-token">Personal Access Token</a></li>
 </ul>
 <h2 id="elokeszulet">Előkészület<a class="headerlink" href="#elokeszulet" title="Permanent link">¶</a></h2>
-<p>A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamatát <a href="../../information/GitHub/">GitHub</a>.</p>
+<p>A feladatok megoldása során ne felejtsd el követni a feladat beadási folyamatát <a href="../../information/GitHub/">GitHub</a>.</p>
 <div class="admonition danger">
 <p class="admonition-title">PR név</p>
-<p><img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"> Beadásnál a pull request neve legyen: <em>hf4</em> <img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"></p>
+<p><img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"> A beadásnál a pull request neve legyen: <em>hf4</em> <img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"></p>
 </div>
-<h3 id="git-repository-letrehozasa-es-letoltese">Git repository létrehozása és letöltése<a class="headerlink" href="#git-repository-letrehozasa-es-letoltese" title="Permanent link">¶</a></h3>
-<ol>
-<li>Moodle-ben keresd meg a laborhoz tartozó meghívó URL-jét és annak segítségével hozd létre a saját repository-dat.</li>
-<li>Várd meg, míg elkészül a repository, majd checkout-old ki.</li>
-<li>Hozz létre egy új ágat <code>megoldas</code> néven, és ezen az ágon dolgozz.</li>
-<li>A <code>neptun.txt</code> fájlba írd bele a Neptun kódodat. A fájlban semmi más ne szerepeljen, csak egyetlen sorban a Neptun kód 6 karaktere.</li>
-</ol>
 <div class="admonition danger">
 <p class="admonition-title">NEPTUN</p>
 <p><img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"> A feladatokban a <code>neptun</code> kifejezés helyett a saját neptunkódunkat helyettesítsük be minden esetben <img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"></p>
@@ -1385,7 +1379,7 @@
 <h3 id="azure-portal-ajanlott-beallitasok">Azure portál ajánlott beállítások<a class="headerlink" href="#azure-portal-ajanlott-beallitasok" title="Permanent link">¶</a></h3>
 <ol>
 <li>
-<p>Lépjünk be az <a href="https://portal.azure.com">Azure portálra</a></p>
+<p>Lépjünk be az <a href="https://portal.azure.com">Azure portálra</a>.</p>
 </li>
 <li>
 <p>Jobb felül nyissuk meg a beállításokat (fogaskerék ikon).</p>
@@ -1394,7 +1388,7 @@
 <p>Állítsuk a <a href="https://learn.microsoft.com/en-us/azure/azure-portal/set-preferences#language--region">nyelvi beállításokat</a> (felülről a harmadik menüpont). A nyelv legyen angol, a régiós formátum legyen magyar. Az <strong>Apply</strong> gombbal alkalmazzuk a beállításokat.</p>
 </li>
 <li>
-<p>Visszatérve a portál beállításokhoz, nyissuk meg a <a href="https://learn.microsoft.com/en-us/azure/azure-portal/set-preferences#directories--subscriptions">tenantjaink listáját</a> (felülről az első menüpont, <em>Dictionaries + subscriptions</em>). Ellenőrizzük a táblázatban, hogy a BME tenant-e az aktív (<em>Current</em>) tenantunk. Ha nem, a <strong>Switch</strong> gombbal váltsunk át rá.</p>
+<p>Visszatérve a portál beállításokhoz, nyissuk meg a <a href="https://learn.microsoft.com/en-us/azure/azure-portal/set-preferences#directories--subscriptions">tenantjaink listáját</a> (felülről az első menüpont, <em>Directories + subscriptions</em>). Ellenőrizzük a táblázatban, hogy a BME tenant-e az aktív (<em>Current</em>) tenantunk. Ha nem, a <strong>Switch</strong> gombbal váltsunk át rá.</p>
 </li>
 </ol>
 <h3 id="azure-elofizetes-ellenorzese">Azure előfizetés ellenőrzése<a class="headerlink" href="#azure-elofizetes-ellenorzese" title="Permanent link">¶</a></h3>
@@ -1429,13 +1423,13 @@
 </code></pre></div><p></p>
 <div class="admonition tip">
 <p class="admonition-title">Aktuális előfizetés az Azure CLI-ben</p>
-<p>Az Azure CLI parancsok általában nem kérik be az előfizetés azonosítóját, hanem egy globális beállításból veszik, amit belépéskor (<code>az login</code>) is beállít. Fontos, hogy mindig a megfelelő előfizetés legyen beállítva. Az <code>az account set -s &lt;előfizetés azonosító&gt;</code> paranccsal tudunk előfizetést váltani.</p>
+<p>Az Azure CLI parancsok általában nem kérik be az előfizetés azonosítóját, hanem egy globális beállításból veszik, amit belépéskor (<code>az login</code>) is beállítódik. Fontos, hogy mindig a megfelelő előfizetés legyen beállítva. Az <code>az account set -s &lt;előfizetés azonosító&gt;</code> paranccsal tudunk előfizetést váltani.</p>
 </div>
 </li>
 </ol>
 <div class="admonition danger">
 <p class="admonition-title">Közös Azure régió</p>
-<p>Fontos, hogy minden Azure erőforrás lehetőleg azonos régióban legyen. Ez a közös régió <strong>North Europe</strong> legyen. Ha bármilyen okból ezt nem tudod tartani, akkor is az erőforrásaid ugyanabban az európai régióban legyenek (pl. <em>Germany West Central</em>). </p>
+<p>Fontos, hogy minden Azure erőforrás lehetőleg azonos régióban legyen. Ez a közös régió lehetőleg <strong>North Europe</strong> legyen. Ha bármilyen okból ezt nem tudod tartani, akkor is az erőforrásaid ugyanabban az európai régióban legyenek (pl. <em>Germany West Central</em>). </p>
 </div>
 <h3 id="eroforrascsoport-letrehozasa">Erőforráscsoport létrehozása<a class="headerlink" href="#eroforrascsoport-letrehozasa" title="Permanent link">¶</a></h3>
 <p>Hozz létre új erőforráscsoportot <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal#create-resource-groups">ezen útmutatót követve</a> a hallgató előfizetés alá <em>viaumb11</em> néven a közös Azure régióban (lásd fentebb).</p>
@@ -1453,35 +1447,53 @@
 <li>Name: <em>acr</em> előtag + neptun kód (pl.<em>npt123</em> neptun kód esetén <em>acrnpt123</em>)</li>
 <li>Resource group: az alapértelmezett Azure erőforráscsoport (lásd fentebb)</li>
 <li>Location: közös Azure régió (lásd fentebb)</li>
+<li>Domain name label scope: Unsecure</li>
 <li>Pricing plan / SKU: Basic</li>
+<li>Role assignment permission mode: RBAC Registry Permissions</li>
 </ul>
 <p>Azure CLI-vel (<code>az acr login</code>) <a href="https://learn.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest#az-acr-login">regisztráljuk is az ACR-t a docker környezetünkbe</a> tárolóként.</p>
 <h3 id="kontenerek-feltoltese-acr-be">Konténerek feltöltése ACR-be<a class="headerlink" href="#kontenerek-feltoltese-acr-be" title="Permanent link">¶</a></h3>
 <p>A hivatalos útmutató <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-acr?tabs=azure-cli">második része</a> az ACR build szolgáltatását használja, amivel könnyen lehetne a fejlesztői gép erőforrásait kímélve a lemezképeket megépíteni. Az építéshez szükséges kontextust (forráskód, YAML) tölti csak fel, a kiinduló lemezkép és az építési folyamat is az ACR-en belül történik. Sajnos ez a szolgáltatás <a href="https://learn.microsoft.com/en-us/azure/container-registry/container-registry-tasks-overview">jelenleg csak fizetős Azure előfizetésekben érhető el</a>, hallgatóiban nem. Szerencsére az első feladatrész során a lemezképek elkészültek, így <a href="https://docs.docker.com/get-started/docker-concepts/building-images/build-tag-and-publish-an-image/">azokat feltölthetjük</a>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Lemezkép architektúrák</p>
-<p>A lemezkép CPU architektúrájának <a href="https://docs.docker.com/build/building/multi-platform/#why-multi-platform-builds">kompatibilisnak kell lennie</a> a docker környezet CPU architektúrájával (AKS esetén ez alapesetben: <code>linux/amd64</code>). Linuxos és Windows-os fejlesztői környezetben is általában linuxos docker környezetet használunk, így általában nem lesz ebből gondunk (<code>docker image incpect &lt;lemezkép név vagy id&gt;</code> paranccsal ellenőrizhetjük: az <em>Architecture</em> tulajdonságot figyeljük). Viszont például ARM64 CPU-s Mac esetében gond lehet, a fejlesztői gépen készített lemezkép AKS-en nem fog jól működni. Ilyenkor a legegyszerűbb linuxos lemezképet készíttetni az AKS számára, amit például a <code>DOCKER_DEFAULT_PLATFORM</code> <a href="https://stackoverflow.com/questions/65612411/forcing-docker-to-use-linux-amd64-platform-by-default-on-macos">környezeti változó beállításával tehetünk meg</a>. Az így készült lemezkép csak egy platformot támogat. Többplatformos lemezképet is <a href="https://docs.docker.com/build/building/multi-platform/#build-multi-platform-images">készíthetünk</a> a <em>buildx</em> docker CLI plugin-nal, így ugyanaz a lemezkép több architektúrán is használható.</p>
+<p>A lemezkép CPU architektúrájának <a href="https://docs.docker.com/build/building/multi-platform/#why-multi-platform-builds">kompatibilisnak kell lennie</a> a Docker környezet CPU architektúrájával (AKS esetén ez alapesetben: <code>linux/amd64</code>). Linuxos és Windows-os fejlesztői környezetben is általában linuxos Docker környezetet használunk, így általában nem lesz ebből gondunk (<code>docker image inspect &lt;lemezkép név vagy id&gt;</code> paranccsal ellenőrizhetjük: az <em>Architecture</em> tulajdonságot figyeljük). Viszont például ARM64 CPU-s Mac esetében gond lehet, a fejlesztői gépen készített lemezkép AKS-en nem fog jól működni. Ilyenkor a legegyszerűbb linuxos lemezképet készíttetni az AKS számára, amit például a <code>DOCKER_DEFAULT_PLATFORM</code> <a href="https://stackoverflow.com/questions/65612411/forcing-docker-to-use-linux-amd64-platform-by-default-on-macos">környezeti változó beállításával tehetünk meg</a>. Az így készült lemezkép csak egy platformot támogat. Többplatformos lemezképet is <a href="https://docs.docker.com/build/building/multi-platform/#build-multi-platform-images">készíthetünk</a> a <em>buildx</em> docker CLI plugin-nal, így ugyanaz a lemezkép több architektúrán is használható.</p>
 </div>
 <ol>
 <li>
 <p>Tag-eljük meg az alábbi három <em>aks-store-demo</em> lemezképet. Az $ACRNAME helyére helyettesítsük be az ACR-ünk nevét (<em>acr+neptun kód</em>).</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>tag<span class="w"> </span>aks-store-demo-product-service<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/azure-samples/aks-store-demo/product-service
-docker<span class="w"> </span>tag<span class="w"> </span>aks-store-demo-store-front<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/azure-samples/aks-store-demo/store-front
-docker<span class="w"> </span>tag<span class="w"> </span>aks-store-demo-order-service<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/azure-samples/aks-store-demo/order-service
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>tag<span class="w"> </span>aks-store-demo-product-service<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/aks-store-demo/product-service
+docker<span class="w"> </span>tag<span class="w"> </span>aks-store-demo-store-front<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/aks-store-demo/store-front
+docker<span class="w"> </span>tag<span class="w"> </span>aks-store-demo-order-service<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/aks-store-demo/order-service
 </code></pre></div>
 </li>
 <li>
 <p>Töltsük fel a képeket.</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/azure-samples/aks-store-demo/store-front
-docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/azure-samples/aks-store-demo/order-service
-docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/azure-samples/aks-store-demo/product-service
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/aks-store-demo/store-front
+docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/aks-store-demo/order-service
+docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io/aks-store-demo/product-service
 </code></pre></div>
-</li>
-</ol>
 <div class="admonition tip">
 <p class="admonition-title">ACR által használt tárhely</p>
-<p>Az ACR Azure portálos oldalán belül a <em>Metrics</em> menüpontban a <em>Storage used</em> nevű <a href="https://learn.microsoft.com/en-us/azure/container-registry/monitor-container-registry-reference#supported-metrics-for-microsoftcontainerregistryregistries">metrikát</a> kiválasztva ellenőrizhetjük az ACR által használt tárhelyet, illetve annak időbeli változását. Másik lehetőség az <em>Overview</em> menüponton belül a <em>Monitoring</em> alfül.</p>
+<p>Az ACR Azure portálos oldalán belül a <em>Metrics</em> menüpontban a <em>Storage used</em> nevű <a href="https://learn.microsoft.com/en-us/azure/container-registry/    monitor-container-registry-reference#supported-metrics-for-microsoftcontainerregistryregistries">metrikát</a> kiválasztva ellenőrizhetjük az ACR által használt tárhelyet, illetve annak     időbeli változását. Másik lehetőség az <em>Overview</em> menüponton belül a <em>Monitoring</em> alfül.</p>
 </div>
+<p>Az útmutató nem tér ki rá, de a teljesség kedvéért foglalkozzunk még további lemezképekkel. AKS-be az <a href="https://github.com/Azure-Samples/aks-store-demo/blob/main/aks-store-quickstart.yaml">aks-store-quickstart.yaml</a>-t fogjuk majd telepíteni, ami a fentieken túl a <a href="https://hub.docker.com/_/busybox">busybox</a> lemezképet is használja a Docker Hub-ról. Bár technikailag az AKS be tudja szerezni ezt a lemezképet a Docker Hub-ról, ezt is tegyük elérhetővé a saját ACR-ünkben.</p>
+<div class="admonition tip">
+<p class="admonition-title">Kitekintés - külső források</p>
+<p>Nagyvállalati környezetben a külső források elérése gyakran tiltott (pl. tűzfalszabályokkal), ezen források biztonsági és egyéb szempontok miatt  alapértelmezetten     megbízhatatlannak számítanak. A docker alapértelmezett forrása, a Docker Hub például  korlátozásokat (rate limiting) <a href="https://medium.com/@alaa.barqawi/    docker-rate-limit-with-azure-container-instance-and-aks-4449cede66dd">vezetett be</a> az AKS-es letöltésekre is. Mindezek miatt a nagyvállalti klaszterek csak belső céges repository-kat   használhatnak, amiket egy dedikált csapat kezel: megfelelő ellenőrzés után emelnek be külső vagy belső fejlesztésű elemeket (artifaktokat). Emiatt fontos, hogy minden    telepítési egység (pl. helm chart) paraméterezhető legyen a függőségeinek elérhetősége kapcsán.</p>
+</div>
+</li>
+<li>
+<p>Az ACR képes átmemelni külső forrásból lemezképeket, ha hálózatilag eléri és a külső forrás hozzáférésszabályozásán is át tud jutni. A Docker Hub esetében ez nem túl bonyolult, csak egyetlen Azure CLI parancs (<a href="https://learn.microsoft.com/en-us/azure/container-registry/container-registry-import-images?tabs=azure-cli#import-from-docker-hub">az acr import</a>). Felhasználónévként a Docker Hub felhasználónevünket adjuk meg, jelszóként pedig a felhasználónkhoz tartozó egyik Personal Access Token-ünket.</p>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>acr<span class="w"> </span>import<span class="w"> </span>--name<span class="w"> </span><span class="nv">$ACRNAME</span><span class="w"> </span>--source<span class="w"> </span>docker.io/library/busybox:latest<span class="w"> </span>--image<span class="w"> </span>busybox:latest<span class="w"> </span>--force<span class="w"> </span>--username<span class="w"> </span><span class="nv">$DOCKERHUB_USER</span><span class="w"> </span>--password<span class="w"> </span><span class="s2">"</span><span class="nv">$DOCKERHUB_TOKEN</span><span class="s2">"</span>
+</code></pre></div>
+</li>
+<li>
+<p>Másik extra lemezkép a <a href="https://mcr.microsoft.com/en-us/artifact/mar/azurelinux/base/rabbitmq-server/">rabbitmq v3.13</a>. Ezt is importáljuk hasonlóan, de felhasználói azonosítás nélkül (<code>--username</code>, <code>--password</code> paraméterek nélkül).</p>
+</li>
+<li>
+<p>Ellenőrizzük a feltöltött lemezképeket az Azure Portálon, az ACR <a href="https://learn.microsoft.com/en-us/azure/container-registry/container-registry-get-started-portal?tabs=azure-cli#list-container-images">Repositories menüpontjában</a>.</p>
+</li>
+</ol>
 <h3 id="aks-letrehozasa-meretezese">AKS létrehozása, méretezése<a class="headerlink" href="#aks-letrehozasa-meretezese" title="Permanent link">¶</a></h3>
 <p>Azure-ban minden erőforrás létrehozás, kezelés, stb. REST API-k segítségével történik, ezeket az API-kat ún. <em>resource provider</em>-ek ajánlják ki. Egy adott szolgáltatásnak általában saját resource providere van, de nem mindegyik van alapból bekapcsolva egy adott előfizetésen. Előfizetés tulajdonosként ezzel általában nem kell foglalkoznunk, egy szolgáltatás létrehozásakor a kapcsolódó resource provider automatikusan bekapcsolódik. Néhány esetben mégis szükség lehet arra, hogy kézzel kapcsoljunk be (regisztráljunk) provider-eket. Ilyen eset lehet, ha AKS létrehozás <strong>előtt</strong> a portál vCPU kvótákat ellenőriz - mint mindenhez, ehhez is API-t kell hívni. Ezért az AKS létrehozása előtt <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider-1">ezen útmutató</a> alapján ellenőrizzük, hogy a <em>Microsoft.Compute</em> provider regisztrálva van-e. Ha nincs, regisztráljuk.</p>
 <p>A hivatalos útmutató <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster?tabs=azure-cli">harmadik része</a> az AKS-t Azure CLI-vel hozza létre. Helyette kövesd <a href="https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-portal?tabs=azure-cli">az Azure portálos utat</a> a következő általános beállításokkal:</p>
@@ -1501,14 +1513,14 @@ docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRN
 <p class="admonition-title">User node pool</p>
 <p>Semmiképp ne adjunk a klaszterhez <strong>user</strong> node poolt, mert akkor a skálázásra végképp nem marad kvótánk. Csak a system node poolba vegyünk olcsóbb, max. 2 magos virtuális gépeket.</p>
 </div>
-<p>A system node pool méretezésekor érdemes a <em>Choose a size</em> opció által feldobott felületen a pontosan 2 magos (lehet rá szűrni), <em>D</em> betűvel kezdődő kódú kiméretek közül próbálkozni (D2s_v3, D2as_v4, DS2_v2). A felület mutatja a havi költséget is (<em>Cost/month</em>), a 60-90 EUR/VM költség már jónak számít.</p>
+<p>A system node pool méretezésekor érdemes a <em>Choose a size</em> opció által feldobott felületen a pontosan 2 magos (lehet rá szűrni), <em>D</em> betűvel kezdődő kódú kiméretek közül próbálkozni (D2s_v3, D2as_v4, DS2_v2, F2s_v2). A felület mutatja a havi költséget is (<em>Cost/month</em>), a 60-90 EUR/VM költség már jónak számít.</p>
 <div class="admonition warning">
 <p class="admonition-title">System node pool szabályok</p>
 <p>A kiválasztott kiméretnek még az AKS <a href="https://learn.microsoft.com/en-us/azure/aks/use-system-pools?tabs=azure-cli#system-and-user-node-pools">system node pool-ra vonatkozó minimum feltételeknek</a> is meg kell felelni. B sorozatú kiméretek például nem használhatók.</p>
 </div>
 <p>A VM kiméret választás után a <em>Node Pool</em> fülre visszatérve az Azure ellenőrzi a legtöbb szabályt. Ha nem látunk hibaüzenetet, akkor jó esélyeink vannak.</p>
 <figure>
-  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/quotaerror.png" data-desc-position="bottom"><img alt="quotaerror.png" src="images/quotaerror.png"></a>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/quotaerror.png" data-desc-position="bottom"><img alt="Kvótahiba" src="images/quotaerror.png"></a>
 <br>
 <figcaption>Nincs meg ehhez a jóárasított VM kimérethez a szükséges kvótánk</figcaption>
 </figure>
@@ -1532,11 +1544,12 @@ docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRN
 <p>Kukkantsuk meg a klasztert alkotó Azure infrastruktúraszolgáltatásokat: a <em>Properties</em> menüpontban az <em>Infrastructure resource group</em> linkre kattintva átugorhatunk az ezen szolgáltatásokat összefogó erőforráscsoportba.</p>
 </li>
 </ol>
+<p>Az útmutató negyedik része az AKS-specifikus tárhely konfigurációval foglalkozik, de erre most nincs szükségünk, így kihagyjuk.</p>
 <h3 id="mintaalkalmazas-telepitese">Mintaalkalmazás telepítése<a class="headerlink" href="#mintaalkalmazas-telepitese" title="Permanent link">¶</a></h3>
-<p>A hivatalos útmutató <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-application?tabs=azure-cli">negyedik része</a> alapján telepítsük a mintaalkalmazást. Az ACR login szerver és a K8S service külső IP címe is megszerezhető az Azure portálról. Az útmutató rész végére érve <strong>ne</strong> töröljük a telepítést.</p>
+<p>A hivatalos útmutató <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-application?tabs=azure-cli">ötödik része</a> alapján telepítsük a mintaalkalmazást. Az ACR login szerver és a k8s service külső IP címe is megszerezhető az Azure portálról. Az útmutató rész végére érve <strong>ne</strong> töröljük a telepítést.</p>
 <div class="admonition warning">
-<p class="admonition-title">K8S erőforráskorlátok</p>
-<p>A mintaalkalmazás korábbi verziójában némely konténer <a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/">erőforráslimitje</a> nagyon alacsony volt (pl. 10 MB memória), amit igen könnyű volt átlépni és ilyenkor az ütemező folyamatosan ki-kilőtte a podot (hibaüzenet valami hasonló volt: <em>container init was OOM-killed (memory limit too low?)</em>), a ráépülő szolgáltatás nem tudott rendben működni. Az aktuális verzióban ezt már <a href="https://github.com/Azure-Samples/aks-store-demo/commit/afe11f4ca94a154f43c3b72187b8684c048e608b#diff-46a7464f533643281cbe9a01070701f8acfc30f993f74ece069958ef3e3c4767R191">javították</a> a <em>product-service</em> konténer esetében. Ha hasonló hibajelenséget észleltek, akár a helyi K8S-ben, akár AKS-ben, nyugodtan állítsátok a hibát jelző konténer limitjét a YAML-ben.</p>
+<p class="admonition-title">K8s erőforráskorlátok</p>
+<p>A mintaalkalmazás korábbi verziójában némely konténer <a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/">erőforráslimitje</a> nagyon alacsony volt (pl. 10 MB memória), amit igen könnyű volt átlépni és ilyenkor az ütemező folyamatosan ki-kilőtte a podot (hibaüzenet valami hasonló volt: <em>container init was OOM-killed (memory limit too low?)</em>), a ráépülő szolgáltatás nem tudott rendben működni. Az aktuális verzióban ezt már <a href="https://github.com/Azure-Samples/aks-store-demo/commit/afe11f4ca94a154f43c3b72187b8684c048e608b#diff-46a7464f533643281cbe9a01070701f8acfc30f993f74ece069958ef3e3c4767R191">javították</a> a <em>product-service</em> konténer esetében. Ha hasonló hibajelenséget észleltek, akár a helyi k8s-ben, akár AKS-ben, nyugodtan állítsátok a hibát jelző konténer limitjét a YAML-ben.</p>
 </div>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
@@ -1544,100 +1557,188 @@ docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRN
 <ul>
 <li>a futó alkalmazás böngészőben, böngésző címsorban az alkalmazás (IP) címével</li>
 <li>parancssorban a kapcsolódó k8s <em>service</em> adatai (<code>kubectl get service store-front</code>)</li>
-<li>parancssorban az alkalmazás k8s <em>deployment</em> erőforrásai a lemezképek azonosítóival együtt (<code>kubectl get deployment -o wide</code>). </li>
+<li>parancssorban az alkalmazás k8s <em>deployment</em> erőforrásai a lemezképek azonosítóival együtt (<code>kubectl get deployment -o wide</code>).</li>
 </ul>
+<p>Commitold be a végleges aks-store-quickstart.yaml-t is.</p>
 </div>
 <h2 id="2-feladat">2. Feladat<a class="headerlink" href="#2-feladat" title="Permanent link">¶</a></h2>
-<p>A k8s házi <em>todoapp</em>-ját is telepítsük ugyanebbe az AKS-be, egy külön <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/">kubernetes névtérbe</a>.</p>
+<p>Az <em>AKS store demo</em> teljesebb változatát - hasonlót ahhoz, ami a k8s háziban is szerpelt, telepítsük ugyanebbe az AKS-be, egy külön <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/">kubernetes névtérbe</a>.</p>
 <h3 id="21-nevter-letrehozasa">2.1 Névtér létrehozása<a class="headerlink" href="#21-nevter-letrehozasa" title="Permanent link">¶</a></h3>
 <p>Ez egyszerű:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>todoapp
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>fullstore-neptun
 </code></pre></div>
-<h3 id="22-traefik-telepites-kulso-helm-chart-forrasbol">2.2 Traefik - telepítés külső helm chart forrásból<a class="headerlink" href="#22-traefik-telepites-kulso-helm-chart-forrasbol" title="Permanent link">¶</a></h3>
-<p>Itt most kiengedjük a traefik-et a publikus internetre, LoadBalancer objektumot hozunk létre NodePort helyett, de mivel ez az <a href="https://github.com/traefik/traefik-helm-chart/blob/b8725498c2445da8ecc06f156ca69ddc1a56cce4/traefik/values.yaml#L728">alapbeállítás</a>, így nem kell szinte semmi ilyesmit állítgatni. Csak az IngressRoute-ot kell <a href="https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md#access-traefik-dashboard-without-exposing-it">létrehozatni</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="w"> </span>helm<span class="w"> </span>install<span class="w"> </span>traefik<span class="w"> </span>traefik/traefik<span class="w"> </span>--namespace<span class="w"> </span>todoapp<span class="w"> </span>--set<span class="w"> </span>ingressRoute.dashboard.enabled<span class="o">=</span><span class="nb">true</span>
+<h3 id="22-extra-lemezkepek">2.2 Extra lemezképek<a class="headerlink" href="#22-extra-lemezkepek" title="Permanent link">¶</a></h3>
+<p>A teljesebb változatot az <a href="https://github.com/Azure-Samples/aks-store-demo/blob/main/aks-store-all-in-one.yaml">aks-store-all-in-one.yaml</a> alapján tervezzük telepíteni. Ez hivatkozik pár extra lemezképre, melyek egy részét meg kell építenünk. Erre egyik lehetőség a <a href="https://github.com/Azure-Samples/aks-store-demo/blob/main/docker-compose.yml">nagyobbik Docker Compose file használata</a>, például a <code>docker compose -f docker-compose.yml build</code> paranccsal (csak építeni akarunk, nem futtatni).</p>
+<p>Ezekre az épített lemezképekre lesz szükségünk, töltsük föl őket ACR-be:</p>
+<ul>
+<li>store-front</li>
+<li>order-service</li>
+<li>product-service</li>
+<li>makeline-service</li>
+<li>store-admin</li>
+</ul>
+<p>A külső lemezképek közül pedig ezekre - importáljuk az eddig nem importáltakat ACR-be:</p>
+<ul>
+<li>busybox - ez már megvan korábbról</li>
+<li>rabbitmq-server 3.13 - ez is már megvan korábbról</li>
+<li>mongo 7.0 a Docker Hub-ról (docker.io/library/mongo:7.0)</li>
+</ul>
+<h3 id="23-mongodb-70">2.3 MongoDB 7.0<a class="headerlink" href="#23-mongodb-70" title="Permanent link">¶</a></h3>
+<p>Módosítsuk a <a href="https://github.com/Azure-Samples/aks-store-demo/blob/main/aks-store-all-in-one.yaml">aks-store-all-in-one.yaml-t</a>, hogy a 7-es verziós lemezképet használja, adjunk neki kicsivel több erőforrást, illetve a <em>livenessProbe</em>-ot is finomítsuk, hogy ha lomhább is az adatbázis, akkor se álljon le a pod. Példa:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mongodb</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mongo:7.0</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">27017</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mongodb</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100m</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512Mi</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500m</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
+<span class="w">    </span><span class="nt">livenessProbe</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">exec</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">command</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mongosh</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--eval</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">db.runCommand('ping').ok</span>
+<span class="w">      </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="w">      </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">      </span><span class="nt">timeoutSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">      </span><span class="nt">failureThreshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
+<span class="w">      </span><span class="nt">successThreshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 </code></pre></div>
-<p>Ezután már lehet port-átirányítani.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>port-forward<span class="w"> </span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>todoapp<span class="w"> </span>-l<span class="w"> </span><span class="s2">"app.kubernetes.io/name=traefik"</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.items[0].metadata.name}"</span><span class="k">)</span><span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>-n<span class="w"> </span>todoapp
+<h3 id="24-lemezkepek-hivatkozasa">2.4 Lemezképek hivatkozása<a class="headerlink" href="#24-lemezkepek-hivatkozasa" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p>Nézzük át a YAML fájlt, az <code>image:</code> sorokat írjuk át, hogy mindenhol a saját ACR-ünkre hivatkozzon- hasonlóan az 1-es feladathoz. Figyeljünk rá, hogy az ACR-en belüli elérési útvonal is megfelelő legyen. Az ACR Azure portálos felületén meg tudjuk nézni az egyes lemezképek teljes nevét (<em>Artifact reference</em> vagy <em>Docker pull command</em>), ha kiválasztunk egy lemezkép verziót. A legbiztosabb, ha innen másoljuk ki.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/acr-container-details.png" data-desc-position="bottom"><img alt="Lemezkép elérési út" src="images/acr-container-details.png"></a></p>
+</li>
+<li>
+<p>Töröljük a <code>virtual-customer</code> és <code>virtual-worker</code> deployment-eket a leíróból.</p>
+</li>
+</ol>
+<h3 id="25-traefik">2.5 Traefik<a class="headerlink" href="#25-traefik" title="Permanent link">¶</a></h3>
+<p>A YAML leíró <em>ClusterIP</em> és <em>LoadBalancer</em> service típusokat használ, ez utóbbi azt okozza, hogy egy publikus IP címen lesz kívülről is <a href="https://learn.microsoft.com/en-us/azure/aks/load-balancer-standard#use-the-public-standard-load-balancer">elérhető</a> az adott szolgáltatás. Mivel minden szolgáltatás külön IP-t kap, így nagyon gyorsan kifuthatunk a (régiónkénti) <a href="https://learn.microsoft.com/en-us/azure/quotas/networking-quota-requests">publikus IP cím kvótánkból</a>.</p>
+<p>Jobb lenne egy korábban már látott Traefik proxy jellegű megoldás, ahol egy proxy / ingress kontroller lenne az egyetlen kívülről elérhető belépési pont és a proxy valamilyen címzési módszerrel (routing) különítené el a különböző webalkalmazásokat. Tipikus címzési módszerek, amik az URL különböző részei alapján irányítják a kérést:</p>
+<ul>
+<li>az URL <em>path</em> része alapján</li>
+<li>az URL <em>hostname</em> része alapján</li>
+<li>az URL <em>port</em> része alapján</li>
+</ul>
+<p>A k8s háziban egy <em>path</em> alapú megoldást valósítottunk meg, de ehhez előre <a href="https://vite.dev/guide/build.html#public-base-path">fel kellett készíteni</a> a webalkalmazások kódját (a kiinduló projekt már fel volt készítve). A <em>hostname</em> alapú általában transzparensebb a webalkalmazások szempontjából, egy előre konténerizált webalkalmazást lényegében bármilyen hosztnév alatt elérhetővé tehetünk. Publikus elérés esetén ehhez publikus DNS-be való bejegyzés szükséges. Bár elérhetők ingyenes publikus DNS-be bejegyző hosztnév szolgáltatások, az extra adminisztráció miatt nem ezt a módszert választjuk. A port alapú megoldás nem annyira szép, mint a domain alapú, de esetünkben ez lesz a legmegfelelőbb: nem kell a webalkalmazások kódját módosítani, és a DNS-sel sem kell foglalkozni.</p>
+<p>A Traefik proxy támogatja a port alapú routing-ot is, ezért ismét Traefik-et használunk, csak egy kicsit másként. Telepítsük a Traefik-et is az ACR-ünkből. Cél, hogy a store-front a 80-as, a store-admin a 8090-es porton legyen elérhető, illetve mindkettő ugyanazon az AKS load balancer publikus IP címen.</p>
+<ol>
+<li>
+<p>Importáljuk a Traefik-et az ACR-be</p>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>acr<span class="w"> </span>import<span class="w"> </span>--name<span class="w"> </span><span class="nv">$ACRNAME</span><span class="w"> </span>--source<span class="w"> </span>ghcr.io/traefik/helm/traefik:37.2.0<span class="w"> </span>--image<span class="w"> </span>helm/traefik:37.2.0
 </code></pre></div>
-<p>Ezután a <a href="http://localhost:8080/dashboard/">http://localhost:8080/dashboard/</a> címen érhető el a traefik dashboard (amíg a <code>port-forward</code> parancs fut).</p>
+</li>
+<li>
+<p>A <a href="https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md">telepítési beállításokat</a> most egy fájlból adjuk meg. Készíts egy új fájlt az AKS store demo repo mappájába traefik-values.yaml néven, az alábbi tartalommal:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">ports</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Additional HTTP entry point on 8090 (for other web apps)</span>
+<span class="w">  </span><span class="nt">web8090</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8090</span>
+<span class="w">    </span><span class="nt">expose</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">exposedPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8090</span>
+<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span>
+
+<span class="nt">ingressRoute</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">dashboard</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>Ez egyrészt egy új portot definiál, ahol a Traefik-et meg lehet szólítani (a hagyományos 80-as és 443-as port mellett), másrészt elérhetővé tesszük a Traefik dashboard-ot - <a href="https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md#access-traefik-dashboard-without-exposing-it">legalábbis kubectl port-forward-on keresztüli elérésre</a>.</p>
+</li>
+<li>
+<p>Telepítsük a Traefik-et ACR-ből. Ehhez előbb a helm-nek azonosítania kell magát az ACR felé. Ez szerencsére nem gond, ha van <a href="https://learn.microsoft.com/en-us/azure/container-registry/container-registry-helm-repos#authenticate-with-the-registry">Azure CLI-nk</a>.</p>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>acr<span class="w"> </span>login<span class="w"> </span>--name<span class="w"> </span><span class="nv">$ACRNAME</span><span class="w"> </span>--expose-token<span class="w"> </span>--output<span class="w"> </span>tsv<span class="w"> </span>--query<span class="w"> </span>accessToken<span class="w"> </span><span class="p">|</span><span class="w"> </span>helm<span class="w"> </span>registry<span class="w"> </span>login<span class="w"> </span><span class="nv">$ACRNAME</span>.azurecr.io<span class="w"> </span>--username<span class="w"> </span><span class="s2">"00000000-0000-0000-0000-000000000000"</span><span class="w">    </span>--password-stdin
+helm<span class="w"> </span>install<span class="w"> </span>traefik<span class="w"> </span>oci://<span class="nv">$ACRNAME</span>.azurecr.io/helm/traefik<span class="w"> </span>--version<span class="w"> </span><span class="m">37</span>.2.0<span class="w"> </span>--namespace<span class="w"> </span>fullstore-neptun<span class="w"> </span>-f<span class="w"> </span>traefik-values.yaml
+</code></pre></div>
 <div class="admonition warning">
-<p class="admonition-title">Alapértelmezett port változása</p>
-<p>A korábbi helm chart verziókban (v33 előtt) az alapértelmezett port 9000 volt. A lokálisan gyorsítótárazott verzió lekérdezése: <code>helm search repo traefik/traefik</code> (<em>CHART VERSION</em> oszlop). Ha ez még v33 előtti és frissítenénk az új verzióra, akkor <code>helm repo update</code>. </p>
+<p class="admonition-title">kubectl context</p>
+<p>A helm a telepítési célként a kubectl aktív kontextjét használja. Ügyeljünk arra, hogy az AKS-ünk legyen az aktív kontext.</p>
 </div>
-<h3 id="23-adatbazisok-telepites-k8s-yaml-fajlokkal">2.3 Adatbázisok - telepítés k8s YAML fájlokkal<a class="headerlink" href="#23-adatbazisok-telepites-k8s-yaml-fajlokkal" title="Permanent link">¶</a></h3>
-<p>Próbáljuk ki egy-az-egyben a k8s házi módszerét. Töltsük le valahová az adatbázisok <a href="https://github.com/bmeviaumb11/skalazhato-szoftverek-bmeviaumb11-2024-hf-2024-kubernetes-hf-kiindulo-kubernetes-1/tree/main/todoapp/kubernetes/db">k8s YAML fájljait tartalmazó mappát</a> (vagy navigáljunk a k8s házink könyvtárába). A <code>db</code> mappa szülőkönyvtárban állva:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>db<span class="w"> </span>-n<span class="w"> </span>todoapp
+</li>
+<li>
+<p>Ellenőrizzük, hogy megjelent-e a <em>traefik</em> nevű k8s service és rajta a 8090-es port is.</p>
+</li>
+</ol>
+<h3 id="26-ingress">2.6 Ingress<a class="headerlink" href="#26-ingress" title="Permanent link">¶</a></h3>
+<p>Bár a k8s <em>Ingress</em> API hagyományosan a sztenderd HTTP portokon folyó kommunikációra lett kitalálva így <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress">nem is fogalalkozik port/protokoll konfigurációval</a>. A Traefik külön annotációkat <a href="https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/ingress/">definiál</a>, amiket az <em>Ingress</em> objektummokra rakhatunk, így mégis megadhatjuk, hogy milyen portot használjon. </p>
+<div class="admonition info">
+<p class="admonition-title">alternatív routing konfiguráció</p>
+<p>Bár ez egyszerű esetben nem egy rossz megoldás, de kissé suta. Szerencsére nem csak k8s <em>Ingress</em> objektumot használhatunk a routing konfigurációjára, hanem például a Traefik saját alternatív <a href="https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/crd/http/ingressroute/"><em>IngressRoute</em></a> típusát, ami sokkal egyértelműbben tárja elénk a Traefik routing lehetőségeit. Másik alternatíva a k8s <em>Ingress</em> utódjának szánt, annál jóval többet tudó k8s <a href="https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/gateway-api/"><em>Gateway</em> API</a></p>
+</div>
+<ol>
+<li>
+<p>Állítsuk az <em>aks-store-all-in-one.yaml</em>-ben minden k8s service típusát <code>ClusterIP</code>-re. Csak a Traefik szolgáltatás lesz kívülről elérhető (<em>LoadBalancer</em> típus), de az nem ebben a YAML-ben van definiálva, hanem a Traefik helm chart kezeli.</p>
+</li>
+<li>
+<p>Adjunk 1-1 k8s <em>Ingress</em> leírót a YAML fájlhoz a <code>store-front</code> és <code>store-admin</code> service-ekhez kapcsolva. Példaként itt a <code>web8090</code> portról a <code>store-admin</code> <em>Service</em> felé route-oló <em>Ingress</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ingress to expose store-admin via Traefik entryPoint `web8090` (HTTP 8090)</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networking.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ingress</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">store-admin-ingress</span>
+<span class="w">  </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">traefik.ingress.kubernetes.io/router.entrypoints</span><span class="p">:</span><span class="w"> </span><span class="s">"web8090"</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">rules</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">http</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">paths</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
+<span class="w">            </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Prefix</span>
+<span class="w">            </span><span class="nt">backend</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">service</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">store-admin</span>
+<span class="w">                </span><span class="nt">port</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
 </code></pre></div>
-<p>Meglepő lehet, de ez szinte teljesen jól működik: nincs megadva storage class, így az AKS alapértelmezett storage class-a érvényesül, ami standard SSD lemezeket hoz létre, és ezek csatolódnak fel. Ezen lemezek élettartama az AKS élettartamához kötött (de nem a K8S objektumok élettartamához!), így az AKS törlésével ezek is törlődnek. </p>
-<div class="admonition tip">
-<p class="admonition-title">AKS/K8S storage class-ok</p>
-<p>Így kérdezhetjük le őket: <code>kubectl get sc</code>. Az alapértelmezett storage class tulajdonságai: <code>kubectl describe sc default</code>. Látható, hogy a létrehozó (provisioner) <code>disk.csi.azure.com</code>, aminek paraméterként a <code>skuname=StandardSSD_LRS</code> beállítást kapja meg, tehát nem meglepő, hogy <a href="https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types#disk-type-comparison">Azure Disk Standard SSD</a> jön létre.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Diszkek, mint Azure erőforrások</p>
-<p>A lemezeket, mint Azure erőforrás is megfigyelhetjük, ha újra rákukkantunk az infrastruktúraszolgáltatásos erőforráscsoportra: két új 2 GiB méretű Standard SSD diszk is létrejött. Mivel a provisioner (az AKS platform) kezeli ezeket a lemezeket, ezért logikus, hogy ide kerülnek.</p>
-</div>
-<p>Pár perc elteltével, ha ránézünk pod listára (megfelelő <code>kubectl</code> paranccsal vagy <a href="https://learn.microsoft.com/en-us/azure/aks/kubernetes-portal?tabs=azure-cli#view-kubernetes-resources">Azure portal Workloads menüpontban</a>) láthatjuk, hogy gond van az elasticsearch poddal, folyamatosan újraindul.</p>
-<p>Kérdezzük le a pod logját: ezt is megtehetjük <code>kubectl</code> paranccsal vagy <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-livedata-overview#view-aks-resource-live-logs">Azure portálon</a>. Az elasticsearch folyamat nem tud dolgozni a csatolt köteten (volume) jogosultsági gondok miatt. Az elasticsearch folyamat saját <a href="https://github.com/elastic/elasticsearch/blob/v7.17.17/distribution/docker/src/docker/Dockerfile#L164"><em>elasticsearch</em> linux felhasználó nevében fut</a>, az AKS viszont nem tud erről a felhasználóról, így a kötethez alapértelmezetten nem lesz joga. Oldjuk meg a problémát egy új init konténerrel, vegyünk fel egy újat a meglévők mellé a <em>elasticsearch-statefulset.yaml</em>-be, ami root felhasználó nevében futva a kötet tulajdonosává teszi az <em>elasticsearch</em> felhasználót (uid:1000, gid:1000).</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">init-permissions</span>
-<span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alpine</span>
-<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="s">"sh"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"-c"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"chown</span><span class="nv"> </span><span class="s">-R</span><span class="nv"> </span><span class="s">1000:1000</span><span class="nv"> </span><span class="s">/usr/share/elasticsearch/data"</span><span class="w"> </span><span class="p p-Indicator">]</span>
-<span class="w">  </span><span class="nt">volumeMounts</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">elasticsearch-data</span>
-<span class="w">    </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/share/elasticsearch/data</span><span class="w">      </span>
+<p>A másik <em>Ingress</em> esetében a 80-as portot, azaz a <code>web</code> nevű <a href="https://doc.traefik.io/traefik/reference/install-configuration/entrypoints/">entrypointot</a> és a store-front <em>Service</em>-t kössük össze.</p>
+</li>
+<li>
+<p>Telepítsünk, alkalmazzuk a YAML leírót. Mivel a leíró nem hivatkozik k8s névtérre, ezért azt az <code>apply</code> parancsban be tudjuk állítani, így minden erőforrás a megadott névtérbe kerül.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>aks-store-all-in-one.yaml<span class="w"> </span>-n<span class="w"> </span>fullstore-neptun
 </code></pre></div>
-<p>Mehet egy újabb próba a korábbi <code>kubectl apply</code> paranccsal. Egyértelműbb a változtatás alkalmazása, ha ki is töröljük az elasticsearch pod-ot. Ezt is megtehetjük Azure portálról és <code>kubectl</code> paranccsal is. Ezután már nem szabad folyamatos újraindulást tapasztalunk a podok között.</p>
-<div class="admonition tip">
-<p class="admonition-title">ECK</p>
-<p>Elasticsearch telepítésére egy modernebb módszer az <em>Elastic Cloud on Kubernetes</em> disztribúció, például <a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-install-helm.html">helm chartként</a>.</p>
-</div>
-<h3 id="24-sajat-mikroszolgaltatasok-telepites-nem-annyira-kulso-helm-chart-forrasbol">2.4 Saját mikroszolgáltatások - telepítés nem annyira külső helm chart forrásból<a class="headerlink" href="#24-sajat-mikroszolgaltatasok-telepites-nem-annyira-kulso-helm-chart-forrasbol" title="Permanent link">¶</a></h3>
-<p>A tárgy <a href="https://portal.azure.com/#@m365.bme.hu/resource/subscriptions/b83ae5ef-4ef6-4ccb-bb4b-e9f187873feb/resourceGroups/infra/providers/Microsoft.ContainerRegistry/registries/viaumb11acr/overview">közös ACR-jába</a> felkerültek a k8s házi mikroszolgáltatásai helm chartként, illetve a hivatkozott konténerek is. Elvileg minden Teams csapattag kapott ehhez hozzáférést, letöltéshez <a href="https://learn.microsoft.com/en-us/azure/container-registry/container-registry-roles?tabs=azure-cli"><code>AcrPull</code> jogot</a>.</p>
-<div class="admonition tip">
-<p class="admonition-title">Saját jog ellenőrzése</p>
-<p>Ellenőrizheted a hozzáférésed ehhez vagy bármilyen más Azure erőforráshoz az <a href="https://learn.microsoft.com/en-us/azure/role-based-access-control/check-access#step-3-check-your-access">Azure portálon</a>.</p>
-</div>
-<p>Megfelelő jogok birtokában közvetlenül, saját gép érintése nélkül <a href="https://learn.microsoft.com/en-us/azure/container-registry/container-registry-import-images?tabs=azure-cli#import-from-a-registry-in-a-different-subscription">másolhatunk</a> lemezképeket, helm chartokat ACR-ek között. Az alábbi példa alapján másold át a 3 szükséges lemezképet (<em>todos</em>, <em>users</em>, <em>web</em>; mindegyikből a v2 tag). A helm chartot nem szükséges másolni: azt a fejlesztői gépünknek kell elérni, a lemezképeket viszont az AKS-nek, ami csak a saját ACR-ünket látja csak, a közös tárgy ACR-t nem.</p>
-<div class="highlight"><pre><span></span><code>az<span class="w"> </span>acr<span class="w"> </span>import<span class="w"> </span>--name<span class="w"> </span><span class="nv">$ACRNAME</span><span class="w"> </span>--source<span class="w"> </span>todos:v2<span class="w"> </span>--registry<span class="w"> </span>/subscriptions/b83ae5ef-4ef6-4ccb-bb4b-e9f187873feb/resourceGroups/infra/providers/Microsoft.ContainerRegistry/registries/viaumb11acr
-</code></pre></div>
-<div class="admonition tip">
-<p class="admonition-title">ACR repo felfedezése</p>
-<p>Az elérhető lemezképeket, helm chartokat is felfedezheted <a href="https://learn.microsoft.com/en-us/azure/container-registry/container-registry-repositories">a portálon</a>.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Alternatíva - helm publikálás ACR-be</p>
-<p>A saját k8s házid megoldásának mikroszolgáltatásait is publikálhatod a saját ACR-edbe. Ehhez a <code>IMAGE_TAG="v2" REGISTRY_URL="$ACRNAME.azurecr.io"  docker compose build --push</code> parancsot használhatod.</p>
-</div>
-<p>Csatlakoztassuk a központi ACR-t helm repo-ként. Az alábbi egy <em>bash</em>-specifikus példa:</p>
-<div class="highlight"><span class="filename">bash</span><pre><span></span><code>az<span class="w"> </span>acr<span class="w"> </span>login<span class="w"> </span>--name<span class="w"> </span>viaumb11acr<span class="w"> </span>--expose-token<span class="w"> </span>--output<span class="w"> </span>tsv<span class="w"> </span>--query<span class="w"> </span>accessToken<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>helm<span class="w"> </span>registry<span class="w"> </span>login<span class="w"> </span>viaumb11acr.azurecr.io<span class="w"> </span>--username<span class="w"> </span><span class="s2">"00000000-0000-0000-0000-000000000000"</span><span class="w"> </span>--password-stdin
-</code></pre></div>
-<p>Kérdezzük le a helm chart beállításait.</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>show<span class="w"> </span>values<span class="w"> </span>oci://viaumb11acr.azurecr.io/helm/todoapp
-</code></pre></div>
-<p>A k8s házihoz képest új beállítás került be, az <strong>image.registry</strong>, amivel a lemezképek registry azonosítóit állíthatjuk. Ezt kell a saját ACR-ünkre állítani, amit az AKS-ünk elér. A tag beállítások már korábban megvoltak, azoknak egyezniük kell az átmásolt képek tagjeivel.</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>todoapp<span class="w"> </span>oci://viaumb11acr.azurecr.io/helm/todoapp<span class="w"> </span>--version<span class="w"> </span><span class="m">0</span>.1.0<span class="w"> </span>--namespace<span class="w"> </span>todoapp<span class="w"> </span>--set<span class="w"> </span>image.registry<span class="o">=</span><span class="nv">$ACRNAME</span>.azurecr.io<span class="w"> </span>--set<span class="w"> </span>todos.tag<span class="o">=</span>v2<span class="w"> </span>--set<span class="w"> </span>web.tag<span class="o">=</span>v2<span class="w"> </span>--set<span class="w"> </span>users.tag<span class="o">=</span>v2
-</code></pre></div>
-<div class="admonition tip">
-<p class="admonition-title">Lemezkép letöltés ellenpróba</p>
-<p>Opcionálisan próbáld ki, mi történik, ha a registry-t nem állítod be. Telepített verzió leszedése: <code>helm uninstall todoapp --namespace todoapp</code>.</p>
-</div>
-<p>Jöhet a fő próba: az Azure portálról vagy parancssorból (<code>kubectl</code>) szerezzük meg a traefik service külső IP-jét és nyissuk meg böngészőből (https helyett sima http-n). Vegyünk fel pár feladatot.</p>
-<div class="admonition tip">
-<p class="admonition-title">Kitekintés - külső források</p>
-<p>Nagyvállalati környezetben a külső források elérése gyakran tiltott (pl. tűzfalszabályokkal), ezen források biztonsági és egyéb szempontok miatt  alapértelmezetten megbízhatatlannak számítanak. A docker alapértelmezett forrása, a Docker Hub például  korlátozásokat (rate limiting) <a href="https://medium.com/@alaa.barqawi/docker-rate-limit-with-azure-container-instance-and-aks-4449cede66dd">vezetett be</a> az AKS-es letöltésekre is. Mindezek miatt a nagyvállalti klaszterek csak belső céges repository-kat használhatnak, amiket egy dedikált csapat kezel: megfelelő ellenőrzés után emelnek be külső vagy belső fejlesztésű elemeket (artifaktokat). Emiatt fontos, hogy minden telepítési egység (pl. helm chart) paraméterezhető legyen a függőségeinek elérhetősége kapcsán.</p>
-</div>
+</li>
+<li>
+<p>Ellenőrizzük az Azure portálon vagy <code>kubectl</code> parancsokkal, hogy minden k8s objektum rendben elindult-e. Szerezzük be a Traefik <em>LoadBalancer</em> típusú <em>Service</em> publikus IP címét. Ellenőrizzük, hogy a weboldalak a tervezett portokon elérhetőek-e.</p>
+</li>
+<li>
+<p>Teszteld le az alkalmazást, vidd végig a k8s házi 3. feladatának beadandójához is szükséges tesztlépéseket (termék átnevezés, rendelés feladás, rendelés teljesítés).</p>
+</li>
+<li>
+<p>A k8s háziban megismert <em>port forward</em> módszerrel tedd elérhetővé localhost-on a Traefik dashboard-ot.</p>
+</li>
+</ol>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
-<p>Készíts egy képernyőképet (<code>f2.1.png</code>) és commitold azt be a házi feladat repó gyökerébe, ahol az alkalmazás futása látszik egy saját neptun kódot tartalmazó todoval. Látszódjon a weboldal címe is.</p>
+<p>Készíts az alábbi tesztesetekről képernyőképeket, és commitold be a házi feladat repó gyökerébe:</p>
+<ul>
+<li>Publikus oldal        <ul>
+<li>A <em>Proceed to checkout</em> gombra kattintva egy 1-10 db. közötti véletlen mennyiségű, <em>neptun kódosra módosított nevű</em> termékre vonatkozó rendelés beküldésre került (sikeres üzenet). (<code>f2.1.1.png</code>)</li>
+</ul>
+</li>
+<li>Admin felület<ul>
+<li>A fenti rendelésen a <em>Complete Order</em> gombra kattintva az állapotmódosítás sikeres, a rendelés állapota <em>Completed</em>-re változik. (<code>f2.1.2.png</code>)        </li>
+</ul>
+</li>
+</ul>
 <p>Készíts egy másik képernyőképet (<code>f2.2.png</code>) és commitold azt be ezt is a házi feladat repó gyökerébe, ahol az Azure portálon látszik az AKS infrastruktúra erőforráscsoportjának (MC_ kezdetű) áttekintő nézete (<em>Overview</em>). Látszódjon a portálra belépett felhasználó azonosítója a jobb felső sarokban.</p>
-<p>Készíts egy másik képernyőképet (<code>f2.3.png</code>) és commitold azt be ezt is a házi feladat repó gyökerébe, ahol a végállapotban látszik parancssorban mindkét alkalmazás k8s <em>deployment</em> erőforrásai a lemezképek azonosítóival együtt (<code>kubectl get deployment -o wide</code> és <code>kubectl get deployment -n todoapp -o wide</code>)</p>
+<p>Készíts egy másik képernyőképet (<code>f2.3.png</code>) és commitold azt be ezt is a házi feladat repó gyökerébe, ahol a végállapotban látszanak parancssorban az új névtér k8s <em>deployment</em> erőforrásai a lemezképek azonosítóival együtt (<code>kubectl get deployment -n fullstore-neptun -o wide</code>)</p>
+<p>Készíts egy másik képernyőképet (<code>f2.4.png</code>) és commitold azt be ezt is a házi feladat repó gyökerébe, ahol a Traefik dashboard <em>HTTP Routers</em> listája látható (pl.: <a href="http://localhost:8080/dashboard/#/http/routers">http://localhost:8080/dashboard/#/http/routers</a>). </p>
+<p>Commitold be a végleges aks-store-all-in-one.yaml-t is.</p>
 </div>
 <h2 id="3-feladat-talan-a-legfontosabb">3. Feladat - talán a legfontosabb<a class="headerlink" href="#3-feladat-talan-a-legfontosabb" title="Permanent link">¶</a></h2>
 <div class="admonition danger">
-<p class="admonition-title">AKS törlése</p>
-<p>Beadás után, ha egyből folytatod a következő házival, akkor hagyd meg, egyébként töröld az AKS-t. Ajánlott egyből folytatni, különben újra létre kell majd hoznod, és fel kell töltened az AKS-t.</p>
+<p class="admonition-title">AKS kikapcsolása, takarítása</p>
+<p>Beadás után, ha nem egyből folytatod a következő házival, akkor <a href="https://learn.microsoft.com/en-us/azure/aks/start-stop-cluster">állítsd le az AKS-t</a>. Azure Portal-on is lehet, az AKS <em>Overview</em> oldalán is ott a <strong>Stop</strong> gomb.</p>
+<p>A következő házihoz elég a <code>default</code> névtérbe telepített alkalmazás (1. feladat). Az ezt követően telepített K8S objektumok (<code>fulllstore-neptun</code> névtér) törölhetőek.</p>
+<p>Ha egyáltalán nem adod be a következő házit, akkor törölj minden erőforráscsoportot.</p>
 </div>
   <hr>
   <div class="md-source-file">
@@ -1646,8 +1747,8 @@ docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRN
           </path>
         </svg>
       </span>
-      <span title="2025. szeptember 5. 09:55:13">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 5. 09:55:13 CEST"><span class="timeago" datetime="2025-09-05T09:55:13+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 5. 09:55:13 CEST">2025-09-05</span>
+      <span title="2025. október 31. 11:58:11">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. október 31. 11:58:11 CET"><span class="timeago" datetime="2025-10-31T11:58:11+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. október 31. 11:58:11 CET">2025-10-31</span>
       </span>
     </span>
 
@@ -1661,10 +1762,10 @@ docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$ACRN
         </svg>
       </span>
       <span>Szerzők</span>
-      <nav><a href="https://github.com/Breinich" target="_blank" rel="noopener noreferrer" class="md-author" title="@Vencel Bajnok">
+      <nav><a href="https://github.com/kszicsillag" target="_blank" rel="noopener noreferrer" class="md-author" title="@kszicsillag">
+          <img src="https://avatars.githubusercontent.com/kszicsillag?size=72" alt="@kszicsillag">
+        </a><a href="https://github.com/Breinich" target="_blank" rel="noopener noreferrer" class="md-author" title="@Vencel Bajnok">
           <img src="https://avatars.githubusercontent.com/u/74102716?u=55e714273918a271faff6115772605d7f130cf4b&amp;v=4?size=72" alt="@Vencel Bajnok">
-        </a><a href="https://github.com/kszicsillag" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gábor Simon">
-          <img src="https://avatars.githubusercontent.com/u/1849897?u=1d3aa9b07d07da9a2b04d86a97ec4060c3280592&amp;v=4?size=72" alt="@Gábor Simon">
         </a></nav>      
     </span>
   </div>
