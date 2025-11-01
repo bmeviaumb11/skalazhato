@@ -1439,7 +1439,7 @@ AZ-400: Development for enterprise DevOps;405
 <h3 id="azure-alapon-futo-rendszerekhez">Azure alapon futó rendszerekhez<a class="headerlink" href="#azure-alapon-futo-rendszerekhez" title="Permanent link">¶</a></h3>
 <ul>
 <li>
-<p><strong>{AZDB2}</strong> Legalább kétfajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, CosmosDB). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: <strong>10</strong> pont</p>
+<p><strong>{AZDB2}</strong> Legalább kétfajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, CosmosDB, Azure Table Storage). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: <strong>10</strong> pont</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>30 napig ingyenes (többször is aktiválható!) <a href="https://cosmos.azure.com/try/">Cosmos DB</a></p>
@@ -1466,7 +1466,7 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{AZKVAU}</strong> Titkok lekérése saját <em>Azure Key Vault</em>-ból passwordless hozzáféréssel (pl. managed identity, workload identity): <strong>3</strong> pont</p>
 </li>
 <li>
-<p><strong>{AZMSG}</strong> A mikroszolgáltatások közötti kommunikáció kiszervezése valamely <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services">Azure üzenetkezelő szolgáltatásba</a> (pl. Service Bus) managed identity alapú hozzáféréssel: <strong>5</strong> pont</p>
+<p><strong>{AZMSG}</strong> A mikroszolgáltatások közötti kommunikáció kiszervezése valamely <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services">Azure üzenetkezelő szolgáltatásba</a> (pl. Service Bus, de <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-azure-and-service-bus-queues-compared-contrasted?source=recommendations">Azure Storage Queue</a> is elfogadott) managed identity alapú hozzáféréssel.: <strong>5</strong> pont</p>
 </li>
 <li>
 <p><strong>{AZACA}</strong> <em>Azure Container Apps</em> skálázása szabály alapján: <strong>5</strong> pont</p>
@@ -1516,6 +1516,9 @@ AZ-400: Development for enterprise DevOps;405
 </li>
 <li>
 <p><strong>{AZSTR}</strong> Tartós tár, például Azure Disk, Azure Files csatolása AKS, ACA klaszterbe vagy <a href="https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares">Azure Function-be</a>: <strong>5</strong> pont</p>
+</li>
+<li>
+<p><strong>{AZBLOB}</strong> Azure Storage Blob integrálása <a href="https://learn.microsoft.com/en-us/azure/storage/blobs/authorize-access-azure-active-directory">managed identity használatával</a>  <strong>5</strong> pont</p>
 </li>
 <li>
 <p><strong>{AZFDF}</strong> <a href="https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview"><em>Durable Functions</em></a> használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: <strong>5</strong> pont</p>
@@ -1568,8 +1571,8 @@ AZ-400: Development for enterprise DevOps;405
           </path>
         </svg>
       </span>
-      <span title="2025. november 1. 14:33:27">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 1. 14:33:27 CET"><span class="timeago" datetime="2025-11-01T14:33:27+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 1. 14:33:27 CET">2025-11-01</span>
+      <span title="2025. november 1. 14:59:30">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 1. 14:59:30 CET"><span class="timeago" datetime="2025-11-01T14:59:30+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 1. 14:59:30 CET">2025-11-01</span>
       </span>
     </span>
 
