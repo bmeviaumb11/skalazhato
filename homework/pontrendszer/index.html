@@ -1325,7 +1325,7 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{DDD}</strong> DDD tervezési elvek demonstrálása Event Storming alapú üzleti folyamattervezéssel. A pontot extra ábra(k) elkészítésével szükséges demonstrálni, amin az Event Storming során megtervezett folyamat kerül dokumentálásra. A védésen bemutatni szükséges a tervek hatását az architektúrára, implementációra: <strong>5 pont</strong></p>
 </li>
 <li>
-<p><strong>{ACTOR}</strong> Actor minta alkalmazása legalább egy állapottal rendelkező szolgáltatás esetében magas szintű keretrendszerek segítségével pl.: Akka, Microsoft Orleans, Akka.NET: <strong>15 pont</strong></p>
+<p><strong>{ACTOR}</strong> Aktor minta alkalmazása legalább egy állapottal rendelkező szolgáltatás esetében magas szintű keretrendszerek segítségével pl.: Akka, Microsoft Orleans, Akka.NET: <strong>15 pont</strong></p>
 </li>
 <li>
 <p><strong>{CACHE}</strong> Saját telepítésű (pl. Redis konténer) használata kifejezetten cache-elésre legalább egy művelet esetén: <strong>5</strong> pont</p>
@@ -1402,6 +1402,13 @@ AZ-400: Development for enterprise DevOps;405
 <li>egyszerű REST-jellegű webes API, SDK használat nélkül, egyszerű API-kulcsalapú autentikáció <strong>5</strong> pont</li>
 <li>SDK-val / REST API-val, iparilag elfogadott, elterjedt autentikációs protokollt (pl. OIDC) végrehajtva <strong>7</strong> pont</li>
 </ul>
+</li>
+<li>
+<p><strong>{INOUTPROC}</strong> Konfigurálható, hogy az adott mikroszolgáltatás külön szolgáltatásként (külön processz / pod) települjön-e, vagy a hívóval együtt egy processzbe (in-process); a hívás a konfigurációnak megfelelően vagy szolgáltatáshívás vagy közvetlen (függvény)hívás. Bemutatáskor példát kell mutatni mindkét esetre. <strong>10</strong> pont</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Ha ugyanezt futási időben is szeretnénk, azaz, hogy a szolgáltatások közötti kommunikáció dinamikusan változhasson lokális és távoli jellegű hívás között, akkor érdemes az <em>aktor</em> modell alapú megoldások felé elmozdulni. A legtöbb <em>aktor</em> modell implementáció biztosítja az ilyesfejta transzparenciát a futási hely tekintetében. Lásd még az aktor mintás jogcímet.</p>
+</div>
 </li>
 </ul>
 <h3 id="on-premise-futo-rendszerekhez">On-premise futó rendszerekhez<a class="headerlink" href="#on-premise-futo-rendszerekhez" title="Permanent link">¶</a></h3>
@@ -1569,8 +1576,8 @@ AZ-400: Development for enterprise DevOps;405
           </path>
         </svg>
       </span>
-      <span title="2025. november 1. 17:35:47">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 1. 17:35:47 CET"><span class="timeago" datetime="2025-11-01T17:35:47+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 1. 17:35:47 CET">2025-11-01</span>
+      <span title="2025. november 1. 18:13:19">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 1. 18:13:19 CET"><span class="timeago" datetime="2025-11-01T18:13:19+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 1. 18:13:19 CET">2025-11-01</span>
       </span>
     </span>
 
