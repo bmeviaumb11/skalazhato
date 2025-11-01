@@ -1207,7 +1207,7 @@ AZ-400: Development for enterprise DevOps;405
 <p>A tárgy által oktatott, preferált architektúrák felhős költségei tipikusan magasabbak, mint amire a hallgatói Azure előfizetés kreditszámát (100$ / 1 év) méretezték. A költségeket lehet ugyan kontrollálni, de ez folyamatos odafigyelést igényel. Nem akartuk elvenni a lehetőséget és a motivációt a felhős szolgáltatások kipróbálásától, de a felhős alapplatformok választását a nagyházi keretében (különösen AKS) alapestben <strong>nem ajánljuk!</strong></p>
 <p>Ha mégis ezeket választanád, néhány tipp:</p>
 <ul>
-<li>Érdemes olyan platformokat választani, ahol könnyű elérni a 0 terhelés = kb. 0 költség állapotot. Az AKS-sel ezt nehéz, ACA és Azure Functions esetében könnyebb</li>
+<li>Érdemes olyan platformokat választani, ahol könnyű elérni a 0 terhelés = kb. 0 költség állapotot. ACA és Azure Functions esetében könnyebb, AKS-nél figyelni kell, hogy használaton kívül leálljon a klaszter.</li>
 <li>Figyeld a költségeket, de vedd figyelembe, hogy az elszámolás laggolhat (később jelentkeznek a költségek)</li>
 <li>Legnagyobb költség okozók: adatbázisok, futó virtuális gépek és node pool-ok, nagy mennyiségű adat mozgatása régiók között</li>
 <li>Próbáld egyszerűsíteni a felhős részt, két független telepítés esetén nem kell, hogy minden nem-üzleti funkció (pl. authentikáció) ugyanolyan komplex legyen a két telepítésben (lásd a pontrendszerben a két-független-platformos jogcímet)</li>
@@ -1422,7 +1422,7 @@ AZ-400: Development for enterprise DevOps;405
 </ul>
 </li>
 <li>
-<p><strong>{OPSTR}</strong> Tartós tár, pl. lokális mappa csatolása klaszterbe. <strong>5</strong> pont</p>
+<p><strong>{OPSTR}</strong> Tartós tár, pl. lokális mappa csatolása klaszterbe. <strong>3</strong> pont</p>
 </li>
 <li>
 <p><strong>{GW}</strong> Saját telepítésű (API/App) gateway használata. Kivéve self-hosted Azure API Management. <strong>5-10</strong> pont</p>
@@ -1568,8 +1568,8 @@ AZ-400: Development for enterprise DevOps;405
           </path>
         </svg>
       </span>
-      <span title="2025. szeptember 19. 16:18:52">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 19. 16:18:52 CEST"><span class="timeago" datetime="2025-09-19T16:18:52+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 19. 16:18:52 CEST">2025-09-19</span>
+      <span title="2025. november 1. 14:33:27">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 1. 14:33:27 CET"><span class="timeago" datetime="2025-11-01T14:33:27+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 1. 14:33:27 CET">2025-11-01</span>
       </span>
     </span>
 
