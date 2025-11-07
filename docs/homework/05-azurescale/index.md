@@ -197,4 +197,4 @@ A tesztnek automatikusan létre kell jönnie az Azure Load Testing szolgáltatá
 ## 3. Feladat - talán a legfontosabb
 
 !!! danger "Erőforrások törlése"
-    Beadás után [törölj minden szolgáltatást](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/delete-resource-group?tabs=azure-portal#delete-resource), kivéve az Azure Load Testing erőforrást. Érdemes a törlést az AKS-sel kezdeni, annnak törlése törli az AKS infrastruktúra erőforráscsoportot. Töröld a technikai felhasználót is az Entra-ból az [`az ad sp delete`](https://learn.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az-ad-sp-delete) paranccsal.
+    Beadás után [törölj minden szolgáltatást](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/delete-resource-group?tabs=azure-portal#delete-resource), kivéve az Azure Load Testing erőforrást. Érdemes a törlést az AKS-sel kezdeni, annnak törlése törli az AKS infrastruktúra erőforráscsoportot is. Töröld a technikai felhasználót is az Entra-ból az [`az ad sp delete`](https://learn.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az-ad-sp-delete) paranccsal.
