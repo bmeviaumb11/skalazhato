@@ -1396,7 +1396,7 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
 <h2 id="3-feladat-talan-a-legfontosabb">3. Feladat - talán a legfontosabb<a class="headerlink" href="#3-feladat-talan-a-legfontosabb" title="Permanent link">¶</a></h2>
 <div class="admonition danger">
 <p class="admonition-title">Erőforrások törlése</p>
-<p>Beadás után törölj minden erőforráscsoportot az előfizetéseden belül (kivéve azt, amelyik nem a kisházikhoz kellett). A technikai felhasználót is érdemes <a href="https://learn.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az-ad-sp-delete">törölni</a> Entra-ból, ne hagyjunk "szemetet" magunk után.</p>
+<p>Beadás után <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/delete-resource-group?tabs=azure-portal#delete-resource">törölj minden szolgáltatást</a>, kivéve az Azure Load Testing erőforrást. Érdemes a törlést az AKS-sel kezdeni, annnak törlése törli az AKS infrastruktúra erőforráscsoportot. Töröld a technikai felhasználót is az Entra-ból az <a href="https://learn.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az-ad-sp-delete"><code>az ad sp delete</code></a> paranccsal.</p>
 </div>
   <hr>
   <div class="md-source-file">
@@ -1405,8 +1405,8 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
           </path>
         </svg>
       </span>
-      <span title="2025. november 3. 12:25:34">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 3. 12:25:34 CET"><span class="timeago" datetime="2025-11-03T12:25:34+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 3. 12:25:34 CET">2025-11-03</span>
+      <span title="2025. november 7. 08:47:01">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 7. 08:47:01 CET"><span class="timeago" datetime="2025-11-07T08:47:01+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 7. 08:47:01 CET">2025-11-07</span>
       </span>
     </span>
 
