@@ -82,7 +82,7 @@ A *Run test after creation* opció bekapcsolása miatt a teszt elkészülte utá
 
 ### 2.2 Terhelésteszt monitorozás Azure Function oldalról
 
-Az Azure Function metrikák (*Metrics*) menüpontjában [monitorozzuk](https://learn.microsoft.com/en-us/azure/azure-functions/monitor-functions?tabs=portal#analyze-metrics-for-azure-functions) a terhelés lefutását:
+Az Azure Function metrikák (*Metrics*) menüpontjában [monitorozzuk](https://learn.microsoft.com/en-us/azure/azure-functions/monitor-functions?tabs=portal#analyze-metrics-for-azure-functions) a terhelésteszt lefutását:
 
 - a megfigyelt [metrika](https://learn.microsoft.com/en-us/azure/azure-functions/monitor-functions-reference?tabs=flex-consumption-plan#metrics) legyen az *On Demand Function Execution Count*
 - aggregáció: *Sum*
@@ -90,11 +90,11 @@ Az Azure Function metrikák (*Metrics*) menüpontjában [monitorozzuk](https://l
 - grafikon típusa: oszlopdiagram (*Bar chart*)
 
 !!! example "BEADANDÓ"
-    Készíts egy képernyőképet az Azure portálról (`f2.1.png`) és commitold azt be a házi feladat repó gyökerébe, amin látható a *On Demand Function Execution Count* metrikából készített oszlopdiagram, és a terhelés teszt hatása (kiugrás). A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarka környékén a Function neve.
+    Készíts egy képernyőképet az Azure portálról (`f2.1.png`) és commitold azt be a házi feladat repó gyökerébe, amin látható a *On Demand Function Execution Count* metrikából készített oszlopdiagram, és a terhelésteszt hatása (kiugrás). A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarka környékén a Function neve.
 
 ### 2.3 Költségszámítás metrika alapján
 
-Számoljunk becsült költséget a terhelés teszt Azure Function oldalára (a terhelés teszt lefuttatásának is van költsége az Azure Load Testing erőforrás oldalán). Ehhez az *On Demand Function Execution Units* metrikát figyeljük:
+Számoljunk becsült költséget a terhelésteszt Azure Function oldalára (a terhelésteszt lefuttatásának is van költsége az Azure Load Testing erőforrás oldalán). Ehhez az *On Demand Function Execution Units* metrikát figyeljük:
 
 - aggregáció: *Sum*
  - a jobb felső sarokban úgy állítsuk be az időtartamot, hogy a teszt miatti kiugrás jól látható legyen; ugyanitt a felbontás (*time granularity*) legyen hosszabb, mint a teszt (pl. 15 perc)
@@ -114,7 +114,7 @@ Számold ki a terhelésteszt költségét a végrehajtási szám és a végrehaj
 
 
 !!! example "BEADANDÓ" 
-    Készíts egy képernyőképet az Azure portálról (`f2.2.png`) és commitold azt be a házi feladat repó gyökerébe, amin látszik az *On Demand Function Execution Unit* metrikából készített oszlopdiagramon a terhelés teszt hatása (kiugrás). A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarka környékén a Function neve.
+    Készíts egy képernyőképet az Azure portálról (`f2.2.png`) és commitold azt be a házi feladat repó gyökerébe, amin látszik az *On Demand Function Execution Unit* metrikából készített oszlopdiagramon a terhelésteszt hatása (kiugrás). A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarka környékén a Function neve.
 
     Készíts egy másik képernyőképet (`f2.3.png`) és commitold ezt is a házi feladat repó gyökerébe, ahol az Azure portálon látszik a Function erőforráscsoportjának áttekintő nézete (*Overview*). Látszódjon a portálra belépett felhasználó azonosítója a jobb felső sarokban.
  
