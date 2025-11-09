@@ -34,6 +34,10 @@ Az [*Exercise: Create an Azure Function by using Visual Studio Code*](https://le
 - régió: közös Azure régió (lásd AKS házi)
  - erőforráscsoport: alapértelmezésben egy új erőforráscsoport jön létre ugyanolyan névvel, mint amit névként megadtunk a *Function App*-nak. Ha ez nem tetszik, indítsd el a [komplexebb (advanced) varázslót].
 
+
+!!! info "Azure Function hosting"
+    Alapértelmezés szerint [Flex Consumption](https://learn.microsoft.com/en-us/azure/azure-functions/flex-consumption-plan) típusú lesz a létrejövő Function App hosting plan-je.
+
 !!! warning "Hagyd meg"
     A tananyag elvégzése után ne töröld a Function-t, a következő feladatban szükség lesz rá.
 
@@ -109,7 +113,7 @@ Egyetlen oszlopnak kell kiemelkednie; ennek az értékét kell használni (ha az
 
 Számold ki a terhelésteszt költségét a végrehajtási szám és a végrehajtási idő értékekből, EUR pénznemben az [Azure Functions - Flex Consumptions árlista](https://azure.microsoft.com/en-us/pricing/details/functions/) alapján úgy, hogy a bennefoglalt erőforrásokat (*az első x db. hívás ingyenes*) nem veszed figyelembe.
 
-!!! info "Always Ready példányok"
+!!! tip "Always Ready példányok"
     Mivel *Always Ready* példányokat nem használtunk, így azok költségeivel nem kell számolni.
 
 
