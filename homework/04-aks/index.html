@@ -1430,7 +1430,7 @@
 </ol>
 <div class="admonition warning">
 <p class="admonition-title">Azure Plan alapú új előfizetések</p>
-<p>Újabban a hallgatói előfizetések nem a speciális hallgató offer, hanem az általánosabb és újabb ún. Azure Plan alatt jönnek létre. Ez egy ernyőkonstrukció, ami alá több korábban külön kezelt előfizetéstípust beterelnek (pl. trial). Az Azure Plan-eket az új számlázási, költségnyilvántartási rendszerben kezelik. Emiatt lehet, hogy a hallgatói előfizetésed kereteit már nem a <a href="ttps://www.microsoftazuresponsorships.com/">régi oldalon</a>, hanem a portálon belül a <a href="https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/mca-check-azure-credits-balance?tabs=portal"><em>Cost Management</em> oldalon</a> tudod követni.</p>
+<p>Újabban a hallgatói előfizetések nem a speciális hallgató offer, hanem az általánosabb és újabb ún. <a href="https://azure.microsoft.com/en-us/pricing/offers/ms-azr-0017g">Azure Plan</a> alatt jönnek létre. Az előfizetés áttekintő oldalán ilyenkor a <em>Plan</em> tulajdonság értékeként <em>Azure Plan</em> olvasható. Ez a <em>plan</em> egy ernyőkonstrukció, ami alá több korábban külön kezelt előfizetéstípust beterelnek (pl. trial). Az Azure Plan-eket az új számlázási, költségnyilvántartási rendszerben kezelik. Emiatt lehet, hogy a hallgatói előfizetésed kereteit már nem a <a href="ttps://www.microsoftazuresponsorships.com/">régi oldalon</a>, hanem a portálon belül a <a href="https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/mca-check-azure-credits-balance?tabs=portal"><em>Cost Management</em> oldalon</a> tudod követni.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Azure költségek</p>
@@ -1455,7 +1455,11 @@
 </ol>
 <div class="admonition danger">
 <p class="admonition-title">Közös Azure régió</p>
-<p>Fontos, hogy minden Azure erőforrás lehetőleg azonos régióban legyen. Ez a közös régió lehetőleg <strong>North Europe</strong> legyen. Ha bármilyen okból ezt nem tudod tartani, akkor is az erőforrásaid ugyanabban az európai régióban legyenek (pl. <em>Germany West Central</em>). </p>
+<p>Fontos, hogy minden Azure erőforrás lehetőleg azonos régióban legyen. Ez a közös régió lehetőleg <strong>North Europe</strong> legyen. Ha bármilyen okból ezt nem tudod tartani, akkor is az erőforrásaid ugyanabban az európai régióban legyenek (pl. <em>Poland Central</em>). Egyik ilyen ok lehet, hogy a hallgatói előfizetésen egy házirend (policy) leszűkíti, hogy milyen régiókat használhatunk. Az érvényesített házirendeket az Azure portálon lehet <a href="https://portal.azure.com/?feature.msaljs=true#view/Microsoft_Azure_Policy/PolicyMenuBlade.MenuView/~/Assignments">listázni</a>. Az <em>Allowed resource deployment regions</em> nevű házirend <code>listOfAllowedLocations</code> nevű paramétere az engedélyezett régiók listája.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">További ajánlott Európai régiók</p>
+<p>Bár ez dinamikusan változó, jelenleg (2025. november közepe) ezek az ajánlott európai régiók <em>North Europe</em>-on kívül, ahol pl. AKS létrehozáshoz van elég sok(fajta) VM erőforrás: <strong>Poland Central</strong> <img alt="🇵🇱" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f1f5-1f1f1.svg" title=":flag_pl:">, <strong>Sweden Central</strong> <img alt="🇸🇪" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f1f8-1f1ea.svg" title=":flag_se:">, <strong>Italy North</strong> <img alt="🇮🇹" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f1ee-1f1f9.svg" title=":flag_it:">, <strong>Switzerland North</strong> <img alt="🇨🇭" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f1e8-1f1ed.svg" title=":flag_ch:">. Nem ajánlott: Germany West Central (kevesebb VM kiméret)</p>
 </div>
 <h3 id="eroforrascsoport-letrehozasa">Erőforráscsoport létrehozása<a class="headerlink" href="#eroforrascsoport-letrehozasa" title="Permanent link">¶</a></h3>
 <p>Hozz létre új erőforráscsoportot <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal#create-resource-groups">ezen útmutatót követve</a> a hallgató előfizetés alá <em>viaumb11</em> néven a közös Azure régióban (lásd fentebb).</p>
@@ -1773,8 +1777,8 @@ helm<span class="w"> </span>install<span class="w"> </span>traefik<span class="w
           </path>
         </svg>
       </span>
-      <span title="2025. november 12. 17:59:52">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 12. 17:59:52 CET"><span class="timeago" datetime="2025-11-12T17:59:52+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 12. 17:59:52 CET">2025-11-12</span>
+      <span title="2025. november 12. 20:22:41">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 12. 20:22:41 CET"><span class="timeago" datetime="2025-11-12T20:22:41+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 12. 20:22:41 CET">2025-11-12</span>
       </span>
     </span>
 
