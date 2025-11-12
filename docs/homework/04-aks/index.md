@@ -56,7 +56,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadási folyama
 4. Ugyanezen az oldalon van egy [link a hallgatói kreditjeinket kezelő oldalra](https://www.microsoftazuresponsorships.com/). Ezen a külső oldalon ellenőrizzük, hogy megvan-e a 100$-nyi kreditünk (*Check your balance*).
 
 !!! warning "Azure Plan alapú új előfizetések"
-    Újabban a hallgatói előfizetések nem a speciális hallgató offer, hanem az általánosabb és újabb ún. Azure Plan alatt jönnek létre. Ez egy ernyőkonstrukció, ami alá több korábban külön kezelt előfizetéstípust beterelnek (pl. trial). Az Azure Plan-eket az új számlázási, költségnyilvántartási rendszerben kezelik. Emiatt lehet, hogy a hallgatói előfizetésed kereteit már nem a [régi oldalon](ttps://www.microsoftazuresponsorships.com/), hanem a portálon belül a [_Cost Management_ oldalon](https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/mca-check-azure-credits-balance?tabs=portal) tudod követni.
+    Újabban a hallgatói előfizetések nem a speciális hallgató offer, hanem az általánosabb és újabb ún. [Azure Plan](https://azure.microsoft.com/en-us/pricing/offers/ms-azr-0017g) alatt jönnek létre. Az előfizetés áttekintő oldalán ilyenkor a *Plan* tulajdonság értékeként _Azure Plan_ olvasható. Ez a _plan_ egy ernyőkonstrukció, ami alá több korábban külön kezelt előfizetéstípust beterelnek (pl. trial). Az Azure Plan-eket az új számlázási, költségnyilvántartási rendszerben kezelik. Emiatt lehet, hogy a hallgatói előfizetésed kereteit már nem a [régi oldalon](ttps://www.microsoftazuresponsorships.com/), hanem a portálon belül a [_Cost Management_ oldalon](https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/mca-check-azure-credits-balance?tabs=portal) tudod követni.
 
 
 !!! warning "Azure költségek"
@@ -78,7 +78,10 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadási folyama
         Az Azure CLI parancsok általában nem kérik be az előfizetés azonosítóját, hanem egy globális beállításból veszik, amit belépéskor (`az login`) is beállítódik. Fontos, hogy mindig a megfelelő előfizetés legyen beállítva. Az `az account set -s <előfizetés azonosító>` paranccsal tudunk előfizetést váltani.
 
 !!! danger "Közös Azure régió"
-    Fontos, hogy minden Azure erőforrás lehetőleg azonos régióban legyen. Ez a közös régió lehetőleg **North Europe** legyen. Ha bármilyen okból ezt nem tudod tartani, akkor is az erőforrásaid ugyanabban az európai régióban legyenek (pl. *Germany West Central*). 
+    Fontos, hogy minden Azure erőforrás lehetőleg azonos régióban legyen. Ez a közös régió lehetőleg **North Europe** legyen. Ha bármilyen okból ezt nem tudod tartani, akkor is az erőforrásaid ugyanabban az európai régióban legyenek (pl. *Poland Central*). Egyik ilyen ok lehet, hogy a hallgatói előfizetésen egy házirend (policy) leszűkíti, hogy milyen régiókat használhatunk. Az érvényesített házirendeket az Azure portálon lehet [listázni](https://portal.azure.com/?feature.msaljs=true#view/Microsoft_Azure_Policy/PolicyMenuBlade.MenuView/~/Assignments). Az *Allowed resource deployment regions* nevű házirend `listOfAllowedLocations` nevű paramétere az engedélyezett régiók listája.
+
+!!! tip "További ajánlott Európai régiók"
+    Bár ez dinamikusan változó, jelenleg (2025. november közepe) ezek az ajánlott európai régiók _North Europe_-on kívül, ahol pl. AKS létrehozáshoz van elég sok(fajta) VM erőforrás: **Poland Central** :flag_pl:, **Sweden Central** :flag_se:, **Italy North** :flag_it:, **Switzerland North** :flag_ch:. Nem ajánlott: Germany West Central (kevesebb VM kiméret)
 
 ### Erőforráscsoport létrehozása
 
