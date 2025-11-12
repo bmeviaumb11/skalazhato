@@ -55,8 +55,12 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadási folyama
 
 4. Ugyanezen az oldalon van egy [link a hallgatói kreditjeinket kezelő oldalra](https://www.microsoftazuresponsorships.com/). Ezen a külső oldalon ellenőrizzük, hogy megvan-e a 100$-nyi kreditünk (*Check your balance*).
 
+!!! warning "Azure Plan alapú új előfizetések"
+    Újabban a hallgatói előfizetések nem a speciális hallgató offer, hanem az általánosabb és újabb ún. Azure Plan alatt jönnek létre. Ez egy ernyőkonstrukció, ami alá több korábban külön kezelt előfizetéstípust beterelnek (pl. trial). Az Azure Plan-eket az új számlázási, költségnyilvántartási rendszerben kezelik. Emiatt lehet, hogy a hallgatói előfizetésed kereteit már nem a [régi oldalon](ttps://www.microsoftazuresponsorships.com/), hanem a portálon belül a [_Cost Management_ oldalon](https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/mca-check-azure-credits-balance?tabs=portal) tudod követni.
+
+
 !!! warning "Azure költségek"
-    Ha költséges erőforrásokat hoztunk létre, akkor különösen fontos rendszeresen ellenőrizni ezen az oldalon a maradék keretünket.
+    Ha költséges erőforrásokat hoztunk létre, akkor különösen fontos rendszeresen ellenőrizni a maradék keretünket.
 
 ### Azure CLI ellenőrzése
 
