@@ -102,7 +102,7 @@ Kövesd az útmutatót, mely a korábbi gyakorlatokon megismert `docker` és `do
 
 A hivatalos útmutató [második része](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-acr?tabs=azure-cli) egy Azure Container Registry konténer tároló Azure CLI-ből történő létrehozásáról és feltöltéséről szól. Kezdő Azure használóknak inkább az Azure portál ajánlott, mert ott szemléletesebben látszódik minden beállítás. Emiatt inkább az [Azure portálos útmutatót](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-get-started-portal?tabs=azure-cli#create-a-container-registry) kövesd, az alábbi beállításokkal:
 
-- Name: *acr* előtag + neptun kód (pl.*npt123* neptun kód esetén *acrnpt123*)
+- Name: *acr* előtag + neptun kód (pl. *npt123* neptun kód esetén *acrnpt123*)
 - Resource group: az alapértelmezett Azure erőforráscsoport (lásd fentebb)
 - Location: közös Azure régió (lásd fentebb)
 - Domain name label scope: Unsecure
@@ -340,7 +340,7 @@ A Traefik proxy támogatja a port alapú routing-ot is, ezért ismét Traefik-et
 
 ### 2.6 Ingress
 
-Bár a k8s _Ingress_ API hagyományosan a sztenderd HTTP portokon folyó kommunikációra lett kitalálva így [nem is fogalalkozik port/protokoll konfigurációval](https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress). A Traefik külön annotációkat [definiál](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/ingress/), amiket az _Ingress_ objektummokra rakhatunk, így mégis megadhatjuk, hogy milyen portot használjon. 
+Bár a k8s _Ingress_ API hagyományosan a sztenderd HTTP portokon folyó kommunikációra lett kitalálva így [nem is foglalkozik port/protokoll konfigurációval](https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress). A Traefik külön annotációkat [definiál](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/ingress/), amiket az _Ingress_ objektummokra rakhatunk, így mégis megadhatjuk, hogy milyen portot használjon. 
 
 !!! info "alternatív routing konfiguráció"
     Bár ez egyszerű esetben nem egy rossz megoldás, de kissé suta. Szerencsére nem csak k8s _Ingress_ objektumot használhatunk a routing konfigurációjára, hanem például a Traefik saját alternatív [_IngressRoute_](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/crd/http/ingressroute/) típusát, ami sokkal egyértelműbben tárja elénk a Traefik routing lehetőségeit. Másik alternatíva a k8s _Ingress_ utódjának szánt, annál jóval többet tudó k8s [_Gateway_ API](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/gateway-api/)
@@ -406,6 +406,6 @@ Bár a k8s _Ingress_ API hagyományosan a sztenderd HTTP portokon folyó kommuni
 !!! danger "AKS kikapcsolása, takarítása"
     Beadás után, ha nem egyből folytatod a következő házival, akkor [állítsd le az AKS-t](https://learn.microsoft.com/en-us/azure/aks/start-stop-cluster). Azure Portal-on is lehet, az AKS _Overview_ oldalán is ott a **Stop** gomb.
 
-    A következő házihoz elég a `default` névtérbe telepített alkalmazás (1. feladat). Az ezt követően telepített K8S objektumok (`fulllstore-neptun` névtér) törölhetőek.
+    A következő házihoz elég a `default` névtérbe telepített alkalmazás (1. feladat). Az ezt követően telepített K8S objektumok (`fullstore-neptun` névtér) törölhetőek.
     
     Ha egyáltalán nem adod be a következő házit, akkor törölj minden erőforráscsoportot.
