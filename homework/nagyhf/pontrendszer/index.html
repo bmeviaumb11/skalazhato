@@ -1266,10 +1266,6 @@ AZ-400: Development for enterprise DevOps;405
 <p class="admonition-title">Warning</p>
 <p>Vannak olyan képzési tervek, amik saját előfizetésen elvégzendő, kreditbe kerülő műveleteket írnak elő. Ezek is csökkentik a más Azure-os pontok megszerzésére fordítható keretet, így érdemes az emiatt létrehozott erőforrásokat a lehető leghamarabb törölni.</p>
 </div>
-<div class="admonition tip">
-<p class="admonition-title">Microsoft Learn Sandbox</p>
-<p>Vannak olyan képzési tervek, ahol lehetőség van <em>Microsoft Learn Sandbox</em> használatára (pl. <a href="https://learn.microsoft.com/en-us/training/modules/chain-azure-functions-data-using-bindings/3-explore-input-and-output-binding-types-portal-lab?pivots=javascript">ebben a modulban</a>) – ez egy olyan Azure környezet, amihez nem kell előfizetés. A Microsoft Learn Sandbox-ról bővebben <a href="https://learn.microsoft.com/en-us/learn/support/faq?pivots=sandbox">itt</a>.</p>
-</div>
 <h2 id="pontrendszer">Pontrendszer<a class="headerlink" href="#pontrendszer" title="Permanent link">¶</a></h2>
 <p>Az elkészített rendszer egyes képességeire az alábbiak szerint pontok kaphatók. A végső jegy az összpontszámból adódik. A közepes szintet el nem érő megoldások nem kaphatnak megajánlott jegyet.</p>
 <table>
@@ -1409,8 +1405,8 @@ AZ-400: Development for enterprise DevOps;405
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">OpenTelemetry Collector vs Azure alapú környezetek</p>
-</div>
 <p>Az OpenTelemetry Collector nem támogatott AZF környezetben. AKS és ACA környezetekbe elvileg telepíthető, de jelentős munka és ezekre <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-help-support-feedback?tabs=aspnetcore#can-i-use-the-opentelemetry-collector">sincs hivatalos MS támogatás</a> (<a href="https://techcommunity.microsoft.com/blog/azureobservabilityblog/making-azure-the-best-place-to-observe-your-apps-with-opentelemetry/3995896">még</a>). Ajánlott módszer: saját gépen futó klaszterben OpenTelemetry Collector alapú megoldás, opcionálisan a monitoradatokat exportálva Azure Monitor-ba, míg Azure platformok esetében a specifikusan Azure-os jogcímek között leírt módszerek.</p>
+</div>
 </li>
 <li>
 <p><strong>{HSC}</strong> Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell. <strong>5-10</strong> pont</p>
@@ -1487,7 +1483,7 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{AZDB2}</strong> Legalább kétfajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, Cosmos DB, Azure Table Storage). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: <strong>10</strong> pont</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>30 napig ingyenes (többször is aktiválható!) <a href="https://cosmos.azure.com/try/">Cosmos DB</a></p>
+<p>30 napig ingyenes (többször is aktiválható!) <a href="https://cosmos.azure.com/try/">Cosmos DB</a> - ideiglenesen nem működik <img alt="😔" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f614.svg" title=":pensive:"> (2025. november)</p>
 </div>
 </li>
 <li>
@@ -1508,13 +1504,13 @@ AZ-400: Development for enterprise DevOps;405
 </ul>
 </li>
 <li>
-<p><strong>{AZKVAU}</strong> Titkok lekérése saját <em>Azure Key Vault</em>-ból passwordless hozzáféréssel (pl. managed identity, workload identity): <strong>3</strong> pont</p>
+<p><strong>{AZKVAU}</strong> Titkok lekérése saját <em>Azure Key Vault</em>-ból passwordless hozzáféréssel (workload identity): <strong>3</strong> pont</p>
 </li>
 <li>
 <p><strong>{AZMSG}</strong> A mikroszolgáltatások közötti kommunikáció kiszervezése valamely <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services">Azure üzenetkezelő szolgáltatásba</a> (pl. Service Bus, de <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-azure-and-service-bus-queues-compared-contrasted?source=recommendations">Azure Storage Queue</a> is elfogadott) managed identity alapú hozzáféréssel: <strong>5</strong> pont</p>
 </li>
 <li>
-<p><strong>{AZACA}</strong> <em>Azure Container Apps</em> skálázása szabály alapján: <strong>5</strong> pont</p>
+<p><strong>{AZACA}</strong> Azure Container Apps skálázása szabály alapján: <strong>5</strong> pont</p>
 </li>
 <li>
 <p><strong>{AKSMON}</strong> AKS monitorozása, különféle telemetriatípusok (strukturált naplók, metrikák, elosztott nyomkövetés) gyűjtése és megjelenítése Azure Monitor szolgáltatásban Azure Monitor agent-tel vagy agent nélkül, Azure Monitor OpenTelemetry disztribúcióval  <strong>3-10</strong> pont</p>
@@ -1612,8 +1608,8 @@ AZ-400: Development for enterprise DevOps;405
           </path>
         </svg>
       </span>
-      <span title="2025. november 3. 19:50:18">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 3. 19:50:18 CET"><span class="timeago" datetime="2025-11-03T19:50:18+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 3. 19:50:18 CET">2025-11-03</span>
+      <span title="2025. november 13. 17:09:15">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 13. 17:09:15 CET"><span class="timeago" datetime="2025-11-13T17:09:15+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 13. 17:09:15 CET">2025-11-13</span>
       </span>
     </span>
 
