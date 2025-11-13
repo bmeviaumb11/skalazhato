@@ -1299,7 +1299,7 @@
 </div>
 <p>Hozz létre egy Azure Load Testing erőforrást (például az <a href="https://learn.microsoft.com/en-us/azure/app-testing/load-testing/quickstart-create-and-run-load-test?tabs=portal#create-an-azure-load-testing-resource">útmutatót</a> követve) az alábbi beállításokkal:</p>
 <ul>
-<li>Name: <em>lt</em> előtag + neptun kód (pl.<em>npt123</em> neptun kód esetén <em>ltnpt123</em>)</li>
+<li>Name: <em>lt</em> előtag + neptun kód (pl. <em>npt123</em> neptun kód esetén <em>ltnpt123</em>)</li>
 <li>Resource group: az alapértelmezett Azure erőforráscsoport (lásd AKS házi)</li>
 <li>Location: közös Azure régió (lásd AKS házi)</li>
 </ul>
@@ -1309,12 +1309,12 @@
 <div class="highlight"><pre><span></span><code>az<span class="w"> </span>ad<span class="w"> </span>sp<span class="w"> </span>create-for-rbac<span class="w"> </span>-n<span class="w"> </span>loadtest_automation_neptun
 </code></pre></div>
 <div class="admonition warning">
-<p class="admonition-title">Service prinicipal neve</p>
+<p class="admonition-title">Service principal neve</p>
 <p>Bár lehetséges több technikai felhasználó ugyanazon névvel, a könnyebb kereshetőség miatt jobb, ha a nevek egyedibbek.</p>
 </div>
 <p>A válasz JSON-t mindenképp mentsd el, szükség lesz az adatokra belőle. A benne lévő titok utólag már nem kérdezhető le.</p>
 <div class="admonition tip">
-<p class="admonition-title">Service prinicipal parancsok</p>
+<p class="admonition-title">Service principal parancsok</p>
 <p>Az <code>az ad sp</code> <a href="https://learn.microsoft.com/en-us/cli/azure/ad/sp">parancsokkal</a> a technikai felhasználókhoz kapcsolódó legtöbb gyakori tevékenység elvégezhető. Például az általunk létrehozott technikai felhasználók listázása: <code>az ad sp list --show-mine</code>.</p>
 </div>
 <div class="admonition warning">
@@ -1396,7 +1396,7 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
 <h2 id="3-feladat-talan-a-legfontosabb">3. Feladat - talán a legfontosabb<a class="headerlink" href="#3-feladat-talan-a-legfontosabb" title="Permanent link">¶</a></h2>
 <div class="admonition danger">
 <p class="admonition-title">Erőforrások törlése</p>
-<p>Beadás után <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/delete-resource-group?tabs=azure-portal#delete-resource">törölj minden szolgáltatást</a>, kivéve az Azure Load Testing erőforrást. Érdemes a törlést az AKS-sel kezdeni, annnak törlése törli az AKS infrastruktúra erőforráscsoportot. Töröld a technikai felhasználót is az Entra-ból az <a href="https://learn.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az-ad-sp-delete"><code>az ad sp delete</code></a> paranccsal.</p>
+<p>Beadás után <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/delete-resource-group?tabs=azure-portal#delete-resource">törölj minden szolgáltatást</a>, kivéve az Azure Load Testing erőforrást. Érdemes a törlést az AKS-sel kezdeni, annak törlése törli az AKS infrastruktúra erőforráscsoportot. Töröld a technikai felhasználót is az Entra-ból az <a href="https://learn.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az-ad-sp-delete"><code>az ad sp delete</code></a> paranccsal.</p>
 </div>
   <hr>
   <div class="md-source-file">
@@ -1405,8 +1405,8 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
           </path>
         </svg>
       </span>
-      <span title="2025. november 7. 08:47:01">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 7. 08:47:01 CET"><span class="timeago" datetime="2025-11-07T08:47:01+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 7. 08:47:01 CET">2025-11-07</span>
+      <span title="2025. november 12. 21:13:15">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 12. 21:13:15 CET"><span class="timeago" datetime="2025-11-12T21:13:15+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 12. 21:13:15 CET">2025-11-12</span>
       </span>
     </span>
 
@@ -1422,6 +1422,8 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
       <span>Szerzők</span>
       <nav><a href="https://github.com/kszicsillag" target="_blank" rel="noopener noreferrer" class="md-author" title="@kszicsillag">
           <img src="https://avatars.githubusercontent.com/kszicsillag?size=72" alt="@kszicsillag">
+        </a><a href="https://github.com/asztrikx" target="_blank" rel="noopener noreferrer" class="md-author" title="@Vörös Asztrik">
+          <img src="https://avatars.githubusercontent.com/u/15632657?u=2c16435e4b23b66df25b30f6d44dce8c3639c1ef&amp;v=4?size=72" alt="@Vörös Asztrik">
         </a></nav>      
     </span>
   </div>
