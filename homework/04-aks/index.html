@@ -1474,7 +1474,7 @@
 <h3 id="azure-container-registry-letrehozasa">Azure Container Registry létrehozása<a class="headerlink" href="#azure-container-registry-letrehozasa" title="Permanent link">¶</a></h3>
 <p>A hivatalos útmutató <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-acr?tabs=azure-cli">második része</a> egy Azure Container Registry konténer tároló Azure CLI-ből történő létrehozásáról és feltöltéséről szól. Kezdő Azure használóknak inkább az Azure portál ajánlott, mert ott szemléletesebben látszódik minden beállítás. Emiatt inkább az <a href="https://learn.microsoft.com/en-us/azure/container-registry/container-registry-get-started-portal?tabs=azure-cli#create-a-container-registry">Azure portálos útmutatót</a> kövesd, az alábbi beállításokkal:</p>
 <ul>
-<li>Name: <em>acr</em> előtag + neptun kód (pl.<em>npt123</em> neptun kód esetén <em>acrnpt123</em>)</li>
+<li>Name: <em>acr</em> előtag + neptun kód (pl. <em>npt123</em> neptun kód esetén <em>acrnpt123</em>)</li>
 <li>Resource group: az alapértelmezett Azure erőforráscsoport (lásd fentebb)</li>
 <li>Location: közös Azure régió (lásd fentebb)</li>
 <li>Domain name label scope: Unsecure</li>
@@ -1698,7 +1698,7 @@ helm<span class="w"> </span>install<span class="w"> </span>traefik<span class="w
 </li>
 </ol>
 <h3 id="26-ingress">2.6 Ingress<a class="headerlink" href="#26-ingress" title="Permanent link">¶</a></h3>
-<p>Bár a k8s <em>Ingress</em> API hagyományosan a sztenderd HTTP portokon folyó kommunikációra lett kitalálva így <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress">nem is fogalalkozik port/protokoll konfigurációval</a>. A Traefik külön annotációkat <a href="https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/ingress/">definiál</a>, amiket az <em>Ingress</em> objektummokra rakhatunk, így mégis megadhatjuk, hogy milyen portot használjon. </p>
+<p>Bár a k8s <em>Ingress</em> API hagyományosan a sztenderd HTTP portokon folyó kommunikációra lett kitalálva így <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress">nem is foglalkozik port/protokoll konfigurációval</a>. A Traefik külön annotációkat <a href="https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/ingress/">definiál</a>, amiket az <em>Ingress</em> objektummokra rakhatunk, így mégis megadhatjuk, hogy milyen portot használjon. </p>
 <div class="admonition info">
 <p class="admonition-title">alternatív routing konfiguráció</p>
 <p>Bár ez egyszerű esetben nem egy rossz megoldás, de kissé suta. Szerencsére nem csak k8s <em>Ingress</em> objektumot használhatunk a routing konfigurációjára, hanem például a Traefik saját alternatív <a href="https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/crd/http/ingressroute/"><em>IngressRoute</em></a> típusát, ami sokkal egyértelműbben tárja elénk a Traefik routing lehetőségeit. Másik alternatíva a k8s <em>Ingress</em> utódjának szánt, annál jóval többet tudó k8s <a href="https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/gateway-api/"><em>Gateway</em> API</a></p>
@@ -1767,7 +1767,7 @@ helm<span class="w"> </span>install<span class="w"> </span>traefik<span class="w
 <div class="admonition danger">
 <p class="admonition-title">AKS kikapcsolása, takarítása</p>
 <p>Beadás után, ha nem egyből folytatod a következő házival, akkor <a href="https://learn.microsoft.com/en-us/azure/aks/start-stop-cluster">állítsd le az AKS-t</a>. Azure Portal-on is lehet, az AKS <em>Overview</em> oldalán is ott a <strong>Stop</strong> gomb.</p>
-<p>A következő házihoz elég a <code>default</code> névtérbe telepített alkalmazás (1. feladat). Az ezt követően telepített K8S objektumok (<code>fulllstore-neptun</code> névtér) törölhetőek.</p>
+<p>A következő házihoz elég a <code>default</code> névtérbe telepített alkalmazás (1. feladat). Az ezt követően telepített K8S objektumok (<code>fullstore-neptun</code> névtér) törölhetőek.</p>
 <p>Ha egyáltalán nem adod be a következő házit, akkor törölj minden erőforráscsoportot.</p>
 </div>
   <hr>
@@ -1794,6 +1794,8 @@ helm<span class="w"> </span>install<span class="w"> </span>traefik<span class="w
       <span>Szerzők</span>
       <nav><a href="https://github.com/kszicsillag" target="_blank" rel="noopener noreferrer" class="md-author" title="@kszicsillag">
           <img src="https://avatars.githubusercontent.com/kszicsillag?size=72" alt="@kszicsillag">
+        </a><a href="https://github.com/asztrikx" target="_blank" rel="noopener noreferrer" class="md-author" title="@Vörös Asztrik">
+          <img src="https://avatars.githubusercontent.com/u/15632657?u=2c16435e4b23b66df25b30f6d44dce8c3639c1ef&amp;v=4?size=72" alt="@Vörös Asztrik">
         </a><a href="https://github.com/Breinich" target="_blank" rel="noopener noreferrer" class="md-author" title="@Vencel Bajnok">
           <img src="https://avatars.githubusercontent.com/u/74102716?u=55e714273918a271faff6115772605d7f130cf4b&amp;v=4?size=72" alt="@Vencel Bajnok">
         </a></nav>      
