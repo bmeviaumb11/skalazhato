@@ -92,7 +92,7 @@ A k8s YAML fájlok átírásával és érvényesítésével (`kubectl apply`) á
 
 Hozz létre egy Azure Load Testing erőforrást (például az [útmutatót](https://learn.microsoft.com/en-us/azure/app-testing/load-testing/quickstart-create-and-run-load-test?tabs=portal#create-an-azure-load-testing-resource) követve) az alábbi beállításokkal:
 
-- Name: *lt* előtag + neptun kód (pl.*npt123* neptun kód esetén *ltnpt123*)
+- Name: *lt* előtag + neptun kód (pl. *npt123* neptun kód esetén *ltnpt123*)
 - Resource group: az alapértelmezett Azure erőforráscsoport (lásd AKS házi)
 - Location: közös Azure régió (lásd AKS házi)
 
@@ -106,12 +106,12 @@ A tesztet programból fogjuk létrehozni és indítani, ehhez kell egy Entra tec
 az ad sp create-for-rbac -n loadtest_automation_neptun
 ```
 
-!!!warning "Service prinicipal neve"
+!!!warning "Service principal neve"
     Bár lehetséges több technikai felhasználó ugyanazon névvel, a könnyebb kereshetőség miatt jobb, ha a nevek egyedibbek.
 
 A válasz JSON-t mindenképp mentsd el, szükség lesz az adatokra belőle. A benne lévő titok utólag már nem kérdezhető le.
 
-!!!tip "Service prinicipal parancsok"
+!!!tip "Service principal parancsok"
     Az `az ad sp` [parancsokkal](https://learn.microsoft.com/en-us/cli/azure/ad/sp) a technikai felhasználókhoz kapcsolódó legtöbb gyakori tevékenység elvégezhető. Például az általunk létrehozott technikai felhasználók listázása: `az ad sp list --show-mine`.
 
 !!!warning "Entra felületek BME tenantban"
@@ -197,4 +197,4 @@ A tesztnek automatikusan létre kell jönnie az Azure Load Testing szolgáltatá
 ## 3. Feladat - talán a legfontosabb
 
 !!! danger "Erőforrások törlése"
-    Beadás után [törölj minden szolgáltatást](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/delete-resource-group?tabs=azure-portal#delete-resource), kivéve az Azure Load Testing erőforrást. Érdemes a törlést az AKS-sel kezdeni, annnak törlése törli az AKS infrastruktúra erőforráscsoportot. Töröld a technikai felhasználót is az Entra-ból az [`az ad sp delete`](https://learn.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az-ad-sp-delete) paranccsal.
+    Beadás után [törölj minden szolgáltatást](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/delete-resource-group?tabs=azure-portal#delete-resource), kivéve az Azure Load Testing erőforrást. Érdemes a törlést az AKS-sel kezdeni, annak törlése törli az AKS infrastruktúra erőforráscsoportot. Töröld a technikai felhasználót is az Entra-ból az [`az ad sp delete`](https://learn.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az-ad-sp-delete) paranccsal.
