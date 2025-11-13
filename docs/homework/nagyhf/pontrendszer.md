@@ -181,7 +181,7 @@ További szabályok:
     - mindhárom célra **10** pont
     - [exportálás *Azure Monitor-ba*](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/azuremonitorexporter/README.md) **+5** pont
     !!! warning "OpenTelemetry Collector vs Azure alapú környezetek"
-    Az OpenTelemetry Collector nem támogatott AZF környezetben. AKS és ACA környezetekbe elvileg telepíthető, de jelentős munka és ezekre [sincs hivatalos MS támogatás](https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-help-support-feedback?tabs=aspnetcore#can-i-use-the-opentelemetry-collector) ([még](https://techcommunity.microsoft.com/blog/azureobservabilityblog/making-azure-the-best-place-to-observe-your-apps-with-opentelemetry/3995896)). Ajánlott módszer: saját gépen futó klaszterben OpenTelemetry Collector alapú megoldás, opcionálisan a monitoradatokat exportálva Azure Monitor-ba, míg Azure platformok esetében a specifikusan Azure-os jogcímek között leírt módszerek.
+        Az OpenTelemetry Collector nem támogatott AZF környezetben. AKS és ACA környezetekbe elvileg telepíthető, de jelentős munka és ezekre [sincs hivatalos MS támogatás](https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-help-support-feedback?tabs=aspnetcore#can-i-use-the-opentelemetry-collector) ([még](https://techcommunity.microsoft.com/blog/azureobservabilityblog/making-azure-the-best-place-to-observe-your-apps-with-opentelemetry/3995896)). Ajánlott módszer: saját gépen futó klaszterben OpenTelemetry Collector alapú megoldás, opcionálisan a monitoradatokat exportálva Azure Monitor-ba, míg Azure platformok esetében a specifikusan Azure-os jogcímek között leírt módszerek.
 
 - **{HSC}** Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell. **5-10** pont
 
@@ -235,7 +235,7 @@ További szabályok:
 - **{AZDB2}** Legalább kétfajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, Cosmos DB, Azure Table Storage). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: **10** pont
 
     !!! tip
-        30 napig ingyenes (többször is aktiválható!) [Cosmos DB](https://cosmos.azure.com/try/)
+        30 napig ingyenes (többször is aktiválható!) [Cosmos DB](https://cosmos.azure.com/try/) - ideiglenesen nem működik :pensive: (2025. november)
 
 - **{AZRED}** [Azure Redis](https://azure.microsoft.com/en-us/products/cache) szolgáltatás használata kifejezetten cache-elésre saját telepítésű cache helyett, legalább egy művelet esetén: **5** pont
 
@@ -249,7 +249,7 @@ További szabályok:
     - ACR admin felhasználó nevében: **3** pont
     - managed identity alapú hozzáféréssel: **7** pont
 
-- **{AZKVAU}** Titkok lekérése saját *Azure Key Vault*-ból passwordless hozzáféréssel (pl. managed identity, workload identity): **3** pont
+- **{AZKVAU}** Titkok lekérése saját *Azure Key Vault*-ból passwordless hozzáféréssel (workload identity): **3** pont
 
 - **{AZMSG}** A mikroszolgáltatások közötti kommunikáció kiszervezése valamely [Azure üzenetkezelő szolgáltatásba](https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services) (pl. Service Bus, de [Azure Storage Queue](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-azure-and-service-bus-queues-compared-contrasted?source=recommendations) is elfogadott) managed identity alapú hozzáféréssel: **5** pont
 
