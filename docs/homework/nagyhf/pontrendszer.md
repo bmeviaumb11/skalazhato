@@ -89,9 +89,6 @@ Ha mégis ezeket választanád, néhány tipp:
 !!! warning
     Vannak olyan képzési tervek, amik saját előfizetésen elvégzendő, kreditbe kerülő műveleteket írnak elő. Ezek is csökkentik a más Azure-os pontok megszerzésére fordítható keretet, így érdemes az emiatt létrehozott erőforrásokat a lehető leghamarabb törölni.
 
-!!! tip "Microsoft Learn Sandbox"
-    Vannak olyan képzési tervek, ahol lehetőség van *Microsoft Learn Sandbox* használatára (pl. [ebben a modulban](https://learn.microsoft.com/en-us/training/modules/chain-azure-functions-data-using-bindings/3-explore-input-and-output-binding-types-portal-lab?pivots=javascript)) – ez egy olyan Azure környezet, amihez nem kell előfizetés. A Microsoft Learn Sandbox-ról bővebben [itt](https://learn.microsoft.com/en-us/learn/support/faq?pivots=sandbox).
-
 ## Pontrendszer
 
 Az elkészített rendszer egyes képességeire az alábbiak szerint pontok kaphatók. A végső jegy az összpontszámból adódik. A közepes szintet el nem érő megoldások nem kaphatnak megajánlott jegyet.
@@ -256,7 +253,7 @@ További szabályok:
 
 - **{AZMSG}** A mikroszolgáltatások közötti kommunikáció kiszervezése valamely [Azure üzenetkezelő szolgáltatásba](https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services) (pl. Service Bus, de [Azure Storage Queue](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-azure-and-service-bus-queues-compared-contrasted?source=recommendations) is elfogadott) managed identity alapú hozzáféréssel: **5** pont
 
-- **{AZACA}** *Azure Container Apps* skálázása szabály alapján: **5** pont
+- **{AZACA}** Azure Container Apps skálázása szabály alapján: **5** pont
 
 - **{AKSMON}** AKS monitorozása, különféle telemetriatípusok (strukturált naplók, metrikák, elosztott nyomkövetés) gyűjtése és megjelenítése Azure Monitor szolgáltatásban Azure Monitor agent-tel vagy agent nélkül, Azure Monitor OpenTelemetry disztribúcióval  **3-10** pont
 
