@@ -8,7 +8,7 @@ authors: kszicsillag,tibitoth
 
 <!-- *Véglegesítve 2024. őszi félévre 2024. november 8-án* -->
 
-A házi feladat otthon, önállóan elkészítendő mikroszolgáltatás-architektúrára épülő és konténertechnológiát használó szoftverrendszer elkészítése és működőképes állapotban való bemutatása.
+A házi feladat otthon, önállóan elkészítendő, mikroszolgáltatás-architektúrára épülő és konténertechnológiát használó szoftverrendszer elkészítése és működőképes állapotban való bemutatása.
 
 A nagy házi feladat két részből áll:
 
@@ -17,10 +17,11 @@ A nagy házi feladat két részből áll:
 
 ## Minimum elvárások
 
+- elfogadott specifikáció
 - a rendszer kifelé egy jól körülhatárolható funkcióhalmazzal rendelkező (pl. könyvtári nyilvántartás) egységes szolgáltatást (backend) valósít meg.
-    - **Specifikációban felsorolás szerűen meg kell határozni a szolgáltatás funkcióit** (pl. könyvek hozzáadása, kölcsönzés, visszavitel, felhasználók kezelése)
+    - **A specifikációban felsorolásszerűen meg kell határozni a szolgáltatás funkcióit** (pl. könyvek hozzáadása, kölcsönzés, visszavitel, felhasználók kezelése)
 - az architektúra több komponensre (mikroszolgáltatás) van darabolva. A mikroszolgáltatások külön-külön API-val rendelkeznek, amelyek hálózaton keresztül (pl. más mikroszolgáltatásokból szinkron vagy aszinkron, API GW-en keresztül kliensekből) hívhatók.
-    - **Specifikációnan meg kell határozni a mikroszolgáltatásokat/komponenseket rövid magyarázattal, illetve azok technológiáit. Az architektúraábrán fel kell tüntetni a komponensek közötti főbb kapcsolatokat is.**
+    - **A specifikációban meg kell határozni a mikroszolgáltatásokat/komponenseket rövid magyarázattal, illetve azok technológiáit. Az architektúraábrán fel kell tüntetni a komponensek közötti főbb kapcsolatokat is.**
 - a szolgáltatás minden része valamely orkesztrációs vagy serverless platformon fut. Választható platformok:
 
     - saját gépen futó (on-premise) Kubernetes (K8S)
@@ -30,7 +31,7 @@ A nagy házi feladat két részből áll:
     - Azure Container Apps (ACA)
 
 - felhasználói felület (kliens) készítése nem elvárás, de enélkül is tudni kell demonstrálni a működést, például Postman klienssel hívva a REST API-t. Az esetleges felületet, klienst nem értékeljük, nem pontozzuk.
-    - A minimum elvárásokat teljesítő rendszer **24** pontot ér.
+- a minimum elvárásokat teljesítő rendszer **24** pontot ér.
 
 !!! tip
     Külső (pl. Microsoft-os) demók, mintaalkalmazások (elemei) felhasználhatók, de ezt külön jelezni kell bemutatáskor. A nem jelzett, de átvett részletek plágiumnak számítanak. A demókból összefércelt egymáshoz nem kapcsolódó funkciókupacokat nem díjazzuk.
@@ -40,7 +41,7 @@ A nagy házi feladat két részből áll:
 
 ### Kötelező leadandók
 
-A házi feladatot a Moodle-ben publikált GitHub Classroom meghívóval generált repository-ban szükséges beadni. Mind a két mérföldkő (spec, implementáció) leadása azonos repositoryban történik két külön Pull Request formájában.
+A házi feladatot a Moodle-ben publikált GitHub Classroom meghívóval generált repository-ban szükséges beadni. Mind a két mérföldkő (spec, implementáció) leadása azonos repository-ban történik két külön Pull Request formájában.
 
 A beadott repository struktúrája:
 
@@ -113,7 +114,7 @@ További szabályok:
     - egyik platform telepítés (pl. Azure-os) felépítése-lebontása **7** pont
     - mindkét platform felépítése-lebontása **10** pont
 
-- **{LANG2}** Több implementációs nyelv használata. A backend szolgáltatások legalább két különböző programozási nyelven készültek. (A frontend ebbe nem számít bele!): **5** pont
+- **{LANG2}** Több programozási nyelv használata. A backend szolgáltatások legalább két különböző programozási nyelven készültek. (A frontend ebbe nem számít bele!): **5** pont
 
 - **{GRPC}** gRPC alapú kommunikáció használata legalább egy mikroszolgáltatás esetében: **7** pont
 
@@ -150,7 +151,7 @@ További szabályok:
 
 - **{ACTOR}** Aktor minta alkalmazása legalább egy állapottal rendelkező szolgáltatás esetében magas szintű keretrendszerek segítségével pl.: Akka, Microsoft Orleans, Akka.NET: **15 pont**
 
-- **{CACHE}** Saját telepítésű (pl. Redis konténer) használata kifejezetten cache-elésre legalább egy művelet esetén: **5** pont
+- **{CACHE}** Saját telepítésű (pl. Redis konténer) használata kifejezetten gyorsítótárazásra legalább egy művelet esetén: **5** pont
 
 - **{HELM}** A szolgáltatás Kubernetesen belül futó része Helm chart-on keresztül telepíthető. Szükséges demonstrálni a rendszer frissítését a chart segítségével: **10** pont
 
@@ -189,9 +190,15 @@ További szabályok:
     - Horizontal Pod AutoScaler alapú: **5** pont
     - [KEDA](https://keda.sh/) alapú, valamilyen adat, esemény alapján: **10** pont
 
+- **{VSC}** Vertikális skálázás podok szintjén (pod requests rightsizing) Vertical Pod Autoscaler (VPA) alapon: **7** pont
+
+    !!! warning "VPA és HPA együtt"
+        A VPA és HPA együttes használata nagy körültekintést igényel, nem ajánlott, hogy ugyanazt a metrikát (vCPU, RAM) figyelje a két Autoscaler.
+
+
 - **{K8SNS}** Több példány (verzió) telepítése ugyanabba a környezetbe K8S namespace-ek vagy Azure Function [deployment slot](https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal)-ok használatával. *Azure Container Apps* platform esetén külön *Container Apps* példány használható: **7** pont
 
-- **{CICD}** CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója elkészül és kitelepül: **10-15** pont
+- **{CICD}** CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója felépül és kitelepül: **10-15** pont
 
     - egy platformra telepít: **10** pont
     - két platformra telepít **15** pont
@@ -212,7 +219,7 @@ További szabályok:
 
 - **{OPDB2}** Legalább kétfajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: **10** pont
 
-- **{OPEXTCR}** Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe külső container registry-ből, authentikációval: **7-10** pont
+- **{OPEXTCR}** Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe külső container registry-ből, autentikációval: **7-10** pont
 
     - Azure Container Registry autentikációval pl. image pull secret-tel: **10** pont
     - Egyéb container registry autentikációval pl. image pull secret-tel: **7** pont
@@ -238,7 +245,7 @@ További szabályok:
     !!! tip
         30 napig ingyenes (többször is aktiválható!) [Cosmos DB](https://cosmos.azure.com/try/) - ideiglenesen nem működik :pensive: (2025. november)
 
-- **{AZRED}** [Azure Redis](https://azure.microsoft.com/en-us/products/cache) szolgáltatás használata kifejezetten cache-elésre saját telepítésű cache helyett, legalább egy művelet esetén: **5** pont
+- **{AZRED}** [Azure Redis](https://azure.microsoft.com/en-us/products/cache) szolgáltatás használata kifejezetten gyorsítótárazásra saját telepítésű cache helyett, legalább egy művelet esetén: **5** pont
 
 - **{AZING}** Gateway/Ingress Azure szolgáltatásra (kivéve Azure API Management) vagy AKS kiterjesztésre építve. **7-10** pont
 
@@ -264,16 +271,12 @@ További szabályok:
 
 - **{OTAZURE}** AKS/ACA/AZF platformon futó alkalmazásból alkalmazásszintű OpenTelemetry telemetriák küldése közvetlenül (agent nélkül) Azure Monitor-ba [Azure Monitor OpenTelemetry disztribúcióval](https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-enable): **10** pont
 
-- **{AKSMON}** AKS monitorozása, különféle telemetriatípusok (strukturált naplók, metrikák, elosztott nyomkövetés) gyűjtése és megjelenítése Azure Monitor szolgáltatásban [Azure Monitor agent-tel](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/kubernetes-monitoring-enable?tabs=cli)  **3-5** pont
-    - strukturált naplók vagy metrikák gyűjtése: **3** pont
-    - strukturált naplók és metrikák gyűjtése: **5** pont
-
 - **{ACAMON}** ACA [monitorozása OpenTelemetry agent-tel](https://learn.microsoft.com/en-us/azure/container-apps/opentelemetry-agents?tabs=arm). Naplók és elosztott nyomkövetési adatok gyűjtése és megjelenítése Azure Monitor-ban (App Insights): **10 pont**
 
     !!! danger
         Platformonként csak egy OpenTelemetry integrációs módszerért (vagy agent alapú vagy közvetlen) jár pont.
 
-  - **{AZFMON}** AZF [monitorozása beépített OpenTelemetry integrációval](https://learn.microsoft.com/en-us/azure/azure-functions/opentelemetry-howto). Naplók és elosztott nyomkövetési adatok gyűjtése és megjelenítése Azure Monitor-ban (App Insights): **10 pont**
+- **{AZFMON}** AZF [monitorozása beépített OpenTelemetry integrációval](https://learn.microsoft.com/en-us/azure/azure-functions/opentelemetry-howto). Naplók és elosztott nyomkövetési adatok gyűjtése és megjelenítése Azure Monitor-ban (App Insights): **10 pont**
 
     !!! warning "Előzetes verzió"
         Az AZF beépített OpenTelemetry integrációja még csak előzetes verziós.
