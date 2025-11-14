@@ -32,6 +32,7 @@ A nagy házi feladat két részből áll:
 
 - felhasználói felület (kliens) készítése nem elvárás, de enélkül is tudni kell demonstrálni a működést, például Postman klienssel hívva a REST API-t. Az esetleges felületet, klienst nem értékeljük, nem pontozzuk.
 - a minimum elvárásokat teljesítő rendszer **24** pontot ér.
+- a minimum elvárásokat teljesítő rendszer szükséges, de nem elégséges feltétele a jegyzerzésnek - lásd alább a _Pontrendszer_ részt.
 
 !!! tip
     Külső (pl. Microsoft-os) demók, mintaalkalmazások (elemei) felhasználhatók, de ezt külön jelezni kell bemutatáskor. A nem jelzett, de átvett részletek plágiumnak számítanak. A demókból összefércelt egymáshoz nem kapcsolódó funkciókupacokat nem díjazzuk.
