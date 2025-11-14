@@ -1173,7 +1173,7 @@
 
 <h1 id="nagy-hazi-feladat">Nagy házi feladat<a class="headerlink" href="#nagy-hazi-feladat" title="Permanent link">¶</a></h1>
 <p><em>Nincs véglegesítve 2025. őszi félévre</em></p>
-<p>A házi feladat otthon, önállóan elkészítendő mikroszolgáltatás-architektúrára épülő és konténertechnológiát használó szoftverrendszer elkészítése és működőképes állapotban való bemutatása.</p>
+<p>A házi feladat otthon, önállóan elkészítendő, mikroszolgáltatás-architektúrára épülő és konténertechnológiát használó szoftverrendszer elkészítése és működőképes állapotban való bemutatása.</p>
 <p>A nagy házi feladat két részből áll:</p>
 <ol>
 <li>a rendszer követelmény specifikációjának elkészítése és az architektúrájának megtervezése a szorgalmi időszakban. <a href="../sample-spec/">Példa specifikáció és architektúraábra</a>.</li>
@@ -1181,12 +1181,13 @@
 </ol>
 <h2 id="minimum-elvarasok">Minimum elvárások<a class="headerlink" href="#minimum-elvarasok" title="Permanent link">¶</a></h2>
 <ul>
+<li>elfogadott specifikáció</li>
 <li>a rendszer kifelé egy jól körülhatárolható funkcióhalmazzal rendelkező (pl. könyvtári nyilvántartás) egységes szolgáltatást (backend) valósít meg.<ul>
-<li><strong>Specifikációban felsorolás szerűen meg kell határozni a szolgáltatás funkcióit</strong> (pl. könyvek hozzáadása, kölcsönzés, visszavitel, felhasználók kezelése)</li>
+<li><strong>A specifikációban felsorolásszerűen meg kell határozni a szolgáltatás funkcióit</strong> (pl. könyvek hozzáadása, kölcsönzés, visszavitel, felhasználók kezelése)</li>
 </ul>
 </li>
 <li>az architektúra több komponensre (mikroszolgáltatás) van darabolva. A mikroszolgáltatások külön-külön API-val rendelkeznek, amelyek hálózaton keresztül (pl. más mikroszolgáltatásokból szinkron vagy aszinkron, API GW-en keresztül kliensekből) hívhatók.<ul>
-<li><strong>Specifikációnan meg kell határozni a mikroszolgáltatásokat/komponenseket rövid magyarázattal, illetve azok technológiáit. Az architektúraábrán fel kell tüntetni a komponensek közötti főbb kapcsolatokat is.</strong></li>
+<li><strong>A specifikációban meg kell határozni a mikroszolgáltatásokat/komponenseket rövid magyarázattal, illetve azok technológiáit. Az architektúraábrán fel kell tüntetni a komponensek közötti főbb kapcsolatokat is.</strong></li>
 </ul>
 </li>
 <li>
@@ -1201,10 +1202,8 @@
 </li>
 <li>
 <p>felhasználói felület (kliens) készítése nem elvárás, de enélkül is tudni kell demonstrálni a működést, például Postman klienssel hívva a REST API-t. Az esetleges felületet, klienst nem értékeljük, nem pontozzuk.</p>
-<ul>
-<li>A minimum elvárásokat teljesítő rendszer <strong>24</strong> pontot ér.</li>
-</ul>
 </li>
+<li>a minimum elvárásokat teljesítő rendszer <strong>24</strong> pontot ér.</li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1215,7 +1214,7 @@
 <p>Az órai demókban vagy mintaalkalmazásban megvalósított funkciók átvételéért pont nem adható, de azok tovább átdolgozhatók saját implementációnak.</p>
 </div>
 <h3 id="kotelezo-leadandok">Kötelező leadandók<a class="headerlink" href="#kotelezo-leadandok" title="Permanent link">¶</a></h3>
-<p>A házi feladatot a Moodle-ben publikált GitHub Classroom meghívóval generált repository-ban szükséges beadni. Mind a két mérföldkő (spec, implementáció) leadása azonos repositoryban történik két külön Pull Request formájában.</p>
+<p>A házi feladatot a Moodle-ben publikált GitHub Classroom meghívóval generált repository-ban szükséges beadni. Mind a két mérföldkő (spec, implementáció) leadása azonos repository-ban történik két külön Pull Request formájában.</p>
 <p>A beadott repository struktúrája:</p>
 <ul>
 <li><code>src</code> mappa: forráskód (saját)</li>
@@ -1308,7 +1307,7 @@ AZ-400: Development for enterprise DevOps;405
 </ul>
 </li>
 <li>
-<p><strong>{LANG2}</strong> Több implementációs nyelv használata. A backend szolgáltatások legalább két különböző programozási nyelven készültek. (A frontend ebbe nem számít bele!): <strong>5</strong> pont</p>
+<p><strong>{LANG2}</strong> Több programozási nyelv használata. A backend szolgáltatások legalább két különböző programozási nyelven készültek. (A frontend ebbe nem számít bele!): <strong>5</strong> pont</p>
 </li>
 <li>
 <p><strong>{GRPC}</strong> gRPC alapú kommunikáció használata legalább egy mikroszolgáltatás esetében: <strong>7</strong> pont</p>
@@ -1360,7 +1359,7 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{ACTOR}</strong> Aktor minta alkalmazása legalább egy állapottal rendelkező szolgáltatás esetében magas szintű keretrendszerek segítségével pl.: Akka, Microsoft Orleans, Akka.NET: <strong>15 pont</strong></p>
 </li>
 <li>
-<p><strong>{CACHE}</strong> Saját telepítésű (pl. Redis konténer) használata kifejezetten cache-elésre legalább egy művelet esetén: <strong>5</strong> pont</p>
+<p><strong>{CACHE}</strong> Saját telepítésű (pl. Redis konténer) használata kifejezetten gyorsítótárazásra legalább egy művelet esetén: <strong>5</strong> pont</p>
 </li>
 <li>
 <p><strong>{HELM}</strong> A szolgáltatás Kubernetesen belül futó része Helm chart-on keresztül telepíthető. Szükséges demonstrálni a rendszer frissítését a chart segítségével: <strong>10</strong> pont</p>
@@ -1416,10 +1415,17 @@ AZ-400: Development for enterprise DevOps;405
 </ul>
 </li>
 <li>
+<p><strong>{VSC}</strong> Vertikális skálázás podok szintjén (pod requests rightsizing) Vertical Pod Autoscaler (VPA) alapon: <strong>7</strong> pont</p>
+<div class="admonition warning">
+<p class="admonition-title">VPA és HPA együtt</p>
+<p>A VPA és HPA együttes használata nagy körültekintést igényel, nem ajánlott, hogy ugyanazt a metrikát (vCPU, RAM) figyelje a két Autoscaler.</p>
+</div>
+</li>
+<li>
 <p><strong>{K8SNS}</strong> Több példány (verzió) telepítése ugyanabba a környezetbe K8S namespace-ek vagy Azure Function <a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal">deployment slot</a>-ok használatával. <em>Azure Container Apps</em> platform esetén külön <em>Container Apps</em> példány használható: <strong>7</strong> pont</p>
 </li>
 <li>
-<p><strong>{CICD}</strong> CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója elkészül és kitelepül: <strong>10-15</strong> pont</p>
+<p><strong>{CICD}</strong> CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója felépül és kitelepül: <strong>10-15</strong> pont</p>
 <ul>
 <li>egy platformra telepít: <strong>10</strong> pont</li>
 <li>két platformra telepít <strong>15</strong> pont</li>
@@ -1449,7 +1455,7 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{OPDB2}</strong> Legalább kétfajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: <strong>10</strong> pont</p>
 </li>
 <li>
-<p><strong>{OPEXTCR}</strong> Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe külső container registry-ből, authentikációval: <strong>7-10</strong> pont</p>
+<p><strong>{OPEXTCR}</strong> Konténerek vagy helm chart(ok) letöltése on-premise klaszterbe külső container registry-ből, autentikációval: <strong>7-10</strong> pont</p>
 <ul>
 <li>Azure Container Registry autentikációval pl. image pull secret-tel: <strong>10</strong> pont</li>
 <li>Egyéb container registry autentikációval pl. image pull secret-tel: <strong>7</strong> pont</li>
@@ -1487,7 +1493,7 @@ AZ-400: Development for enterprise DevOps;405
 </div>
 </li>
 <li>
-<p><strong>{AZRED}</strong> <a href="https://azure.microsoft.com/en-us/products/cache">Azure Redis</a> szolgáltatás használata kifejezetten cache-elésre saját telepítésű cache helyett, legalább egy művelet esetén: <strong>5</strong> pont</p>
+<p><strong>{AZRED}</strong> <a href="https://azure.microsoft.com/en-us/products/cache">Azure Redis</a> szolgáltatás használata kifejezetten gyorsítótárazásra saját telepítésű cache helyett, legalább egy művelet esetén: <strong>5</strong> pont</p>
 </li>
 <li>
 <p><strong>{AZING}</strong> Gateway/Ingress Azure szolgáltatásra (kivéve Azure API Management) vagy AKS kiterjesztésre építve. <strong>7-10</strong> pont</p>
@@ -1522,13 +1528,6 @@ AZ-400: Development for enterprise DevOps;405
 </li>
 <li>
 <p><strong>{OTAZURE}</strong> AKS/ACA/AZF platformon futó alkalmazásból alkalmazásszintű OpenTelemetry telemetriák küldése közvetlenül (agent nélkül) Azure Monitor-ba <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-enable">Azure Monitor OpenTelemetry disztribúcióval</a>: <strong>10</strong> pont</p>
-</li>
-<li>
-<p><strong>{AKSMON}</strong> AKS monitorozása, különféle telemetriatípusok (strukturált naplók, metrikák, elosztott nyomkövetés) gyűjtése és megjelenítése Azure Monitor szolgáltatásban <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/containers/kubernetes-monitoring-enable?tabs=cli">Azure Monitor agent-tel</a>  <strong>3-5</strong> pont</p>
-<ul>
-<li>strukturált naplók vagy metrikák gyűjtése: <strong>3</strong> pont</li>
-<li>strukturált naplók és metrikák gyűjtése: <strong>5</strong> pont</li>
-</ul>
 </li>
 <li>
 <p><strong>{ACAMON}</strong> ACA <a href="https://learn.microsoft.com/en-us/azure/container-apps/opentelemetry-agents?tabs=arm">monitorozása OpenTelemetry agent-tel</a>. Naplók és elosztott nyomkövetési adatok gyűjtése és megjelenítése Azure Monitor-ban (App Insights): <strong>10 pont</strong></p>
@@ -1608,8 +1607,8 @@ AZ-400: Development for enterprise DevOps;405
           </path>
         </svg>
       </span>
-      <span title="2025. november 13. 17:36:34">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 13. 17:36:34 CET"><span class="timeago" datetime="2025-11-13T17:36:34+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 13. 17:36:34 CET">2025-11-13</span>
+      <span title="2025. november 14. 11:26:39">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 14. 11:26:39 CET"><span class="timeago" datetime="2025-11-14T11:26:39+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 14. 11:26:39 CET">2025-11-14</span>
       </span>
     </span>
 
