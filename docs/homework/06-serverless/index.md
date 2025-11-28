@@ -1,6 +1,5 @@
 # 06 - Serverless
-
-*Nincs frissítve a 2025. őszi félévre!*
+<!-- *Nincs frissítve 2025. őszi félévre!* -->
 
 ## Cél
 
@@ -50,7 +49,7 @@ Az [*Exercise: Create an Azure Function by using Visual Studio Code*](https://le
 
 ### 2.1 Terhelésteszt - spike
 
-Hozz létre egy terhelésteszt (Azure Load Testing) erőforrást az előző házi alapján. Csak az erőforrás kell, nem kell bele teszt(eset).
+Ha nincs meg az előző háziból a terhelésteszt (Azure Load Testing) erőforrás, hozd létre (újra) az előző házi leírása alapján. Csak az erőforrás kell, nem kell bele teszt(eset).
 
 Az Azure portálon keresd ki és nyisd meg az előző feladatban létrehozott *Function App*-ot. A *Load Testing (Preview)* menüpont segítségével [hozz létre és futtass](https://learn.microsoft.com/en-us/azure/load-testing/how-to-create-load-test-function-app) egy kiugrást (spike) szimuláló terheléstesztet.
 
