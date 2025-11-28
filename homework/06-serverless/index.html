@@ -779,21 +779,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Előkészület">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#git-repository-letrehozasa-es-letoltese" class="md-nav__link">
-    <span class="md-ellipsis">
-      Git repository létrehozása és letöltése
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1064,21 +1049,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Előkészület">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#git-repository-letrehozasa-es-letoltese" class="md-nav__link">
-    <span class="md-ellipsis">
-      Git repository létrehozása és letöltése
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1190,62 +1160,54 @@
 
 
 <h1 id="06-serverless">06 - Serverless<a class="headerlink" href="#06-serverless" title="Permanent link">¶</a></h1>
-<p><em>Nincs frissítve 2025. őszi félévre!</em></p>
+<p><em>Nincs frissítve a 2025. őszi félévre!</em></p>
 <h2 id="cel">Cél<a class="headerlink" href="#cel" title="Permanent link">¶</a></h2>
 <p>A labor célja megismerni az Azure elsődleges serverless technológiáját, az Azure Functions-t.</p>
 <h2 id="elokovetelmenyek">Előkövetelmények<a class="headerlink" href="#elokovetelmenyek" title="Permanent link">¶</a></h2>
-<p>A laborleírás cross-platform eszközöket használ. A labor linuxon (kubuntu v24.04) lett kidolgozva.</p>
+<p>A laborleírás cross-platform eszközöket használ. A labor Linuxon (Kubuntu v24.04) lett kidolgozva.</p>
 <ul>
 <li>Azure <a href="https://azure.microsoft.com/en-us/free/students">hallgatói előfizetés</a></li>
 <li>A többit lásd <a href="https://learn.microsoft.com/en-us/training/modules/develop-azure-functions/5-create-function-visual-studio-code">itt</a></li>
 </ul>
 <h2 id="elokeszulet">Előkészület<a class="headerlink" href="#elokeszulet" title="Permanent link">¶</a></h2>
-<p>A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamatát <a href="../../information/GitHub/">GitHub</a>.</p>
+<p>A feladatok megoldása során ne felejtsd el követni a feladat beadásának folyamatát a <a href="../../information/GitHub/">GitHub</a> oldalon.</p>
 <div class="admonition danger">
 <p class="admonition-title">PR név</p>
-<p><img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"> Beadásnál a pull request neve legyen: <em>hf6</em> <img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"></p>
-</div>
-<h3 id="git-repository-letrehozasa-es-letoltese">Git repository létrehozása és letöltése<a class="headerlink" href="#git-repository-letrehozasa-es-letoltese" title="Permanent link">¶</a></h3>
-<ol>
-<li>Moodle-ben keresd meg a laborhoz tartozó meghívó URL-jét és annak segítségével hozd létre a saját repository-dat.</li>
-<li>Várd meg, míg elkészül a repository, majd checkout-old ki.</li>
-<li>Hozz létre egy új ágat <code>megoldas</code> néven, és ezen az ágon dolgozz.</li>
-<li>A <code>neptun.txt</code> fájlba írd bele a Neptun kódodat. A fájlban semmi más ne szerepeljen, csak egyetlen sorban a Neptun kód 6 karaktere.</li>
-</ol>
-<div class="admonition danger">
-<p class="admonition-title">NEPTUN</p>
-<p><img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"> A feladatokban a <code>neptun</code> kifejezés helyett a saját neptunkódunkat helyettesítsük be minden esetben <img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"></p>
+<p><img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"> A beadásnál a pull request neve legyen: <em>hf6</em> <img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2757.svg" title=":exclamation:"></p>
 </div>
 <h2 id="1-feladat">1. Feladat<a class="headerlink" href="#1-feladat" title="Permanent link">¶</a></h2>
 <h3 id="11-azure-functions-bevezeto-anyag">1.1 Azure Functions bevezető anyag<a class="headerlink" href="#11-azure-functions-bevezeto-anyag" title="Permanent link">¶</a></h3>
 <p>Végezd el az <a href="https://learn.microsoft.com/en-us/training/paths/implement-azure-functions/"><em>AZ-204: Implement Azure Functions</em></a> tananyagot (2 modul, összesen 53 percben). Az <a href="https://learn.microsoft.com/en-us/training/modules/develop-azure-functions/5-create-function-visual-studio-code"><em>Exercise: Create an Azure Function by using Visual Studio Code</em></a> rész kapcsán lásd a következő alfeladatot.</p>
 <h3 id="12-azure-functions-hello-world">1.2 Azure Functions Hello World<a class="headerlink" href="#12-azure-functions-hello-world" title="Permanent link">¶</a></h3>
-<p>Az <a href="https://learn.microsoft.com/en-us/training/modules/develop-azure-functions/5-create-function-visual-studio-code"><em>Exercise: Create an Azure Function by using Visual Studio Code</em></a> részben kövesd (amennyire lehet) az eddigi konvenciókat:</p>
+<p>Az <a href="https://learn.microsoft.com/en-us/training/modules/develop-azure-functions/5-create-function-visual-studio-code"><em>Exercise: Create an Azure Function by using Visual Studio Code</em></a> részben az Azure erőforrások létrehozásakor kövesd (amennyire lehetséges) az eddigi konvenciókat:</p>
 <ul>
 <li>név: <em>azfun</em> előtag + neptun kód (pl.<em>npt123</em> neptun kód esetén <em>azfunnpt123</em>)</li>
 <li>régió: közös Azure régió (lásd AKS házi)</li>
-<li>erőforráscsoport: alapértelmezésben egy új erőforráscsoport jön létre ugyanolyan névvel, mint amit névként megadtunk a <em>Function App</em>-nak. Ha ez nem tetszik, akkor a <a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code?tabs=node-v4%2Cpython-v2%2Cisolated-process%2Cadvanced-options&amp;pivots=programming-language-csharp#publish-to-azure">komplexebb (advanced) varázslót</a> kell indítani</li>
+<li>erőforráscsoport: alapértelmezésben egy új erőforráscsoport jön létre ugyanolyan névvel, mint amit névként megadtunk a <em>Function App</em>-nak. Ha ez nem tetszik, indítsd el a [komplexebb (advanced) varázslót].</li>
 </ul>
+<div class="admonition info">
+<p class="admonition-title">Azure Function hosting</p>
+<p>Alapértelmezés szerint <a href="https://learn.microsoft.com/en-us/azure/azure-functions/flex-consumption-plan">Flex Consumption</a> típusú lesz a létrejövő Function App hosting plan-je.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Hagyd meg</p>
-<p>A tananyag elvégzése után még ne töröld a Function-t,a következő feladatban még szükség lesz rá. </p>
+<p>A tananyag elvégzése után ne töröld a Function-t, a következő feladatban szükség lesz rá.</p>
 </div>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
-<p>Készíts egy képernyőképet a Microsoft Learn portálról (<code>f1.1.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin látszik a tananyag elvégzéséről készült oklevél nyomtatási képe látszik (angol portál esetében: jobb felső sarok ➡️ <em>Profile</em> ➡️ a bal oldali menüben <em>Achievements</em> ➡️ átváltás a <em>Learning Path</em> alfülre ➡️ tananyag kikeresése ➡️ a tananyag kártyáján a nyomtató ikon). Közvetlen <a href="https://learn.microsoft.com/en-us/users/me/achievements?tab=tab-learning-paths">learning path link</a>. Nem kell ténylegesen kinyomtatni, de a teljes oldal látszódjon, jobb felül a belépett felhasználó monogramjával. Alternatívaként a tananyag kártyáján a megosztás ikonnal egy linket generálhatunk, ezt a linket is be lehet adni (<a href="https://learn.microsoft.com/api/achievements/share/en-us/kszicsillag/JL4MHR2T?sharingId=C9ECDF4DA28799DD">példa</a>). Link esetén próbáld ki, hogy publikusan elérhető-e az oklevél, illetve ilyenkor a <a href="https://learn.microsoft.com/en-us/credentials/certifications/cred-share-validate#sharing-and-privacy-setting">privát mód</a> ne legyen bekapcsolva.  </p>
+<p>Készíts egy képernyőképet a Microsoft Learn portálról (<code>f1.1.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin a tananyag elvégzéséről készült oklevél nyomtatási képe látható (angol portál esetében: jobb felső sarok ➡️ <em>Profile</em> ➡️ a bal oldali menüben <em>Achievements</em> ➡️ átváltás a <em>Learning Path</em> alfülre ➡️ tananyag kikeresése ➡️ a tananyag kártyáján a nyomtató ikon). Közvetlen <a href="https://learn.microsoft.com/en-us/users/me/achievements?tab=tab-learning-paths">learning path link</a>. Nem kell ténylegesen kinyomtatni, de a teljes oldal látszódjon, jobb felül a belépett felhasználó monogramjával. Alternatívaként a tananyag kártyáján a megosztás ikonnal egy linket generálhatunk; ezt a linket is be lehet adni (<a href="https://learn.microsoft.com/api/achievements/share/en-us/kszicsillag/JL4MHR2T?sharingId=C9ECDF4DA28799DD">példa</a>). Link esetén próbáld ki, hogy publikusan elérhető-e az oklevél, illetve ilyenkor a <a href="https://learn.microsoft.com/en-us/credentials/certifications/cred-share-validate#sharing-and-privacy-setting">privát mód</a> ne legyen bekapcsolva.</p>
 <p>Készíts egy képernyőképet (<code>f1.2.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin a Visual Studio Code Azure erőforrásokat mutató ablakában az erőforrásfa ki van bontva úgy, hogy látszódjon az 1.2-es feladat Azure Function-je. Illetve látszódjon a sikeres válasz pop-up-ja is. </p>
 </div>
 <h2 id="2-feladat">2. Feladat<a class="headerlink" href="#2-feladat" title="Permanent link">¶</a></h2>
 <h3 id="21-terhelesteszt-spike">2.1 Terhelésteszt - spike<a class="headerlink" href="#21-terhelesteszt-spike" title="Permanent link">¶</a></h3>
-<p>Hozz létre egy terhelés teszt (Azure Load Testing) erőforrást az előző házi alapján. Csak az erőforrás kell, nem kell bele teszt(eset). </p>
+<p>Hozz létre egy terhelésteszt (Azure Load Testing) erőforrást az előző házi alapján. Csak az erőforrás kell, nem kell bele teszt(eset).</p>
 <p>Az Azure portálon keresd ki és nyisd meg az előző feladatban létrehozott <em>Function App</em>-ot. A <em>Load Testing (Preview)</em> menüpont segítségével <a href="https://learn.microsoft.com/en-us/azure/load-testing/how-to-create-load-test-function-app">hozz létre és futtass</a> egy kiugrást (spike) szimuláló terheléstesztet.</p>
-<p>Erőforráskonfiguráció (<em>Resource Configuration</em>):</p>
+<p>Tesztterv (<em>Test Plan</em>):</p>
 <ul>
 <li>Load Testing resource: válasszuk ki az Azure Load Testing erőforrásunkat</li>
 <li>Test name: maradhat a generált érték, de át is írhatjuk</li>
-<li>Run test after creation: bepipálni</li>
 </ul>
-<p>Erőforráskonfiguráció (<em>Resource Configuration</em>) / HTTP kérések (<em>Requests</em>):</p>
+<p>Tesztterv (<em>Test Plan</em>) / HTTP kérések (<em>Requests</em>):</p>
 <ul>
 <li>Request name: mi adjuk meg, pl. <em>HttpExampleRequest</em> </li>
 <li>Function name: <em>HttpExample</em> (egy van - automatikusan kitöltődik)</li>
@@ -1253,7 +1215,7 @@
 <li>HTTP method: <em>GET</em> (automatikusan kitöltődik)</li>
 <li>Opcionális header, query paraméter, stb. értékek: nem kell kitölteni.</li>
 </ul>
-<p>Terhelés (Load Configuration):</p>
+<p>Terhelés (<em>Load</em>):</p>
 <ul>
 <li>Engine instances: <em>1</em></li>
 <li>Load pattern: <em>Spike</em></li>
@@ -1262,39 +1224,48 @@
 <li>Spike load multiplier : <em>5</em></li>
 <li>Spike hold time (minutes) : <em>3</em></li>
 <li>Load distribution: elég az alapértelmezett 1 db</li>
-<li>régió: közös Azure régió (lásd AKS házi)</li>
 <li>Test traffic mode: <em>public</em></li>
 </ul>
-<p>A <em>Run test after creation</em>  opció bekapcsolása miatt a teszt elkészülte után le is fog futni a teszt, nem kell külön elindítani. Várjuk meg míg a teszt lefut (az Azure Load Testing erőforrásunk Tests menüpontjában tudjuk követni). </p>
-<h3 id="22-terhelesteszt-monitorozas-azure-function-oldalrol">2.2 Terhelésteszt monitorozás Azure Function oldalról<a class="headerlink" href="#22-terhelesteszt-monitorozas-azure-function-oldalrol" title="Permanent link">¶</a></h3>
-<p>Az Azure Function metrikák (<em>Metrics</em>) menüpontjában <a href="https://learn.microsoft.com/en-us/azure/azure-functions/monitor-functions?tabs=portal#analyze-metrics-for-azure-functions">monitorozzuk</a> a terhelés lefutását:</p>
+<p>Ellenőrzés és létrehozás (<em>Review + create</em>):</p>
 <ul>
-<li>a megfigyelt <a href="https://learn.microsoft.com/en-us/azure/azure-functions/monitor-functions-reference?tabs=consumption-plan#metrics">metrika</a> legyen <em>Function Execution Count</em></li>
-<li>aggregáció: Sum</li>
-<li>a jobb felső sarokban úgy állítsuk be az időtartamot, hogy teszt miatti kiugrás (<em>spike</em>) jól látható legyen, ugyanitt a felbontás (<em>time granularity</em>) 1 perc legyen</li>
+<li>Run test after creation: bepipálni</li>
+</ul>
+<p>A <em>Run test after creation</em> opció bekapcsolása miatt a teszt elkészülte után le is fog futni, nem kell külön elindítani. Várjuk meg, amíg a teszt lefut (az Azure Load Testing erőforrásunk Tests menüpontjában tudjuk követni).</p>
+<h3 id="22-terhelesteszt-monitorozas-azure-function-oldalrol">2.2 Terhelésteszt monitorozás Azure Function oldalról<a class="headerlink" href="#22-terhelesteszt-monitorozas-azure-function-oldalrol" title="Permanent link">¶</a></h3>
+<p>Az Azure Function metrikák (<em>Metrics</em>) menüpontjában <a href="https://learn.microsoft.com/en-us/azure/azure-functions/monitor-functions?tabs=portal#analyze-metrics-for-azure-functions">monitorozzuk</a> a terhelésteszt lefutását:</p>
+<ul>
+<li>a megfigyelt <a href="https://learn.microsoft.com/en-us/azure/azure-functions/monitor-functions-reference?tabs=flex-consumption-plan#metrics">metrika</a> legyen az <em>On Demand Function Execution Count</em></li>
+<li>aggregáció: <em>Sum</em></li>
+<li>a jobb felső sarokban úgy állítsuk be az időtartamot, hogy a teszt miatti kiugrás (<em>spike</em>) jól látható legyen; ugyanitt a felbontás (<em>time granularity</em>) legyen 1 perc</li>
 <li>grafikon típusa: oszlopdiagram (<em>Bar chart</em>)</li>
 </ul>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
-<p>Készíts egy képernyőképet az Azure portálról (<code>f2.1.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin látszik a <em>Function Execution Count</em> metrikából készített oszlopdiagramon a terhelés teszt hatása (kiugrás). A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarka környékén a Function neve.</p>
+<p>Készíts egy képernyőképet az Azure portálról (<code>f2.1.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin látható a <em>On Demand Function Execution Count</em> metrikából készített oszlopdiagram, és a terhelésteszt hatása (kiugrás). A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarka környékén a Function neve.</p>
 </div>
 <h3 id="23-koltsegszamitas-metrika-alapjan">2.3 Költségszámítás metrika alapján<a class="headerlink" href="#23-koltsegszamitas-metrika-alapjan" title="Permanent link">¶</a></h3>
-<p>Számoljunk becsült költséget a terhelés teszt Azure Function oldalára (a terhelés teszt lefuttatásának is van költsége az Azure Load Testing erőforrás oldalán). Ehhez a <em>Function Execution Unit</em> metrikát figyeljük:</p>
+<p>Számoljunk becsült költséget a terhelésteszt Azure Function oldalára (a terhelésteszt lefuttatásának is van költsége az Azure Load Testing erőforrás oldalán). Ehhez az <em>On Demand Function Execution Units</em> metrikát figyeljük:</p>
 <ul>
-<li>aggregáció: Sum</li>
-<li>a jobb felső sarokban úgy állítsuk be az időtartamot, hogy teszt miatti kiugrás jól látható legyen, ugyanitt a felbontás (<em>time granularity</em>) legyen hosszabb mint a teszt (pl. 15 perc)</li>
+<li>aggregáció: <em>Sum</em></li>
+<li>a jobb felső sarokban úgy állítsuk be az időtartamot, hogy a teszt miatti kiugrás jól látható legyen; ugyanitt a felbontás (<em>time granularity</em>) legyen hosszabb, mint a teszt (pl. 15 perc)</li>
 <li>grafikon típusa: oszlopdiagram (<em>Bar chart</em>)</li>
 </ul>
-<p>Egyetlen oszlopnak kell kiemelkednie, ennek az értéke kell (egeret fölötte tartva is kiírja). Számold ki a terhelésteszt költségét az <a href="https://azure.microsoft.com/en-us/pricing/details/functions/">árlista</a> alapján úgy, hogy a bennefoglalt erőforrásokat (<em>az első x db. hívás ingyenes</em>) nem veszed figyelembe.</p>
+<p>Egyetlen oszlopnak kell kiemelkednie; ennek az értékét kell használni (ha az egeret fölötte tartjuk, megjelenik), amiből az ár végrehajtási idő (<em>execution time</em>) komponense kiszámolható.</p>
 <div class="admonition warning">
 <p class="admonition-title">Mértékegységváltás</p>
 <p>Az érték mértékegysége MB*ms (megabájt-milliszekundum), az ár viszont GB*s-ban (gigabájt-szekundum) van megadva. Az átváltáshoz segítség az <a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-consumption-costs?tabs=flex-consumtion-plan%2Cportal#function-app-level-metrics">útmutatóban</a>.</p>
 </div>
+<p>Az ár másik komponense a végrehajtási szám (<em>execution count</em>); ezt a fentihez hasonló módon az <em>On Demand Function Execution Count</em> metrika egyetlen oszloppá összenyomott grafikonjáról lehet leolvasni.</p>
+<p>Számold ki a terhelésteszt költségét a végrehajtási szám és a végrehajtási idő értékekből, EUR pénznemben az <a href="https://azure.microsoft.com/en-us/pricing/details/functions/">Azure Functions - Flex Consumptions árlista</a> alapján úgy, hogy a bennefoglalt erőforrásokat (<em>az első x db. hívás ingyenes</em>) nem veszed figyelembe.</p>
+<div class="admonition tip">
+<p class="admonition-title">Always Ready példányok</p>
+<p>Mivel <em>Always Ready</em> példányokat nem használtunk, így azok költségeivel nem kell számolni.</p>
+</div>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
-<p>Készíts egy képernyőképet az Azure portálról (<code>f2.2.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin látszik a <em>Function Execution Unit</em> metrikából készített oszlopdiagramon a terhelés teszt hatása (kiugrás). A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarka környékén a Function neve.</p>
-<p>Készíts egy másik képernyőképet (<code>f2.3.png</code>) és commitold azt be ezt is a házi feladat repó gyökerébe, ahol az Azure portálon látszik a Function erőforráscsoportjának áttekintő nézete (<em>Overview</em>). Látszódjon a portálra belépett felhasználó azonosítója a jobb felső sarokban.</p>
-<p>Készíts egy szöveges fájlt (<code>f2.4.txt</code>) és commitold azt be a házi feladat repó gyökerébe, amiben egy lépésben levezeted (pl. <code>param1*param2/param3=ktg</code>) a költséget .</p>
+<p>Készíts egy képernyőképet az Azure portálról (<code>f2.2.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin látszik az <em>On Demand Function Execution Unit</em> metrikából készített oszlopdiagramon a terhelésteszt hatása (kiugrás). A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarka környékén a Function neve.</p>
+<p>Készíts egy másik képernyőképet (<code>f2.3.png</code>) és commitold ezt is a házi feladat repó gyökerébe, ahol az Azure portálon látszik a Function erőforráscsoportjának áttekintő nézete (<em>Overview</em>). Látszódjon a portálra belépett felhasználó azonosítója a jobb felső sarokban.</p>
+<p>Készíts egy szöveges fájlt (<code>f2.4.txt</code>) és commitold azt be a házi feladat repó gyökerébe, amiben egy lépésben levezeted (pl. <code>param1*param2/param3=ktg</code>) a költséget.</p>
 </div>
 <h2 id="3-feladat-talan-a-legfontosabb">3. Feladat - talán a legfontosabb<a class="headerlink" href="#3-feladat-talan-a-legfontosabb" title="Permanent link">¶</a></h2>
 <div class="admonition danger">
@@ -1308,8 +1279,8 @@
           </path>
         </svg>
       </span>
-      <span title="2025. szeptember 5. 09:55:13">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. szeptember 5. 09:55:13 CEST"><span class="timeago" datetime="2025-09-05T09:55:13+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. szeptember 5. 09:55:13 CEST">2025-09-05</span>
+      <span title="2025. november 9. 16:01:43">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. november 9. 16:01:43 CET"><span class="timeago" datetime="2025-11-09T16:01:43+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. november 9. 16:01:43 CET">2025-11-09</span>
       </span>
     </span>
 
@@ -1323,11 +1294,7 @@
         </svg>
       </span>
       <span>Szerzők</span>
-      <nav><a href="https://github.com/Breinich" target="_blank" rel="noopener noreferrer" class="md-author" title="@Vencel Bajnok">
-          <img src="https://avatars.githubusercontent.com/u/74102716?u=55e714273918a271faff6115772605d7f130cf4b&amp;v=4?size=72" alt="@Vencel Bajnok">
-        </a><a href="https://github.com/kristof39612" target="_blank" rel="noopener noreferrer" class="md-author" title="@Lovácsi Kristóf">
-          <img src="https://avatars.githubusercontent.com/u/28741676?v=4?size=72" alt="@Lovácsi Kristóf">
-        </a><a href="https://github.com/kszicsillag" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gábor Simon">
+      <nav><a href="https://github.com/kszicsillag" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gábor Simon">
           <img src="https://avatars.githubusercontent.com/u/1849897?u=1d3aa9b07d07da9a2b04d86a97ec4060c3280592&amp;v=4?size=72" alt="@Gábor Simon">
         </a><a href="https://github.com/vandreas73" target="_blank" rel="noopener noreferrer" class="md-author" title="@None">
           <img src="https://avatars.githubusercontent.com/u/113762114?u=72f34320e374884b31584a21539071340774aada&amp;v=4?size=72" alt="@None">
