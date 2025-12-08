@@ -2,11 +2,7 @@
 
 Közvetlen link ezen tételsorra: https://bit.ly/skalazhatozv
 
-!!! warning 
-    Ez a tételsor kifejezetten záróvizsgára készült, nem a tárgy szóbeli vizsgájához. 
-
-
-## 2024
+## 2024, 2025
 
 1. Mikroszolgáltatás architektúra jellemzői, összehasonlítva a monolitikus architektúrával. Előnyök és hártányok bemutatása technológiai, munkaszervezési és DevOps szempontból.
 
@@ -72,6 +68,5 @@ Közvetlen link ezen tételsorra: https://bit.ly/skalazhatozv
 
 1. Azure Functions orkesztrációs opciók. Durable Functions orkesztrációs mintái.
 
-1. Azure Monitor fő jellemzői. Azure Monitor alapú monitorozó architektúra részei, adatáramlása.
-
-1. Konténer alapú szolgáltatások integrációja Azure Monitor szolgáltatásba. Azure Monitor riasztások. Azure Monitor árazása.
+!!! warning 
+    Ez a tételsor kifejezetten záróvizsgára készült, nem a tárgy szóbeli vizsgájához. 
