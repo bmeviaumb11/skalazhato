@@ -44,9 +44,9 @@ Közvetlen link ezen tételsorra: https://bit.ly/skalazhatozv
 
 1. Azure alapszolgáltatások. Entra és Azure viszonya. Előfizetés és erőforrás létrehozás folyamata.
 
-1. Szerepkör alapú hozzáférés szabályozás Azure-ban (RBAC). Entra identitás típusok. 
+1. Szerepkör alapú hozzáférés szabályozás Azure-ban (RBAC). Azure szerepkörök. Entra identitás típusok. 
 
-1. Azure Resource Manager (ARM) hatókörök (scope). ARM felépítése, működése. Azure szerepkörök.
+1. Azure Resource Manager (ARM) hatókörök (scope). ARM felépítése, működése.
 
 1. Skálázódó infrastruktúrakezelés: IaC és governance lehetőségek Azure-ban.
 
