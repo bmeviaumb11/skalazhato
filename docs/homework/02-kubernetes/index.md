@@ -4,6 +4,8 @@ authors: tibitoth
 
 # 02 - Kubernetes, Helm, Traefik
 
+*Nincs frissítve 2026. őszi félévre!*
+
 ## Cél
 
 A labor célja:

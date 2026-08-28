@@ -3,9 +3,9 @@ authors: kszicsillag,tibitoth
 ---
 
 # Nagy házi feladat
-<!-- *Nincs véglegesítve 2025. őszi félévre* -->
+*Nincs véglegesítve 2026. őszi félévre*
 
-*Véglegesítve 2025. őszi félévre 2025. november 14-én*
+<!-- *Véglegesítve 2025. őszi félévre 2025. november 14-én* -->
 
 A házi feladat otthon, önállóan elkészítendő, mikroszolgáltatás-architektúrára épülő és konténertechnológiát használó szoftverrendszer elkészítése és működőképes állapotban való bemutatása.
 

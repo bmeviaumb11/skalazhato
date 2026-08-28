@@ -13,7 +13,7 @@ A feladatok beadásához a GitHub platformot használjuk. Minden labor beadása 
 
 Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló az áttekintéshez, illetve a helyes beadás ellenőrzéséhez.
 
-1. A munkádat Moodle-ben található GitHub Classroom meghívó linken keresztül létrehozott GitHub repository-ban kell elkészítsd.
+1. A munkádat Moodle-ben található meghívó linken keresztül létrehozott GitHub repository-ban kell elkészítsd.
 
 1. A megoldáshoz készíts egy külön ágat, ne a _master_-en dolgozz. Erre az ágra akárhány kommitot tehetsz. Mindenképpen pushold a megoldást.
 
@@ -27,9 +27,6 @@ Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló
 
 1. Moodle-ben a kurzus oldalán keresd meg a laborhoz tartozó meghívó URL-t. Ez minden laborhoz más lesz, ügyelj rá, hogy a megfelelő linket használd.
 
-1. Ha kéri, adj engedélyt a _GitHub Classroom_ alkalmazásnak, hogy használja az account adataidat.
-
-    ![Authorize GitHub classroom](images/github-authorize-classroom.png)
 
 1. Látni fogsz egy oldalt, ahol elfogadhatod a feladatot ("Accept the ... assignment"). Kattints a gombra.
 

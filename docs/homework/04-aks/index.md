@@ -4,7 +4,7 @@ authors: kszicsillag
 
 # 04 - Azure Kubernetes Services
 
-<!-- *Nincs frissítve 2025. őszi félévre!* -->
+*Nincs frissítve 2026. őszi félévre!*
 
 ## Cél
 

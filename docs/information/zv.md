@@ -2,7 +2,7 @@
 
 Közvetlen link ezen tételsorra: https://bit.ly/skalazhatozv
 
-## 2024, 2025, 2026
+## 2024. - 2026. tavasz
 
 1. Mikroszolgáltatás architektúra jellemzői, összehasonlítva a monolitikus architektúrával. Előnyök és hártányok bemutatása technológiai, munkaszervezési és DevOps szempontból.
 
