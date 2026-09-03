@@ -7,7 +7,7 @@ authors: kszicsillag,tibitoth
 Jegyzetek, gyakorlati anyagok és házi feladatok a Skálázható szoftverek c. tárgyhoz.
 
 !!! note "Javítás az anyagban"
-    A tárgy hallgatóinak a jegyzet anyagában történő javításért, kiegészítésért plusz pontot adunk! Ha hibát találsz a jegyzet bármely részében, vagy kiegészítenéd azt, nyiss egy _pull request_-et! A repository linkjét a jobb felső sarokban találod.
+    A tárgy hallgatóinak a jegyzet anyagában történő javításért, kiegészítésért plusz pontot adunk! Ha hibát találsz a jegyzet bármely részében, vagy kiegészítenéd azt, nyiss egy _pull request_-et! A repository linkjét a jobb felső sarokban találod. Bővebb tudnivalók [itt](./information/contributing.md).
 
 !!! quote "Felhasználási feltételek"
     Az itt található oktatási segédanyagok a BMEVIAUMB11 tárgy hallgatóinak készültek. Az anyagok oly módú felhasználása, amely a tárgy oktatásához nem szorosan kapcsolódik, csak a szerző(k) és a forrás megjelölésével történhet.

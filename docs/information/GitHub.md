@@ -31,7 +31,7 @@ Segítség git és GitHub használatához:
 Előfordulhat, hogy a kiadott feladat menet közben, az egyéni repository létrehozását követően módosul. A változásokat az oktatók küldik ki: egy pull request fog megjelenni a repository-tokban. A PR célága alapértelmezésben a főág, viszont a változtatásoknak a megoldásban is meg kell jelennie. Ha még nem hoztad létre a megoldás ágat, akkor a PR minden további nélkül behúzható. Ha már létrehoztad a megoldás ágat, [állítsd át a PR célágát](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/changing-the-base-branch-of-a-pull-request) a megoldás ágra, majd merge-ld a PR-t. Ha mégis rossz ágra került a változás és így nem került rá a megoldás ágra, akkor utólag is átviheted a változásokat a megoldás ágra pull request-tel vagy pull request nélküli merge művelettel. 
 
 
-# Automata ellenőrzések
+## Automata ellenőrzések
 
 A laborfeladatok kiértékelésében a [GitHub Actions](https://github.com/features/actions)-re is támaszkodunk. Segítségével a git repository-kon műveleteket és programokat tudunk futtatni. Ebben a tárgyban csak egyszerű ellenőrzéseket végzünk így, például a neptun.txt megléte, ellenőrzése.
 
