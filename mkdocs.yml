@@ -100,7 +100,6 @@ nav:
   - "Tudnivalók":
       - information/contributing.md
       - information/GitHub.md
-      - information/GitHub-Actions.md
       - information/certification.md
       - information/zv.md
   - "Kisházi":
