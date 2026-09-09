@@ -7,15 +7,17 @@ authors: tibitoth
 A feladatok beadásához a GitHub platformot használjuk. Minden labor beadása egy-egy GitHub repository-ban történik, melyet a feladatleírásban található linken keresztül kapsz meg. A labor feladatainak megoldását ezen repository-ban kell elkészítened, és ide kell feltöltened. A kész megoldás beadása a repository-ba való feltöltés (push) után egy ún. _pull request_ (PR) formájában történik, amelyet a laborvezetődhöz rendelsz.
 
 !!! important "FONTOS"
-    Az itt leírt formai előírások betartása elvárás. A nem ilyen formában beadott megoldásokat nem értékeljük.
+    Az itt leírt folyamat betartása elvárás. A nem ilyen formában beadott megoldásokat nem értékeljük.
 
 A folyamat az alábbi:
 
 1. A munkádat Moodle-ben található meghívó linken keresztül létrehozott GitHub repository-ban kell elkészítsd.
 
-1. A megoldáshoz készíts egy külön ágat (branch), ne a _master_-en dolgozz. Erre az ágra akárhány kommitot tehetsz. Mindenképpen pushold a megoldást.
+1. A megoldáshoz készíts egy külön _megoldas_ nevű ágat (branch), ne a _master_ / _main_-en dolgozz. Erre az ágra akárhány kommitot tehetsz. Mindenképpen pushold a megoldást.
 
-1. A beadást egy pull request jelzi, amely pull request-et a laborvezetődhöz kell rendelned.
+1. A beadáshoz egy pull request-et kell nyitnod _hfX_ néven, ahol _X_ a házi sorszáma (első házi esetében: _hf1_, második házi esetében: _hf2_). A pull request forrása a megoldás ág, a célja az eredeti főág (_master_ / _main_). A pull request-et a laborvezetődhöz kell rendelned. A laborvezetőd GitHub azonosítóját a Moodle-ben találod. A pull request maradjon nyitva.
+
+1. Ellenőrizd, hogy az _automata ellenőrzés_ (lásd lentebb) talált-e hibát. Ha igen, javítsd, pushold a megoldás ágra.
 
 1. Ha az eredménnyel vagy értékeléssel kapcsolatban kérdésed van, pull request kommentben kérdezhetsz. A laborvezető értesítéséhez használd a `@név` címzést a komment szövegében.
 
