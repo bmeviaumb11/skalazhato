@@ -20,7 +20,7 @@ A labor célja megismerni a Docker konténerek használatának alapjait és a le
     !!! warning
         Más kiépítések, telepítési formák is elérhetőek (pl. Docker Engine), de a Docker Desktop tartalmaz minden eszközt, amire szükségünk lehet. Például `docker init` csak a Docker Desktop-ban van.
         
-- Az opcionális feladathoz [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0). Ha van fent friss Visual Studio, akkor általában nem kell külön feltenni. Tesztelheted [így](https://learn.microsoft.com/en-us/dotnet/core/install/how-to-detect-installed-versions?pivots=os-windows#check-sdk-versions)
+- Az opcionális feladathoz [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0). Ha van fent friss Visual Studio, akkor általában nem kell külön feltenni. Tesztelheted [így](https://learn.microsoft.com/en-us/dotnet/core/install/how-to-detect-installed-versions?pivots=os-windows#check-sdk-versions)
 - Microsoft Visual Studio Code
     - Javasolt: [Docker extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
 - Alap Linux parancsok ismerete. Érdemes átnézni pl.:
@@ -51,37 +51,37 @@ Teszteljük a Docker telepítésünket a `hello-world` image futtatásával.
 Nyissunk egy konzolt, és adjuk ki a következő parancsokat.
 Ezzel ellenőrizhetjük, hogy a docker CLI elérhető-e.
 
-```cmd
+```bash
 docker --version
 ```
 
 Futtassunk egy egyszerű előre elkészített konténert, ami kiír egy példa szöveget a konzolra.
 Fontos, hogy a telepített Docker Desktop fusson a háttérben!
 
-```cmd
+```bash
 docker run hello-world
 ```
 
-- _hello-word_ az image neve: <https://hub.docker.com/_/hello-world>
+- _hello-world_ az image neve: <https://hub.docker.com/_/hello-world>
 - Image letöltődik, elindul, lefut a benne leírt program.
 
 ### Konténer futtatása interaktív módon
 
 - Futtassunk egy natúr `ubuntu` konténert interaktív módon (`-it` kapcsolóval), így a futó konténerben egy shell-en keresztül tudunk tetszőleges parancsokat futtatni.
 
-    ```cmd
+    ```bash
     docker run -it ubuntu
     ```
 
 - Nézzük meg a fájlrendszert:
 
-    ```cmd
+    ```bash
     ls
     ```
 
 - Lépjünk ki az interaktív shell-ből:
 
-    ```cmd
+    ```bash
     exit
     ```
 
@@ -90,7 +90,7 @@ docker run hello-world
 
 - Listázzuk ki a konténereinket:
 
-    ```cmd
+    ```bash
     docker ps -a
     ```
 
@@ -98,7 +98,7 @@ docker run hello-world
 
 - Távolítsuk el a két konténert, amit mi indítottunk:
 
-    ```cmd
+    ```bash
     docker rm <id1|name> <id2|name>
     ```
 
@@ -110,16 +110,16 @@ docker run hello-world
     - Adminisztratív parancsok: _mivel mit_, pl. `docker image ls`
     - Kezelő parancsok: _parancs argumentumok_, pl. `docker rmi <id>`
     - Gyakran használtak:
-      - Konténerek kezelése
-        - `docker container ls [-all]` vagy `docker ps [-a]`
-        - `docker run [opciók] <image>`
-        - `docker stop <id>`
-        - `docker rm <id>`
-      - Image-ek kezelése
-        - `docker pull <image>`
-        - `docker image ls` vagy `docker images`
-        - `docker rmi <image>`
-        - `docker tag <id> <tag>`
+        - Konténerek kezelése
+            - `docker container ls [-a|--all]` vagy `docker ps [-a]`
+            - `docker run [opciók] <image>`
+            - `docker stop <id>`
+            - `docker rm <id>`
+        - Image-ek kezelése
+            - `docker pull <image>`
+            - `docker image ls` vagy `docker images`
+            - `docker rmi <image>`
+            - `docker tag <id> <tag>`
     - Konkrét parancshoz segítség: `docker <parancs> --help`
     - Minden konténer (futók is!) eltávolítása: `docker rm -f $(docker ps -aq)`
 
@@ -143,11 +143,11 @@ Erre megoldás a _volume_ csatolás, amikor a host gép egy könyvtárát csatol
     
 - Indítsunk el egy konténert úgy, hogy ezt a könyvtárat felcsatoljuk a `-v` kapcsolóval:
 
-    ```cmd title="Windows"
+    ```bash title="Windows"
     docker run -it --rm -v c:\work\neptun:/neptun ubuntu
     ```
 
-    ```cmd title="Linux"
+    ```bash title="Linux"
     docker run -it --rm -v ~/work/neptun:/neptun ubuntu
     ```
 
@@ -155,7 +155,7 @@ Erre megoldás a _volume_ csatolás, amikor a host gép egy könyvtárát csatol
 
 - Konténeren belül listázzuk ki a könyvtárat:
 
-    ```cmd
+    ```bash
     ls
     ```
 
@@ -163,19 +163,19 @@ Erre megoldás a _volume_ csatolás, amikor a host gép egy könyvtárát csatol
 
 - Írjunk bele: 
 
-    ```cmd
+    ```bash
     echo "hello NEPTUN" > /neptun/hello.txt
     ```
 
 - írjuk ki a tartalmát: 
 
-    ```cmd
+    ```bash
     cat /neptun/hello.txt
     ```
 
 - Lépjünk ki a konténerből:
 
-    ```cmd
+    ```bash
     exit
     ```
 
@@ -193,7 +193,7 @@ Docker konténerek esetében gyakran webalkalmazásokat futtatunk, amiket a host
 
 - Indítsunk el egy _nginx_ webszervert tartalmazó konténert:
 
-    ```cmd
+    ```bash
     docker run -d -p 8085:80 nginx
     ```
 
@@ -204,13 +204,13 @@ Docker konténerek esetében gyakran webalkalmazásokat futtatunk, amiket a host
 
 - Nézzük meg a konténer logjait:
 
-    ```cmd
+    ```bash
     docker logs <id|name>
     ```
 
 - Állítsuk le a konténert:
 
-    ```cmd
+    ```bash
     docker stop <id|name>
     ```
 
@@ -224,7 +224,7 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
 
 - Indítsunk el egy _nginx_ webszervert:
 
-    ```cmd
+    ```bash
     docker run -d -p 8085:80 nginx
     ```
 
@@ -232,7 +232,7 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
 
 - Futtassunk le egy parancsot a konténerben:
 
-    ```cmd
+    ```bash
     docker exec <id|name> ls /
     ```
 
@@ -240,23 +240,27 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
 
 - Kérhetünk egy shell-t is a konténerbe ily módon:
 
-    ```cmd
+    ```bash
     docker exec -it <id|name> /bin/bash
     ```
   
     - Az `-it` opció az interaktivitásra utal, azaz a konzolunkat "hozzáköti" a konténerben futó shellhez.
     - Tipikusan vagy `/bin/bash` vagy `/bin/sh` a Linux konténerekben a shell. Utóbbi az [_alpine_](https://alpinelinux.org/) alapú konténerekben gyakori.
+
+        !!! warning "Distroless image-ek"
+            Léteznek úgynevezett [_distroless_](https://docs.docker.com/dhi/explore/security-concepts/distroless/) image-ek is, amelyekben szándékosan nincs shell (sem `/bin/bash`, sem `/bin/sh`), sőt gyakran még csomagkezelő vagy egyéb operációs rendszeri eszköz sem. Ezeknél a fenti `docker exec` parancs shell indítására nem fog működni. Ez egy tudatos biztonsági és image-méret optimalizálási döntés a készítők részéről, nem hiba: shell és egyéb eszközök hiányában jelentősen csökken a támadási felület, hiszen egy esetleges sérülékenység kihasználása esetén a támadó nem tud a konténeren belül tetszőleges parancsokat futtatni.
+
     - Ebben az interaktív shell-ben bármit csinálhatunk, beléphetünk könyvtárakba, megnézhetünk fájlokat, stb. Arra viszont ügyeljünk, hogy az így végzett módosításaink **elvesznek**, amikor a konténer törlésre kerül!
 
 - Például nézzük meg az nginx konfigurációját:
 
-    ```cmd
+    ```bash
     cat /etc/nginx/conf.d/default.conf
     ```
 
 - Módosítsuk az `index.html`-t a következő módon:
 
-    ```cmd
+    ```bash
     echo "hello NEPTUN from nginx" > /usr/share/nginx/html/index.html
     ```
 
@@ -266,11 +270,11 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
 
 - Ha szükségünk van egy fájlra, akkor azt kimásolhatjuk a futó konténerből:
 
-    ```cmd title="Windows"
+    ```bash title="Windows"
     docker cp <id|name>:/etc/nginx/conf.d/default.conf c:\work\neptun\nginx.conf
     ```
 
-    ```cmd title="Linux"
+    ```bash title="Linux"
     docker cp <id|name>:/etc/nginx/conf.d/default.conf ~/work/neptun/nginx.conf
     ```
     
@@ -279,7 +283,7 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
 
 - Állítsuk le és töröljük a konténert.
 
-    ```cmd
+    ```bash
     docker stop <id|name>
     docker rm <id|name>
     ```
@@ -296,17 +300,17 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
     Az alapértelmezett registry a <https://hub.docker.com>, ahol tipikusan open-source szoftverek image-ei és az általunk is használt alap image-ek találhatóak.
     Léteznek természetesen továbbiak is (Azure, Google, stb.).
 
-    Az image neve valójában nem `ubuntu`, hanem `index.docker.io/ubuntu:latest`
+    Az image neve valójában nem `ubuntu`, hanem `docker.io/library/ubuntu:latest`
 
-      - `index.docker.io` registry szerver elérési útvonala
-      - `ubuntu` image elérési útvonala a registry-n belül (ebben a példában csak egy elemből áll: ubuntu).
+      - `docker.io` registry szerver elérési útvonala
+      - `library/ubuntu` image elérési útvonala a registry-n belül (a `library` a Docker Hub hivatalos image-einek névtere, ezt akkor is hozzáadja Docker, ha mi magunk nem adjuk meg).
       - `:latest` tag neve
 
     Az egyes registry-k eltérnek abban, hogy az elérési útvonal felépítése milyen logikát követ, mit jelentenek az egyes hierarchiaszintek.
 
     Jogosultság szempontból két fajta registry létezhet: publikus (pl. Docker Hub) és privát. Privát registry esetén `docker login <url>` és `docker logout <url>` szükséges az authentikációhoz.
 
-    Letöltés a registry-ből: `docker pull mcr.microsoft.com/dotnet/aspnet:8.0`. Itt az elérési útvonal (path) már többelemű: `mcr.microsoft.com/dotnet/aspnet:8.0`, ahol a path komponensek: `dotnet/aspnet`.
+    Letöltés a registry-ből: `docker pull mcr.microsoft.com/dotnet/aspnet:10.0`. Itt az elérési útvonal (path) már többelemű: `mcr.microsoft.com/dotnet/aspnet:10.0`, ahol a path komponensek: `dotnet/aspnet`.
     
     Ugyan a _run_ parancs is letölti, de csak akkor, ha még nem létezik. Nem ellenőrzi viszont, hogy nincs-e újabb image verzió publikálva. A _pull_ mindig frisset szed le.
 
@@ -317,25 +321,28 @@ Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most 
 
 1. Készíts egy pillanatmentést a konténer jelenlegi állapotáról:
 
-    ```cmd
+    ```bash
     docker commit <id|name>
     ```
 
 1. Állítsd le a háttérben futó konténert:
 
-    ```cmd
+    ```bash
     docker stop <id|name>
     ```
 
 1. A `commit` parancs készített egy image-et, aminek kiírta a hash-ét. Ellenőrizd, hogy tényleg létezik-e ez az image:
 
-    ```cmd
-    docker images
+    ```bash
+    docker images --all
     ```
+
+    !!! warning
+        Az újabb Docker verziók alapértelmezetten nem listázzák a tag nélküli image-eket a sima `docker images` paranccsal, ezért kell a `--all` kapcsoló.
 
 1. Taggeld meg az image-et:
 
-    ```cmd
+    ```bash
     docker tag <imageid> nginx-neptun
     ```
 
@@ -344,7 +351,7 @@ Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most 
 
 1. Indíts el egy új konténert az előbb létrehozott saját image-ből:
 
-    ```cmd
+    ```bash
     docker run -it --rm -p 8086:80 nginx-neptun
     ```
 
@@ -360,7 +367,7 @@ Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most 
     Fejlesztés közben sok ideiglenes image keletkezik, és konténereket hagyunk hátra.
     Add ki a következő parancsot a nem futó konténerek törléséhez és az ideiglenes (címke nélküli) image-ek törléséhez:
 
-    ```cmd
+    ```bash
     docker system prune
     ```
 
@@ -406,9 +413,9 @@ Készítsünk egy egyszerű webalkalmazást Pythonban a Flask nevű keretrendsze
 
 1. Készíts egy `requirements.txt` fájlt az alábbi tartalommal, ami a Python alkalmazásunk függőségeit tartalmazza.
 
-    ```txt
-    Flask
-    Redis
+    ```text
+    Flask==3.1.3
+    redis==8.1.0
     ```
 
 1. Készíts egy `Dockerfile` nevű fájt (kiterjesztés nélkül!) az alábbi tartalommal.
@@ -418,9 +425,11 @@ Készítsünk egy egyszerű webalkalmazást Pythonban a Flask nevű keretrendsze
     FROM python:3.13-slim
 
     WORKDIR /app
-    COPY . /app
-    
-    RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
+    COPY requirements.txt .
+    RUN pip install --no-cache-dir -r requirements.txt
+
+    COPY . .
     EXPOSE 80
 
     # Ide a saját Neptun kódodat írd
@@ -431,7 +440,7 @@ Készítsünk egy egyszerű webalkalmazást Pythonban a Flask nevű keretrendsze
 
 1. Készítsd el a fenti fájlokból az image-et. Konzolból a munkakönyvtárban add ki a következő parancsot:
 
-    ```cmd
+    ```bash
     docker build -t python-neptun:v1 .
     ```
 
@@ -447,11 +456,14 @@ Készítsünk egy egyszerű webalkalmazást Pythonban a Flask nevű keretrendsze
     - `ENV`: környezeti változó beállítása. A `NAME` környezeti változó értéke a saját Neptun kódod legyen.
     - `CMD`: a konténer indításakor lefuttatandó parancs és argumentumai. Ebben az esetben a Python alkalmazásunkat indítjuk el.  
 
+    !!! tip "Miért két külön `COPY`?"
+        Előbb csak a `requirements.txt`-t másoljuk be és telepítjük a függőségeket, és csak utána másoljuk be a teljes forráskódot. Így amíg a `requirements.txt` nem változik, a Docker build cache-eli a telepítési lépést, és a forráskód módosítása után a build nem telepíti újra feleslegesen a függőségeket.
+
 1. Ellenőrizd, hogy tényleg létrejött-e az image.
 
 1. Indíts el egy új konténert ebből az image-ből:
 
-    ```cmd
+    ```bash
     docker run -it --rm -p 8085:80 python-neptun:v1
     ```
 
@@ -491,7 +503,7 @@ Készítsünk egy egyszerű webalkalmazást Pythonban a Flask nevű keretrendsze
 
         Készítsünk egy `.dockerignore`-t az alábbi tartalommal
 
-        ```txt
+        ```text
         file.bin
         ```
 
@@ -501,8 +513,6 @@ Készítsünk egy egyszerű webalkalmazást Pythonban a Flask nevű keretrendsze
 
 ### 3.1 Docker-compose
 
-!!! warning "Linux eltérés"
-    Linuxon a _compose_ nem egy külön parancs, hanem a docker parancs [kiterjesztése](https://docs.docker.com/compose/install/linux/). Emiatt `docker-compose` helyett `docker compose`-ként kell meghívnunk.
 
 A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett egy Redis-re is szükségünk lenne. Futtassunk több konténert egyszerre a docker compose segítségével.
 
@@ -531,40 +541,40 @@ A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett 
     A fájl tartalmának magyarázata:
 
     - `services`: a szolgáltatások, amiket indítani szeretnénk
-      - `redis`: egy Redis konténer, ami az `alpine` verziót használja
-      - `web`: a saját image-ből épített Python alkalmazás konténere
-        - `build`: a build kontextusban lévő mappából építi az image-t
-        - `ports`: a konténer által kiajánlott portokat jelzi. Mi most webalkalmazást készítünk, ezért a konténer 80-as portját mappeljük a host 5000-es portjára.
-        - `depends_on`: a konténer indításának sorrendjét jelzi. A `web` konténer csak akkor indul, ha a `redis` konténer már fut.
+        - `redis`: egy Redis konténer, ami az `alpine` verziót használja
+        - `web`: a saját image-ből épített Python alkalmazás konténere
+            - `build`: a build kontextusban lévő mappából építi az image-t
+            - `ports`: a konténer által kiajánlott portokat jelzi. Mi most webalkalmazást készítünk, ezért a konténer 80-as portját mappeljük a host 5000-es portjára.
+            - `depends_on`: a konténer indításának sorrendjét jelzi. A `web` konténer csak akkor indul, ha a `redis` konténer már fut.
     - `networks`: a konténerek közötti hálózatokat definiálja. A `homework_network` nevű hálózatot [bridge módban](https://docs.docker.com/network/drivers/bridge/) hozzuk létre, amely egy elkülönített, virtuális hálózatot biztosít a konténerek számára a host gépen belül. A bridge mód lehetővé teszi, hogy a hálózathoz csatlakozó konténerek saját IP-címet kapjanak, egymással közvetlenül kommunikáljanak, miközben a host hálózatától is el vannak választva. Erre a hálózatra hivatkozunk a konténerek `networks` tulajdonságában.
 
 2. Nyiss egy konzolt ugyanebbe a mappába. Indítsd el az alkalmazásokat az alábbi paranccsal:
 
-    ```cmd
-    docker-compose up --build
+    ```bash
+    docker compose up --build
     ```
 
-    Két lépésben a parancs: `docker-compose build` és `docker-compose up`
+    Két lépésben a parancs: `docker compose build` és `docker compose up`
 
 3. Nyisd meg böngészőben a <http://localhost:5000> oldalt.
 
 4. Egy új konzolban nézd meg a futó konténereket.
 
-    ```cmd
+    ```bash
     docker ps
     ```
 
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (f3.1.png) és commitold azt be a házi feladat repó gyökerébe, amin a fenti weboldal látszik a böngészőben és a futó konténerek listája a konzolban.
 
-!!! note "docker-compose üzemeltetéshez"
-    A docker-compose alkalmas üzemeltetésre is. A `docker-compose.yaml` fájl nem csak fejlesztői környezetet ír le, hanem üzemeltetéshez szükséges környezetet is. Ha a compose fájlt megfelelően írjuk meg (pl. használjuk a [`restart` direktívát](https://docs.docker.com/reference/compose-file/services/#restart) is), az elindított szolgáltatások automatikusan újraindulnak a rendszer indulásakor.
+!!! note "Docker Compose üzemeltetéshez"
+    A Docker Compose alkalmas üzemeltetésre is. A `docker-compose.yaml` fájl nem csak fejlesztői környezetet ír le, hanem üzemeltetéshez szükséges környezetet is. Ha a compose fájlt megfelelően írjuk meg (pl. használjuk a [`restart` direktívát](https://docs.docker.com/reference/compose-file/services/#restart) is), az elindított szolgáltatások automatikusan újraindulnak a rendszer indulásakor.
 
-    Ugyanakkor a docker-compose nem helyettesíti a Kubernetes-t vagy más konténer orkesztrációs megoldásokat, mert azok sokkal komplexebb feladatokat is meg tudnak oldani (pl. skálázás, load balancing, stb.).
+    Ugyanakkor a Docker Compose nem helyettesíti a Kubernetes-t vagy más konténer orkesztrációs megoldásokat, mert azok sokkal komplexebb feladatokat is meg tudnak oldani (pl. skálázás, load balancing, stb.).
 
 ### 3.2 Több compose yaml fájl
 
-A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon. Alapértelmezésként a `docker-compose.yaml` vagy `compose.yaml` kiterjesztésű fájlt **és** ezzel összefésülve a `docker-compose.override.yaml` fájlt használja.
+A `docker compose` parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon. Alapértelmezésként a `docker-compose.yaml` vagy `compose.yaml` kiterjesztésű fájlt **és** ezzel összefésülve a `docker-compose.override.yaml` fájlt használja.
 
 1. Készíts egy `docker-compose.override.yaml` fájlt a másik compose yaml mellé az alábbi tartalommal, amiben a redis konténer naplózását állítjuk át verbose szintre.
 
@@ -576,8 +586,8 @@ A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon.
 
 1. Indítsd el a rendszert.
 
-    ```cmd
-    docker-compose up
+    ```bash
+    docker compose up
     ```
 
     A redis konténer részletesebben fog naplózni a `command` direktívában megadott utasítás szerint. Állítsd le a rendszert.
@@ -594,8 +604,8 @@ A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon.
 
 1. Indítsuk el a rendszert az alábbi paranccsal
 
-    ```cmd
-    docker-compose -f docker-compose.yaml -f docker-compose.debug.yaml up
+    ```bash
+    docker compose -f docker-compose.yaml -f docker-compose.debug.yaml up
     ```
 
     A `-f` kapcsolóval tudjuk kérni a megadott yaml fájlok összefésülését.
@@ -619,25 +629,27 @@ A `docker init` paranccsal egy megadott technológiához tartozó, docker alapú
 
 1. Generálj egy ASP.NET Core alapú kiinduló projektet
 
-    ```cmd
-    dotnet new webapp
+    ```bash
+    dotnet new webapp -f net10.0
     ```
 
 1. Generáld az ASP.NET Core-hoz tartozó docker fájlokat
 
-    ```cmd
+    ```bash
     docker init
     ```
+    A parancs néhány kérdést fog feltenni (pl. alkalmazás platform, verzió, port). Az alapértelmezetten felkínált lehetőségek általában megfelelőek, csak végig kell ++enter++ -ezni.
+
     Ez a lépés létrehoz egy `Dockerfile`-t a projektben, ami ráadásul multi-stage build megoldást tartalmaz: a fordítási, publikálási és futtatási fázisokat különválasztja (több `FROM` utasítás amik egymásra hivatkoznak).
     Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálható legyen egy szeparált .NET SDK-t tartalmazó konténerben. A publikálás pedig egy kisebb méretű image-be történik, ami már csak a .NET futtatókörnyezetet tartalmazza.
 
     Ezen felül létrejön még .dockerignore fájl, valamint egy Docker compose fájl is.
 
-4. Futtassuk a docker compose configurációt (`docker-compose up` - Windows vagy `docker compose up` - Linux). Az alapértelmezetten felkínált lehetőségek általában megfelelőek, csak végig kell ++enter++ -ezni. Böngészőben nyissuk meg a localhost címen a docker init-nek megadott portot pl. http://localhost:8080.
+1. Futtassuk a docker compose configurációt (`docker compose up`). Böngészőben nyissuk meg a localhost címen a docker init-nek megadott portot pl. http://localhost:8080.
 
-5. Listázzuk ki a futó konténereket egy külön konzolablakban:
+1. Listázzuk ki a futó konténereket egy külön konzolablakban:
 
-    ```cmd
+    ```bash
     docker ps
     ```
 
@@ -660,7 +672,7 @@ Alap image-ek, amikre tipikusan saját alkalmazást építünk:
     - [Debian](https://hub.docker.com/_/debian)
     - [Alpine](https://hub.docker.com/_/alpine)
 - Futtató platformok
-    - .NET Runtime ASP.NET Core-ral, pl. `mcr.microsoft.com/dotnet/aspnet:8.0`
+    - .NET Runtime ASP.NET Core-ral, pl. `mcr.microsoft.com/dotnet/aspnet:10.0`
     - [NodeJS](https://hub.docker.com/_/node) pl. `node:24.7-alpine`
     - [Python](https://hub.docker.com/_/python) pl. `python:3.13-slim`
 - [scratch](https://hub.docker.com/_/scratch): üres image, speciális esetek, pl. go, vagy distro készítéshez
@@ -668,7 +680,7 @@ Alap image-ek, amikre tipikusan saját alkalmazást építünk:
 A kész image-ek, amiket pedig felhasználunk:
 
 - SDK-k multi stage buildhez
-    - .NET SDK pl. `mcr.microsoft.com/dotnet/sdk:8.0`
+    - .NET SDK pl. `mcr.microsoft.com/dotnet/sdk:10.0`
 - Adatbázis szerverek, webszerverek, gyakran használt szolgáltatások
     - MSSQL, redis, mongodb, mysql, nginx, ...
 - Termérdek elérhető image: <https://hub.docker.com>
@@ -693,11 +705,19 @@ Ilyen esetben a következő lehetőségeink vannak:
 
     Erre egy jó példa a [Microsoft SQL Server Docker változata](https://hub.docker.com/r/microsoft/mssql-server). Az alábbi parancsban a `-e` argumentumokban adunk át környezeti változókat, de lehetőség van compose fájlban is megadni ezeket.
 
-    ```bash
-    docker run
-      -e 'ACCEPT_EULA=Y'
-      -e 'SA_PASSWORD=yourStrong(!)Password'
-      -p 1433:1433
+    ```bash title="Linux/macOS - bash"
+    docker run \
+      -e 'ACCEPT_EULA=Y' \
+      -e 'MSSQL_SA_PASSWORD=yourStrong(!)Password' \
+      -p 1433:1433 \
+      mcr.microsoft.com/mssql/server:2022-CU20-GDR1-ubuntu-22.04
+    ```
+
+    ```powershell title="Windows - PowerShell"
+    docker run `
+      -e 'ACCEPT_EULA=Y' `
+      -e 'MSSQL_SA_PASSWORD=yourStrong(!)Password' `
+      -p 1433:1433 `
       mcr.microsoft.com/mssql/server:2022-CU20-GDR1-ubuntu-22.04
     ```
 
@@ -710,7 +730,7 @@ Ilyen esetben a következő lehetőségeink vannak:
       redis:
         image: redis:8.2-alpine
         volumes:
-          - my-redis.conf:/usr/local/etc/redis/redis.conf
+          - ./my-redis.conf:/usr/local/etc/redis/redis.conf
     ```
 
     Ezen megoldás előnye, hogy nincs szükség saját image-et készíteni, tárolni, kezelni.
@@ -722,5 +742,5 @@ Ilyen esetben a következő lehetőségeink vannak:
 - _.dockerignore_ fájl szintaktika: <https://docs.docker.com/reference/dockerfile/#dockerignore-file>
 - _Dockerfile_ best practice-ek: <https://docs.docker.com/build/building/best-practices/>
 - _compose_ fájl szintaktika: <https://docs.docker.com/compose/compose-file/>
-- Több compose fájl használata: <https://docs.docker.com/compose/multiple-compose-files/extends/#multiple-compose-files>
+- Több compose fájl használata: <https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/>
 - Multistage build-ek: <https://docs.docker.com/build/building/multi-stage/>
