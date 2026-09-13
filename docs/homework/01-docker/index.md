@@ -410,8 +410,8 @@ Készítsünk egy egyszerű webalkalmazást Pythonban a Flask nevű keretrendsze
 1. Készíts egy `requirements.txt` fájlt az alábbi tartalommal, ami a Python alkalmazásunk függőségeit tartalmazza.
 
     ```text
-    Flask
-    Redis
+    Flask==3.1.3
+    redis==8.1.0
     ```
 
 1. Készíts egy `Dockerfile` nevű fájt (kiterjesztés nélkül!) az alábbi tartalommal.
@@ -421,9 +421,11 @@ Készítsünk egy egyszerű webalkalmazást Pythonban a Flask nevű keretrendsze
     FROM python:3.13-slim
 
     WORKDIR /app
-    COPY . /app
-    
-    RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
+    COPY requirements.txt .
+    RUN pip install --no-cache-dir -r requirements.txt
+
+    COPY . .
     EXPOSE 80
 
     # Ide a saját Neptun kódodat írd
@@ -449,6 +451,9 @@ Készítsünk egy egyszerű webalkalmazást Pythonban a Flask nevű keretrendsze
     - `EXPOSE`: a konténer által kiajánlott portokat jelzi. Mi most webalkalmazást készítünk, ezért a 80-as portot jelöljük ki.
     - `ENV`: környezeti változó beállítása. A `NAME` környezeti változó értéke a saját Neptun kódod legyen.
     - `CMD`: a konténer indításakor lefuttatandó parancs és argumentumai. Ebben az esetben a Python alkalmazásunkat indítjuk el.  
+
+    !!! tip "Miért két külön `COPY`?"
+        Előbb csak a `requirements.txt`-t másoljuk be és telepítjük a függőségeket, és csak utána másoljuk be a teljes forráskódot. Így amíg a `requirements.txt` nem változik, a Docker build cache-eli a telepítési lépést, és a forráskód módosítása után a build nem telepíti újra feleslegesen a függőségeket.
 
 1. Ellenőrizd, hogy tényleg létrejött-e az image.
 
@@ -504,8 +509,6 @@ Készítsünk egy egyszerű webalkalmazást Pythonban a Flask nevű keretrendsze
 
 ### 3.1 Docker-compose
 
-!!! warning "Linux eltérés"
-    Linuxon a _compose_ nem egy külön parancs, hanem a docker parancs [kiterjesztése](https://docs.docker.com/compose/install/linux/). Emiatt `docker-compose` helyett `docker compose`-ként kell meghívnunk.
 
 A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett egy Redis-re is szükségünk lenne. Futtassunk több konténert egyszerre a docker compose segítségével.
 
@@ -544,10 +547,10 @@ A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett 
 2. Nyiss egy konzolt ugyanebbe a mappába. Indítsd el az alkalmazásokat az alábbi paranccsal:
 
     ```bash
-    docker-compose up --build
+    docker compose up --build
     ```
 
-    Két lépésben a parancs: `docker-compose build` és `docker-compose up`
+    Két lépésben a parancs: `docker compose build` és `docker compose up`
 
 3. Nyisd meg böngészőben a <http://localhost:5000> oldalt.
 
@@ -560,14 +563,14 @@ A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett 
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (f3.1.png) és commitold azt be a házi feladat repó gyökerébe, amin a fenti weboldal látszik a böngészőben és a futó konténerek listája a konzolban.
 
-!!! note "docker-compose üzemeltetéshez"
-    A docker-compose alkalmas üzemeltetésre is. A `docker-compose.yaml` fájl nem csak fejlesztői környezetet ír le, hanem üzemeltetéshez szükséges környezetet is. Ha a compose fájlt megfelelően írjuk meg (pl. használjuk a [`restart` direktívát](https://docs.docker.com/reference/compose-file/services/#restart) is), az elindított szolgáltatások automatikusan újraindulnak a rendszer indulásakor.
+!!! note "Docker Compose üzemeltetéshez"
+    A Docker Compose alkalmas üzemeltetésre is. A `docker-compose.yaml` fájl nem csak fejlesztői környezetet ír le, hanem üzemeltetéshez szükséges környezetet is. Ha a compose fájlt megfelelően írjuk meg (pl. használjuk a [`restart` direktívát](https://docs.docker.com/reference/compose-file/services/#restart) is), az elindított szolgáltatások automatikusan újraindulnak a rendszer indulásakor.
 
-    Ugyanakkor a docker-compose nem helyettesíti a Kubernetes-t vagy más konténer orkesztrációs megoldásokat, mert azok sokkal komplexebb feladatokat is meg tudnak oldani (pl. skálázás, load balancing, stb.).
+    Ugyanakkor a Docker Compose nem helyettesíti a Kubernetes-t vagy más konténer orkesztrációs megoldásokat, mert azok sokkal komplexebb feladatokat is meg tudnak oldani (pl. skálázás, load balancing, stb.).
 
 ### 3.2 Több compose yaml fájl
 
-A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon. Alapértelmezésként a `docker-compose.yaml` vagy `compose.yaml` kiterjesztésű fájlt **és** ezzel összefésülve a `docker-compose.override.yaml` fájlt használja.
+A `docker compose` parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon. Alapértelmezésként a `docker-compose.yaml` vagy `compose.yaml` kiterjesztésű fájlt **és** ezzel összefésülve a `docker-compose.override.yaml` fájlt használja.
 
 1. Készíts egy `docker-compose.override.yaml` fájlt a másik compose yaml mellé az alábbi tartalommal, amiben a redis konténer naplózását állítjuk át verbose szintre.
 
@@ -580,7 +583,7 @@ A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon.
 1. Indítsd el a rendszert.
 
     ```bash
-    docker-compose up
+    docker compose up
     ```
 
     A redis konténer részletesebben fog naplózni a `command` direktívában megadott utasítás szerint. Állítsd le a rendszert.
@@ -598,7 +601,7 @@ A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon.
 1. Indítsuk el a rendszert az alábbi paranccsal
 
     ```bash
-    docker-compose -f docker-compose.yaml -f docker-compose.debug.yaml up
+    docker compose -f docker-compose.yaml -f docker-compose.debug.yaml up
     ```
 
     A `-f` kapcsolóval tudjuk kérni a megadott yaml fájlok összefésülését.
@@ -636,7 +639,7 @@ A `docker init` paranccsal egy megadott technológiához tartozó, docker alapú
 
     Ezen felül létrejön még .dockerignore fájl, valamint egy Docker compose fájl is.
 
-1. Futtassuk a docker compose configurációt (`docker-compose up` - Windows vagy `docker compose up` - Linux). Az alapértelmezetten felkínált lehetőségek általában megfelelőek, csak végig kell ++enter++ -ezni. Böngészőben nyissuk meg a localhost címen a docker init-nek megadott portot pl. http://localhost:8080.
+1. Futtassuk a docker compose configurációt (`docker compose up`). Az alapértelmezetten felkínált lehetőségek általában megfelelőek, csak végig kell ++enter++ -ezni. Böngészőben nyissuk meg a localhost címen a docker init-nek megadott portot pl. http://localhost:8080.
 
 1. Listázzuk ki a futó konténereket egy külön konzolablakban:
 
@@ -696,11 +699,19 @@ Ilyen esetben a következő lehetőségeink vannak:
 
     Erre egy jó példa a [Microsoft SQL Server Docker változata](https://hub.docker.com/r/microsoft/mssql-server). Az alábbi parancsban a `-e` argumentumokban adunk át környezeti változókat, de lehetőség van compose fájlban is megadni ezeket.
 
-    ```bash
-    docker run
-      -e 'ACCEPT_EULA=Y'
-      -e 'SA_PASSWORD=yourStrong(!)Password'
-      -p 1433:1433
+    ```bash title="Linux/macOS - bash"
+    docker run \
+      -e 'ACCEPT_EULA=Y' \
+      -e 'MSSQL_SA_PASSWORD=yourStrong(!)Password' \
+      -p 1433:1433 \
+      mcr.microsoft.com/mssql/server:2022-CU20-GDR1-ubuntu-22.04
+    ```
+
+    ```powershell title="Windows - PowerShell"
+    docker run `
+      -e 'ACCEPT_EULA=Y' `
+      -e 'MSSQL_SA_PASSWORD=yourStrong(!)Password' `
+      -p 1433:1433 `
       mcr.microsoft.com/mssql/server:2022-CU20-GDR1-ubuntu-22.04
     ```
 
@@ -713,7 +724,7 @@ Ilyen esetben a következő lehetőségeink vannak:
       redis:
         image: redis:8.2-alpine
         volumes:
-          - my-redis.conf:/usr/local/etc/redis/redis.conf
+          - ./my-redis.conf:/usr/local/etc/redis/redis.conf
     ```
 
     Ezen megoldás előnye, hogy nincs szükség saját image-et készíteni, tárolni, kezelni.
