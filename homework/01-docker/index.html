@@ -1628,7 +1628,7 @@
 </div>
 </li>
 <li>
-<p>Az opcionális feladathoz <a href="https://dotnet.microsoft.com/en-us/download/dotnet/8.0">.NET 8 SDK</a>. Ha van fent friss Visual Studio, akkor általában nem kell külön feltenni. Tesztelheted <a href="https://learn.microsoft.com/en-us/dotnet/core/install/how-to-detect-installed-versions?pivots=os-windows#check-sdk-versions">így</a></p>
+<p>Az opcionális feladathoz <a href="https://dotnet.microsoft.com/en-us/download/dotnet/10.0">.NET 10 SDK</a>. Ha van fent friss Visual Studio, akkor általában nem kell külön feltenni. Tesztelheted <a href="https://learn.microsoft.com/en-us/dotnet/core/install/how-to-detect-installed-versions?pivots=os-windows#check-sdk-versions">így</a></p>
 </li>
 <li>Microsoft Visual Studio Code<ul>
 <li>Javasolt: <a href="https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker">Docker extension</a></li>
@@ -1659,21 +1659,21 @@
 <p>Teszteljük a Docker telepítésünket a <code>hello-world</code> image futtatásával.</p>
 <p>Nyissunk egy konzolt, és adjuk ki a következő parancsokat.
 Ezzel ellenőrizhetjük, hogy a docker CLI elérhető-e.</p>
-<div class="highlight"><pre><span></span><code>docker --version
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>--version
 </code></pre></div>
 <p>Futtassunk egy egyszerű előre elkészített konténert, ami kiír egy példa szöveget a konzolra.
 Fontos, hogy a telepített Docker Desktop fusson a háttérben!</p>
-<div class="highlight"><pre><span></span><code>docker run hello-world
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>hello-world
 </code></pre></div>
 <ul>
-<li><em>hello-word</em> az image neve: <a href="https://hub.docker.com/_/hello-world">https://hub.docker.com/_/hello-world</a></li>
+<li><em>hello-world</em> az image neve: <a href="https://hub.docker.com/_/hello-world">https://hub.docker.com/_/hello-world</a></li>
 <li>Image letöltődik, elindul, lefut a benne leírt program.</li>
 </ul>
 <h3 id="kontener-futtatasa-interaktiv-modon">Konténer futtatása interaktív módon<a class="headerlink" href="#kontener-futtatasa-interaktiv-modon" title="Permanent link">¶</a></h3>
 <ul>
 <li>
 <p>Futtassunk egy natúr <code>ubuntu</code> konténert interaktív módon (<code>-it</code> kapcsolóval), így a futó konténerben egy shell-en keresztül tudunk tetszőleges parancsokat futtatni.</p>
-<div class="highlight"><pre><span></span><code>docker run -it ubuntu
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>ubuntu
 </code></pre></div>
 </li>
 <li>
@@ -1683,20 +1683,20 @@ Fontos, hogy a telepített Docker Desktop fusson a háttérben!</p>
 </li>
 <li>
 <p>Lépjünk ki az interaktív shell-ből:</p>
-<div class="highlight"><pre><span></span><code>exit
+<div class="highlight"><pre><span></span><code><span class="nb">exit</span>
 </code></pre></div>
 <p>Konténer terminált, mert a bash folyamat megállt az <code>exit</code> hatására. <strong>Konténer addig fut, amíg a benne levő alkalmazás (folyamat) fut.</strong>
 Leállt konténer nem törlődik automatikusan, tartalma nem veszik el.</p>
 </li>
 <li>
 <p>Listázzuk ki a konténereinket:</p>
-<div class="highlight"><pre><span></span><code>docker ps -a
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>ps<span class="w"> </span>-a
 </code></pre></div>
 <p>Nézzük meg a parancs eredményét. Keressük meg a konténerek id-ját.</p>
 </li>
 <li>
 <p>Távolítsuk el a két konténert, amit mi indítottunk:</p>
-<div class="highlight"><pre><span></span><code>docker rm &lt;id1|name&gt; &lt;id2|name&gt;
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>rm<span class="w"> </span>&lt;id1<span class="p">|</span>name&gt;<span class="w"> </span>&lt;id2<span class="p">|</span>name&gt;
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1710,9 +1710,9 @@ Leállt konténer nem törlődik automatikusan, tartalma nem veszik el.</p>
 <li>Adjuk ki a <code>docker</code> parancsot a help-hez.</li>
 <li>Adminisztratív parancsok: <em>mivel mit</em>, pl. <code>docker image ls</code></li>
 <li>Kezelő parancsok: <em>parancs argumentumok</em>, pl. <code>docker rmi &lt;id&gt;</code></li>
-<li>Gyakran használtak:</li>
+<li>Gyakran használtak:<ul>
 <li>Konténerek kezelése<ul>
-<li><code>docker container ls [-all]</code> vagy <code>docker ps [-a]</code></li>
+<li><code>docker container ls [-a|--all]</code> vagy <code>docker ps [-a]</code></li>
 <li><code>docker run [opciók] &lt;image&gt;</code></li>
 <li><code>docker stop &lt;id&gt;</code></li>
 <li><code>docker rm &lt;id&gt;</code></li>
@@ -1723,6 +1723,8 @@ Leállt konténer nem törlődik automatikusan, tartalma nem veszik el.</p>
 <li><code>docker image ls</code> vagy <code>docker images</code></li>
 <li><code>docker rmi &lt;image&gt;</code></li>
 <li><code>docker tag &lt;id&gt; &lt;tag&gt;</code></li>
+</ul>
+</li>
 </ul>
 </li>
 <li>Konkrét parancshoz segítség: <code>docker &lt;parancs&gt; --help</code></li>
@@ -1750,9 +1752,9 @@ Erre megoldás a <em>volume</em> csatolás, amikor a host gép egy könyvtárát
 </li>
 <li>
 <p>Indítsunk el egy konténert úgy, hogy ezt a könyvtárat felcsatoljuk a <code>-v</code> kapcsolóval:</p>
-<div class="highlight"><span class="filename">Windows</span><pre><span></span><code>docker run -it --rm -v c:\work\neptun:/neptun ubuntu
+<div class="highlight"><span class="filename">Windows</span><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span>c:<span class="se">\w</span>ork<span class="se">\n</span>eptun:/neptun<span class="w"> </span>ubuntu
 </code></pre></div>
-<div class="highlight"><span class="filename">Linux</span><pre><span></span><code>docker run -it --rm -v ~/work/neptun:/neptun ubuntu
+<div class="highlight"><span class="filename">Linux</span><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span>~/work/neptun:/neptun<span class="w"> </span>ubuntu
 </code></pre></div>
 <p>Szintaktika: helyi teljes elérési útvonal <em>kettőspont</em> konténeren belüli teljes elérési útvonal</p>
 </li>
@@ -1764,17 +1766,17 @@ Erre megoldás a <em>volume</em> csatolás, amikor a host gép egy könyvtárát
 </li>
 <li>
 <p>Írjunk bele: </p>
-<div class="highlight"><pre><span></span><code>echo "hello NEPTUN" &gt; /neptun/hello.txt
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"hello NEPTUN"</span><span class="w"> </span>&gt;<span class="w"> </span>/neptun/hello.txt
 </code></pre></div>
 </li>
 <li>
 <p>írjuk ki a tartalmát: </p>
-<div class="highlight"><pre><span></span><code>cat /neptun/hello.txt
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/neptun/hello.txt
 </code></pre></div>
 </li>
 <li>
 <p>Lépjünk ki a konténerből:</p>
-<div class="highlight"><pre><span></span><code>exit
+<div class="highlight"><pre><span></span><code><span class="nb">exit</span>
 </code></pre></div>
 </li>
 <li>
@@ -1794,7 +1796,7 @@ Erre megoldás a <em>volume</em> csatolás, amikor a host gép egy könyvtárát
 <ul>
 <li>
 <p>Indítsunk el egy <em>nginx</em> webszervert tartalmazó konténert:</p>
-<div class="highlight"><pre><span></span><code>docker run -d -p 8085:80 nginx
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8085</span>:80<span class="w"> </span>nginx
 </code></pre></div>
 <ul>
 <li><code>-d</code> (detach): háttérben fut, a konzolt "visszakapjuk", amint elindult a konténer, és kiírja az image id-t</li>
@@ -1806,12 +1808,12 @@ Erre megoldás a <em>volume</em> csatolás, amikor a host gép egy könyvtárát
 </li>
 <li>
 <p>Nézzük meg a konténer logjait:</p>
-<div class="highlight"><pre><span></span><code>docker logs &lt;id|name&gt;
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>logs<span class="w"> </span>&lt;id<span class="p">|</span>name&gt;
 </code></pre></div>
 </li>
 <li>
 <p>Állítsuk le a konténert:</p>
-<div class="highlight"><pre><span></span><code>docker stop &lt;id|name&gt;
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>stop<span class="w"> </span>&lt;id<span class="p">|</span>name&gt;
 </code></pre></div>
 </li>
 </ul>
@@ -1825,34 +1827,42 @@ Ehhez a <code>docker exec</code> és <code>docker cp</code> parancsot használju
 <ul>
 <li>
 <p>Indítsunk el egy <em>nginx</em> webszervert:</p>
-<div class="highlight"><pre><span></span><code>docker run -d -p 8085:80 nginx
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8085</span>:80<span class="w"> </span>nginx
 </code></pre></div>
 <p>Jegyezzük meg a kiírt konténer id-t, alább használni fogjuk. (A kiírt karakterlánc első 12 karaktere jelöli az ID-t.)</p>
 </li>
 <li>
 <p>Futtassunk le egy parancsot a konténerben:</p>
-<div class="highlight"><pre><span></span><code>docker exec &lt;id|name&gt; ls /
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>&lt;id<span class="p">|</span>name&gt;<span class="w"> </span>ls<span class="w"> </span>/
 </code></pre></div>
 <p>A parancs kilistázta a konténer fájlrendszerének gyökerét.</p>
 </li>
 <li>
 <p>Kérhetünk egy shell-t is a konténerbe ily módon:</p>
-<div class="highlight"><pre><span></span><code>docker exec -it &lt;id|name&gt; /bin/bash
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>&lt;id<span class="p">|</span>name&gt;<span class="w"> </span>/bin/bash
 </code></pre></div>
 <ul>
 <li>Az <code>-it</code> opció az interaktivitásra utal, azaz a konzolunkat "hozzáköti" a konténerben futó shellhez.</li>
-<li>Tipikusan vagy <code>/bin/bash</code> vagy <code>/bin/sh</code> a Linux konténerekben a shell. Utóbbi az <a href="https://alpinelinux.org/"><em>alpine</em></a> alapú konténerekben gyakori.</li>
-<li>Ebben az interaktív shell-ben bármit csinálhatunk, beléphetünk könyvtárakba, megnézhetünk fájlokat, stb. Arra viszont ügyeljünk, hogy az így végzett módosításaink <strong>elvesznek</strong>, amikor a konténer törlésre kerül!</li>
+<li>
+<p>Tipikusan vagy <code>/bin/bash</code> vagy <code>/bin/sh</code> a Linux konténerekben a shell. Utóbbi az <a href="https://alpinelinux.org/"><em>alpine</em></a> alapú konténerekben gyakori.</p>
+<div class="admonition warning">
+<p class="admonition-title">Distroless image-ek</p>
+<p>Léteznek úgynevezett <a href="https://docs.docker.com/dhi/explore/security-concepts/distroless/"><em>distroless</em></a> image-ek is, amelyekben szándékosan nincs shell (sem <code>/bin/bash</code>, sem <code>/bin/sh</code>), sőt gyakran még csomagkezelő vagy egyéb operációs rendszeri eszköz sem. Ezeknél a fenti <code>docker exec</code> parancs shell indítására nem fog működni. Ez egy tudatos biztonsági és image-méret optimalizálási döntés a készítők részéről, nem hiba: shell és egyéb eszközök hiányában jelentősen csökken a támadási felület, hiszen egy esetleges sérülékenység kihasználása esetén a támadó nem tud a konténeren belül tetszőleges parancsokat futtatni.</p>
+</div>
+</li>
+<li>
+<p>Ebben az interaktív shell-ben bármit csinálhatunk, beléphetünk könyvtárakba, megnézhetünk fájlokat, stb. Arra viszont ügyeljünk, hogy az így végzett módosításaink <strong>elvesznek</strong>, amikor a konténer törlésre kerül!</p>
+</li>
 </ul>
 </li>
 <li>
 <p>Például nézzük meg az nginx konfigurációját:</p>
-<div class="highlight"><pre><span></span><code>cat /etc/nginx/conf.d/default.conf
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/etc/nginx/conf.d/default.conf
 </code></pre></div>
 </li>
 <li>
 <p>Módosítsuk az <code>index.html</code>-t a következő módon:</p>
-<div class="highlight"><pre><span></span><code>echo "hello NEPTUN from nginx" &gt; /usr/share/nginx/html/index.html
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"hello NEPTUN from nginx"</span><span class="w"> </span>&gt;<span class="w"> </span>/usr/share/nginx/html/index.html
 </code></pre></div>
 </li>
 <li>
@@ -1863,9 +1873,9 @@ Ehhez a <code>docker exec</code> és <code>docker cp</code> parancsot használju
 </li>
 <li>
 <p>Ha szükségünk van egy fájlra, akkor azt kimásolhatjuk a futó konténerből:</p>
-<div class="highlight"><span class="filename">Windows</span><pre><span></span><code>docker cp &lt;id|name&gt;:/etc/nginx/conf.d/default.conf c:\work\neptun\nginx.conf
+<div class="highlight"><span class="filename">Windows</span><pre><span></span><code>docker<span class="w"> </span>cp<span class="w"> </span>&lt;id<span class="p">|</span>name&gt;:/etc/nginx/conf.d/default.conf<span class="w"> </span>c:<span class="se">\w</span>ork<span class="se">\n</span>eptun<span class="se">\n</span>ginx.conf
 </code></pre></div>
-<div class="highlight"><span class="filename">Linux</span><pre><span></span><code>docker cp &lt;id|name&gt;:/etc/nginx/conf.d/default.conf ~/work/neptun/nginx.conf
+<div class="highlight"><span class="filename">Linux</span><pre><span></span><code>docker<span class="w"> </span>cp<span class="w"> </span>&lt;id<span class="p">|</span>name&gt;:/etc/nginx/conf.d/default.conf<span class="w"> </span>~/work/neptun/nginx.conf
 </code></pre></div>
 <ul>
 <li>Szintaktikája: <code>docker cp &lt;id|name&gt;:&lt;/full/path&gt; &lt;cél/hely&gt;</code></li>
@@ -1874,8 +1884,8 @@ Ehhez a <code>docker exec</code> és <code>docker cp</code> parancsot használju
 </li>
 <li>
 <p>Állítsuk le és töröljük a konténert.</p>
-<div class="highlight"><pre><span></span><code>docker stop &lt;id|name&gt;
-docker rm &lt;id|name&gt;
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>stop<span class="w"> </span>&lt;id<span class="p">|</span>name&gt;
+docker<span class="w"> </span>rm<span class="w"> </span>&lt;id<span class="p">|</span>name&gt;
 </code></pre></div>
 </li>
 </ul>
@@ -1890,15 +1900,15 @@ docker rm &lt;id|name&gt;
 <p>Korábban használt parancs: <code>docker run ubuntu</code> Az <em>ubuntu</em> az image neve. Ez egy ún. registry-ből jön, analóg más csomagkezelőkhöz pl.: NPM, NuGet stb.
 Az alapértelmezett registry a <a href="https://hub.docker.com">https://hub.docker.com</a>, ahol tipikusan open-source szoftverek image-ei és az általunk is használt alap image-ek találhatóak.
 Léteznek természetesen továbbiak is (Azure, Google, stb.).</p>
-<p>Az image neve valójában nem <code>ubuntu</code>, hanem <code>index.docker.io/ubuntu:latest</code></p>
+<p>Az image neve valójában nem <code>ubuntu</code>, hanem <code>docker.io/library/ubuntu:latest</code></p>
 <ul>
-<li><code>index.docker.io</code> registry szerver elérési útvonala</li>
-<li><code>ubuntu</code> image elérési útvonala a registry-n belül (ebben a példában csak egy elemből áll: ubuntu).</li>
+<li><code>docker.io</code> registry szerver elérési útvonala</li>
+<li><code>library/ubuntu</code> image elérési útvonala a registry-n belül (a <code>library</code> a Docker Hub hivatalos image-einek névtere, ezt akkor is hozzáadja Docker, ha mi magunk nem adjuk meg).</li>
 <li><code>:latest</code> tag neve</li>
 </ul>
 <p>Az egyes registry-k eltérnek abban, hogy az elérési útvonal felépítése milyen logikát követ, mit jelentenek az egyes hierarchiaszintek.</p>
 <p>Jogosultság szempontból két fajta registry létezhet: publikus (pl. Docker Hub) és privát. Privát registry esetén <code>docker login &lt;url&gt;</code> és <code>docker logout &lt;url&gt;</code> szükséges az authentikációhoz.</p>
-<p>Letöltés a registry-ből: <code>docker pull mcr.microsoft.com/dotnet/aspnet:8.0</code>. Itt az elérési útvonal (path) már többelemű: <code>mcr.microsoft.com/dotnet/aspnet:8.0</code>, ahol a path komponensek: <code>dotnet/aspnet</code>.</p>
+<p>Letöltés a registry-ből: <code>docker pull mcr.microsoft.com/dotnet/aspnet:10.0</code>. Itt az elérési útvonal (path) már többelemű: <code>mcr.microsoft.com/dotnet/aspnet:10.0</code>, ahol a path komponensek: <code>dotnet/aspnet</code>.</p>
 <p>Ugyan a <em>run</em> parancs is letölti, de csak akkor, ha még nem létezik. Nem ellenőrzi viszont, hogy nincs-e újabb image verzió publikálva. A <em>pull</em> mindig frisset szed le.</p>
 </details>
 <p>Készítünk egy saját image-et, ami egy módosított <code>nginx</code> image-et fog tartalmazni a saját tartalmunkkal.
@@ -1909,22 +1919,26 @@ Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most 
 </li>
 <li>
 <p>Készíts egy pillanatmentést a konténer jelenlegi állapotáról:</p>
-<div class="highlight"><pre><span></span><code>docker commit &lt;id|name&gt;
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>commit<span class="w"> </span>&lt;id<span class="p">|</span>name&gt;
 </code></pre></div>
 </li>
 <li>
 <p>Állítsd le a háttérben futó konténert:</p>
-<div class="highlight"><pre><span></span><code>docker stop &lt;id|name&gt;
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>stop<span class="w"> </span>&lt;id<span class="p">|</span>name&gt;
 </code></pre></div>
 </li>
 <li>
 <p>A <code>commit</code> parancs készített egy image-et, aminek kiírta a hash-ét. Ellenőrizd, hogy tényleg létezik-e ez az image:</p>
-<div class="highlight"><pre><span></span><code>docker images
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>images<span class="w"> </span>--all
 </code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Az újabb Docker verziók alapértelmezetten nem listázzák a tag nélküli image-eket a sima <code>docker images</code> paranccsal, ezért kell a <code>--all</code> kapcsoló.</p>
+</div>
 </li>
 <li>
 <p>Taggeld meg az image-et:</p>
-<div class="highlight"><pre><span></span><code>docker tag &lt;imageid&gt; nginx-neptun
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>tag<span class="w"> </span>&lt;imageid&gt;<span class="w"> </span>nginx-neptun
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1933,7 +1947,7 @@ Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most 
 </li>
 <li>
 <p>Indíts el egy új konténert az előbb létrehozott saját image-ből:</p>
-<div class="highlight"><pre><span></span><code>docker run -it --rm -p 8086:80 nginx-neptun
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8086</span>:80<span class="w"> </span>nginx-neptun
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1952,7 +1966,7 @@ Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most 
 <p class="admonition-title">Takarítás</p>
 <p>Fejlesztés közben sok ideiglenes image keletkezik, és konténereket hagyunk hátra.
 Add ki a következő parancsot a nem futó konténerek törléséhez és az ideiglenes (címke nélküli) image-ek törléséhez:</p>
-<div class="highlight"><pre><span></span><code>docker system prune
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>system<span class="w"> </span>prune
 </code></pre></div>
 </div>
 <h3 id="22-dockerfile">2.2 Dockerfile<a class="headerlink" href="#22-dockerfile" title="Permanent link">¶</a></h3>
@@ -1996,8 +2010,8 @@ Add ki a következő parancsot a nem futó konténerek törléséhez és az idei
 </li>
 <li>
 <p>Készíts egy <code>requirements.txt</code> fájlt az alábbi tartalommal, ami a Python alkalmazásunk függőségeit tartalmazza.</p>
-<div class="highlight"><pre><span></span><code>Flask
-Redis
+<div class="highlight"><pre><span></span><code>Flask==3.1.3
+redis==8.1.0
 </code></pre></div>
 </li>
 <li>
@@ -2006,9 +2020,11 @@ Redis
 <div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.13-slim</span>
 
 <span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
-<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>/app
 
-<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--trusted-host<span class="w"> </span>pypi.python.org<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
 <span class="k">EXPOSE</span><span class="w"> </span><span class="s">80</span>
 
 <span class="c"># Ide a saját Neptun kódodat írd</span>
@@ -2019,7 +2035,7 @@ Redis
 </li>
 <li>
 <p>Készítsd el a fenti fájlokból az image-et. Konzolból a munkakönyvtárban add ki a következő parancsot:</p>
-<div class="highlight"><pre><span></span><code>docker build -t python-neptun:v1 .
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>python-neptun:v1<span class="w"> </span>.
 </code></pre></div>
 <p>Ez a parancs létrehoz egy image-et a Dockerfile alapján. A végén egy pont van, az is a parancs része, ami a build kontextust jelenti.</p>
 <p>A Dockerfile lépései:</p>
@@ -2032,13 +2048,17 @@ Redis
 <li><code>ENV</code>: környezeti változó beállítása. A <code>NAME</code> környezeti változó értéke a saját Neptun kódod legyen.</li>
 <li><code>CMD</code>: a konténer indításakor lefuttatandó parancs és argumentumai. Ebben az esetben a Python alkalmazásunkat indítjuk el.  </li>
 </ul>
+<div class="admonition tip">
+<p class="admonition-title">Miért két külön <code>COPY</code>?</p>
+<p>Előbb csak a <code>requirements.txt</code>-t másoljuk be és telepítjük a függőségeket, és csak utána másoljuk be a teljes forráskódot. Így amíg a <code>requirements.txt</code> nem változik, a Docker build cache-eli a telepítési lépést, és a forráskód módosítása után a build nem telepíti újra feleslegesen a függőségeket.</p>
+</div>
 </li>
 <li>
 <p>Ellenőrizd, hogy tényleg létrejött-e az image.</p>
 </li>
 <li>
 <p>Indíts el egy új konténert ebből az image-ből:</p>
-<div class="highlight"><pre><span></span><code>docker run -it --rm -p 8085:80 python-neptun:v1
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">8085</span>:80<span class="w"> </span>python-neptun:v1
 </code></pre></div>
 </li>
 <li>
@@ -2086,10 +2106,6 @@ Redis
 </details>
 <h2 id="3-feladat">3. Feladat<a class="headerlink" href="#3-feladat" title="Permanent link">¶</a></h2>
 <h3 id="31-docker-compose">3.1 Docker-compose<a class="headerlink" href="#31-docker-compose" title="Permanent link">¶</a></h3>
-<div class="admonition warning">
-<p class="admonition-title">Linux eltérés</p>
-<p>Linuxon a <em>compose</em> nem egy külön parancs, hanem a docker parancs <a href="https://docs.docker.com/compose/install/linux/">kiterjesztése</a>. Emiatt <code>docker-compose</code> helyett <code>docker compose</code>-ként kell meghívnunk.</p>
-</div>
 <p>A fenti alkalmazás egy része még nem működik. A Python alkalmazás mellett egy Redis-re is szükségünk lenne. Futtassunk több konténert egyszerre a docker compose segítségével.</p>
 <ol>
 <li>
@@ -2114,7 +2130,7 @@ Redis
 </code></pre></div>
 <p>A fájl tartalmának magyarázata:</p>
 <ul>
-<li><code>services</code>: a szolgáltatások, amiket indítani szeretnénk</li>
+<li><code>services</code>: a szolgáltatások, amiket indítani szeretnénk<ul>
 <li><code>redis</code>: egy Redis konténer, ami az <code>alpine</code> verziót használja</li>
 <li><code>web</code>: a saját image-ből épített Python alkalmazás konténere<ul>
 <li><code>build</code>: a build kontextusban lévő mappából építi az image-t</li>
@@ -2122,21 +2138,23 @@ Redis
 <li><code>depends_on</code>: a konténer indításának sorrendjét jelzi. A <code>web</code> konténer csak akkor indul, ha a <code>redis</code> konténer már fut.</li>
 </ul>
 </li>
+</ul>
+</li>
 <li><code>networks</code>: a konténerek közötti hálózatokat definiálja. A <code>homework_network</code> nevű hálózatot <a href="https://docs.docker.com/network/drivers/bridge/">bridge módban</a> hozzuk létre, amely egy elkülönített, virtuális hálózatot biztosít a konténerek számára a host gépen belül. A bridge mód lehetővé teszi, hogy a hálózathoz csatlakozó konténerek saját IP-címet kapjanak, egymással közvetlenül kommunikáljanak, miközben a host hálózatától is el vannak választva. Erre a hálózatra hivatkozunk a konténerek <code>networks</code> tulajdonságában.</li>
 </ul>
 </li>
 <li>
 <p>Nyiss egy konzolt ugyanebbe a mappába. Indítsd el az alkalmazásokat az alábbi paranccsal:</p>
-<div class="highlight"><pre><span></span><code>docker-compose up --build
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>--build
 </code></pre></div>
-<p>Két lépésben a parancs: <code>docker-compose build</code> és <code>docker-compose up</code></p>
+<p>Két lépésben a parancs: <code>docker compose build</code> és <code>docker compose up</code></p>
 </li>
 <li>
 <p>Nyisd meg böngészőben a <a href="http://localhost:5000">http://localhost:5000</a> oldalt.</p>
 </li>
 <li>
 <p>Egy új konzolban nézd meg a futó konténereket.</p>
-<div class="highlight"><pre><span></span><code>docker ps
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>ps
 </code></pre></div>
 </li>
 </ol>
@@ -2145,12 +2163,12 @@ Redis
 <p>Készíts egy képernyőképet (f3.1.png) és commitold azt be a házi feladat repó gyökerébe, amin a fenti weboldal látszik a böngészőben és a futó konténerek listája a konzolban.</p>
 </div>
 <div class="admonition note">
-<p class="admonition-title">docker-compose üzemeltetéshez</p>
-<p>A docker-compose alkalmas üzemeltetésre is. A <code>docker-compose.yaml</code> fájl nem csak fejlesztői környezetet ír le, hanem üzemeltetéshez szükséges környezetet is. Ha a compose fájlt megfelelően írjuk meg (pl. használjuk a <a href="https://docs.docker.com/reference/compose-file/services/#restart"><code>restart</code> direktívát</a> is), az elindított szolgáltatások automatikusan újraindulnak a rendszer indulásakor.</p>
-<p>Ugyanakkor a docker-compose nem helyettesíti a Kubernetes-t vagy más konténer orkesztrációs megoldásokat, mert azok sokkal komplexebb feladatokat is meg tudnak oldani (pl. skálázás, load balancing, stb.).</p>
+<p class="admonition-title">Docker Compose üzemeltetéshez</p>
+<p>A Docker Compose alkalmas üzemeltetésre is. A <code>docker-compose.yaml</code> fájl nem csak fejlesztői környezetet ír le, hanem üzemeltetéshez szükséges környezetet is. Ha a compose fájlt megfelelően írjuk meg (pl. használjuk a <a href="https://docs.docker.com/reference/compose-file/services/#restart"><code>restart</code> direktívát</a> is), az elindított szolgáltatások automatikusan újraindulnak a rendszer indulásakor.</p>
+<p>Ugyanakkor a Docker Compose nem helyettesíti a Kubernetes-t vagy más konténer orkesztrációs megoldásokat, mert azok sokkal komplexebb feladatokat is meg tudnak oldani (pl. skálázás, load balancing, stb.).</p>
 </div>
 <h3 id="32-tobb-compose-yaml-fajl">3.2 Több compose yaml fájl<a class="headerlink" href="#32-tobb-compose-yaml-fajl" title="Permanent link">¶</a></h3>
-<p>A docker-compose parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon. Alapértelmezésként a <code>docker-compose.yaml</code> vagy <code>compose.yaml</code> kiterjesztésű fájlt <strong>és</strong> ezzel összefésülve a <code>docker-compose.override.yaml</code> fájlt használja.</p>
+<p>A <code>docker compose</code> parancsnak nem adtuk meg, hogy milyen yaml fájlból dolgozzon. Alapértelmezésként a <code>docker-compose.yaml</code> vagy <code>compose.yaml</code> kiterjesztésű fájlt <strong>és</strong> ezzel összefésülve a <code>docker-compose.override.yaml</code> fájlt használja.</p>
 <ol>
 <li>
 <p>Készíts egy <code>docker-compose.override.yaml</code> fájlt a másik compose yaml mellé az alábbi tartalommal, amiben a redis konténer naplózását állítjuk át verbose szintre.</p>
@@ -2161,7 +2179,7 @@ Redis
 </li>
 <li>
 <p>Indítsd el a rendszert.</p>
-<div class="highlight"><pre><span></span><code>docker-compose up
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up
 </code></pre></div>
 <p>A redis konténer részletesebben fog naplózni a <code>command</code> direktívában megadott utasítás szerint. Állítsd le a rendszert.</p>
 </li>
@@ -2177,7 +2195,7 @@ Redis
 </li>
 <li>
 <p>Indítsuk el a rendszert az alábbi paranccsal</p>
-<div class="highlight"><pre><span></span><code>docker-compose -f docker-compose.yaml -f docker-compose.debug.yaml up
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.yaml<span class="w"> </span>-f<span class="w"> </span>docker-compose.debug.yaml<span class="w"> </span>up
 </code></pre></div>
 <p>A <code>-f</code> kapcsolóval tudjuk kérni a megadott yaml fájlok összefésülését.</p>
 </li>
@@ -2202,23 +2220,24 @@ Redis
 </li>
 <li>
 <p>Generálj egy ASP.NET Core alapú kiinduló projektet</p>
-<div class="highlight"><pre><span></span><code>dotnet new webapp
+<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>new<span class="w"> </span>webapp<span class="w"> </span>-f<span class="w"> </span>net10.0
 </code></pre></div>
 </li>
 <li>
 <p>Generáld az ASP.NET Core-hoz tartozó docker fájlokat</p>
-<p></p><div class="highlight"><pre><span></span><code>docker init
+<p></p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>init
 </code></pre></div>
-Ez a lépés létrehoz egy <code>Dockerfile</code>-t a projektben, ami ráadásul multi-stage build megoldást tartalmaz: a fordítási, publikálási és futtatási fázisokat különválasztja (több <code>FROM</code> utasítás amik egymásra hivatkoznak).
-Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálható legyen egy szeparált .NET SDK-t tartalmazó konténerben. A publikálás pedig egy kisebb méretű image-be történik, ami már csak a .NET futtatókörnyezetet tartalmazza.<p></p>
+A parancs néhány kérdést fog feltenni (pl. alkalmazás platform, verzió, port). Az alapértelmezetten felkínált lehetőségek általában megfelelőek, csak végig kell <span class="keys"><kbd class="key-enter">Enter</kbd></span> -ezni.<p></p>
+<p>Ez a lépés létrehoz egy <code>Dockerfile</code>-t a projektben, ami ráadásul multi-stage build megoldást tartalmaz: a fordítási, publikálási és futtatási fázisokat különválasztja (több <code>FROM</code> utasítás amik egymásra hivatkoznak).
+Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálható legyen egy szeparált .NET SDK-t tartalmazó konténerben. A publikálás pedig egy kisebb méretű image-be történik, ami már csak a .NET futtatókörnyezetet tartalmazza.</p>
 <p>Ezen felül létrejön még .dockerignore fájl, valamint egy Docker compose fájl is.</p>
 </li>
 <li>
-<p>Futtassuk a docker compose configurációt (<code>docker-compose up</code> - Windows vagy <code>docker compose up</code> - Linux). Az alapértelmezetten felkínált lehetőségek általában megfelelőek, csak végig kell <span class="keys"><kbd class="key-enter">Enter</kbd></span> -ezni. Böngészőben nyissuk meg a localhost címen a docker init-nek megadott portot pl. <a href="http://localhost:8080">http://localhost:8080</a>.</p>
+<p>Futtassuk a docker compose configurációt (<code>docker compose up</code>). Böngészőben nyissuk meg a localhost címen a docker init-nek megadott portot pl. <a href="http://localhost:8080">http://localhost:8080</a>.</p>
 </li>
 <li>
 <p>Listázzuk ki a futó konténereket egy külön konzolablakban:</p>
-<div class="highlight"><pre><span></span><code>docker ps
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>ps
 </code></pre></div>
 </li>
 </ol>
@@ -2242,7 +2261,7 @@ Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálha
 </ul>
 </li>
 <li>Futtató platformok<ul>
-<li>.NET Runtime ASP.NET Core-ral, pl. <code>mcr.microsoft.com/dotnet/aspnet:8.0</code></li>
+<li>.NET Runtime ASP.NET Core-ral, pl. <code>mcr.microsoft.com/dotnet/aspnet:10.0</code></li>
 <li><a href="https://hub.docker.com/_/node">NodeJS</a> pl. <code>node:24.7-alpine</code></li>
 <li><a href="https://hub.docker.com/_/python">Python</a> pl. <code>python:3.13-slim</code></li>
 </ul>
@@ -2252,7 +2271,7 @@ Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálha
 <p>A kész image-ek, amiket pedig felhasználunk:</p>
 <ul>
 <li>SDK-k multi stage buildhez<ul>
-<li>.NET SDK pl. <code>mcr.microsoft.com/dotnet/sdk:8.0</code></li>
+<li>.NET SDK pl. <code>mcr.microsoft.com/dotnet/sdk:10.0</code></li>
 </ul>
 </li>
 <li>Adatbázis szerverek, webszerverek, gyakran használt szolgáltatások<ul>
@@ -2281,11 +2300,17 @@ Ilyen esetben a következő lehetőségeink vannak:</p>
   Erre tökéletesen alkalmas egy-egy környezeti változó.
   A jól felépített Docker image-ek előre meghatározott környezeti változókon keresztül testreszabhatóak.</p>
 <p>Erre egy jó példa a <a href="https://hub.docker.com/r/microsoft/mssql-server">Microsoft SQL Server Docker változata</a>. Az alábbi parancsban a <code>-e</code> argumentumokban adunk át környezeti változókat, de lehetőség van compose fájlban is megadni ezeket.</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run
-<span class="w">  </span>-e<span class="w"> </span><span class="s1">'ACCEPT_EULA=Y'</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="s1">'SA_PASSWORD=yourStrong(!)Password'</span>
-<span class="w">  </span>-p<span class="w"> </span><span class="m">1433</span>:1433
+<div class="highlight"><span class="filename">Linux/macOS - bash</span><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="s1">'ACCEPT_EULA=Y'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="s1">'MSSQL_SA_PASSWORD=yourStrong(!)Password'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">1433</span>:1433<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>mcr.microsoft.com/mssql/server:2022-CU20-GDR1-ubuntu-22.04
+</code></pre></div>
+<div class="highlight"><span class="filename">Windows - PowerShell</span><pre><span></span><code><span class="n">docker</span> <span class="n">run</span> <span class="p">`</span>
+  <span class="n">-e</span> <span class="s1">'ACCEPT_EULA=Y'</span> <span class="p">`</span>
+  <span class="n">-e</span> <span class="s1">'MSSQL_SA_PASSWORD=yourStrong(!)Password'</span> <span class="p">`</span>
+  <span class="n">-p</span> <span class="n">1433</span><span class="p">:</span><span class="n">1433</span> <span class="p">`</span>
+  <span class="n">mcr</span><span class="p">.</span><span class="n">microsoft</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">mssql</span><span class="p">/</span><span class="n">server</span><span class="p">:</span><span class="n">2022-CU20-GDR1-ubuntu</span><span class="p">-</span><span class="n">22</span><span class="p">.</span><span class="n">04</span>
 </code></pre></div>
 </li>
 <li>
@@ -2296,7 +2321,7 @@ Ilyen esetben a következő lehetőségeink vannak:</p>
 <span class="w">  </span><span class="nt">redis</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis:8.2-alpine</span>
 <span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-redis.conf:/usr/local/etc/redis/redis.conf</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./my-redis.conf:/usr/local/etc/redis/redis.conf</span>
 </code></pre></div>
 <p>Ezen megoldás előnye, hogy nincs szükség saját image-et készíteni, tárolni, kezelni.
 Amikor a környezeti változó már nem elegendő a testreszabáshoz, ez a javasolt megoldás.</p>
@@ -2308,7 +2333,7 @@ Amikor a környezeti változó már nem elegendő a testreszabáshoz, ez a javas
 <li><em>.dockerignore</em> fájl szintaktika: <a href="https://docs.docker.com/reference/dockerfile/#dockerignore-file">https://docs.docker.com/reference/dockerfile/#dockerignore-file</a></li>
 <li><em>Dockerfile</em> best practice-ek: <a href="https://docs.docker.com/build/building/best-practices/">https://docs.docker.com/build/building/best-practices/</a></li>
 <li><em>compose</em> fájl szintaktika: <a href="https://docs.docker.com/compose/compose-file/">https://docs.docker.com/compose/compose-file/</a></li>
-<li>Több compose fájl használata: <a href="https://docs.docker.com/compose/multiple-compose-files/extends/#multiple-compose-files">https://docs.docker.com/compose/multiple-compose-files/extends/#multiple-compose-files</a></li>
+<li>Több compose fájl használata: <a href="https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/">https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/</a></li>
 <li>Multistage build-ek: <a href="https://docs.docker.com/build/building/multi-stage/">https://docs.docker.com/build/building/multi-stage/</a></li>
 </ul>
   <hr>
@@ -2318,8 +2343,8 @@ Amikor a környezeti változó már nem elegendő a testreszabáshoz, ez a javas
           </path>
         </svg>
       </span>
-      <span title="2026. augusztus 28. 13:07:06">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. augusztus 28. 13:07:06 CEST"><span class="timeago" datetime="2026-08-28T13:07:06+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. augusztus 28. 13:07:06 CEST">2026-08-28</span>
+      <span title="2026. szeptember 13. 20:31:06">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. szeptember 13. 20:31:06 CEST"><span class="timeago" datetime="2026-09-13T20:31:06+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. szeptember 13. 20:31:06 CEST">2026-09-13</span>
       </span>
     </span>
 
