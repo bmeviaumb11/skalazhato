@@ -725,5 +725,5 @@ Ilyen esetben a következő lehetőségeink vannak:
 - _.dockerignore_ fájl szintaktika: <https://docs.docker.com/reference/dockerfile/#dockerignore-file>
 - _Dockerfile_ best practice-ek: <https://docs.docker.com/build/building/best-practices/>
 - _compose_ fájl szintaktika: <https://docs.docker.com/compose/compose-file/>
-- Több compose fájl használata: <https://docs.docker.com/compose/multiple-compose-files/extends/#multiple-compose-files>
+- Több compose fájl használata: <https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/>
 - Multistage build-ek: <https://docs.docker.com/build/building/multi-stage/>
