@@ -111,7 +111,7 @@ docker run hello-world
     - Kezelő parancsok: _parancs argumentumok_, pl. `docker rmi <id>`
     - Gyakran használtak:
         - Konténerek kezelése
-            - `docker container ls [-all]` vagy `docker ps [-a]`
+            - `docker container ls [-a|--all]` vagy `docker ps [-a]`
             - `docker run [opciók] <image>`
             - `docker stop <id>`
             - `docker rm <id>`
@@ -296,10 +296,10 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
     Az alapértelmezett registry a <https://hub.docker.com>, ahol tipikusan open-source szoftverek image-ei és az általunk is használt alap image-ek találhatóak.
     Léteznek természetesen továbbiak is (Azure, Google, stb.).
 
-    Az image neve valójában nem `ubuntu`, hanem `index.docker.io/ubuntu:latest`
+    Az image neve valójában nem `ubuntu`, hanem `docker.io/library/ubuntu:latest`
 
-      - `index.docker.io` registry szerver elérési útvonala
-      - `ubuntu` image elérési útvonala a registry-n belül (ebben a példában csak egy elemből áll: ubuntu).
+      - `docker.io` registry szerver elérési útvonala
+      - `library/ubuntu` image elérési útvonala a registry-n belül (a `library` a Docker Hub hivatalos image-einek névtere, ezt akkor is hozzáadja Docker, ha mi magunk nem adjuk meg).
       - `:latest` tag neve
 
     Az egyes registry-k eltérnek abban, hogy az elérési útvonal felépítése milyen logikát követ, mit jelentenek az egyes hierarchiaszintek.
@@ -330,8 +330,11 @@ Ehhez az előző feladatban lévő lépéseket kell ismét elvégezned, de most 
 1. A `commit` parancs készített egy image-et, aminek kiírta a hash-ét. Ellenőrizd, hogy tényleg létezik-e ez az image:
 
     ```bash
-    docker images
+    docker images --all
     ```
+
+    !!! warning
+        Az újabb Docker verziók alapértelmezetten nem listázzák a tag nélküli image-eket a sima `docker images` paranccsal, ezért kell a `--all` kapcsoló.
 
 1. Taggeld meg az image-et:
 
