@@ -20,7 +20,7 @@ A labor célja megismerni a Docker konténerek használatának alapjait és a le
     !!! warning
         Más kiépítések, telepítési formák is elérhetőek (pl. Docker Engine), de a Docker Desktop tartalmaz minden eszközt, amire szükségünk lehet. Például `docker init` csak a Docker Desktop-ban van.
         
-- Az opcionális feladathoz [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0). Ha van fent friss Visual Studio, akkor általában nem kell külön feltenni. Tesztelheted [így](https://learn.microsoft.com/en-us/dotnet/core/install/how-to-detect-installed-versions?pivots=os-windows#check-sdk-versions)
+- Az opcionális feladathoz [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0). Ha van fent friss Visual Studio, akkor általában nem kell külön feltenni. Tesztelheted [így](https://learn.microsoft.com/en-us/dotnet/core/install/how-to-detect-installed-versions?pivots=os-windows#check-sdk-versions)
 - Microsoft Visual Studio Code
     - Javasolt: [Docker extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
 - Alap Linux parancsok ismerete. Érdemes átnézni pl.:
@@ -306,7 +306,7 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
 
     Jogosultság szempontból két fajta registry létezhet: publikus (pl. Docker Hub) és privát. Privát registry esetén `docker login <url>` és `docker logout <url>` szükséges az authentikációhoz.
 
-    Letöltés a registry-ből: `docker pull mcr.microsoft.com/dotnet/aspnet:8.0`. Itt az elérési útvonal (path) már többelemű: `mcr.microsoft.com/dotnet/aspnet:8.0`, ahol a path komponensek: `dotnet/aspnet`.
+    Letöltés a registry-ből: `docker pull mcr.microsoft.com/dotnet/aspnet:10.0`. Itt az elérési útvonal (path) már többelemű: `mcr.microsoft.com/dotnet/aspnet:10.0`, ahol a path komponensek: `dotnet/aspnet`.
     
     Ugyan a _run_ parancs is letölti, de csak akkor, ha még nem létezik. Nem ellenőrzi viszont, hogy nincs-e újabb image verzió publikálva. A _pull_ mindig frisset szed le.
 
@@ -626,7 +626,7 @@ A `docker init` paranccsal egy megadott technológiához tartozó, docker alapú
 1. Generálj egy ASP.NET Core alapú kiinduló projektet
 
     ```bash
-    dotnet new webapp
+    dotnet new webapp -f net10.0
     ```
 
 1. Generáld az ASP.NET Core-hoz tartozó docker fájlokat
@@ -666,7 +666,7 @@ Alap image-ek, amikre tipikusan saját alkalmazást építünk:
     - [Debian](https://hub.docker.com/_/debian)
     - [Alpine](https://hub.docker.com/_/alpine)
 - Futtató platformok
-    - .NET Runtime ASP.NET Core-ral, pl. `mcr.microsoft.com/dotnet/aspnet:8.0`
+    - .NET Runtime ASP.NET Core-ral, pl. `mcr.microsoft.com/dotnet/aspnet:10.0`
     - [NodeJS](https://hub.docker.com/_/node) pl. `node:24.7-alpine`
     - [Python](https://hub.docker.com/_/python) pl. `python:3.13-slim`
 - [scratch](https://hub.docker.com/_/scratch): üres image, speciális esetek, pl. go, vagy distro készítéshez
@@ -674,7 +674,7 @@ Alap image-ek, amikre tipikusan saját alkalmazást építünk:
 A kész image-ek, amiket pedig felhasználunk:
 
 - SDK-k multi stage buildhez
-    - .NET SDK pl. `mcr.microsoft.com/dotnet/sdk:8.0`
+    - .NET SDK pl. `mcr.microsoft.com/dotnet/sdk:10.0`
 - Adatbázis szerverek, webszerverek, gyakran használt szolgáltatások
     - MSSQL, redis, mongodb, mysql, nginx, ...
 - Termérdek elérhető image: <https://hub.docker.com>
