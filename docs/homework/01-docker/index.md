@@ -638,12 +638,14 @@ A `docker init` paranccsal egy megadott technológiához tartozó, docker alapú
     ```bash
     docker init
     ```
+    A parancs néhány kérdést fog feltenni (pl. alkalmazás platform, verzió, port). Az alapértelmezetten felkínált lehetőségek általában megfelelőek, csak végig kell ++enter++ -ezni.
+
     Ez a lépés létrehoz egy `Dockerfile`-t a projektben, ami ráadásul multi-stage build megoldást tartalmaz: a fordítási, publikálási és futtatási fázisokat különválasztja (több `FROM` utasítás amik egymásra hivatkoznak).
     Ezáltal biztosítható, hogy a .NET alkalmazásunk fordítása is reprodukálható legyen egy szeparált .NET SDK-t tartalmazó konténerben. A publikálás pedig egy kisebb méretű image-be történik, ami már csak a .NET futtatókörnyezetet tartalmazza.
 
     Ezen felül létrejön még .dockerignore fájl, valamint egy Docker compose fájl is.
 
-1. Futtassuk a docker compose configurációt (`docker compose up`). Az alapértelmezetten felkínált lehetőségek általában megfelelőek, csak végig kell ++enter++ -ezni. Böngészőben nyissuk meg a localhost címen a docker init-nek megadott portot pl. http://localhost:8080.
+1. Futtassuk a docker compose configurációt (`docker compose up`). Böngészőben nyissuk meg a localhost címen a docker init-nek megadott portot pl. http://localhost:8080.
 
 1. Listázzuk ki a futó konténereket egy külön konzolablakban:
 
