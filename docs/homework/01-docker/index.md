@@ -246,6 +246,10 @@ Ehhez a `docker exec` és `docker cp` parancsot használjuk most.
   
     - Az `-it` opció az interaktivitásra utal, azaz a konzolunkat "hozzáköti" a konténerben futó shellhez.
     - Tipikusan vagy `/bin/bash` vagy `/bin/sh` a Linux konténerekben a shell. Utóbbi az [_alpine_](https://alpinelinux.org/) alapú konténerekben gyakori.
+
+        !!! warning "Distroless image-ek"
+            Léteznek úgynevezett [_distroless_](https://docs.docker.com/dhi/explore/security-concepts/distroless/) image-ek is, amelyekben szándékosan nincs shell (sem `/bin/bash`, sem `/bin/sh`), sőt gyakran még csomagkezelő vagy egyéb operációs rendszeri eszköz sem. Ezeknél a fenti `docker exec` parancs shell indítására nem fog működni. Ez egy tudatos biztonsági és image-méret optimalizálási döntés a készítők részéről, nem hiba: shell és egyéb eszközök hiányában jelentősen csökken a támadási felület, hiszen egy esetleges sérülékenység kihasználása esetén a támadó nem tud a konténeren belül tetszőleges parancsokat futtatni.
+
     - Ebben az interaktív shell-ben bármit csinálhatunk, beléphetünk könyvtárakba, megnézhetünk fájlokat, stb. Arra viszont ügyeljünk, hogy az így végzett módosításaink **elvesznek**, amikor a konténer törlésre kerül!
 
 - Például nézzük meg az nginx konfigurációját:
