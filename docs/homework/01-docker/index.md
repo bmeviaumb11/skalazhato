@@ -4,8 +4,6 @@ authors: tibitoth
 
 # 01 - Konténerizáció
 
-*Nincs frissítve 2026. őszi félévre!*
-
 ## Cél
 
 A labor célja megismerni a Docker konténerek használatának alapjait és a leggyakrabban használt Docker CLI parancsokat.
