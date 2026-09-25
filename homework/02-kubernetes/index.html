@@ -831,12 +831,12 @@
   <a href="#2-feladat" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2 Feladat
+        2. Feladat
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2 Feladat">
+    <nav class="md-nav" aria-label="2. Feladat">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1404,12 +1404,12 @@
   <a href="#2-feladat" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2 Feladat
+        2. Feladat
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2 Feladat">
+    <nav class="md-nav" aria-label="2. Feladat">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1576,7 +1576,6 @@
 
 
 <h1 id="02-kubernetes-helm-traefik">02 - Kubernetes, Helm, Traefik<a class="headerlink" href="#02-kubernetes-helm-traefik" title="Permanent link">¶</a></h1>
-<p><em>Nincs frissítve 2026. őszi félévre!</em></p>
 <h2 id="cel">Cél<a class="headerlink" href="#cel" title="Permanent link">¶</a></h2>
 <p>A labor célja:</p>
 <ul>
@@ -1594,7 +1593,7 @@
 <p>A labor Windows platformon lett kidolgozva, de Linuxon is hasonlóan működik.</p>
 <ul>
 <li>Kubernetes, lehetőleg saját gépen futtatva<ul>
-<li>bármilyen eltejedt vagy <a href="https://www.cncf.io/training/certification/software-conformance/">CNCF minősített K8S</a> pl.:<ul>
+<li>bármilyen elterjedt vagy <a href="https://www.cncf.io/training/certification/software-conformance/">CNCF minősített K8S</a> pl.:<ul>
 <li><a href="https://docs.docker.com/desktop/features/kubernetes/">Docker Desktop Kubernetes</a></li>
 <li><a href="https://minikube.sigs.k8s.io/docs/">minikube</a></li>
 </ul>
@@ -1609,8 +1608,8 @@
 <li>Egy kubernetes-t menedzselni képes GUI, például:<ul>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools">VS Code Kubernetes extension</a></li>
 <li><a href="https://k8slens.dev/">Lens</a></li>
-<li><a href="https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/">Kubernetes Dashboard</a></li>
-<li><a href="https://www.jetbrains.com/help/rider/Kubernetes.html">Rider</a> - hallgatói fiókkal ingyenes</li>
+<li><a href="https://headlamp.dev/">Headlamp</a></li>
+<li><a href="https://www.jetbrains.com/help/rider/Kubernetes.html">Rider</a> - nem kereskedelmi célra ingyenes</li>
 <li><a href="https://k9scli.io/">k9s</a></li>
 </ul>
 </li>
@@ -1645,7 +1644,11 @@
 <p>Nyissuk meg a Docker Desktop beállításait.</p>
 </li>
 <li>
-<p>A <em>Kubernetes</em> fülön pipáljuk be az <em>Enable Kubernetes</em> opciót, és kattintsunk az <em>Apply</em>-ra.</p>
+<p>A <em>Kubernetes</em> fülön pipáljuk be az <em>Enable Kubernetes</em> opciót. A klaszter létrehozási módjánál (<em>Cluster provisioning method</em>) válasszuk a <strong>Kubeadm</strong> opciót, majd kattintsunk az <em>Apply</em>-ra.</p>
+<div class="admonition warning">
+<p class="admonition-title">Kubeadm vs. kind</p>
+<p>A Docker Desktop újabb verziói <em>kind</em> alapú klasztert is tudnak létrehozni. Ebben az esetben a gépünkön lebuildelt image-ek nem láthatók automatikusan a klaszterben, ami a 3. feladatban problémát okoz. Ezért a házi feladathoz a <strong>Kubeadm</strong> módot javasoljuk.</p>
+</div>
 </li>
 <li>
 <p>Várjuk meg, amíg befejeződik a művelet. A kubernetes alrendszer elindulása néhány percet is igénybe vehet.</p>
@@ -1656,7 +1659,7 @@
 <ul>
 <li>
 <p>Ellenőrizzük, hogy a <code>kubectl</code> bináris elérhető-e, és tud-e csatlakozni a klaszterhez:</p>
-<div class="highlight"><pre><span></span><code>kubectl version
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>version
 </code></pre></div>
 <p>A <code>kubectl</code> a CLI kliens a klaszter kezeléséhez (ejtsd: cube control).
 A Kubernetes API szerveréhez csatlakozik, annak REST API-ján keresztül végzi a műveleteket.
@@ -1664,7 +1667,7 @@ Láthatjuk mind a kliens, mind a klaszter verzió információit.</p>
 </li>
 <li>
 <p>A <code>kubectl</code> egy konkrét klaszterhez csatlakozik. Nézzük meg, milyen klasztereket ismer:</p>
-<div class="highlight"><pre><span></span><code>kubectl config get-contexts
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>config<span class="w"> </span>get-contexts
 </code></pre></div>
 </li>
 <li>
@@ -1684,13 +1687,13 @@ Láthatjuk mind a kliens, mind a klaszter verzió információit.</p>
 <ul>
 <li>
 <p>Listázzuk ki a futó podokat:</p>
-<div class="highlight"><pre><span></span><code>kubectl get pod -A
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-A
 </code></pre></div>
 <p>A <code>-A</code> vagy <code>--all-namespaces</code> kapcsoló az összes névtérben levő podot listázza.</p>
 </li>
 <li>
 <p>Ismételjük meg a <code>-A</code> kapcsoló nélkül:</p>
-<div class="highlight"><pre><span></span><code>kubectl get pod
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pod
 </code></pre></div>
 <p>Ez az alapértelmezett <em>default</em> névtér podjait listázza. (Az alapértelmezett névtér is a kontextus beállítása.)</p>
 </li>
@@ -1708,7 +1711,7 @@ Láthatjuk mind a kliens, mind a klaszter verzió információit.</p>
 </div>
 <ol>
 <li>
-<p>Hozzunk létre egy új YAML fájt a repositorynk gyökerébe <code>createpod.yml</code> néven, az alábbi követelmények mentén</p>
+<p>Hozzunk létre egy új YAML fájlt a repositorynk gyökerébe <code>createpod.yml</code> néven, az alábbi követelmények mentén</p>
 <ul>
 <li>a kubernetes leíró Pod-ot definiál</li>
 <li>a pod neve legyen <code>counter-neptun</code> a <strong>saját neptunkóddal</strong> kiegészítve</li>
@@ -1718,7 +1721,7 @@ Láthatjuk mind a kliens, mind a klaszter verzió információit.</p>
 </li>
 <li>
 <p>A konzolunkban navigáljunk el abba a könyvtárba, ahol a YAML fájl van, majd hozzuk létre a podot:</p>
-<div class="highlight"><pre><span></span><code>kubectl apply -f createpod.yml
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>createpod.yml
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">apply vs create</p>
@@ -1727,15 +1730,15 @@ Láthatjuk mind a kliens, mind a klaszter verzió információit.</p>
 </li>
 <li>
 <p>A pod létrejött. Ellenőrizzük:</p>
-<div class="highlight"><pre><span></span><code>kubectl get pod
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pod
 </code></pre></div>
 </li>
 <li>
 <p>Nézzük meg a pod logjait:</p>
-<div class="highlight"><pre><span></span><code>kubectl logs counter-neptun
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>logs<span class="w"> </span>counter-neptun
 </code></pre></div>
 <div class="admonition tip">
-<p>Ha gondoljuk, tegyük hozzá a <code>-f</code> kapcsolót is (<code>kubectl logs -f counter</code>) a log követéséhez. <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>-vel léphetünk ki a log folyamatos követéséből. Ne feledjük, hogy ez nem a pod terminálja, hanem a logjainak figyelését.</p>
+<p>Ha gondoljuk, tegyük hozzá a <code>-f</code> kapcsolót is (<code>kubectl logs -f counter-neptun</code>) a log követéséhez. <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>-vel léphetünk ki a log folyamatos követéséből. Ne feledjük, hogy ez nem a pod terminálja, hanem a logjainak figyelését.</p>
 </div>
 </li>
 </ol>
@@ -1746,28 +1749,28 @@ Láthatjuk mind a kliens, mind a klaszter verzió információit.</p>
 <ol>
 <li>
 <p>Töröljük a podot:</p>
-<div class="highlight"><pre><span></span><code>kubectl delete pod counter-neptun
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>counter-neptun
 </code></pre></div>
 </li>
 <li>
 <p>Ellenőrizzük, hogy a pod tényleg eltűnik egy kis idő múlva:</p>
-<div class="highlight"><pre><span></span><code>kubectl get pod
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pod
 </code></pre></div>
 <div class="admonition note">
-<p>A pod törlése nem azonnali. A benne futó konténerek leállás jelzést kapnak, és ők maguk terminálhatnak. Ha ez nem történik, meg, akkor kis idő múlva megszünteti őket a rendszer.</p>
+<p>A pod törlése nem azonnali. A benne futó konténerek leállás jelzést kapnak, és ők maguk terminálhatnak. Ha ez nem történik meg, akkor kis idő múlva megszünteti őket a rendszer.</p>
 </div>
 </li>
 </ol>
 <details class="tip">
 <summary>Interaktív shell</summary>
 <p>Ha szeretnénk egy podban belépni, és ott dolgozni, akkor ezt a <code>kubectl exec</code> paranccsal tehetjük meg. Például:</p>
-<div class="highlight"><pre><span></span><code>kubectl exec -it &lt;podnév&gt; -- /bin/bash
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>&lt;podnév&gt;<span class="w"> </span>--<span class="w"> </span>/bin/bash
 </code></pre></div>
 <p>A <code>-it</code> kapcsolók interaktív módot és terminált biztosítanak. A <code>/bin/bash</code> a shell, amit futtatni szeretnénk.</p>
 <p>Ahogy a docker-nél már láthattuk, egy új shell indul a pod konténerében, és ehhez csatlakozunk.
 Ebben a shellben, ahogy natív docker esetében is, bármit megtehetünk.</p>
 </details>
-<h2 id="2-feladat">2 Feladat<a class="headerlink" href="#2-feladat" title="Permanent link">¶</a></h2>
+<h2 id="2-feladat">2. Feladat<a class="headerlink" href="#2-feladat" title="Permanent link">¶</a></h2>
 <h3 id="21-deployment-letrehozasa">2.1 Deployment létrehozása<a class="headerlink" href="#21-deployment-letrehozasa" title="Permanent link">¶</a></h3>
 <p>A podokat nem szoktuk közvetlenül létrehozni, hanem <em>Deployment</em>-re és <em>ReplicaSet</em>-re szoktunk bízni a kezelésüket és létrehozásukat.</p>
 <ol>
@@ -1783,14 +1786,14 @@ Ebben a shellben, ahogy natív docker esetében is, bármit megtehetünk.</p>
 </li>
 <li>
 <p>Hozzuk létre a Deployment-et:</p>
-<div class="highlight"><pre><span></span><code>kubectl apply -f createdeployment.yml
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>createdeployment.yml
 </code></pre></div>
 </li>
 <li>
 <p>Listázzuk a Deployment-eket, ReplicaSet-eket és a podokat:</p>
-<div class="highlight"><pre><span></span><code>kubectl get deployment
-kubectl get replicaset
-kubectl get pod
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>deployment
+kubectl<span class="w"> </span>get<span class="w"> </span>replicaset
+kubectl<span class="w"> </span>get<span class="w"> </span>pod
 </code></pre></div>
 <p>Vegyük észre, hogy a pod neve generált, a <em>Deployment</em> és a <em>ReplicaSet</em> alapján kap automatikusan egyet.</p>
 </li>
@@ -1801,15 +1804,15 @@ kubectl get pod
 Commitold be a forráskódot is.</p>
 </div>
 <h3 id="22-deployment-frissitese">2.2 Deployment frissítése<a class="headerlink" href="#22-deployment-frissitese" title="Permanent link">¶</a></h3>
-<p>A <em>Deployment</em> szolgál az alkalmazás verziónak frissítésére, kiadására.</p>
+<p>A <em>Deployment</em> szolgál az alkalmazás verziójának frissítésére, kiadására.</p>
 <p>Változtassuk meg a program futását a deployment leíróján keresztül: ne 5, hanem 10 másodpercenként írjuk ki az időt.
 Ezt a <em>Deployment</em> módosításával érhetjük el, mivel podot nem tudunk szerkeszteni hatékonyan, egy futó pod nem cserélhető le.
 Ehelyett valójában egy új podot kell létrehozni indirekt módon a deployment frissítésével.</p>
 <p>Érvényesítsd a módosítást a deployment leíróban, majd alkalmazd a változást:</p>
-<div class="highlight"><pre><span></span><code>kubectl apply -f createdeployment.yml
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>createdeployment.yml
 </code></pre></div>
 <p>Kérjük le a logokat a deployment podjából:</p>
-<div class="highlight"><pre><span></span><code>kubectl logs -f &lt;podnév&gt;
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>&lt;podnév&gt;
 </code></pre></div>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
@@ -1894,28 +1897,28 @@ Ehelyett valójában egy új podot kell létrehozni indirekt módon a deployment
 </ol>
 <h3 id="30-helm">3.0 Helm<a class="headerlink" href="#30-helm" title="Permanent link">¶</a></h3>
 <p>Ellenőrizzük, hogy a <code>helm</code> CLI elérhető-e:</p>
-<div class="highlight"><pre><span></span><code>helm version
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>version
 </code></pre></div>
 <div class="admonition warning">
-<p class="admonition-title">Helm 3</p>
-<p>A feladat során a Helm 3-as verzióját fogjuk használni. A korábbi verziója koncepcióban azonos, de működésében eltérő.</p>
+<p class="admonition-title">Helm verzió</p>
+<p>A feladat Helm 3.x és Helm 4.x verzióval is elvégezhető. A Helm 2 koncepcióban azonos, de működésében eltérő, azt ne használjuk.</p>
 </div>
 <h3 id="31-ingress-controller-api-gateway-telepitese-helm-charttal">3.1 Ingress Controller (api gateway) telepítése Helm charttal<a class="headerlink" href="#31-ingress-controller-api-gateway-telepitese-helm-charttal" title="Permanent link">¶</a></h3>
 <p>A Traefik-et <a href="https://github.com/traefik/traefik-helm-chart">Helm charttal</a> fogjuk telepíteni, mert a Traefik helyes működéséhez a Traefik konténer (Deployment) mellett egyéb <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">CRD</a> elemekre is szükség lesz a konfigurációhoz.</p>
 <div class="admonition warning">
 <p class="admonition-title">Chart-ok ellenőrzése</p>
-<p>A Helm chartok nagy része harmadik féltől származik, így a klaszterünbe való telepítés előtt a tartalmukat érdemes alaposan megnézni.</p>
+<p>A Helm chartok nagy része harmadik féltől származik, így a klaszterünkbe való telepítés előtt a tartalmukat érdemes alaposan megnézni.</p>
 </div>
 <ol>
 <li>
 <p>A Helm is repository-kkal dolgozik, ahonnan a chart-okat letölti. Ezeket regisztrálni kell. Regisztráljuk a Traefik hivatalos chart-ját tartalmazó repository-t, majd frissítsük az elérhető chart-okat:</p>
-<div class="highlight"><pre><span></span><code>helm repo add traefik https://traefik.github.io/charts
-helm repo update
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>traefik<span class="w"> </span>https://traefik.github.io/charts
+helm<span class="w"> </span>repo<span class="w"> </span>update
 </code></pre></div>
 </li>
 <li>
 <p>Telepítsük:</p>
-<div class="highlight"><pre><span></span><code>helm install traefik traefik/traefik --set ports.web.nodePort=32080 --set service.type=NodePort --set "additionalArguments={--api.insecure=true}"
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>traefik<span class="w"> </span>traefik/traefik<span class="w"> </span>--set<span class="w"> </span>ports.web.nodePort<span class="o">=</span><span class="m">32080</span><span class="w"> </span>--set<span class="w"> </span>service.type<span class="o">=</span>NodePort<span class="w"> </span>--set<span class="w"> </span><span class="s2">"additionalArguments={--api.insecure=true}"</span>
 </code></pre></div>
 <ul>
 <li>A legelső <code>traefik</code> a Helm release nevét adja meg. Ezzel tudunk rá hivatkozni a jövőben.</li>
@@ -1931,7 +1934,7 @@ helm repo update
 </li>
 <li>
 <p>Ellenőrizzük, hogy fut-e:</p>
-<div class="highlight"><pre><span></span><code>kubectl get pod
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pod
 </code></pre></div>
 <p>Látnunk kell egy traefik kezdetű podot.</p>
 </li>
@@ -1970,7 +1973,7 @@ helm repo update
 </li>
 <li>
 <p>Telepítsük az adatbázisokat:</p>
-<div class="highlight"><pre><span></span><code>kubectl apply -f storeapp/hf-kubernetes/db
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>storeapp/hf-kubernetes/db
 </code></pre></div>
 <div class="admonition tip">
 <p>A <code>kubectl apply</code> parancs <code>-f</code> kapcsolója ha mappát kap, akkor a mappában lévő összes yaml fájlt alkalmazza.</p>
@@ -1988,45 +1991,48 @@ helm repo update
 </li>
 <li>
 <p>Telepítsük az alkalmazásokat:</p>
-<div class="highlight"><pre><span></span><code>kubectl apply -f storeapp/hf-kubernetes/app
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>storeapp/hf-kubernetes/app
 </code></pre></div>
 </li>
 <li>
-<p>Ellenőrizzük, hogy létrejöttek a Deployment-ek podok. A <em>store-front</em> és <em>store-admin</em> podoknak nem fognak tudni elindulni, mert a leíró olyan (lokális) image-eket használnak, amelyek nincsenek lebuildelve a gépünkön. A többi szolgáltatás esetében egy távoli publikus konténer registry-ből húzza le a szükséges image-eket.</p>
+<p>Ellenőrizzük, hogy létrejöttek a Deployment-ek és a podok. A <em>store-front</em> és <em>store-admin</em> podok nem fognak tudni elindulni, mert a leírók olyan (lokális) image-eket használnak, amelyek nincsenek lebuildelve a gépünkön. A többi szolgáltatás esetében egy távoli publikus konténer registry-ből húzza le a szükséges image-eket.</p>
 </li>
 <li>
 <p>Ezeket az image-eket a <code>storeapp/src/store-admin</code> és <code>storeapp/src/store-front</code> könyvtárban tudjuk lebuildelni. Nyissunk egy új terminál ablakot, navigáljunk el a <code>storeapp</code> megfelelő könyvtárába, és futtassuk a <code>docker build</code> parancsokat:</p>
-<div class="highlight"><pre><span></span><code>cd storeapp/src/store-front
-docker build -t store-front:local .
-cd ../store-admin
-docker build -t store-admin:local .
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>storeapp/src/store-front
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>store-front:local<span class="w"> </span>.
+<span class="nb">cd</span><span class="w"> </span>../store-admin
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>store-admin:local<span class="w"> </span>.
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Pod újraindítása</p>
-<p>Ha nem akarjuk kivárni a rendszer általi újraindítást töröljük ki a pod-ot kézzel, aminek hatására a deployment létrehoz egy új pod-ot, ami már a helyi image-t fogja használni.</p>
+<p>Ha nem akarjuk kivárni a rendszer általi újraindítást, töröljük ki a pod-ot kézzel, aminek hatására a deployment létrehoz egy új pod-ot, ami már a helyi image-t fogja használni.</p>
 </div>
 <details class="tip">
 <summary>Ha mégsem zöldülnek ki</summary>
 <ol>
 <li>
-<p>Egyes Linuxos gépeken nem vállnak alapvetően láthatóvá a minikube-on belül az image-ek. Az ilyen gépeken érdemes a következő parancs előtt az <code>eval $(minikube docker-env)</code> parancsot kiadni.
-Ezt követően ebben a terminál ablakban adjuk ki az image build paracsomat, valamint a k8s apply parancsokat is.</p>
+<p>Egyes Linuxos gépeken nem válnak alapvetően láthatóvá a minikube-on belül az image-ek. Az ilyen gépeken érdemes a következő parancs előtt az <code>eval $(minikube docker-env)</code> parancsot kiadni.
+Ezt követően ebben a terminál ablakban adjuk ki az image build parancsot, valamint a k8s apply parancsokat is.</p>
 </li>
 <li>
 <p>Ugyanez Windows-os + minikube powershellel:
 Lehet, hogy nem a minikube-ban vannak a docker image-ek. Ekkor PowerShellben a <code>&amp; minikube -p minikube docker-env --shell powershell | Invoke-Expression</code> paranccsal tudod elérni, hogy a minikube-ban lévő docker daemont használd.
 Ha ez a parancs <code>❌  Exiting due to MK_USAGE: the docker-env command only supports the docker and containerd runtimes</code> errort dobna: Add ki a <code>minikube delete</code> parancsot, majd indítsd el a következő módon: <code>minikube start --driver=docker --container-runtime=docker</code></p>
 </li>
+<li>
+<p>Docker Desktop <em>kind</em> módban (vagy önálló kind klaszterben) a lebuildelt image-eket be kell tölteni a klaszterbe, pl.: <code>kind load docker-image store-front:local store-admin:local</code> (a klaszter nevét a <code>--name</code> kapcsolóval adhatjuk meg). Egyszerűbb megoldás, ha a Docker Desktop beállításaiban a <strong>Kubeadm</strong> módot választjuk.</p>
+</li>
 </ol>
 </details>
 </li>
 <li>
-<p>Mivel még nincs ingress szabály ezért próbáljuk ki port forwarddal a <code>store-front</code> szolgáltatást a 3000-es porton. Az oldal betölt, de nem éri el a <code>product-service</code> szolgáltatást, mert nincs ingress szabály.</p>
+<p>Mivel még nincs ingress szabály ezért próbáljuk ki port forwarddal a <code>store-front</code> szolgáltatást a 3000-es porton. Az oldal betölt, de nem éri el a <code>product-service</code> szolgáltatást, mert még nincs ingress szabály.</p>
 </li>
 </ol>
 <h3 id="34-ingress-szabalyok">3.4 Ingress szabályok<a class="headerlink" href="#34-ingress-szabalyok" title="Permanent link">¶</a></h3>
 <p>Az alkalmazásunkban még nincsenek ingress szabályok, ezért az Ingress Controller (most a Traefik) nem tudja, hogy a bejövő kéréseket hova kell továbbítani.
-Hozzuk létre ezeket a szabályokat, kezdjük az mikroszolgáltatásokkal.</p>
+Hozzuk létre ezeket a szabályokat, kezdjük a mikroszolgáltatásokkal.</p>
 <ol>
 <li>
 <p>A <code>storeapp/hf-kubernetes/app</code> könyvtárban módosítsuk a <code>product-service.yaml</code> fájlt, és adjuk hozzá a következő Ingress erőforrást:</p>
@@ -2084,7 +2090,7 @@ Ezt a middleware-t kell alkalmaznunk a <code>products</code> Ingress-re.</p>
 </li>
 <li>
 <p>Érvényesítsük a módosítást.</p>
-<div class="highlight"><pre><span></span><code>kubectl apply -f storeapp/hf-kubernetes/app
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>storeapp/hf-kubernetes/app
 </code></pre></div>
 </li>
 <li>
@@ -2092,15 +2098,15 @@ Ezt a middleware-t kell alkalmaznunk a <code>products</code> Ingress-re.</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/traefik-products.png" data-desc-position="bottom"><img alt="Traefik products" src="images/traefik-products.png"></a></p>
 </li>
 <li>
-<p>Hasonlóan adjuk hozzá az Ingress szabályokat és a szükséges middleware-eket a <code>order-service.yaml</code> és a <code>makeline-service.yaml</code> fájlokhoz is.
+<p>Hasonlóan adjuk hozzá az Ingress szabályokat és a szükséges middleware-eket az <code>order-service.yaml</code> és a <code>makeline-service.yaml</code> fájlokhoz is.
    Mind a két esetben a szolgáltatások a <code>/</code> gyökér útvonalon várják a kéréseket, míg az Ingress szabályokban a <code>/api/orders</code> és <code>/api/makeline</code> útvonalakat kell használni.</p>
 </li>
 <li>
 <p>Vegyük fel a publikus frontend szolgáltatás Ingress szabályát is a <code>store-front.yaml</code> fájlba.
-   <strong>Itt nem szükséges a middleware</strong>, mert a frontend szolgáltatás a <code>/</code> gyökér útvonalon várja a kéréseket az ingress-en keresztül is és a webszervben is.</p>
+   <strong>Itt nem szükséges a middleware</strong>, mert a frontend szolgáltatás a <code>/</code> gyökér útvonalon várja a kéréseket az ingress-en keresztül is és a webszerverben is.</p>
 </li>
 <li>
-<p>Vegyük fel az admin frontend szolgáltatás Ingress szabályát is az <code>store-admin.yaml</code> fájlba.
+<p>Vegyük fel az admin frontend szolgáltatás Ingress szabályát is a <code>store-admin.yaml</code> fájlba.
    Az ingress-t úgy konfiguráljuk fel, hogy a <code>/admin</code> útvonalra érkező kéréseket továbbítsa a <code>store-admin</code> szolgáltatás <code>/</code> útvonalára.</p>
 </li>
 <li>
@@ -2141,7 +2147,7 @@ Ezt a middleware-t kell alkalmaznunk a <code>products</code> Ingress-re.</p>
 </li>
 <li>
 <p>Készítsünk egy új, üres chart-ot, az alábbi paranccsal, ami létrehoz egy <em>storeapp</em> nevű chartot egy azonos nevű könyvtárban.</p>
-<div class="highlight"><pre><span></span><code>helm create storeapp
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>create<span class="w"> </span>storeapp
 </code></pre></div>
 </li>
 <li>
@@ -2164,7 +2170,7 @@ Ezt a middleware-t kell alkalmaznunk a <code>products</code> Ingress-re.</p>
 <p>Módosítsuk a fenti két yaml leírót a következő követelmények szerint a helm szintaktika használatával:</p>
 <ul>
 <li>Az erőforrások metaadatai (pl. <code>metadata.name</code>, <code>selector.matchLabels.app</code>, <code>containers.name</code>, <code>template.metadata.labels.app</code>) tartalmazzák a <code>neptun</code> kódunkat pl.: <code>virtual-customer-neptun</code>, ebből a neptun kódot a <code>values.yaml</code> fájlban definiált <code>neptun</code> változóból helyettesítsük be.</li>
-<li>A deployment leírók legyen feltételesen végrehajtva, tehát csak akkor jöjjenek létre az erőforrások, ha a <code>values.yaml</code> fájlban a <code>virtualCustomer.enabled</code> illetve <code>virtualWorker.enabled</code> értéke true.</li>
+<li>A deployment leírók legyenek feltételesen végrehajtva, tehát csak akkor jöjjenek létre az erőforrások, ha a <code>values.yaml</code> fájlban a <code>virtualCustomer.enabled</code> illetve <code>virtualWorker.enabled</code> értéke true.</li>
 <li>A <code>virtualCustomer</code> és <code>virtualWorker</code> pod-ok  <code>ORDERS_PER_HOUR</code> környezeti változói legyenek paraméterezhetőek a <code>values.yaml</code> fájlban a <code>virtualCustomer.ordersPerHour</code> és <code>virtualWorker.ordersPerHour</code> változójával.</li>
 </ul>
 <div class="admonition tip">
@@ -2178,20 +2184,20 @@ Ezt a middleware-t kell alkalmaznunk a <code>products</code> Ingress-re.</p>
 <li>Lépjünk vissza a <code>storeapp/helmchart</code> könyvtárba:</li>
 <li>Futtassuk le csak a template generálást a telepítés nélkül:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>helm install storeapp --debug --dry-run storeapp
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>storeapp<span class="w"> </span>--debug<span class="w"> </span>--dry-run<span class="o">=</span>client<span class="w"> </span>storeapp
 </code></pre></div>
 <ul>
 <li>
 <p>A release-nek <em>storeapp</em> nevet választottunk. Ez a Helm release azonosítója.</p>
 </li>
 <li>
-<p>Konzolra megkapjuk a kiértékelt YAML-öket. Ellenőrizzük a kimenetben, hogy a rendben behelyettesítődtek-e.</p>
+<p>Konzolra megkapjuk a kiértékelt YAML-öket. Ellenőrizzük a kimenetben, hogy rendben behelyettesítődtek-e.</p>
 </li>
 </ul>
 </li>
 <li>
 <p>Telepítsük az alkalmazás komponenseit a chart segítségével:</p>
-<div class="highlight"><pre><span></span><code>helm upgrade storeapp --install storeapp
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span>storeapp<span class="w"> </span>--install<span class="w"> </span>storeapp
 </code></pre></div>
 <ul>
 <li>Az <code>upgrade</code> parancs és az <code>--install</code> kapcsoló telepít, ha nem létezik, ill. frissít, ha már létezik ilyen telepítés.</li>
@@ -2205,7 +2211,7 @@ Ezt a middleware-t kell alkalmaznunk a <code>products</code> Ingress-re.</p>
 </li>
 <li>
 <p>A változók értékeit a values fájlból definiáljuk felül a telepítési parancsban a <code>--set</code> kapcsolóval.</p>
-<div class="highlight"><pre><span></span><code>helm upgrade storeapp --install storeapp --set virtualCustomer.ordersPerHour=10 --set virtualWorker.ordersPerHour=20 --set neptun=neptun_kod
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span>storeapp<span class="w"> </span>--install<span class="w"> </span>storeapp<span class="w"> </span>--set<span class="w"> </span>virtualCustomer.ordersPerHour<span class="o">=</span><span class="m">10</span><span class="w"> </span>--set<span class="w"> </span>virtualWorker.ordersPerHour<span class="o">=</span><span class="m">20</span><span class="w"> </span>--set<span class="w"> </span><span class="nv">neptun</span><span class="o">=</span>neptun_kod
 </code></pre></div>
 </li>
 </ol>
@@ -2225,8 +2231,8 @@ Ezt a middleware-t kell alkalmaznunk a <code>products</code> Ingress-re.</p>
           </path>
         </svg>
       </span>
-      <span title="2026. augusztus 28. 13:07:06">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. augusztus 28. 13:07:06 CEST"><span class="timeago" datetime="2026-08-28T13:07:06+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. augusztus 28. 13:07:06 CEST">2026-08-28</span>
+      <span title="2026. szeptember 25. 17:09:03">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. szeptember 25. 17:09:03 CEST"><span class="timeago" datetime="2026-09-25T17:09:03+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. szeptember 25. 17:09:03 CEST">2026-09-25</span>
       </span>
     </span>
 
@@ -2242,8 +2248,12 @@ Ezt a middleware-t kell alkalmaznunk a <code>products</code> Ingress-re.</p>
       <span>Szerzők</span>
       <nav><a href="https://github.com/tibitoth" target="_blank" rel="noopener noreferrer" class="md-author" title="@tibitoth">
           <img src="https://avatars.githubusercontent.com/tibitoth?size=72" alt="@tibitoth">
+        </a><a href="https://github.com/ balazskvancz" target="_blank" rel="noopener noreferrer" class="md-author" title="@ balazskvancz">
+          <img src="https://avatars.githubusercontent.com/ balazskvancz?size=72" alt="@ balazskvancz">
         </a><a href="https://github.com/asztrikx" target="_blank" rel="noopener noreferrer" class="md-author" title="@Vörös Asztrik">
           <img src="https://avatars.githubusercontent.com/u/15632657?u=2c16435e4b23b66df25b30f6d44dce8c3639c1ef&amp;v=4?size=72" alt="@Vörös Asztrik">
+        </a><a href="https://github.com/balazskvancz" target="_blank" rel="noopener noreferrer" class="md-author" title="@Kvancz Balázs">
+          <img src="https://avatars.githubusercontent.com/u/79531867?u=208971dbc2362d63c84db24d3963ebe796d46686&amp;v=4?size=72" alt="@Kvancz Balázs">
         </a><a href="https://github.com/kszicsillag" target="_blank" rel="noopener noreferrer" class="md-author" title="@Gábor Simon">
           <img src="https://avatars.githubusercontent.com/u/1849897?u=1d3aa9b07d07da9a2b04d86a97ec4060c3280592&amp;v=4?size=72" alt="@Gábor Simon">
         </a><a href="https://github.com/tanaiadam" target="_blank" rel="noopener noreferrer" class="md-author" title="@Ádám Tanai">
