@@ -1,10 +1,8 @@
 ---
-authors: tibitoth
+authors: tibitoth, balazskvancz
 ---
 
 # 02 - Kubernetes, Helm, Traefik
-
-*Nincs frissítve 2026. őszi félévre!*
 
 ## Cél
 
@@ -21,7 +19,7 @@ A labor célja:
 A labor Windows platformon lett kidolgozva, de Linuxon is hasonlóan működik.
 
 - Kubernetes, lehetőleg saját gépen futtatva
-    - bármilyen eltejedt vagy [CNCF minősített K8S](https://www.cncf.io/training/certification/software-conformance/) pl.:
+    - bármilyen elterjedt vagy [CNCF minősített K8S](https://www.cncf.io/training/certification/software-conformance/) pl.:
         - [Docker Desktop Kubernetes](https://docs.docker.com/desktop/features/kubernetes/)
         - [minikube](https://minikube.sigs.k8s.io/docs/)
     - a házi leírása Docker Desktoppal készült Windows-on, de a házi elvégezhető saját felelősségre bármilyen más rendszeren és eszközzel is.
@@ -30,8 +28,8 @@ A labor Windows platformon lett kidolgozva, de Linuxon is hasonlóan működik.
 - Egy kubernetes-t menedzselni képes GUI, például:
     - [VS Code Kubernetes extension](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
     - [Lens](https://k8slens.dev/)
-    - [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
-    - [Rider](https://www.jetbrains.com/help/rider/Kubernetes.html) - hallgatói fiókkal ingyenes
+    - [Headlamp](https://headlamp.dev/)
+    - [Rider](https://www.jetbrains.com/help/rider/Kubernetes.html) - nem kereskedelmi célra ingyenes
     - [k9s](https://k9scli.io/)
 - Helm CLI
     - [Helm](https://helm.sh/docs/intro/install/)
@@ -63,7 +61,10 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
 
 2. Nyissuk meg a Docker Desktop beállításait.
 
-3. A *Kubernetes* fülön pipáljuk be az *Enable Kubernetes* opciót, és kattintsunk az *Apply*-ra.
+3. A *Kubernetes* fülön pipáljuk be az *Enable Kubernetes* opciót. A klaszter létrehozási módjánál (*Cluster provisioning method*) válasszuk a **Kubeadm** opciót, majd kattintsunk az *Apply*-ra.
+
+    !!! warning "Kubeadm vs. kind"
+        A Docker Desktop újabb verziói *kind* alapú klasztert is tudnak létrehozni. Ebben az esetben a gépünkön lebuildelt image-ek nem láthatók automatikusan a klaszterben, ami a 3. feladatban problémát okoz. Ezért a házi feladathoz a **Kubeadm** módot javasoljuk.
 
 4. Várjuk meg, amíg befejeződik a művelet. A kubernetes alrendszer elindulása néhány percet is igénybe vehet.
 
@@ -73,7 +74,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
 
 - Ellenőrizzük, hogy a `kubectl` bináris elérhető-e, és tud-e csatlakozni a klaszterhez:
 
-    ```cmd
+    ```bash
     kubectl version
     ```
 
@@ -83,7 +84,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
 
 - A `kubectl` egy konkrét klaszterhez csatlakozik. Nézzük meg, milyen klasztereket ismer:
 
-    ```cmd
+    ```bash
     kubectl config get-contexts
     ```
 
@@ -102,7 +103,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
 
 - Listázzuk ki a futó podokat:
 
-    ```cmd
+    ```bash
     kubectl get pod -A
     ```
 
@@ -110,7 +111,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamat
 
 - Ismételjük meg a `-A` kapcsoló nélkül:
 
-    ```cmd
+    ```bash
     kubectl get pod
     ```
 
@@ -127,7 +128,7 @@ Kubernetes erőforrásokat tipikusan YAML leírókban definiálunk. A futtatás 
 !!! tip ""
     A leíró szerkesztéséhez használhatjuk például Visual Studio Code-ot. Érdemes olyan szövegszerkesztővel dolgozni, amely ismeri a YAML szintaktikát. A parancsok futtatásához használhatjuk például [Visual Studio Code beépített terminálját](https://code.visualstudio.com/docs/terminal/basics).
 
-1. Hozzunk létre egy új YAML fájt a repositorynk gyökerébe `createpod.yml` néven, az alábbi követelmények mentén
+1. Hozzunk létre egy új YAML fájlt a repositorynk gyökerébe `createpod.yml` néven, az alábbi követelmények mentén
 
     - a kubernetes leíró Pod-ot definiál
     - a pod neve legyen `counter-neptun` a **saját neptunkóddal** kiegészítve
@@ -136,7 +137,7 @@ Kubernetes erőforrásokat tipikusan YAML leírókban definiálunk. A futtatás 
 
 1. A konzolunkban navigáljunk el abba a könyvtárba, ahol a YAML fájl van, majd hozzuk létre a podot:
 
-    ```cmd
+    ```bash
     kubectl apply -f createpod.yml
     ```
 
@@ -145,41 +146,41 @@ Kubernetes erőforrásokat tipikusan YAML leírókban definiálunk. A futtatás 
 
 1. A pod létrejött. Ellenőrizzük:
 
-    ```cmd
+    ```bash
     kubectl get pod
     ```
 
 1. Nézzük meg a pod logjait:
 
-    ```cmd
+    ```bash
     kubectl logs counter-neptun
     ```
 
     !!! tip ""
-        Ha gondoljuk, tegyük hozzá a `-f` kapcsolót is (`kubectl logs -f counter`) a log követéséhez. ++ctrl+c++-vel léphetünk ki a log folyamatos követéséből. Ne feledjük, hogy ez nem a pod terminálja, hanem a logjainak figyelését.
+        Ha gondoljuk, tegyük hozzá a `-f` kapcsolót is (`kubectl logs -f counter-neptun`) a log követéséhez. ++ctrl+c++-vel léphetünk ki a log folyamatos követéséből. Ne feledjük, hogy ez nem a pod terminálja, hanem a logjainak figyelését.
 
 !!! example "BEADANDÓ"
     A feladathoz tartozó forráskódot commitold be és készíts egy képernyőképet (`f1.1.png`), majd commitold azt be a házi feladat repó gyökerébe, amin a futó pod logjai látszanak.
 
 1. Töröljük a podot:
 
-    ```cmd
+    ```bash
     kubectl delete pod counter-neptun
     ```
 
 1. Ellenőrizzük, hogy a pod tényleg eltűnik egy kis idő múlva:
 
-    ```cmd
+    ```bash
     kubectl get pod
     ```
 
     !!! note ""
-        A pod törlése nem azonnali. A benne futó konténerek leállás jelzést kapnak, és ők maguk terminálhatnak. Ha ez nem történik, meg, akkor kis idő múlva megszünteti őket a rendszer.
+        A pod törlése nem azonnali. A benne futó konténerek leállás jelzést kapnak, és ők maguk terminálhatnak. Ha ez nem történik meg, akkor kis idő múlva megszünteti őket a rendszer.
 
 ??? tip "Interaktív shell"
     Ha szeretnénk egy podban belépni, és ott dolgozni, akkor ezt a `kubectl exec` paranccsal tehetjük meg. Például:
 
-    ```cmd
+    ```bash
     kubectl exec -it <podnév> -- /bin/bash
     ```
 
@@ -188,7 +189,7 @@ Kubernetes erőforrásokat tipikusan YAML leírókban definiálunk. A futtatás 
     Ahogy a docker-nél már láthattuk, egy új shell indul a pod konténerében, és ehhez csatlakozunk.
     Ebben a shellben, ahogy natív docker esetében is, bármit megtehetünk.
 
-## 2 Feladat
+## 2. Feladat
 
 ### 2.1 Deployment létrehozása
 
@@ -204,13 +205,13 @@ A podokat nem szoktuk közvetlenül létrehozni, hanem *Deployment*-re és *Repl
 
 2. Hozzuk létre a Deployment-et:
 
-    ```cmd
+    ```bash
     kubectl apply -f createdeployment.yml
     ```
 
 3. Listázzuk a Deployment-eket, ReplicaSet-eket és a podokat:
 
-    ```cmd
+    ```bash
     kubectl get deployment
     kubectl get replicaset
     kubectl get pod
@@ -224,7 +225,7 @@ A podokat nem szoktuk közvetlenül létrehozni, hanem *Deployment*-re és *Repl
 
 ### 2.2 Deployment frissítése
 
-A *Deployment* szolgál az alkalmazás verziónak frissítésére, kiadására.
+A *Deployment* szolgál az alkalmazás verziójának frissítésére, kiadására.
 
 Változtassuk meg a program futását a deployment leíróján keresztül: ne 5, hanem 10 másodpercenként írjuk ki az időt.
 Ezt a *Deployment* módosításával érhetjük el, mivel podot nem tudunk szerkeszteni hatékonyan, egy futó pod nem cserélhető le.
@@ -232,13 +233,13 @@ Ehelyett valójában egy új podot kell létrehozni indirekt módon a deployment
 
 Érvényesítsd a módosítást a deployment leíróban, majd alkalmazd a változást:
 
-```cmd
+```bash
 kubectl apply -f createdeployment.yml
 ```
 
 Kérjük le a logokat a deployment podjából:
 
-```cmd
+```bash
 kubectl logs -f <podnév>
 ```
 
@@ -296,30 +297,30 @@ Feladatunk a következő:
 
 Ellenőrizzük, hogy a `helm` CLI elérhető-e:
 
-```cmd
+```bash
 helm version
 ```
 
-!!! warning "Helm 3"
-    A feladat során a Helm 3-as verzióját fogjuk használni. A korábbi verziója koncepcióban azonos, de működésében eltérő.
+!!! warning "Helm verzió"
+    A feladat Helm 3.x és Helm 4.x verzióval is elvégezhető. A Helm 2 koncepcióban azonos, de működésében eltérő, azt ne használjuk.
 
 ### 3.1 Ingress Controller (api gateway) telepítése Helm charttal
 
 A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogjuk telepíteni, mert a Traefik helyes működéséhez a Traefik konténer (Deployment) mellett egyéb [CRD](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) elemekre is szükség lesz a konfigurációhoz.
 
 !!! warning "Chart-ok ellenőrzése"
-    A Helm chartok nagy része harmadik féltől származik, így a klaszterünbe való telepítés előtt a tartalmukat érdemes alaposan megnézni.
+    A Helm chartok nagy része harmadik féltől származik, így a klaszterünkbe való telepítés előtt a tartalmukat érdemes alaposan megnézni.
 
 1. A Helm is repository-kkal dolgozik, ahonnan a chart-okat letölti. Ezeket regisztrálni kell. Regisztráljuk a Traefik hivatalos chart-ját tartalmazó repository-t, majd frissítsük az elérhető chart-okat:
 
-    ```cmd
+    ```bash
     helm repo add traefik https://traefik.github.io/charts
     helm repo update
     ```
 
 1. Telepítsük:
 
-    ```cmd
+    ```bash
     helm install traefik traefik/traefik --set ports.web.nodePort=32080 --set service.type=NodePort --set "additionalArguments={--api.insecure=true}"
     ```
 
@@ -335,7 +336,7 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
 
 1. Ellenőrizzük, hogy fut-e:
 
-    ```cmd
+    ```bash
     kubectl get pod
     ```
 
@@ -377,7 +378,7 @@ Az adatbázisainkat a már megírt YAML leírókkal telepítjük. Ez a leíró f
 
 1. Telepítsük az adatbázisokat:
 
-    ```cmd
+    ```bash
     kubectl apply -f storeapp/hf-kubernetes/db
     ```
 
@@ -394,15 +395,15 @@ Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a `storeap
 
 1. Telepítsük az alkalmazásokat:
 
-    ```cmd
+    ```bash
     kubectl apply -f storeapp/hf-kubernetes/app
     ```
 
-1. Ellenőrizzük, hogy létrejöttek a Deployment-ek podok. A *store-front* és *store-admin* podoknak nem fognak tudni elindulni, mert a leíró olyan (lokális) image-eket használnak, amelyek nincsenek lebuildelve a gépünkön. A többi szolgáltatás esetében egy távoli publikus konténer registry-ből húzza le a szükséges image-eket.
+1. Ellenőrizzük, hogy létrejöttek a Deployment-ek és a podok. A *store-front* és *store-admin* podok nem fognak tudni elindulni, mert a leírók olyan (lokális) image-eket használnak, amelyek nincsenek lebuildelve a gépünkön. A többi szolgáltatás esetében egy távoli publikus konténer registry-ből húzza le a szükséges image-eket.
 
 1. Ezeket az image-eket a `storeapp/src/store-admin` és `storeapp/src/store-front` könyvtárban tudjuk lebuildelni. Nyissunk egy új terminál ablakot, navigáljunk el a `storeapp` megfelelő könyvtárába, és futtassuk a `docker build` parancsokat:
 
-    ```cmd
+    ```bash
     cd storeapp/src/store-front
     docker build -t store-front:local .
     cd ../store-admin
@@ -410,23 +411,25 @@ Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a `storeap
     ```
 
     !!! tip "Pod újraindítása"
-        Ha nem akarjuk kivárni a rendszer általi újraindítást töröljük ki a pod-ot kézzel, aminek hatására a deployment létrehoz egy új pod-ot, ami már a helyi image-t fogja használni.
+        Ha nem akarjuk kivárni a rendszer általi újraindítást, töröljük ki a pod-ot kézzel, aminek hatására a deployment létrehoz egy új pod-ot, ami már a helyi image-t fogja használni.
 
     ??? tip "Ha mégsem zöldülnek ki"
 
-        1. Egyes Linuxos gépeken nem vállnak alapvetően láthatóvá a minikube-on belül az image-ek. Az ilyen gépeken érdemes a következő parancs előtt az `eval $(minikube docker-env)` parancsot kiadni.
-        Ezt követően ebben a terminál ablakban adjuk ki az image build paracsomat, valamint a k8s apply parancsokat is.
+        1. Egyes Linuxos gépeken nem válnak alapvetően láthatóvá a minikube-on belül az image-ek. Az ilyen gépeken érdemes a következő parancs előtt az `eval $(minikube docker-env)` parancsot kiadni.
+        Ezt követően ebben a terminál ablakban adjuk ki az image build parancsot, valamint a k8s apply parancsokat is.
         
         2. Ugyanez Windows-os + minikube powershellel:
         Lehet, hogy nem a minikube-ban vannak a docker image-ek. Ekkor PowerShellben a `& minikube -p minikube docker-env --shell powershell | Invoke-Expression` paranccsal tudod elérni, hogy a minikube-ban lévő docker daemont használd.
         Ha ez a parancs `❌  Exiting due to MK_USAGE: the docker-env command only supports the docker and containerd runtimes` errort dobna: Add ki a `minikube delete` parancsot, majd indítsd el a következő módon: `minikube start --driver=docker --container-runtime=docker`
 
-1. Mivel még nincs ingress szabály ezért próbáljuk ki port forwarddal a `store-front` szolgáltatást a 3000-es porton. Az oldal betölt, de nem éri el a `product-service` szolgáltatást, mert nincs ingress szabály.
+        3. Docker Desktop *kind* módban (vagy önálló kind klaszterben) a lebuildelt image-eket be kell tölteni a klaszterbe, pl.: `kind load docker-image store-front:local store-admin:local` (a klaszter nevét a `--name` kapcsolóval adhatjuk meg). Egyszerűbb megoldás, ha a Docker Desktop beállításaiban a **Kubeadm** módot választjuk.
+
+1. Mivel még nincs ingress szabály ezért próbáljuk ki port forwarddal a `store-front` szolgáltatást a 3000-es porton. Az oldal betölt, de nem éri el a `product-service` szolgáltatást, mert még nincs ingress szabály.
 
 ### 3.4 Ingress szabályok
 
 Az alkalmazásunkban még nincsenek ingress szabályok, ezért az Ingress Controller (most a Traefik) nem tudja, hogy a bejövő kéréseket hova kell továbbítani.
-Hozzuk létre ezeket a szabályokat, kezdjük az mikroszolgáltatásokkal.
+Hozzuk létre ezeket a szabályokat, kezdjük a mikroszolgáltatásokkal.
 
 1. A `storeapp/hf-kubernetes/app` könyvtárban módosítsuk a `product-service.yaml` fájlt, és adjuk hozzá a következő Ingress erőforrást:
 
@@ -487,7 +490,7 @@ Hozzuk létre ezeket a szabályokat, kezdjük az mikroszolgáltatásokkal.
 
 1. Érvényesítsük a módosítást.
 
-    ```cmd
+    ```bash
     kubectl apply -f storeapp/hf-kubernetes/app
     ```
 
@@ -495,13 +498,13 @@ Hozzuk létre ezeket a szabályokat, kezdjük az mikroszolgáltatásokkal.
 
     ![Traefik products](images/traefik-products.png)
 
-1. Hasonlóan adjuk hozzá az Ingress szabályokat és a szükséges middleware-eket a `order-service.yaml` és a `makeline-service.yaml` fájlokhoz is.
+1. Hasonlóan adjuk hozzá az Ingress szabályokat és a szükséges middleware-eket az `order-service.yaml` és a `makeline-service.yaml` fájlokhoz is.
    Mind a két esetben a szolgáltatások a `/` gyökér útvonalon várják a kéréseket, míg az Ingress szabályokban a `/api/orders` és `/api/makeline` útvonalakat kell használni.
 
 1. Vegyük fel a publikus frontend szolgáltatás Ingress szabályát is a `store-front.yaml` fájlba.
-   **Itt nem szükséges a middleware**, mert a frontend szolgáltatás a `/` gyökér útvonalon várja a kéréseket az ingress-en keresztül is és a webszervben is.
+   **Itt nem szükséges a middleware**, mert a frontend szolgáltatás a `/` gyökér útvonalon várja a kéréseket az ingress-en keresztül is és a webszerverben is.
 
-1. Vegyük fel az admin frontend szolgáltatás Ingress szabályát is az `store-admin.yaml` fájlba.
+1. Vegyük fel az admin frontend szolgáltatás Ingress szabályát is a `store-admin.yaml` fájlba.
    Az ingress-t úgy konfiguráljuk fel, hogy a `/admin` útvonalra érkező kéréseket továbbítsa a `store-admin` szolgáltatás `/` útvonalára.
 
 1. Érvényesítsük a módosításokat, és próbáljuk ki az alkalmazásunkat a <http://localhost:32080> és a <http://localhost:32080/admin> címen. A tesztelendő funkciókat az alábbi Beadandó részben találhatod.
@@ -533,7 +536,7 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
 
 1. Készítsünk egy új, üres chart-ot, az alábbi paranccsal, ami létrehoz egy *storeapp* nevű chartot egy azonos nevű könyvtárban.
 
-    ```cmd
+    ```bash
     helm create storeapp
     ```
 
@@ -553,7 +556,7 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
 1. Módosítsuk a fenti két yaml leírót a következő követelmények szerint a helm szintaktika használatával:
 
     - Az erőforrások metaadatai (pl. `metadata.name`, `selector.matchLabels.app`, `containers.name`, `template.metadata.labels.app`) tartalmazzák a `neptun` kódunkat pl.: `virtual-customer-neptun`, ebből a neptun kódot a `values.yaml` fájlban definiált `neptun` változóból helyettesítsük be.
-    - A deployment leírók legyen feltételesen végrehajtva, tehát csak akkor jöjjenek létre az erőforrások, ha a `values.yaml` fájlban a `virtualCustomer.enabled` illetve `virtualWorker.enabled` értéke true.
+    - A deployment leírók legyenek feltételesen végrehajtva, tehát csak akkor jöjjenek létre az erőforrások, ha a `values.yaml` fájlban a `virtualCustomer.enabled` illetve `virtualWorker.enabled` értéke true.
     - A `virtualCustomer` és `virtualWorker` pod-ok  `ORDERS_PER_HOUR` környezeti változói legyenek paraméterezhetőek a `values.yaml` fájlban a `virtualCustomer.ordersPerHour` és `virtualWorker.ordersPerHour` változójával.
 
     !!! tip "Helm template szintaktika"
@@ -564,17 +567,17 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
     - Lépjünk vissza a `storeapp/helmchart` könyvtárba:
     - Futtassuk le csak a template generálást a telepítés nélkül:
  
-      ```cmd
-      helm install storeapp --debug --dry-run storeapp
+      ```bash
+      helm install storeapp --debug --dry-run=client storeapp
       ```
  
     - A release-nek _storeapp_ nevet választottunk. Ez a Helm release azonosítója.
  
-    - Konzolra megkapjuk a kiértékelt YAML-öket. Ellenőrizzük a kimenetben, hogy a rendben behelyettesítődtek-e.
+    - Konzolra megkapjuk a kiértékelt YAML-öket. Ellenőrizzük a kimenetben, hogy rendben behelyettesítődtek-e.
 
 1. Telepítsük az alkalmazás komponenseit a chart segítségével:
 
-    ```cmd
+    ```bash
     helm upgrade storeapp --install storeapp
     ```
 
@@ -586,7 +589,7 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
 
 1. A változók értékeit a values fájlból definiáljuk felül a telepítési parancsban a `--set` kapcsolóval.
 
-    ```cmd
+    ```bash
     helm upgrade storeapp --install storeapp --set virtualCustomer.ordersPerHour=10 --set virtualWorker.ordersPerHour=20 --set neptun=neptun_kod
     ```
 
