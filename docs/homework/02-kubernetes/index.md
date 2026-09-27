@@ -1,5 +1,5 @@
 ---
-authors: tibitoth, balazskvancz
+authors: tibitoth,balazskvancz
 ---
 
 # 02 - Kubernetes, Helm, Traefik
