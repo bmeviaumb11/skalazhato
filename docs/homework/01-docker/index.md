@@ -393,7 +393,7 @@ Készítsünk egy egyszerű webalkalmazást Pythonban a Flask nevű keretrendsze
     app = Flask(__name__)
 
     # root endpoint
-    # inrements and returns the number of visits from Redis
+    # increments and returns the number of visits from Redis
     # and says hello to the user from the NAME environment variable
     @app.route("/")
     def hello():
