@@ -89,7 +89,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás [folyama
     ```
 
   - Ha több klaszterrel dolgoznánk, itt láthatnánk őket.
-  - Ezek valójában egy konfigurációs fájlban vannak: `%userprofile%/.kube/config`
+  - Ezek valójában egy konfigurációs fájlban vannak: `~/.kube/config`
   - Váltani a `kubectl config use-context <név>` paranccsal lehet.
   - Minden parancsnál külön megadhatjuk a kontextust a `--context` kapcsolóval, de inkább az implicit kontextust szoktuk használni.
   - Kontextus beállításról részletesebben [itt](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-context-and-configuration).
@@ -228,7 +228,7 @@ A podokat nem szoktuk közvetlenül létrehozni, hanem *Deployment*-re és *Repl
 A *Deployment* szolgál az alkalmazás verziójának frissítésére, kiadására.
 
 Változtassuk meg a program futását a deployment leíróján keresztül: ne 5, hanem 10 másodpercenként írjuk ki az időt.
-Ezt a *Deployment* módosításával érhetjük el, mivel podot nem tudunk szerkeszteni hatékonyan, egy futó pod nem cserélhető le.
+Ezt a *Deployment* módosításával érhetjük el, mivel egy futó pod specifikációja (pl. a futtatott parancs) nem módosítható.
 Ehelyett valójában egy új podot kell létrehozni indirekt módon a deployment frissítésével.
 
 Érvényesítsd a módosítást a deployment leíróban, majd alkalmazd a változást:
@@ -486,7 +486,7 @@ Hozzuk létre ezeket a szabályokat, kezdjük a mikroszolgáltatásokkal.
     ```
 
     !!! warning "Namespace"
-        A middleware neve tartalmazza a névteret is: `namespace-product-stripprefix@kubernetescrd`
+        A middleware hivatkozása a névteret is tartalmazza: `<névtér>-<middleware név>@kubernetescrd`
 
 1. Érvényesítsük a módosítást.
 
@@ -532,7 +532,7 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
 
 ### Helm chart készítése
 
-1. Hozzuk létre a repository-nkban a `/storeapp/helmchart` mappát majd a konzolban navigáljunk oda.
+1. Hozzuk létre a repository-nkban a `storeapp/helmchart` mappát majd a konzolban navigáljunk oda.
 
 1. Készítsünk egy új, üres chart-ot, az alábbi paranccsal, ami létrehoz egy *storeapp* nevű chartot egy azonos nevű könyvtárban.
 
@@ -549,7 +549,7 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
 
     A Helm egy olyan template nyelvet használ, amelyben változó behelyettesítések, ciklusok, egyszerű szövegműveletek támogatottak.
 
-1. Töröljük ki a `templates` könyvtárból az összes fájlt a `_helpers.tpl` kivételével. Töröljük ki a `values.yaml` fájlból is a tartalmat.
+1. Töröljük ki a `templates` könyvtárból az összes fájlt és alkönyvtárat a `_helpers.tpl` kivételével. Töröljük ki a `values.yaml` fájlból is a tartalmat.
 
 1. Másoljuk be a `storeapp/hf-kubernetes/simulation` mappából a `virtual-customer.yaml` és `virtual-worker.yaml` fájlokat a `templates` könyvtárba.
 
