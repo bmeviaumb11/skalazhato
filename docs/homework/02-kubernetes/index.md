@@ -90,8 +90,8 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadás [folyama
 
   - Ha több klaszterrel dolgoznánk, itt láthatnánk őket.
   - Ezek valójában egy konfigurációs fájlban vannak: `%userprofile%/.kube/config`
-  - Váltani a `kubectl config use-context <név>` parancssal lehet.
-  - Minden parancsnál külön megadhatjuk a kontextust a `--context` kapcsolóval, de inkább az implicit contextust szoktuk használni.
+  - Váltani a `kubectl config use-context <név>` paranccsal lehet.
+  - Minden parancsnál külön megadhatjuk a kontextust a `--context` kapcsolóval, de inkább az implicit kontextust szoktuk használni.
   - Kontextus beállításról részletesebben [itt](https://kubernetes.io/docs/reference/kubectl/cheatsheet/#kubectl-context-and-configuration).
 
 !!! tip "Kubernetes GUI"
@@ -128,7 +128,7 @@ Kubernetes erőforrásokat tipikusan YAML leírókban definiálunk. A futtatás 
 !!! tip ""
     A leíró szerkesztéséhez használhatjuk például Visual Studio Code-ot. Érdemes olyan szövegszerkesztővel dolgozni, amely ismeri a YAML szintaktikát. A parancsok futtatásához használhatjuk például [Visual Studio Code beépített terminálját](https://code.visualstudio.com/docs/terminal/basics).
 
-1. Hozzunk létre egy új YAML fájlt a repositorynk gyökerébe `createpod.yml` néven, az alábbi követelmények mentén
+1. Hozzunk létre egy új YAML fájlt a repositorynk gyökerébe `createpod.yml` néven, az alábbi követelmények mentén:
 
     - a kubernetes leíró Pod-ot definiál
     - a pod neve legyen `counter-neptun` a **saját neptunkóddal** kiegészítve
@@ -178,7 +178,7 @@ Kubernetes erőforrásokat tipikusan YAML leírókban definiálunk. A futtatás 
         A pod törlése nem azonnali. A benne futó konténerek leállás jelzést kapnak, és ők maguk terminálhatnak. Ha ez nem történik meg, akkor kis idő múlva megszünteti őket a rendszer.
 
 ??? tip "Interaktív shell"
-    Ha szeretnénk egy podban belépni, és ott dolgozni, akkor ezt a `kubectl exec` paranccsal tehetjük meg. Például:
+    Ha szeretnénk egy podba belépni, és ott dolgozni, akkor ezt a `kubectl exec` paranccsal tehetjük meg. Például:
 
     ```bash
     kubectl exec -it <podnév> -- /bin/bash
@@ -266,7 +266,7 @@ kubectl logs -f <podnév>
 
 ### Célok
 
-A célunk a kiinduló repóban lévő (`storeapp` mappa), megrendeléseket kezelő konténeralapú, külön álló (mikro)szolgáltatásokra épülő webalkalmazás telepítése Kubernetes-be. Forrás: <https://github.com/Azure-Samples/aks-store-demo>
+A célunk a kiinduló repóban lévő (`storeapp` mappa), megrendeléseket kezelő konténeralapú, különálló (mikro)szolgáltatásokra épülő webalkalmazás telepítése Kubernetes-be. Forrás: <https://github.com/Azure-Samples/aks-store-demo>
 
 A rendszer az alábbi komponensekből áll:
 
@@ -344,7 +344,7 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
 
 1. A Traefik dashboard-ja nem elérhető "kívülről".
    A dashboard segít minket látni a Traefik konfigurációját és működését.
-   Mivel ez a klaszter belső állapotát publikálja, production üzemben valamilyen módon authentikálnunk kellene.
+   Mivel ez a klaszter belső állapotát publikálja, production üzemben valamilyen módon autentikálnunk kellene.
    Ezt most megkerülve `kubectl` segítségével egy helyi portra továbbítjuk a Traefik dashboard-ot (és a telepítéskor insecure módba kapcsoltuk).
    A port átirányítást próbáljuk most a VSCode Kubernetes extension segítségével:
 
@@ -385,7 +385,7 @@ Az adatbázisainkat a már megírt YAML leírókkal telepítjük. Ez a leíró f
     !!! tip ""
         A `kubectl apply` parancs `-f` kapcsolója ha mappát kap, akkor a mappában lévő összes yaml fájlt alkalmazza.
 
-1. Ellenőrizzük, hogy az adatbázis podok elindulnak-e (pl.: GUI-val). Minden a *default* névtérbe kellett települjön.
+1. Ellenőrizzük, hogy az adatbázis podok elindulnak-e (pl.: GUI-val). Mindennek a *default* névtérbe kellett települnie.
 
 ### 3.3 Alkalmazásunk telepítése
 
@@ -399,7 +399,7 @@ Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a `storeap
     kubectl apply -f storeapp/hf-kubernetes/app
     ```
 
-1. Ellenőrizzük, hogy létrejöttek a Deployment-ek és a podok. A *store-front* és *store-admin* podok nem fognak tudni elindulni, mert a leírók olyan (lokális) image-eket használnak, amelyek nincsenek lebuildelve a gépünkön. A többi szolgáltatás esetében egy távoli publikus konténer registry-ből húzza le a szükséges image-eket.
+1. Ellenőrizzük, hogy létrejöttek-e a Deployment-ek és a podok. A *store-front* és *store-admin* podok nem fognak tudni elindulni, mert a leírók olyan (lokális) image-eket használnak, amelyek nincsenek lebuildelve a gépünkön. A többi szolgáltatás esetében egy távoli publikus konténer registry-ből húzza le a szükséges image-eket.
 
 1. Ezeket az image-eket a `storeapp/src/store-admin` és `storeapp/src/store-front` könyvtárban tudjuk lebuildelni. Nyissunk egy új terminál ablakot, navigáljunk el a `storeapp` megfelelő könyvtárába, és futtassuk a `docker build` parancsokat:
 
@@ -415,7 +415,7 @@ Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a `storeap
 
     ??? tip "Ha mégsem zöldülnek ki"
 
-        1. Egyes Linuxos gépeken nem válnak alapvetően láthatóvá a minikube-on belül az image-ek. Az ilyen gépeken érdemes a következő parancs előtt az `eval $(minikube docker-env)` parancsot kiadni.
+        1. Egyes Linuxos gépeken alapértelmezetten nem válnak láthatóvá a minikube-on belül az image-ek. Az ilyen gépeken érdemes a következő parancs előtt az `eval $(minikube docker-env)` parancsot kiadni.
         Ezt követően ebben a terminál ablakban adjuk ki az image build parancsot, valamint a k8s apply parancsokat is.
         
         2. Ugyanez Windows-os + minikube powershellel:
@@ -424,7 +424,7 @@ Az alkalmazásunk telepítéséhez szintén YAML leírókat találunk a `storeap
 
         3. Docker Desktop *kind* módban (vagy önálló kind klaszterben) a lebuildelt image-eket be kell tölteni a klaszterbe, pl.: `kind load docker-image store-front:local store-admin:local` (a klaszter nevét a `--name` kapcsolóval adhatjuk meg). Egyszerűbb megoldás, ha a Docker Desktop beállításaiban a **Kubeadm** módot választjuk.
 
-1. Mivel még nincs ingress szabály ezért próbáljuk ki port forwarddal a `store-front` szolgáltatást a 3000-es porton. Az oldal betölt, de nem éri el a `product-service` szolgáltatást, mert még nincs ingress szabály.
+1. Mivel még nincs ingress szabály, ezért próbáljuk ki port forwarddal a `store-front` szolgáltatást a 3000-es porton. Az oldal betölt, de nem éri el a `product-service` szolgáltatást, mert még nincs ingress szabály.
 
 ### 3.4 Ingress szabályok
 
@@ -557,14 +557,14 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
 
     - Az erőforrások metaadatai (pl. `metadata.name`, `selector.matchLabels.app`, `containers.name`, `template.metadata.labels.app`) tartalmazzák a `neptun` kódunkat pl.: `virtual-customer-neptun`, ebből a neptun kódot a `values.yaml` fájlban definiált `neptun` változóból helyettesítsük be.
     - A deployment leírók legyenek feltételesen végrehajtva, tehát csak akkor jöjjenek létre az erőforrások, ha a `values.yaml` fájlban a `virtualCustomer.enabled` illetve `virtualWorker.enabled` értéke true.
-    - A `virtualCustomer` és `virtualWorker` pod-ok  `ORDERS_PER_HOUR` környezeti változói legyenek paraméterezhetőek a `values.yaml` fájlban a `virtualCustomer.ordersPerHour` és `virtualWorker.ordersPerHour` változójával.
+    - A `virtualCustomer` és `virtualWorker` pod-ok `ORDERS_PER_HOUR` környezeti változói legyenek paraméterezhetőek a `values.yaml` fájlban a `virtualCustomer.ordersPerHour` és `virtualWorker.ordersPerHour` változójával.
 
     !!! tip "Helm template szintaktika"
         A Helm template szintaktikájáról részletesen olvashatsz [itt](https://helm.sh/docs/chart_template_guide/).
 
 1. Nézzük meg a template-eket kiértékelve:
 
-    - Lépjünk vissza a `storeapp/helmchart` könyvtárba:
+    - Lépjünk vissza a `storeapp/helmchart` könyvtárba.
     - Futtassuk le csak a template generálást a telepítés nélkül:
  
       ```bash
@@ -587,7 +587,7 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
 
 1. Próbáljuk ki az alkalmazást a <http://localhost:32080/admin> címen, és vegyük észre, hogy a megrendelések automatikusan érkeznek a virtuális vásárlóktól és lezárulnak a virtuális dolgozók által.
 
-1. A változók értékeit a values fájlból definiáljuk felül a telepítési parancsban a `--set` kapcsolóval.
+1. A values fájlban megadott értékeket definiáljuk felül a telepítési parancsban a `--set` kapcsolóval.
 
     ```bash
     helm upgrade storeapp --install storeapp --set virtualCustomer.ordersPerHour=10 --set virtualWorker.ordersPerHour=20 --set neptun=neptun_kod
