@@ -321,7 +321,7 @@ A Traefik-et [Helm charttal](https://github.com/traefik/traefik-helm-chart) fogj
 1. Telepítsük:
 
     ```bash
-    helm install traefik traefik/traefik --set ports.web.nodePort=32080 --set service.type=NodePort --set "additionalArguments={--api.insecure=true}"
+    helm install traefik traefik/traefik --set ports.web.nodePort=32080 --set service.spec.type=NodePort --set "additionalArguments={--api.insecure=true}"
     ```
 
      - A legelső `traefik` a Helm release nevét adja meg. Ezzel tudunk rá hivatkozni a jövőben.
@@ -375,6 +375,13 @@ Az adatbázisainkat a már megírt YAML leírókkal telepítjük. Ez a leíró f
 
      - MongoDB: StatefulSet-ként telepítjük, Service-en keresztül érhető el és ConfigMap-et használunk
      - RabbitMQ: StatefulSet-ként telepítjük, és Service-en keresztül érhető el
+
+    !!! danger "Hiba a kiindulóban"
+        A kiinduló repóban a RabbitMQ StatefulSet egy régi image-et használ. Telepítés előtt a `storeapp/hf-kubernetes/db` könyvtárban lévő RabbitMQ leíróban írjuk át a konténer image-ét erre:
+
+        ```yaml
+        image: rabbitmq:4.3.2-management-alpine
+        ```
 
 1. Telepítsük az adatbázisokat:
 
