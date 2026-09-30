@@ -1918,7 +1918,7 @@ helm<span class="w"> </span>repo<span class="w"> </span>update
 </li>
 <li>
 <p>Telepítsük:</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>traefik<span class="w"> </span>traefik/traefik<span class="w"> </span>--set<span class="w"> </span>ports.web.nodePort<span class="o">=</span><span class="m">32080</span><span class="w"> </span>--set<span class="w"> </span>service.type<span class="o">=</span>NodePort<span class="w"> </span>--set<span class="w"> </span><span class="s2">"additionalArguments={--api.insecure=true}"</span>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>traefik<span class="w"> </span>traefik/traefik<span class="w"> </span>--set<span class="w"> </span>ports.web.nodePort<span class="o">=</span><span class="m">32080</span><span class="w"> </span>--set<span class="w"> </span>service.spec.type<span class="o">=</span>NodePort<span class="w"> </span>--set<span class="w"> </span><span class="s2">"additionalArguments={--api.insecure=true}"</span>
 </code></pre></div>
 <ul>
 <li>A legelső <code>traefik</code> a Helm release nevét adja meg. Ezzel tudunk rá hivatkozni a jövőben.</li>
@@ -1970,6 +1970,12 @@ helm<span class="w"> </span>repo<span class="w"> </span>update
 <li>MongoDB: StatefulSet-ként telepítjük, Service-en keresztül érhető el és ConfigMap-et használunk</li>
 <li>RabbitMQ: StatefulSet-ként telepítjük, és Service-en keresztül érhető el</li>
 </ul>
+<div class="admonition danger">
+<p class="admonition-title">Hiba a kiindulóban</p>
+<p>A kiinduló repóban a RabbitMQ StatefulSet egy régi image-et használ. Telepítés előtt a <code>storeapp/hf-kubernetes/db</code> könyvtárban lévő RabbitMQ leíróban írjuk át a konténer image-ét erre:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rabbitmq:4.3.2-management-alpine</span>
+</code></pre></div>
+</div>
 </li>
 <li>
 <p>Telepítsük az adatbázisokat:</p>
@@ -2231,8 +2237,8 @@ Ezt a middleware-t kell alkalmaznunk a <code>products</code> Ingress-re.</p>
           </path>
         </svg>
       </span>
-      <span title="2026. szeptember 27. 12:37:34">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. szeptember 27. 12:37:34 CEST"><span class="timeago" datetime="2026-09-27T12:37:34+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. szeptember 27. 12:37:34 CEST">2026-09-27</span>
+      <span title="2026. szeptember 30. 17:31:34">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. szeptember 30. 17:31:34 CEST"><span class="timeago" datetime="2026-09-30T17:31:34+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. szeptember 30. 17:31:34 CEST">2026-09-30</span>
       </span>
     </span>
 
