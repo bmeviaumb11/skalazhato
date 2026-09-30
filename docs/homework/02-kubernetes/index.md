@@ -37,7 +37,7 @@ A labor Windows platformon lett kidolgozva, de Linuxon is hasonlóan működik.
 
 ## Előkészület
 
-A feladatok megoldása során ne felejtsd el követni a feladat beadás folyamatát [GitHub](../../information/GitHub.md).
+A feladatok megoldása során ne felejtsd el követni a feladat beadás [folyamatát](../../information/GitHub.md).
 
 ### Git repository létrehozása és letöltése
 
@@ -157,7 +157,7 @@ Kubernetes erőforrásokat tipikusan YAML leírókban definiálunk. A futtatás 
     ```
 
     !!! tip ""
-        Ha gondoljuk, tegyük hozzá a `-f` kapcsolót is (`kubectl logs -f counter-neptun`) a log követéséhez. ++ctrl+c++-vel léphetünk ki a log folyamatos követéséből. Ne feledjük, hogy ez nem a pod terminálja, hanem a logjainak figyelését.
+        Ha gondoljuk, tegyük hozzá a `-f` kapcsolót is (`kubectl logs -f counter-neptun`) a log követéséhez. ++ctrl+c++-vel léphetünk ki a log folyamatos követéséből. Ne feledjük, hogy ez nem a podot terminálja, hanem a logjainak figyelését.
 
 !!! example "BEADANDÓ"
     A feladathoz tartozó forráskódot commitold be és készíts egy képernyőképet (`f1.1.png`), majd commitold azt be a házi feladat repó gyökerébe, amin a futó pod logjai látszanak.
