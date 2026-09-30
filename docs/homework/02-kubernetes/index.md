@@ -562,7 +562,7 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
 
 1. Módosítsuk a fenti két yaml leírót a következő követelmények szerint a helm szintaktika használatával:
 
-    - Az erőforrások metaadatai (pl. `metadata.name`, `selector.matchLabels.app`, `containers.name`, `template.metadata.labels.app`) tartalmazzák a `neptun` kódunkat pl.: `virtual-customer-neptun`, ebből a neptun kódot a `values.yaml` fájlban definiált `neptun` változóból helyettesítsük be.
+    - Az erőforrások metaadatai (pl. `metadata.name`, `selector.matchLabels.app`, `containers.name`, `template.metadata.labels.app`) tartalmazzák a `neptun` kódunkat pl.: `virtual-customer-neptun`, ebből a neptun kódot a `values.yaml` fájlban definiált `neptun` változóból helyettesítsük be. A `neptun` változó alapértéke a saját neptun kódunk legyen **kisbetűvel** (pl. `neptun: abc123`), mivel a Kubernetes erőforrásnevek csak kisbetűket tartalmazhatnak.
     - A deployment leírók legyenek feltételesen végrehajtva, tehát csak akkor jöjjenek létre az erőforrások, ha a `values.yaml` fájlban a `virtualCustomer.enabled` illetve `virtualWorker.enabled` értéke true.
     - A `virtualCustomer` és `virtualWorker` pod-ok  `ORDERS_PER_HOUR` környezeti változói legyenek paraméterezhetőek a `values.yaml` fájlban a `virtualCustomer.ordersPerHour` és `virtualWorker.ordersPerHour` változójával.
 
@@ -594,10 +594,10 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
 
 1. Próbáljuk ki az alkalmazást a <http://localhost:32080/admin> címen, és vegyük észre, hogy a megrendelések automatikusan érkeznek a virtuális vásárlóktól és lezárulnak a virtuális dolgozók által.
 
-1. A változók értékeit a values fájlból definiáljuk felül a telepítési parancsban a `--set` kapcsolóval.
+1. A változók értékeit a values fájlból definiáljuk felül a telepítési parancsban a `--set` kapcsolóval. A `neptun` változónak most a saját neptun kódunkat adjuk meg, de **visszafelé** (pl. `abc123` helyett `321cba`), így jól látszik, hogy a felüldefiniált érték érvényesült.
 
     ```bash
-    helm upgrade storeapp --install storeapp --set virtualCustomer.ordersPerHour=10 --set virtualWorker.ordersPerHour=20 --set neptun=neptun_kod
+    helm upgrade storeapp --install storeapp --set virtualCustomer.ordersPerHour=10 --set virtualWorker.ordersPerHour=20 --set neptun=neptun_vissza
     ```
 
 !!! note "Helm chartok használata"
