@@ -494,9 +494,11 @@ Hozzuk létre ezeket a szabályokat, kezdjük a mikroszolgáltatásokkal.
     kubectl apply -f storeapp/hf-kubernetes/app
     ```
 
-1. Nyissuk meg a Traefik dashboardját és vizsgáljuk meg a konfigurált végpontot, majd próbáljuk ki a működését a <http://localhost:32080/api/products> címen.
+1. Nyissuk meg a Traefik dashboardját (<http://localhost:8080/dashboard/>), és vizsgáljuk meg a konfigurált végpontot: a bal oldali menüben válasszuk a *HTTP* szekció *HTTP Routers* menüpontját, majd a listában kattintsunk a `default-products-api-products@kubernetes` routerre. Itt látható a bejövő kérés útja az entrypointtól a middleware-en keresztül a szolgáltatásig.
 
     ![Traefik products](images/traefik-products.png)
+
+1. Próbáljuk ki a működését a <http://localhost:32080/api/products> címen.
 
 1. Hasonlóan adjuk hozzá az Ingress szabályokat és a szükséges middleware-eket az `order-service.yaml` és a `makeline-service.yaml` fájlokhoz is.
    Mind a két esetben a szolgáltatások a `/` gyökér útvonalon várják a kéréseket, míg az Ingress szabályokban a `/api/orders` és `/api/makeline` útvonalakat kell használni.
