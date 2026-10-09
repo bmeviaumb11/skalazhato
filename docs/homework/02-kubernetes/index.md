@@ -608,4 +608,4 @@ Helm chartot eddig meglévő komponensek paraméterezhető telepítésére haszn
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (`f4.1.png`) és commitold azt be a házi feladat repó gyökerébe, ahol az újonnan létrehozott futó pod-ok látszanak.
 
-    Készíts egy képernyőképet (`f4.2.png`) és commitold azt be a házi feladat repó gyökerébe, amivel demonstrálod, hogy létrejöttek az új erőforrások (pl. podok) az új helm release által a felüldefiniált környezeti változókkal.
+    Készíts egy képernyőképet (`f4.2.png`) és commitold azt be a házi feladat repó gyökerébe, amivel demonstrálod, hogy az új erőforrások (pl. podok) már az új helm release által felüldefiniált környezeti változókkal jöttek létre.
