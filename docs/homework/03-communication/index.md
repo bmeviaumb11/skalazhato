@@ -11,7 +11,7 @@ A házi feladat célja az elosztott alkalmazások fejlesztése során felmerül�
 ## Előkövetelmények
 
 * REST webszolgáltatások készítésének ismerete .NET platformon
-    * A házi külön nem tér ki a REST-szerű webszolgáltatások készítésének módszereire, arra a BSc szakirányos képzés [Adatvezérelt rendszerek](https://bmeviauac01.github.io/datadriven/hu/) és a [Szoftverfejlesztés .NET platformra](https://bmeviauav23.github.io/aspnetcorebook/) című választható tárgy anyagai az ajánlott irodalom.
+    * A házi külön nem tér ki a REST-szerű webszolgáltatások készítésének módszereire, arra a BSc szakirányos képzés [Adatvezérelt rendszerek](https://bmeviauac01.github.io/datadriven/hu/) tárgya és a [Szoftverfejlesztés .NET platformra](https://bmeviauav23.github.io/aspnetcorebook/) című választható tárgy anyagai az ajánlott irodalom.
 * Docker Desktop
 * [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
 * Visual Studio 2026
@@ -30,7 +30,7 @@ A kiinduló projekt egy .NET 10 alapú példaalkalmazás, amely két mikroszolg�
   Koncepciójában a Docker Compose-hoz hasonló, de YAML helyett C# nyelven írható, és nem csak .NET alkalmazásokat támogat.
     * biztosítja a komponensek megfigyelhetőségét OpenTelemetry segítségével (strukturált naplózás, elosztott nyomkövetés, metrikák)
     * és a Service Discovery-t konfigurációk kezelésén keresztül
-    * Ezen felül széleskörű integrációt biztosít különböző külső komponensekkel, és egy dashboardot is kapunk a komponensek állapotának nyomon követésére.
+    * Ezen felül széles körű integrációt biztosít különböző külső komponensekkel, és egy dashboardot is kapunk a komponensek állapotának nyomon követésére.
     * Bővebben az Aspire-ről: <https://aspire.dev/get-started/what-is-aspire/>
 
 ## 0. Feladat - Előkészületek
@@ -47,8 +47,8 @@ A kiinduló projekt egy .NET 10 alapú példaalkalmazás, amely két mikroszolg�
 A hibatűrő kommunikáció kapcsán tárgyalt tervezési minták nem csak a kommunikáció implementációja során hasznosak, hanem bármilyen olyan komponens hívása során is, ami nem várt tranziens hibajelenséget produkálhat.
 Tény, hogy leggyakrabban egy távoli hívás kommunikációja során történhet ilyen, így ott mindenképpen érdemes a hibatűrést valamilyen módon megvalósítani.
 
-A laborfeladat során két ASP.NET Core mikroszolgáltatás közötti REST-es kommunikációt szeretnénk hibatűrőbbé tenni.
-Ehhez a .NET-ben beépített lehetőségek vannak, amelyek a [Polly](https://github.com/App-vNext/Polly) osztálykönyvtárra támaszkodnak, ami a leggyakoribb hibatűrő mintákat valósítja meg, nekünk csak felkonfigurálnunk kell.
+A gyakorlat során két ASP.NET Core mikroszolgáltatás közötti REST-es kommunikációt szeretnénk hibatűrőbbé tenni.
+Ehhez a .NET ökoszisztéma részét képező (Microsoft által fejlesztett) lehetőségek állnak rendelkezésre, amelyek a [Polly](https://github.com/App-vNext/Polly) osztálykönyvtárra támaszkodnak, ami a leggyakoribb hibatűrő mintákat valósítja meg, nekünk csak felkonfigurálnunk kell.
 Az egyszerűség kedvéért most a Retry mintát valósítsuk meg.
 
 ### Retry
@@ -61,7 +61,7 @@ Célunk, hogy a hívásokat újrapróbálkozással kezeljük, és a hívó szám
 
 .NET-ben a HTTP kéréseket a `HttpClient` osztály segítségével végezzük. Az `IHttpClientFactory` segítségével tudjuk konfigurálni a `HttpClient`-ünket, ahol már az alap beállításokon felül hibatűrést megvalósító handlert is konfigurálni tudunk.
 
-Az _Order_ szolgáltatás `Program` osztályában konfiguráljuk be a `HttpClient`-ünket az `AddResilienceHandler` függvény segítségével, és adjuk hozzá a retry konfigurációt az alábbi követelmények szerint:
+Az _Order_ szolgáltatás `Program.cs` fájljában konfiguráljuk be a `HttpClient`-ünket: a típusos klienst regisztráló `AddHttpClient<CatalogApiClient>(...)` hívásra láncoljuk rá az `AddResilienceHandler` függvényt, és adjuk hozzá a retry konfigurációt az alábbi követelmények szerint:
 
 * Az 503-as hibakód esetén próbálkozzon újra
 * Maximum 5-ször próbálkozzon újra
@@ -86,26 +86,26 @@ Ez a resilience handler gyakorlatilag beépül a `HttpClient` handler pipeline-j
     });
     ```
 
-    Bővebben: <https://devblogs.microsoft.com/dotnet/building-resilient-cloud-services-with-dotnet-8/>
+    Bővebben: <https://learn.microsoft.com/en-us/dotnet/core/resilience/http-resilience>
 
 !!! note "Polly általánosan"
     A Polly-t nem csak `HttpClient`-tel lehet használni, hanem tetszőleges kódban: össze lehet rakni egy resilience pipeline-t (stratégiák láncát), és abba beburkolni a kívánt függvényhívást. A pipeline-okat akár a DI konténerben is regisztrálhatjuk (`AddResiliencePipeline`).
 
-Most nem nézünk példát több stratégia együttes használatára, de szóba jöhetne még a `Timeout`, a `Circuit Breaker`, a `Hedging` vagy akár a `Fallback` stratégia [is](https://www.pollydocs.org/strategies/).
+Most nem nézünk példát több stratégia együttes használatára, de szóba jöhetne még a `Timeout`, a `Circuit Breaker`, a `Hedging` vagy akár a `Fallback` [stratégia](https://www.pollydocs.org/strategies/) is.
 Az előadásanyagban találtok egy összetettebb szekvenciadiagramot az ajánlott összetételről.
 
 !!! example "BEADANDÓ"
-    A feladathoz tartozó forráskódot commitold be, és készíts egy `f1.png`-t, amiben látszik az Aspire dashboardon a Trace fülön a retry policy hatása a hívásokra. A hívások között legyenek sikeres és sikertelen hívások is, és látszódjon, hogy a sikertelen hívások újrapróbálkozásokkal sikeresekké válnak.
+    A feladathoz tartozó forráskódot commitold be, és készíts egy `f1.png`-t, amiben látszik az Aspire dashboardon a _Traces_ fülön a retry policy hatása a hívásokra. A hívások között legyenek sikeres és sikertelen hívások is, és látszódjon, hogy a sikertelen hívások újrapróbálkozásokkal sikeresekké válnak.
 
 ## 2. Feladat - Aszinkron kommunikáció RabbitMQ-val
 
-A feladat egy esemény alapú aszinkron kommunikáció megvalósítása.
+A feladat egy eseményalapú aszinkron kommunikáció megvalósítása.
 Az _Order_ szolgáltatás fog publikálni egy `OrderCreated` integrációs eseményt, amit egy üzenetsorba rak.
 Erre tetszőleges szolgáltatás feliratkozhat és reagálhat rá.
 Esetünkben a _Catalog_ szolgáltatás fogja a megrendelt termék raktárkészletét csökkenteni.
 Most az egyszerűség kedvéért ne foglalkozzunk az idempotens megvalósítással.
 
-Az aszinkron kommunikációt RabbitMQ-n keresztül valósítjuk meg, és a MassTransit osztálykönyvtár magas szintű absztrakciójával fedjük el az alacsonyszintű kommunikációs részleteket.
+Az aszinkron kommunikációt RabbitMQ-n keresztül valósítjuk meg, és a MassTransit osztálykönyvtár magas szintű absztrakciójával fedjük el az alacsony szintű kommunikációs részleteket.
 
 ### RabbitMQ beüzemelése
 
@@ -132,12 +132,12 @@ var order = builder.AddProject<Projects.Skalazhato_HF3_Services_Order>("hf3-NEPT
 ```
 
 Ez a megoldás a RabbitMQ-t egy Docker konténerben fogja futtatni.
-A RabbitMQ-hoz kapunk így egy menedzsment felületet is, amit a `guest` userrel, és egy generált jelszóval tudunk elérni.
-A jelszó megtalálható az Aspire Dashboardon a RabbitMQ erőforrás részletes nézeténél.
+A RabbitMQ-hoz kapunk így egy menedzsmentfelületet is, amit a `guest` userrel, és egy generált jelszóval tudunk elérni.
+A jelszó megtalálható az Aspire dashboardon a RabbitMQ erőforrás részletes nézeténél.
 
 ### Integrációs esemény
 
-Létre kell hozzuk az eseményt reprezentáló üzenetet, ami lényegében a kommunikáció szerződése lesz.
+Létre kell hoznunk az eseményt reprezentáló üzenetet, ami lényegében a kommunikáció szerződése lesz.
 
 1. Hozzunk létre egy új .NET 10 Class Library projektet `Skalazhato.HF3.Events` néven.
 
@@ -173,9 +173,9 @@ Kezdjük a küldő oldallal.
     ```csharp
     builder.Services.AddMassTransit(x =>
     {
-        x.UsingRabbitMq((ctx, config) =>
+        x.UsingRabbitMq((ctx, cfg) =>
         {
-            config.Host(ctx.GetRequiredService<IConfiguration>()
+            cfg.Host(ctx.GetRequiredService<IConfiguration>()
                 .GetConnectionString("hf3-NEPTUN-messaging"));
         });
     });
@@ -185,7 +185,7 @@ Kezdjük a küldő oldallal.
 
     * Az action-t nem fontos parametrizálni, dolgozhat beégetett értékekkel is.
     * A küldést az `IPublishEndpoint` objektum segítségével végezzük el.
-      MassTransit esetében a `Publish` süti el a broadcast szerű eseményeket, míg a `Send` inkább a command típusú üzenetekre van kihegyezve. A `Publish`-nak explicit adjuk meg típusparaméterként az `IOrderCreatedEvent` interfészt.
+      MassTransit esetében a `Publish` süti el a broadcast-szerű eseményeket, míg a `Send` inkább a command típusú üzenetekre van kihegyezve. A `Publish`-nak explicit adjuk meg típusparaméterként az `IOrderCreatedEvent` interfészt.
     * Naplózzuk **strukturáltan** az `ILogger` segítségével infó szinten, hogy melyik terméket rendeltük meg mekkora mennyiségben.
     * Az action végén adjunk vissza egy `Ok` státuszkódot, és egy üzenetet a válaszban, hogy sikeres volt a megrendelés.
 
@@ -224,14 +224,15 @@ Térjünk át a fogadó oldalra.
 4. **Próbáljuk ki!**
 
     * Kérjük le a termékeket
-    * Süssünk el swaggerből a `POST /api/Test/CreateOrder` kérést
+    * Süssünk el Swaggerből egy kérést a `TestController` `CreateOrder` actionjére
     * Nézzük meg, hogy frissült-e a termék raktárkészlete.
 
     !!! tip "Hibakeresés"
-        Ha nem frissült, akkor a logokból vagy a RabbitMQ menedzsment felületéről lehet nyomozni.
+        Ha nem frissült, akkor a logokból vagy a RabbitMQ menedzsmentfelületéről lehet nyomozni.
 
         * Ha azt tapasztaljuk, hogy nem tud csatlakozni valamelyik szolgáltatás, akkor ellenőrizzük az Aspire AppHost projektet és a Connection Stringeket.
-        * Ha azt tapasztaljuk, hogy a `_skipped` végződésű üzenetsorba kerülnek az üzenetek, akkor a küldő oldal rendben működött, de valamiért a fogadó oldal nem tudott a megadott üzenettípusra egyszer sem feliratkozni helyesen.
+        * Ha azt tapasztaljuk, hogy a `_skipped` végződésű üzenetsorba kerülnek az üzenetek, akkor az üzenet eljutott a fogadó oldal sorába, de azon a végponton nincs olyan consumer, ami ezt az üzenettípust kezelné (pl. egy korábbi futásból megmaradt kötés miatt).
+        * Ha a fogadó oldalra egyáltalán nem érkezik üzenet, akkor valószínűleg a két oldal nem ugyanazt az üzenettípust használja. A MassTransit a teljes típusnév (névtér + név) alapján köti össze a küldőt és a fogadót, ezért mindkét oldalon a közös `Skalazhato.HF3.Events` projektben lévő `IOrderCreatedEvent` interfészt kell használni.
 
 5. Kössük be az OpenTelemetry-t a MassTransit-ba, hogy a küldött és fogadott üzenetek is megjelenjenek a nyomkövetési adatok között. Az alábbi kódrészletet vegyük fel mindkét szolgáltatás `Program.cs` fájljába.
 
@@ -248,16 +249,16 @@ Térjünk át a fogadó oldalra.
         Az Aspire community toolkit tartalmaz segédfüggvényeket a MassTransit és RabbitMQ konfigurálására, ami kicsit egyszerűsíti a konfigurációt, és automatikusan beállítja az OpenTelemetry integrációt is. Bővebben: <https://github.com/CommunityToolkit/Aspire/tree/main/src/CommunityToolkit.Aspire.MassTransit.RabbitMQ>
 
 !!! example "BEADANDÓ"
-    A feladathoz tartozó forráskódot commitold be és készíts egy `f2.1.png`-t, amiben látszik az Aspire dashboardon a _Structured_ fülön a küldő és fogadó oldali logbejegyzések.
+    A feladathoz tartozó forráskódot commitold be és készíts egy `f2.1.png`-t, amiben látszanak az Aspire dashboardon a _Structured logs_ fülön a küldő és fogadó oldali logbejegyzések.
 
-    Illetve készíts egy `f2.2.png`-t, amiben látszik a Trace fülön a megrendelés végponthoz tartozó Trace **vízesés nézetében** (nem csak a lista) az üzenetküldés és fogadás is.
+    Illetve készíts egy `f2.2.png`-t, amiben látszik a _Traces_ fülön a megrendelés végponthoz tartozó Trace **vízesés nézetében** (nem csak a lista) az üzenetküldés és fogadás is.
 
 ??? note "Kitekintés"
 
     1. A fenti példában nem törődtünk az idempotens megvalósítással, ez mindig külön tervezést igényel, az üzleti logikánk függvényében, de mindenképpen érdemes a tervezés során figyelni erre.
 
     1. Mi most broadcast jellegű integrációs eseményt sütöttünk el.
-       Ne feledjük, van ennek egy másik variánsa is, amikor command szerű üzenetet küldünk egy másik szolgáltatásnak, és ott elvárjuk a parancs végrehajtását.
+       Ne feledjük, van ennek egy másik variánsa is, amikor command-szerű üzenetet küldünk egy másik szolgáltatásnak, és ott elvárjuk a parancs végrehajtását.
        Integrációs esemény során a fogadó félre van bízva, hogy mit kezd a kapott információval.
 
     1. A MassTransit egy nagyon sokoldalú eszköz, ami nem csak RabbitMQ-val használható, hanem más üzenetsorokkal is, mint például Azure Service Bus, vagy akár In-Memory üzenetsorral is tesztelhető. Illetve támogat több összetett kommunikációs mintát is, mint például a Saga vagy az Outbox minta.
@@ -265,10 +266,10 @@ Térjünk át a fogadó oldalra.
     1. Viszont a MassTransit a 9-es verziótól kezdve (2026 eleje óta) licencköteles (fizetős), a 8-as verzió viszont továbbra is ingyenesen használható.
        A MassTransit helyett más, többnyire nyílt forráskódú eszközök is használhatók:
 
-        - [Rebus](https://github.com/rebus-org/Rebus)
-        - [NServiceBus](https://particular.net/nservicebus) (szintén licencköteles)
-        - [Brighter](https://github.com/BrighterCommand/Brighter)
-        - [Wolverine](https://wolverinefx.net/)
-        - [CAP](https://github.com/dotnetcore/CAP)
-        - [EasyNetQ](https://github.com/EasyNetQ/EasyNetQ) (RabbitMQ-specifikus)
-        - stb.
+        * [Rebus](https://github.com/rebus-org/Rebus)
+        * [NServiceBus](https://particular.net/nservicebus) (szintén licencköteles)
+        * [Brighter](https://github.com/BrighterCommand/Brighter)
+        * [Wolverine](https://wolverinefx.net/)
+        * [CAP](https://github.com/dotnetcore/CAP)
+        * [EasyNetQ](https://github.com/EasyNetQ/EasyNetQ) (RabbitMQ-specifikus)
+        * stb.
