@@ -48,7 +48,7 @@ A hibatűrő kommunikáció kapcsán tárgyalt tervezési minták nem csak a kom
 Tény, hogy leggyakrabban egy távoli hívás kommunikációja során történhet ilyen, így ott mindenképpen érdemes a hibatűrést valamilyen módon megvalósítani.
 
 A gyakorlat során két ASP.NET Core mikroszolgáltatás közötti REST-es kommunikációt szeretnénk hibatűrőbbé tenni.
-Ehhez a .NET-ben beépített lehetőségek vannak, amelyek a [Polly](https://github.com/App-vNext/Polly) osztálykönyvtárra támaszkodnak, ami a leggyakoribb hibatűrő mintákat valósítja meg, nekünk csak felkonfigurálnunk kell.
+Ehhez a .NET ökoszisztéma részét képező (Microsoft által fejlesztett) lehetőségek állnak rendelkezésre, amelyek a [Polly](https://github.com/App-vNext/Polly) osztálykönyvtárra támaszkodnak, ami a leggyakoribb hibatűrő mintákat valósítja meg, nekünk csak felkonfigurálnunk kell.
 Az egyszerűség kedvéért most a Retry mintát valósítsuk meg.
 
 ### Retry
