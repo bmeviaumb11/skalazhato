@@ -56,7 +56,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadási folyama
 4. Ugyanezen az oldalon van egy [link a hallgatói kreditjeinket kezelő oldalra](https://www.microsoftazuresponsorships.com/). Ezen a külső oldalon ellenőrizzük, hogy megvan-e a 100$-nyi kreditünk (*Check your balance*).
 
 !!! warning "Azure Plan alapú új előfizetések"
-    Újabban a hallgatói előfizetések nem a speciális hallgató offer, hanem az általánosabb és újabb ún. [Azure Plan](https://azure.microsoft.com/en-us/pricing/offers/ms-azr-0017g) alatt jönnek létre. Az előfizetés áttekintő oldalán ilyenkor a *Plan* tulajdonság értékeként _Azure Plan_ olvasható. Ez a _plan_ egy ernyőkonstrukció, ami alá több korábban külön kezelt előfizetéstípust beterelnek (pl. trial). Az Azure Plan-eket az új számlázási, költségnyilvántartási rendszerben kezelik. Emiatt lehet, hogy a hallgatói előfizetésed kereteit már nem a [régi oldalon](ttps://www.microsoftazuresponsorships.com/), hanem a portálon belül a [_Cost Management_ oldalon](https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/mca-check-azure-credits-balance?tabs=portal) tudod követni.
+    Újabban a hallgatói előfizetések nem a speciális hallgató offer, hanem az általánosabb és újabb ún. [Azure Plan](https://azure.microsoft.com/en-us/pricing/offers/ms-azr-0017g) alatt jönnek létre. Az előfizetés áttekintő oldalán ilyenkor a *Plan* tulajdonság értékeként _Azure Plan_ olvasható. Ez a _plan_ egy ernyőkonstrukció, ami alá több korábban külön kezelt előfizetéstípust beterelnek (pl. trial). Az Azure Plan-eket az új számlázási, költségnyilvántartási rendszerben kezelik. Emiatt lehet, hogy a hallgatói előfizetésed kereteit már nem a [régi oldalon](https://www.microsoftazuresponsorships.com/), hanem a portálon belül a [_Cost Management_ oldalon](https://learn.microsoft.com/en-us/azure/cost-management-billing/benefits/credits/mca-check-azure-credits-balance?tabs=portal) tudod követni.
 
 
 !!! warning "Azure költségek"
@@ -135,15 +135,15 @@ A hivatalos útmutató [második része](https://learn.microsoft.com/en-us/azure
     ```
    
     !!! tip "ACR által használt tárhely"
-        Az ACR Azure portálos oldalán belül a *Metrics* menüpontban a *Storage used* nevű [metrikát](https://learn.microsoft.com/en-us/azure/container-registry/    monitor-container-registry-reference#supported-metrics-for-microsoftcontainerregistryregistries) kiválasztva ellenőrizhetjük az ACR által használt tárhelyet, illetve annak     időbeli változását. Másik lehetőség az *Overview* menüponton belül a *Monitoring* alfül.
+        Az ACR Azure portálos oldalán belül a *Metrics* menüpontban a *Storage used* nevű [metrikát](https://learn.microsoft.com/en-us/azure/container-registry/monitor-container-registry-reference#supported-metrics-for-microsoftcontainerregistryregistries) kiválasztva ellenőrizhetjük az ACR által használt tárhelyet, illetve annak időbeli változását. Másik lehetőség az *Overview* menüponton belül a *Monitoring* alfül.
 
 
     Az útmutató nem tér ki rá, de a teljesség kedvéért foglalkozzunk még további lemezképekkel. AKS-be az [aks-store-quickstart.yaml](https://github.com/Azure-Samples/aks-store-demo/blob/main/aks-store-quickstart.yaml)-t fogjuk majd telepíteni, ami a fentieken túl a [busybox](https://hub.docker.com/_/busybox) lemezképet is használja a Docker Hub-ról. Bár technikailag az AKS be tudja szerezni ezt a lemezképet a Docker Hub-ról, ezt is tegyük elérhetővé a saját ACR-ünkben.
 
     !!! tip "Kitekintés - külső források"
-        Nagyvállalati környezetben a külső források elérése gyakran tiltott (pl. tűzfalszabályokkal), ezen források biztonsági és egyéb szempontok miatt  alapértelmezetten     megbízhatatlannak számítanak. A docker alapértelmezett forrása, a Docker Hub például  korlátozásokat (rate limiting) [vezetett be](https://medium.com/@alaa.barqawi/    docker-rate-limit-with-azure-container-instance-and-aks-4449cede66dd) az AKS-es letöltésekre is. Mindezek miatt a nagyvállalti klaszterek csak belső céges repository-kat   használhatnak, amiket egy dedikált csapat kezel: megfelelő ellenőrzés után emelnek be külső vagy belső fejlesztésű elemeket (artifaktokat). Emiatt fontos, hogy minden    telepítési egység (pl. helm chart) paraméterezhető legyen a függőségeinek elérhetősége kapcsán.
+        Nagyvállalati környezetben a külső források elérése gyakran tiltott (pl. tűzfalszabályokkal), ezen források biztonsági és egyéb szempontok miatt alapértelmezetten megbízhatatlannak számítanak. A docker alapértelmezett forrása, a Docker Hub például korlátozásokat (rate limiting) [vezetett be](https://medium.com/@alaa.barqawi/docker-rate-limit-with-azure-container-instance-and-aks-4449cede66dd) az AKS-es letöltésekre is. Mindezek miatt a nagyvállalati klaszterek csak belső céges repository-kat használhatnak, amiket egy dedikált csapat kezel: megfelelő ellenőrzés után emelnek be külső vagy belső fejlesztésű elemeket (artifaktokat). Emiatt fontos, hogy minden telepítési egység (pl. helm chart) paraméterezhető legyen a függőségeinek elérhetősége kapcsán.
 
-3. Az ACR képes átmemelni külső forrásból lemezképeket, ha hálózatilag eléri és a külső forrás hozzáférésszabályozásán is át tud jutni. A Docker Hub esetében ez nem túl bonyolult, csak egyetlen Azure CLI parancs ([az acr import](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-import-images?tabs=azure-cli#import-from-docker-hub)). Felhasználónévként a Docker Hub felhasználónevünket adjuk meg, jelszóként pedig a felhasználónkhoz tartozó egyik Personal Access Token-ünket.
+3. Az ACR képes átemelni külső forrásból lemezképeket, ha hálózatilag eléri és a külső forrás hozzáférésszabályozásán is át tud jutni. A Docker Hub esetében ez nem túl bonyolult, csak egyetlen Azure CLI parancs ([az acr import](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-import-images?tabs=azure-cli#import-container-images-from-docker-hub)). Felhasználónévként a Docker Hub felhasználónevünket adjuk meg, jelszóként pedig a felhasználónkhoz tartozó egyik Personal Access Token-ünket.
 
     ```bash
     az acr import --name $ACRNAME --source docker.io/library/busybox:latest --image busybox:latest --force --username $DOCKERHUB_USER --password "$DOCKERHUB_TOKEN"
@@ -159,7 +159,7 @@ Azure-ban minden erőforrás létrehozás, kezelés, stb. REST API-k segítség�
 
 A hivatalos útmutató [harmadik része](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster?tabs=azure-cli) az AKS-t Azure CLI-vel hozza létre. Helyette kövesd [az Azure portálos utat](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-portal?tabs=azure-cli) a következő általános beállításokkal:
 
-- Name: *aks* előtag + neptun kód (pl.*npt123* neptun kód esetén *aksnpt123*)
+- Name: *aks* előtag + neptun kód (pl. *npt123* neptun kód esetén *aksnpt123*)
 - Resource group: az alapértelmezett Azure erőforráscsoport (lásd fentebb)
 - Cluster preset configuration: Dev/Test
 - Region: közös Azure régió (lásd fentebb)
@@ -173,7 +173,7 @@ A *Node Pool* fülön kell méreteznünk a klasztert. Ez hallgatói előfizetés
 !!! danger "User node pool"
     Semmiképp ne adjunk a klaszterhez **user** node poolt, mert akkor a skálázásra végképp nem marad kvótánk. Csak a system node poolba vegyünk olcsóbb, max. 2 magos virtuális gépeket.
 
-A system node pool méretezésekor érdemes a *Choose a size* opció által feldobott felületen a pontosan 2 magos (lehet rá szűrni), *D* betűvel kezdődő kódú kiméretek közül próbálkozni (D2s_v3, D2as_v4, DS2_v2, F2s_v2). A felület mutatja a havi költséget is (*Cost/month*), a 60-90 EUR/VM költség már jónak számít.
+A system node pool méretezésekor érdemes a *Choose a size* opció által feldobott felületen a pontosan 2 magos (lehet rá szűrni), *D* (vagy *F*) betűvel kezdődő kódú kiméretek közül próbálkozni (D2s_v3, D2as_v4, DS2_v2, F2s_v2). A felület mutatja a havi költséget is (*Cost/month*), a 60-90 EUR/VM költség már jónak számít.
 
 !!! warning "System node pool szabályok"
     A kiválasztott kiméretnek még az AKS [system node pool-ra vonatkozó minimum feltételeknek](https://learn.microsoft.com/en-us/azure/aks/use-system-pools?tabs=azure-cli#system-and-user-node-pools) is meg kell felelni. B sorozatú kiméretek például nem használhatók.
@@ -196,7 +196,7 @@ A többi fülön hagyjuk meg az alapértelmezett értékeket.
 
 2. A létrehozás végeztével (10-15 perc is lehet!) [fedezzük fel a klaszter logikai szerkezetét az Azure portálon keresztül](https://learn.microsoft.com/en-us/azure/aks/kubernetes-portal?tabs=azure-cli#view-kubernetes-resources). 
 
-3. Ellenőrizzük, hogy tudunk-e csatlakozni a kubectl eszközünkkel. Erre a legkényelmesebb mód, ha az AKS-ünk Azure Portal oldalának *Overview* menüpontját megnyitva, a vízszintes menüben a *Connect* gombot megnyomva, [az előre elkészített parancsokat használjuk](https://learn.microsoft.com/en-us/azure/aks/kubernetes-portal?tabs=azure-cli#connect-to-your-cluster). Futtassunk le egy-két lekérdező `kubectl` parancsot.
+3. Ellenőrizzük, hogy tudunk-e csatlakozni a kubectl eszközünkkel. Erre a legkényelmesebb mód, ha az AKS-ünk Azure Portal oldalának *Overview* menüpontját megnyitva, a vízszintes menüben a *Connect* gombot megnyomva, [az előre elkészített parancsokat használjuk](https://learn.microsoft.com/en-us/azure/aks/kubernetes-portal?tabs=azure-cli#connect-to-your-aks-cluster). Futtassunk le egy-két lekérdező `kubectl` parancsot.
 
 4. Kukkantsuk meg a klasztert alkotó Azure infrastruktúraszolgáltatásokat: a *Properties* menüpontban az *Infrastructure resource group* linkre kattintva átugorhatunk az ezen szolgáltatásokat összefogó erőforráscsoportba.
 
@@ -220,7 +220,7 @@ A hivatalos útmutató [ötödik része](https://learn.microsoft.com/en-us/azure
 
 ## 2. Feladat
 
-Az _AKS store demo_ teljesebb változatát - hasonlót ahhoz, ami a k8s háziban is szerpelt, telepítsük ugyanebbe az AKS-be, egy külön [kubernetes névtérbe](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/).
+Az _AKS store demo_ teljesebb változatát - hasonlót ahhoz, ami a k8s háziban is szerepelt, telepítsük ugyanebbe az AKS-be, egy külön [kubernetes névtérbe](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/).
 
 ### 2.1 Névtér létrehozása
 
@@ -281,7 +281,7 @@ containers:
 
 ### 2.4 Lemezképek hivatkozása
 
-1. Nézzük át a YAML fájlt, az `image:` sorokat írjuk át, hogy mindenhol a saját ACR-ünkre hivatkozzon- hasonlóan az 1-es feladathoz. Figyeljünk rá, hogy az ACR-en belüli elérési útvonal is megfelelő legyen. Az ACR Azure portálos felületén meg tudjuk nézni az egyes lemezképek teljes nevét (_Artifact reference_ vagy _Docker pull command_), ha kiválasztunk egy lemezkép verziót. A legbiztosabb, ha innen másoljuk ki.
+1. Nézzük át a YAML fájlt, az `image:` sorokat írjuk át, hogy mindenhol a saját ACR-ünkre hivatkozzon - hasonlóan az 1-es feladathoz. Figyeljünk rá, hogy az ACR-en belüli elérési útvonal is megfelelő legyen. Az ACR Azure portálos felületén meg tudjuk nézni az egyes lemezképek teljes nevét (_Artifact reference_ vagy _Docker pull command_), ha kiválasztunk egy lemezkép verziót. A legbiztosabb, ha innen másoljuk ki.
 
     ![Lemezkép elérési út](images/acr-container-details.png)
 
@@ -289,7 +289,7 @@ containers:
 
 ### 2.5 Traefik
 
-A YAML leíró _ClusterIP_ és _LoadBalancer_ service típusokat használ, ez utóbbi azt okozza, hogy egy publikus IP címen lesz kívülről is [elérhető](https://learn.microsoft.com/en-us/azure/aks/load-balancer-standard#use-the-public-standard-load-balancer) az adott szolgáltatás. Mivel minden szolgáltatás külön IP-t kap, így nagyon gyorsan kifuthatunk a (régiónkénti) [publikus IP cím kvótánkból](https://learn.microsoft.com/en-us/azure/quotas/networking-quota-requests).
+A YAML leíró _ClusterIP_ és _LoadBalancer_ service típusokat használ, ez utóbbi azt okozza, hogy egy publikus IP címen lesz kívülről is [elérhető](https://learn.microsoft.com/en-us/azure/aks/load-balancer-standard#create-a-load-balancer-service-in-aks) az adott szolgáltatás. Mivel minden szolgáltatás külön IP-t kap, így nagyon gyorsan kifuthatunk a (régiónkénti) [publikus IP cím kvótánkból](https://learn.microsoft.com/en-us/azure/quotas/networking-quota-requests).
 
 Jobb lenne egy korábban már látott Traefik proxy jellegű megoldás, ahol egy proxy / ingress kontroller lenne az egyetlen kívülről elérhető belépési pont és a proxy valamilyen címzési módszerrel (routing) különítené el a különböző webalkalmazásokat. Tipikus címzési módszerek, amik az URL különböző részei alapján irányítják a kérést:
 
@@ -329,7 +329,7 @@ A Traefik proxy támogatja a port alapú routing-ot is, ezért ismét Traefik-et
 3. Telepítsük a Traefik-et ACR-ből. Ehhez előbb a helm-nek azonosítania kell magát az ACR felé. Ez szerencsére nem gond, ha van [Azure CLI-nk](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-helm-repos#authenticate-with-the-registry).
 
     ```bash
-    az acr login --name $ACRNAME --expose-token --output tsv --query accessToken | helm registry login $ACRNAME.azurecr.io --username "00000000-0000-0000-0000-000000000000"    --password-stdin
+    az acr login --name $ACRNAME --expose-token --output tsv --query accessToken | helm registry login $ACRNAME.azurecr.io --username "00000000-0000-0000-0000-000000000000" --password-stdin
     helm install traefik oci://$ACRNAME.azurecr.io/helm/traefik --version 37.2.0 --namespace fullstore-neptun -f traefik-values.yaml
     ```
 
@@ -340,10 +340,10 @@ A Traefik proxy támogatja a port alapú routing-ot is, ezért ismét Traefik-et
 
 ### 2.6 Ingress
 
-Bár a k8s _Ingress_ API hagyományosan a sztenderd HTTP portokon folyó kommunikációra lett kitalálva így [nem is foglalkozik port/protokoll konfigurációval](https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress). A Traefik külön annotációkat [definiál](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/ingress/), amiket az _Ingress_ objektummokra rakhatunk, így mégis megadhatjuk, hogy milyen portot használjon. 
+Bár a k8s _Ingress_ API hagyományosan a sztenderd HTTP portokon folyó kommunikációra lett kitalálva, így [nem is foglalkozik port/protokoll konfigurációval](https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress). A Traefik külön annotációkat [definiál](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/ingress/), amiket az _Ingress_ objektumokra rakhatunk, így mégis megadhatjuk, hogy milyen portot használjon. 
 
 !!! info "alternatív routing konfiguráció"
-    Bár ez egyszerű esetben nem egy rossz megoldás, de kissé suta. Szerencsére nem csak k8s _Ingress_ objektumot használhatunk a routing konfigurációjára, hanem például a Traefik saját alternatív [_IngressRoute_](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/crd/http/ingressroute/) típusát, ami sokkal egyértelműbben tárja elénk a Traefik routing lehetőségeit. Másik alternatíva a k8s _Ingress_ utódjának szánt, annál jóval többet tudó k8s [_Gateway_ API](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/gateway-api/)
+    Bár ez egyszerű esetben nem egy rossz megoldás, de kissé suta. Szerencsére nem csak k8s _Ingress_ objektumot használhatunk a routing konfigurációjára, hanem például a Traefik saját alternatív [_IngressRoute_](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/crd/http/ingressroute/) típusát, ami sokkal egyértelműbben tárja elénk a Traefik routing lehetőségeit. Másik alternatíva a k8s _Ingress_ utódjának szánt, annál jóval többet tudó k8s [_Gateway_ API](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/gateway-api/).
 
 1. Állítsuk az *aks-store-all-in-one.yaml*-ben minden k8s service típusát `ClusterIP`-re. Csak a Traefik szolgáltatás lesz kívülről elérhető (_LoadBalancer_ típus), de az nem ebben a YAML-ben van definiálva, hanem a Traefik helm chart kezeli.
 
@@ -391,13 +391,13 @@ Bár a k8s _Ingress_ API hagyományosan a sztenderd HTTP portokon folyó kommuni
     - Publikus oldal        
         - A *Proceed to checkout* gombra kattintva egy 1-10 db. közötti véletlen mennyiségű, *neptun kódosra módosított nevű* termékre vonatkozó rendelés beküldésre került (sikeres üzenet). (`f2.1.1.png`)
     - Admin felület
-        -  A fenti rendelésen a *Complete Order* gombra kattintva az állapotmódosítás sikeres, a rendelés állapota *Completed*-re változik. (`f2.1.2.png`)        
+        - A fenti rendelésen a *Complete Order* gombra kattintva az állapotmódosítás sikeres, a rendelés állapota *Completed*-re változik. (`f2.1.2.png`)        
 
-    Készíts egy másik képernyőképet (`f2.2.png`) és commitold azt be ezt is a házi feladat repó gyökerébe, ahol az Azure portálon látszik az AKS infrastruktúra erőforráscsoportjának (MC_ kezdetű) áttekintő nézete (*Overview*). Látszódjon a portálra belépett felhasználó azonosítója a jobb felső sarokban.
+    Készíts egy másik képernyőképet (`f2.2.png`) és commitold be ezt is a házi feladat repó gyökerébe, ahol az Azure portálon látszik az AKS infrastruktúra erőforráscsoportjának (MC_ kezdetű) áttekintő nézete (*Overview*). Látszódjon a portálra belépett felhasználó azonosítója a jobb felső sarokban.
     
-    Készíts egy másik képernyőképet (`f2.3.png`) és commitold azt be ezt is a házi feladat repó gyökerébe, ahol a végállapotban látszanak parancssorban az új névtér k8s *deployment* erőforrásai a lemezképek azonosítóival együtt (`kubectl get deployment -n fullstore-neptun -o wide`)
+    Készíts egy másik képernyőképet (`f2.3.png`) és commitold be ezt is a házi feladat repó gyökerébe, ahol a végállapotban látszanak parancssorban az új névtér k8s *deployment* erőforrásai a lemezképek azonosítóival együtt (`kubectl get deployment -n fullstore-neptun -o wide`)
 
-    Készíts egy másik képernyőképet (`f2.4.png`) és commitold azt be ezt is a házi feladat repó gyökerébe, ahol a Traefik dashboard _HTTP Routers_ listája látható (pl.: http://localhost:8080/dashboard/#/http/routers). 
+    Készíts egy másik képernyőképet (`f2.4.png`) és commitold be ezt is a házi feladat repó gyökerébe, ahol a Traefik dashboard _HTTP Routers_ listája látható (pl.: http://localhost:8080/dashboard/#/http/routers). 
 
     Commitold be a végleges aks-store-all-in-one.yaml-t is.
 
