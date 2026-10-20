@@ -80,10 +80,16 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadási folyama
         Az Azure CLI parancsok általában nem kérik be az előfizetés azonosítóját, hanem egy globális beállításból veszik, ami belépéskor (`az login`) is beállítódik. Fontos, hogy mindig a megfelelő előfizetés legyen beállítva. Az `az account set -s <előfizetés azonosító>` paranccsal tudunk előfizetést váltani.
 
 !!! danger "Közös Azure régió"
-    Fontos, hogy minden Azure erőforrás lehetőleg azonos régióban legyen. Ez a közös régió lehetőleg **North Europe** legyen. Ha bármilyen okból ezt nem tudod tartani, akkor is az erőforrásaid ugyanabban az európai régióban legyenek (pl. *Poland Central*). Egyik ilyen ok lehet, hogy a hallgatói előfizetésen egy házirend (policy) leszűkíti, hogy milyen régiókat használhatunk. Az érvényesített házirendeket az Azure portálon lehet [listázni](https://portal.azure.com/?feature.msaljs=true#view/Microsoft_Azure_Policy/PolicyMenuBlade.MenuView/~/Assignments). Az *Allowed resource deployment regions* nevű házirend `listOfAllowedLocations` nevű paramétere az engedélyezett régiók listája.
+    Fontos, hogy minden Azure erőforrás lehetőleg azonos régióban legyen. A hallgatói előfizetésen egy házirend (policy) leszűkíti, hogy milyen régiókat használhatunk, ezért a közös régiót ezek közül kell kiválasztani. Az érvényesített házirendeket az Azure portálon lehet [listázni](https://portal.azure.com/#view/Microsoft_Azure_Policy/PolicyMenuBlade.MenuView/~/Assignments): az *Allowed resource deployment regions* nevű házirend `listOfAllowedLocations` nevű paramétere tartalmazza az engedélyezett régiók listáját. Ebből a listából válassz egy európai régiót, lehetőleg a **North Europe**-ot, ha az szerepel benne. Ha nem, akkor egy másik, a listában szereplő európai régiót (pl. *Spain Central*). Az erőforrásaid ezután mind ebben az egy régióban legyenek.
 
-!!! tip "További ajánlott Európai régiók"
-    Bár ez dinamikusan változó, jelenleg (2025. november közepe) ezek az ajánlott európai régiók _North Europe_-on kívül, ahol pl. AKS létrehozáshoz van elég sok(fajta) VM erőforrás: **Poland Central** :flag_pl:, **Sweden Central** :flag_se:, **Italy North** :flag_it:, **Switzerland North** :flag_ch:. Nem ajánlott: Germany West Central (kevesebb VM kiméret)
+!!! tip "További ajánlott európai régiók"
+    Bár ez dinamikusan változó, jelenleg (2026. október) egy hallgatói előfizetésen az alábbi európai régiókban érhető el az AKS-hez szükséges, a kvótába beleférő 2 magos VM kiméret:
+
+    - D sorozatú (ajánlott) és B sorozatú kiméretek is: **Belgium Central** :flag_be:, **Spain Central** :flag_es:
+    - B sorozatú kiméretek, és D sorozatból csak a kivezetés alatt álló (2028. májusig elérhető) D2_v2 / DS2_v2: **Austria East** :flag_at:. Ezekhez a régióban nincs publikált ár, így a havi költség előre nem látható (más régiókban kb. 100 USD/VM/hó).
+    - csak B sorozatú kiméretek: **Poland Central** :flag_pl:, **Sweden Central** :flag_se:
+
+    Nem ajánlott, mert nincs használható 2 magos kiméret: North Europe, Italy North, Switzerland North, Germany West Central, France Central, Norway East, UK South, UK West. A West Europe-ban is csak két B sorozatú kiméret használható, ráadásul itt gyakran korlátozzák az ingyenes AKS létrehozását.
 
 ### Erőforráscsoport létrehozása
 
@@ -98,7 +104,7 @@ Hozz létre új erőforráscsoportot [ezen útmutatót követve](https://learn.m
 
 A labor során a hivatalos AKS bevezető gyakorlatot követjük némi módosítással. Az [első rész](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-app?tabs=azure-cli) egy példaalkalmazást mutat be.
 
-Kövesd az útmutatót, mely a korábbi gyakorlatokon megismert `docker` és `docker compose` parancsokat használ.
+Kövesd az útmutatót a lokális tesztelési szakasz (*Test application locally*) végéig. Ez a rész a korábbi gyakorlatokon megismert `docker` és `docker compose` parancsokat használja. A Docker Compose -> Kubernetes manifest migrációs rész már nem kell.
 
 ### Azure Container Registry létrehozása
 
@@ -175,10 +181,10 @@ A *Node Pool* fülön kell méreteznünk a klasztert. Ez hallgatói előfizetés
 !!! danger "User node pool"
     Semmiképp ne adjunk a klaszterhez **user** node poolt, mert akkor a skálázásra végképp nem marad kvótánk. Csak a system node poolba vegyünk olcsóbb, max. 2 magos virtuális gépeket.
 
-A system node pool méretezésekor érdemes a *Choose a size* opció által feldobott felületen a pontosan 2 magos (lehet rá szűrni), *D* (vagy *F*) betűvel kezdődő kódú kiméretek közül próbálkozni (D2s_v3, D2as_v4, DS2_v2, F2s_v2). A felület mutatja a havi költséget is (*Cost/month*), a 60-90 EUR/VM költség már jónak számít.
+A system node pool méretezésekor érdemes a *Choose a size* opció által feldobott felületen a pontosan 2 magos (lehet rá szűrni), legalább 4 GB memóriájú kiméretek közül próbálkozni. Elsősorban a *D* betűvel kezdődő kódú kiméreteket (pl. D2as_v4, D2s_v4) válasszuk: ezek folyamatosan teljes CPU teljesítményt adnak és 8 GB memóriájúak. Ha ezekhez nincs kvótánk, tartalékként a B sorozat v2 generációjának 4 GB-os tagjai (B2als_v2, B2ls_v2) is megfelelnek. Ezek olcsóbbak (kb. 30 EUR/VM havonta), de ún. burstable kiméretek: tartós terhelés alatt a CPU teljesítményük visszafogásra kerül, ami a terheléses mérések eredményeit torzíthatja, és a 4 GB memória is szűkös lehet. A felület mutatja a havi költséget is (*Cost/month*): B sorozatnál a 30-40 EUR/VM, D sorozatnál a 60-90 EUR/VM költség már jónak számít.
 
 !!! warning "System node pool szabályok"
-    A kiválasztott kiméretnek még az AKS [system node pool-ra vonatkozó minimum feltételeknek](https://learn.microsoft.com/en-us/azure/aks/use-system-pools?tabs=azure-cli#system-and-user-node-pools) is meg kell felelni. B sorozatú kiméretek például nem használhatók.
+    A kiválasztott kiméretnek az AKS [system node pool-ra vonatkozó minimum feltételeinek](https://learn.microsoft.com/en-us/azure/aks/use-system-pools?tabs=azure-cli#system-and-user-node-pools) is meg kell felelnie - elméletben. A dokumentáció szigorúbb szabályokat ír (min. 4 mag, B sorozat tiltása, min. 2 node), de a 2026 októberi állapot szerint az AKS ARM providere ténylegesen csak azt ellenőrzi, hogy a kiméret legalább 2 magos és legalább 4 GB memóriájú legyen. Így a 2 magos, 4 GB-os B sorozatú kiméretek (pl. *B2als_v2*) is használhatók, és az 1 node-os system node pool is működik. Ennél kisebb kiméret esetén a létrehozás `SystemPoolSkuTooLow` hibával meghiúsul. **Éles** környezetben mindig a dokumentált, támogatott konfigurációt vegyük alapul!
 
 A VM kiméret választás után a *Node Pool* fülre visszatérve az Azure ellenőrzi a legtöbb szabályt. Ha nem látunk hibaüzenetet, akkor jó esélyeink vannak.
 
