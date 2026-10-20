@@ -20,7 +20,7 @@ A laborleírás cross-platform eszközöket használ. A labor Linuxon (Kubuntu) 
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) v2.61 vagy újabb
 - Azure [kubelogin és kubectl](https://azure.github.io/kubelogin/install.html)
     - az `az aks install-cli` felülírhatja a korábban telepített `kubectl` binárist
-- Docker Hub eléréshez Docker Hub fiók és [Personal Access Token](https://docs.docker.com/security/access-tokens/#create-a-personal-access-token)
+- Docker Hub eléréshez Docker Hub fiók és [Personal Access Token](https://docs.docker.com/security/access-tokens/personal-access-tokens/). Elég neki a *Repo Public Read-only* jogosultság (access permission).
 
 
 ## Előkészület
@@ -80,7 +80,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadási folyama
         Az Azure CLI parancsok általában nem kérik be az előfizetés azonosítóját, hanem egy globális beállításból veszik, ami belépéskor (`az login`) is beállítódik. Fontos, hogy mindig a megfelelő előfizetés legyen beállítva. Az `az account set -s <előfizetés azonosító>` paranccsal tudunk előfizetést váltani.
 
 !!! danger "Közös Azure régió"
-    Fontos, hogy minden Azure erőforrás lehetőleg azonos régióban legyen. A hallgatói előfizetésen egy házirend (policy) leszűkíti, hogy milyen régiókat használhatunk, ezért a közös régiót ezek közül kell kiválasztani. Az érvényesített házirendeket az Azure portálon lehet [listázni](https://portal.azure.com/#view/Microsoft_Azure_Policy/PolicyMenuBlade.MenuView/~/Assignments): az *Allowed resource deployment regions* nevű házirend `listOfAllowedLocations` nevű paramétere tartalmazza az engedélyezett régiók listáját. Ebből a listából válassz egy európai régiót, lehetőleg a **North Europe**-ot, ha az szerepel benne. Ha nem, akkor egy másik, a listában szereplő európai régiót (pl. *Spain Central*). Az erőforrásaid ezután mind ebben az egy régióban legyenek.
+    Fontos, hogy minden Azure erőforrás lehetőleg azonos régióban legyen. A hallgatói előfizetésen egy házirend (policy) leszűkíti, hogy milyen régiókat használhatunk, ezért a közös régiót ezek közül kell kiválasztani. Az érvényesített házirendeket az Azure portálon lehet [listázni](https://portal.azure.com/#view/Microsoft_Azure_Policy/PolicyMenuBlade.MenuView/~/Assignments): az *Allowed resource deployment regions* nevű házirend `listOfAllowedLocations` nevű paramétere tartalmazza az engedélyezett régiók listáját. Ebből a listából válassz egy európai régiót, lehetőleg az alábbi tippben ajánlottak közül (pl. *Belgium Central* vagy *Spain Central*). Az erőforrásaid ezután mind ebben az egy régióban legyenek.
 
 !!! tip "További ajánlott európai régiók"
     Bár ez dinamikusan változó, jelenleg (2026. október) egy hallgatói előfizetésen az alábbi európai régiókban érhető el az AKS-hez szükséges, a kvótába beleférő 2 magos VM kiméret:
@@ -157,7 +157,11 @@ A hivatalos útmutató [második része](https://learn.microsoft.com/en-us/azure
     az acr import --name $ACRNAME --source docker.io/library/busybox:latest --image busybox:latest --force --username $DOCKERHUB_USER --password "$DOCKERHUB_TOKEN"
     ```
 
-4. Másik extra lemezkép a [rabbitmq v3.13](https://mcr.microsoft.com/en-us/artifact/mar/azurelinux/base/rabbitmq-server/). Ezt is importáljuk hasonlóan, de felhasználói azonosítás nélkül (`--username`, `--password` paraméterek nélkül).
+4. Másik extra lemezkép a [rabbitmq](https://hub.docker.com/_/rabbitmq) `4.3.2-management-alpine` verziója, ez is a Docker Hub-ról származik. Ezt is importáljuk hasonlóan.
+
+    ```bash
+    az acr import --name $ACRNAME --source docker.io/library/rabbitmq:4.3.2-management-alpine --image rabbitmq:4.3.2-management-alpine --force --username $DOCKERHUB_USER --password "$DOCKERHUB_TOKEN"
+    ```
 
 5. Ellenőrizzük a feltöltött lemezképeket az Azure Portálon, az ACR [Repositories menüpontjában](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-get-started-portal?tabs=azure-cli#list-container-images).
 
@@ -253,7 +257,7 @@ Ezekre az épített lemezképekre lesz szükségünk, töltsük föl őket ACR-b
 A külső lemezképek közül pedig ezekre - importáljuk az eddig nem importáltakat ACR-be:
 
 - busybox - ez már megvan korábbról
-- rabbitmq-server 3.13 - ez is már megvan korábbról
+- rabbitmq 4.3.2-management-alpine - ez is már megvan korábbról
 - mongo 7.0 a Docker Hub-ról (docker.io/library/mongo:7.0)
 
 ### 2.3 MongoDB 7.0
