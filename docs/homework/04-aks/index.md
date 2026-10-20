@@ -53,10 +53,12 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadási folyama
 
 3. Az áttekintő oldalról (*Overview*) az előfizetés azonosítóját (*Subscription ID*) érdemes elmenteni, mert gyakran lesz rá szükség.
 
-4. Ugyanezen az oldalon van egy [link a hallgatói kreditjeinket kezelő oldalra](https://www.microsoftazuresponsorships.com/). Ezen a külső oldalon ellenőrizzük, hogy megvan-e a 100$-nyi kreditünk (*Check your balance*).
+4. A hallgatói kreditünket az Azure portálon belül, az [*Education* (Azure Education Hub) oldalon követhetjük](https://learn.microsoft.com/en-us/azure/education-hub/navigate-costs#track-your-usage-in-the-education-hub): a keresőben keressük ki az *Education* oldalt és nyissuk meg. Az *Overview* oldalon ellenőrizzük, hogy megvan-e a 100$-nyi kreditünk. Itt látható a havi és az összesített fogyasztás, illetve az is, hogy mennyi idő van hátra a következő megújításig (a kredit egy évig használható fel, és aktív hallgatói státusz mellett évente megújítható).
 
-!!! warning "Azure Plan alapú új előfizetések"
-    Újabban a hallgatói előfizetések nem a speciális hallgató offer, hanem az általánosabb és újabb ún. [Azure Plan](https://azure.microsoft.com/en-us/pricing/offers/ms-azr-0017g) alatt jönnek létre. Az előfizetés áttekintő oldalán ilyenkor a *Plan* tulajdonság értékeként _Azure Plan_ olvasható. Ez a _plan_ egy ernyőkonstrukció, ami alá több korábban külön kezelt előfizetéstípust beterelnek (pl. trial). Az Azure Plan-eket az új számlázási, költségnyilvántartási rendszerben kezelik. Emiatt lehet, hogy a hallgatói előfizetésed kereteit már nem a [régi oldalon](https://www.microsoftazuresponsorships.com/), hanem a portálon belül a [_Cost Management_ oldalon](https://learn.microsoft.com/en-us/azure/cost-management-billing/benefits/credits/mca-check-azure-credits-balance?tabs=portal) tudod követni.
+5. A *View cost details* linkkel átjutunk a *Cost Management* oldalra, ahol szolgáltatásonként részletesebben is megnézhetjük, mi mennyit fogyasztott.
+
+!!! tip "Költségkeret (budget)"
+    A *Cost Management* oldalon [költségkeretet (budget) is beállíthatunk](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets) az előfizetésre, ami e-mailben figyelmeztet, ha a költéseink elérnek egy általunk megadott határt. Érdemes beállítani, hogy a kredit ne fogyjon el észrevétlenül.
 
 
 !!! warning "Azure költségek"
@@ -75,7 +77,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadási folyama
     ```
    
     !!! tip "Aktuális előfizetés az Azure CLI-ben"
-        Az Azure CLI parancsok általában nem kérik be az előfizetés azonosítóját, hanem egy globális beállításból veszik, amit belépéskor (`az login`) is beállítódik. Fontos, hogy mindig a megfelelő előfizetés legyen beállítva. Az `az account set -s <előfizetés azonosító>` paranccsal tudunk előfizetést váltani.
+        Az Azure CLI parancsok általában nem kérik be az előfizetés azonosítóját, hanem egy globális beállításból veszik, ami belépéskor (`az login`) is beállítódik. Fontos, hogy mindig a megfelelő előfizetés legyen beállítva. Az `az account set -s <előfizetés azonosító>` paranccsal tudunk előfizetést váltani.
 
 !!! danger "Közös Azure régió"
     Fontos, hogy minden Azure erőforrás lehetőleg azonos régióban legyen. Ez a közös régió lehetőleg **North Europe** legyen. Ha bármilyen okból ezt nem tudod tartani, akkor is az erőforrásaid ugyanabban az európai régióban legyenek (pl. *Poland Central*). Egyik ilyen ok lehet, hogy a hallgatói előfizetésen egy házirend (policy) leszűkíti, hogy milyen régiókat használhatunk. Az érvényesített házirendeket az Azure portálon lehet [listázni](https://portal.azure.com/?feature.msaljs=true#view/Microsoft_Azure_Policy/PolicyMenuBlade.MenuView/~/Assignments). Az *Allowed resource deployment regions* nevű házirend `listOfAllowedLocations` nevű paramétere az engedélyezett régiók listája.
