@@ -4,7 +4,7 @@ authors: kszicsillag
 
 # 04 - Azure Kubernetes Services
 
-*Nincs frissítve 2026. őszi félévre!*
+<!-- *Nincs frissítve 2026. őszi félévre!* -->
 
 ## Cél
 
@@ -317,11 +317,7 @@ A Traefik proxy támogatja a hostname alapú routing-ot is, ezért ismét Traefi
     !!! warning "kubectl context"
         A helm a telepítési célként a kubectl aktív kontextjét használja. Ügyeljünk arra, hogy az AKS-ünk legyen az aktív kontext.
 
-4. Ellenőrizzük, hogy megjelent-e a _traefik_ nevű k8s service, és jegyezzük meg a publikus IP címét (_EXTERNAL-IP_) - a következő alfejezetben a hosztnevek képzéséhez lesz rá szükség.
-
-    ```bash
-    kubectl get service traefik -n "fullstore-$neptun"
-    ```
+4. Ellenőrizzük, hogy megjelent-e a _traefik_ nevű k8s service, és kérdezzük le a publikus IP címét az előző feladatban megismert módszerrel. Jegyezzük fel a címet, a következő alfejezetben a hosztnevek képzéséhez lesz rá szükség.
 
 ### 2.5 Gateway API
 
@@ -344,8 +340,6 @@ A korábbi háziban Ingress API-t használtunk, itt most kipróbáljuk az utódj
     ```bash
     kubectl get gatewayclass
     ```
-
-    Kérdezzük le a *traefik* service külső, publikus IP címét az első feladatban látott módszerrel (ott a *store-front* szolgáltatásnak volt/van ilyen IP címe).
 
     A helm chart ezen kívül egy alapértelmezett _Gateway_ erőforrást is létrehoz `traefik-gateway` néven, a Traefik telepítési névterében - a chart `gateway.enabled` alapértelmezett `true` beállítása miatt. Ez a _Gateway_ a Traefik alapértelmezett `web` entrypointjának megfelelő listenert definiál: `web` néven, HTTP protokollal, a 8000-es porton. (A Gateway API-ban a listener portja a Traefik podon belüli entrypoint portjára utal; a `traefik` _LoadBalancer_ szolgáltatás a külső, szabványos 80-as portot képezi le erre a belső portra.) Ellenőrizzük ezt is:
 
