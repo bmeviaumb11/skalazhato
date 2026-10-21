@@ -86,7 +86,7 @@ A feladatok megoldása során ne felejtsd el követni a [beadási folyamatot](..
     Bár ez dinamikusan változó, jelenleg (2026. október) egy hallgatói előfizetésen az alábbi európai régiókban érhető el az AKS-hez szükséges, a kvótába beleférő 2 magos VM kiméret:
 
     - D sorozatú (ajánlott) és B sorozatú kiméretek is: **Belgium Central** :flag_be:, **Spain Central** :flag_es:
-    - B sorozatú kiméretek, és D sorozatból csak a kivezetés alatt álló (2028. májusig elérhető) D2_v2 / DS2_v2: **Austria East** :flag_at:. Ezekhez a régióban nincs publikált ár, így a havi költség előre nem látható (más régiókban kb. 100 USD/VM/hó).
+    - B sorozatú kiméretek, és D sorozatból csak a kivezetés alatt álló (2028. májusig elérhető) D2_v2 / DS2_v2: **Austria East** :flag_at:. Ezekhez a régióban nincs publikált ár, így a havi költség előre nem látható (más régiókban kb. 100 $/VM/hó).
     - csak B sorozatú kiméretek: **Poland Central** :flag_pl:, **Sweden Central** :flag_se:
 
     Nem ajánlott, mert nincs használható 2 magos kiméret: North Europe, Italy North, Switzerland North, Germany West Central, France Central, Norway East, UK South, UK West. A West Europe-ban is csak két B sorozatú kiméret használható, ráadásul itt gyakran korlátozzák az ingyenes AKS létrehozását.
@@ -327,33 +327,35 @@ A Traefik proxy támogatja a hostname alapú routing-ot is, ezért ismét Traefi
 
 A korábbi háziban Ingress API-t használtunk, itt most kipróbáljuk az utódját, a Gateway API-t. Ez egy modernebb, szerepkörökre bontott (role-oriented) megközelítést kínál: külön erőforrások definiálják a klaszter belépési pontját (_Gateway_), az útválasztási szabályokat (_HTTPRoute_) és a hálózati házirendeket. A Traefik natívan támogatja a Gateway API-t, így ezt használjuk a hosztnév alapú routinghoz.
 
-A Gateway API használatához először telepítenünk kell a [Gateway API CRD-ket](https://gateway-api.sigs.k8s.io/guides/#installing-gateway-api) a klaszterbe, mert azok alapértelmezetten nincsenek telepítve:
+1. A Gateway API használatához először telepítenünk kell a [Gateway API CRD-ket](https://gateway-api.sigs.k8s.io/guides/#installing-gateway-api) a klaszterbe, mert azok alapértelmezetten nincsenek telepítve:
 
-```bash
-kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.3/standard-install.yaml
-```
+    ```bash
+    kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.3/standard-install.yaml
+    ```
 
-Ezután engedélyezzük a Traefik számára a Gateway API erőforrások figyelését (`providers.kubernetesGateway.enabled=true`). Frissítsük a Traefik telepítést az új beállítással:
+2. Ezután engedélyezzük a Traefik számára a Gateway API erőforrások figyelését (`providers.kubernetesGateway.enabled=true`). Frissítsük a Traefik telepítést az új beállítással:
 
-```bash
-helm upgrade traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.1 --namespace "fullstore-$neptun" --set ingressRoute.dashboard.enabled=true --set providers.kubernetesGateway.enabled=true
-```
+    ```bash
+    helm upgrade traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.1 --namespace "fullstore-$neptun" --set ingressRoute.dashboard.enabled=true --set providers.kubernetesGateway.enabled=true
+    ```
 
-A Traefik automatikusan létrehoz egy `traefik` nevű _GatewayClass_ erőforrást, ami a Traefik kontrollerhez tartozó belépési pontokat definiálja. Ellenőrizzük:
+    A Traefik automatikusan létrehoz egy `traefik` nevű _GatewayClass_ erőforrást, ami a Traefik kontrollerhez tartozó belépési pontokat definiálja. Ellenőrizzük:
 
-```bash
-kubectl get gatewayclass
-```
+    ```bash
+    kubectl get gatewayclass
+    ```
 
-A helm chart ezen kívül egy alapértelmezett _Gateway_ erőforrást is létrehoz `traefik-gateway` néven, a Traefik telepítési névterében - a chart `gateway.enabled` alapértelmezett `true` beállítása miatt. Ez a _Gateway_ a Traefik alapértelmezett `web` entrypointjának megfelelő listenert definiál: `web` néven, HTTP protokollal, a 8000-es porton. (A Gateway API-ban a listener portja a Traefik podon belüli entrypoint portjára utal; a `traefik` _LoadBalancer_ szolgáltatás a külső, szabványos 80-as portot képezi le erre a belső portra.) Ellenőrizzük ezt is:
+    Kérdezzük le a *traefik* service külső, publikus IP címét az első feladatban látott módszerrel (ott a *store-front* szolgáltatásnak volt/van ilyen IP címe).
 
-```bash
-kubectl get gateway traefik-gateway -n "fullstore-$neptun" -o yaml
-```
+    A helm chart ezen kívül egy alapértelmezett _Gateway_ erőforrást is létrehoz `traefik-gateway` néven, a Traefik telepítési névterében - a chart `gateway.enabled` alapértelmezett `true` beállítása miatt. Ez a _Gateway_ a Traefik alapértelmezett `web` entrypointjának megfelelő listenert definiál: `web` néven, HTTP protokollal, a 8000-es porton. (A Gateway API-ban a listener portja a Traefik podon belüli entrypoint portjára utal; a `traefik` _LoadBalancer_ szolgáltatás a külső, szabványos 80-as portot képezi le erre a belső portra.) Ellenőrizzük ezt is:
 
-1. Állítsuk az *aks-store-all-in-one.yaml*-ben minden k8s service típusát `ClusterIP`-re. Csak a Traefik szolgáltatás lesz kívülről elérhető (_LoadBalancer_ típus), de az nem ebben a YAML-ben van definiálva, hanem a Traefik helm chart kezeli.
+    ```bash
+    kubectl get gateway traefik-gateway -n "fullstore-$neptun" -o yaml
+    ```
 
-2. Adjunk hozzá a YAML fájlhoz egy _HTTPRoute_ erőforrást.
+3. Állítsuk az *aks-store-all-in-one.yaml*-ben minden k8s service típusát `ClusterIP`-re. Csak a Traefik szolgáltatás lesz kívülről elérhető (_LoadBalancer_ típus), de az nem ebben a YAML-ben van definiálva, hanem a Traefik helm chart kezeli.
+
+4. Adjunk hozzá a YAML fájlhoz egy _HTTPRoute_ erőforrást.
 
     Az alábbi _HTTPRoute_ a hosztnév alapján irányítja a kérést a *store-front* szolgáltatáshoz, a `parentRefs` mezőben a fenti, Traefik által létrehozott `traefik-gateway` _Gateway_-re hivatkozva (a `sectionName` mező a _Gateway_ `web` nevű listenerét választja ki). A hosztneveket a 2.4-es lépésben megismert zero config DNS szolgáltatás (nip.io / sslip.io) alapján képezzük: a Traefik publikus IP címéből. Például ha a publikus IP cím `20.30.40.50`, akkor a két alkalmazáshoz tartozó hosztnevek `store-front-20-30-40-50.nip.io` és `store-admin-20-30-40-50.nip.io`.
 
@@ -383,15 +385,15 @@ kubectl get gateway traefik-gateway -n "fullstore-$neptun" -o yaml
     !!! info "Miért nincs _Gateway_ a saját YAML fájlunkban?"
         A `traefik-gateway` _Gateway_-t a Traefik helm chart hozza létre, ezért azt nem kell a saját YAML fájlunkban definiálnunk. Ha mégis ugyanezzel a névvel definiálnánk, akkor a `kubectl apply` figyelmeztetést írna ki (`resource gateways/traefik-gateway is missing the kubectl.kubernetes.io/last-applied-configuration annotation`), mert a helm által létrehozott erőforrás nem `kubectl apply` által jött létre; ráadásul a helm és a `kubectl apply` ezután egymással ütközne az erőforrás kezelésében.
 
-3. Adjunk hozzá a YAML fájlhoz egy további _HTTPRoute_ erőforrást a fenti mintájára, ami a *store-admin* szolgáltatás felé irányít (domain prefix: store-admin).
+5. Adjunk hozzá a YAML fájlhoz egy további _HTTPRoute_ erőforrást a fenti mintájára, ami a *store-admin* szolgáltatás felé irányít (domain prefix: store-admin).
 
-4. Telepítsünk, azaz alkalmazzuk a YAML leírót. Mivel a leíró nem hivatkozik k8s névtérre, ezért azt az `apply` parancsban be tudjuk állítani, így minden erőforrás a megadott névtérbe kerül.
+6. Telepítsünk, azaz alkalmazzuk a YAML leírót. Mivel a leíró nem hivatkozik k8s névtérre, ezért azt az `apply` parancsban be tudjuk állítani, így minden erőforrás a megadott névtérbe kerül.
 
     ```bash
     kubectl apply -f aks-store-all-in-one.yaml -n "fullstore-$neptun"
     ```
 
-5. Ellenőrizzük az Azure portálon vagy `kubectl` parancsokkal, hogy minden k8s objektum rendben elindult-e. Ellenőrizzük a Gateway API objektumokat is:
+7. Ellenőrizzük az Azure portálon vagy `kubectl` parancsokkal, hogy minden k8s objektum rendben elindult-e. Ellenőrizzük a Gateway API objektumokat is:
 
     ```bash
     kubectl get gateway,httproute -n "fullstore-$neptun"
@@ -399,9 +401,9 @@ kubectl get gateway traefik-gateway -n "fullstore-$neptun" -o yaml
 
     Ellenőrizzük, hogy a weboldalak a tervezett hosztneveken elérhetőek-e (például `http://store-front-20-30-40-50.nip.io` és `http://store-admin-20-30-40-50.nip.io`, a saját publikus IP címmel).
 
-6. Teszteld le az alkalmazást, vidd végig a k8s házi 3. feladatának beadandójához is szükséges tesztlépéseket (termék átnevezés, rendelés feladás, rendelés teljesítés).
+8. Teszteld le az alkalmazást, vidd végig a k8s házi 3. feladatának beadandójához is szükséges tesztlépéseket (termék átnevezés, rendelés feladás, rendelés teljesítés).
 
-7. A k8s háziban megismert _port forward_ módszerrel tedd elérhetővé localhost-on a Traefik dashboard-ot.
+9. A k8s háziban megismert _port forward_ módszerrel tedd elérhetővé localhost-on a Traefik dashboard-ot.
 
 !!! example "BEADANDÓ"
     Készíts az alábbi tesztesetekről képernyőképeket, és commitold be a házi feladat repó gyökerébe:
