@@ -25,7 +25,7 @@ A laborleírás cross-platform eszközöket használ.
 
 ## Előkészület
 
-A feladatok megoldása során ne felejtsd el követni a feladat beadási folyamatát [GitHub](../../information/GitHub.md).
+A feladatok megoldása során ne felejtsd el követni a [beadási folyamatot](../../information/GitHub.md).
 
 !!! danger "PR név"
     :exclamation: A beadásnál a pull request neve legyen: *hf4* :exclamation:
@@ -49,7 +49,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadási folyama
 
 1. Nyissuk meg az [előfizetések listáját](https://learn.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id#find-your-azure-subscription): a keresőben vagy a bal oldali menüben keressük ki a *Subscriptions* oldalt és nyissuk meg.
 
-2. Több előfizetést is láthatunk egy táblázatban, a hallgató előfizetésünk *Azure for Students* néven jön létre és a szerepkörünk (*My role*) *Account admin* vagy *Owner*. Nyissuk meg a hallgatói előfizetésünket.
+2. Több előfizetést is láthatunk egy táblázatban, a hallgatói előfizetésünk *Azure for Students* néven jön létre és a szerepkörünk (*My role*) *Account admin* vagy *Owner*. Nyissuk meg a hallgatói előfizetésünket.
 
 3. Az áttekintő oldalról (*Overview*) az előfizetés azonosítóját (*Subscription ID*) érdemes elmenteni, mert gyakran lesz rá szükség.
 
@@ -93,7 +93,7 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadási folyama
 
 ### Erőforráscsoport létrehozása
 
-Hozz létre új erőforráscsoportot [ezen útmutatót követve](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal#create-resource-groups) a hallgató előfizetés alá *viaumb11* néven a közös Azure régióban (lásd fentebb).
+Hozz létre új erőforráscsoportot [ezen útmutatót követve](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal#create-resource-groups) a hallgatói előfizetés alá *viaumb11* néven a közös Azure régióban (lásd fentebb).
 
 !!! danger "Alapértelmezett Azure erőforráscsoport"
     A továbbiakban ezt az erőforráscsoportot add meg minden Azure erőforrás létrehozásakor.
@@ -135,7 +135,7 @@ A hivatalos útmutató [második része](https://learn.microsoft.com/en-us/azure
     ```
 
     !!! warning "Lemezkép verziók"
-        Ellenőrizd, hogy a lemezkép verziója megegyezik-e az k8s yaml leírókban (aks-store-quickstart.yaml, aks-store-all-in-one.yaml) elvárt verziószámokkal. Ha nem, módosítsd a fenti parancsokban a verzió tag-eket.
+        Ellenőrizd, hogy a lemezkép verziója megegyezik-e a k8s yaml leírókban (aks-store-quickstart.yaml, aks-store-all-in-one.yaml) elvárt verziószámokkal. Ha nem, módosítsd a fenti parancsokban a verzió tag-eket.
 
 2. Töltsük fel a képeket.
 
@@ -166,11 +166,11 @@ A hivatalos útmutató [második része](https://learn.microsoft.com/en-us/azure
     az acr import --name $ACRNAME --source docker.io/library/rabbitmq:4.3.2-management-alpine --image rabbitmq:4.3.2-management-alpine --force --username $DOCKERHUB_USER --password "$DOCKERHUB_TOKEN"
     ```
 
-5. Ellenőrizzük a feltöltött lemezképeket az Azure Portálon, az ACR [Repositories menüpontjában](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-get-started-portal?tabs=azure-cli#list-container-images).
+5. Ellenőrizzük a feltöltött lemezképeket az Azure portálon, az ACR [Repositories menüpontjában](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-get-started-portal?tabs=azure-cli#list-container-images).
 
 ### AKS létrehozása, méretezése
 
-Azure-ban minden erőforrás létrehozás, kezelés, stb. REST API-k segítségével történik, ezeket az API-kat ún. *resource provider*-ek ajánlják ki. Egy adott szolgáltatásnak általában saját resource providere van, de nem mindegyik van alapból bekapcsolva egy adott előfizetésen. Előfizetés tulajdonosként ezzel általában nem kell foglalkoznunk, egy szolgáltatás létrehozásakor a kapcsolódó resource provider automatikusan bekapcsolódik. Néhány esetben mégis szükség lehet arra, hogy kézzel kapcsoljunk be (regisztráljunk) provider-eket. Ilyen eset lehet, ha AKS létrehozás **előtt** a portál vCPU kvótákat ellenőriz - mint mindenhez, ehhez is API-t kell hívni. Ezért az AKS létrehozása előtt [ezen útmutató](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider-1) alapján ellenőrizzük, hogy a *Microsoft.Compute* provider regisztrálva van-e. Ha nincs, regisztráljuk.
+Azure-ban minden erőforrás létrehozás, kezelés, stb. REST API-k segítségével történik, ezeket az API-kat ún. *resource provider*-ek ajánlják ki. Egy adott szolgáltatásnak általában saját resource providere van, de nem mindegyik van alapból bekapcsolva egy adott előfizetésen. Előfizetés-tulajdonosként ezzel általában nem kell foglalkoznunk, egy szolgáltatás létrehozásakor a kapcsolódó resource provider automatikusan bekapcsolódik. Néhány esetben mégis szükség lehet arra, hogy kézzel kapcsoljunk be (regisztráljunk) provider-eket. Ilyen eset lehet, ha AKS létrehozás **előtt** a portál vCPU kvótákat ellenőriz - mint mindenhez, ehhez is API-t kell hívni. Ezért az AKS létrehozása előtt [ezen útmutató](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider-1) alapján ellenőrizzük, hogy a *Microsoft.Compute* provider regisztrálva van-e. Ha nincs, regisztráljuk.
 
 A hivatalos útmutató [harmadik része](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster?tabs=azure-cli) az AKS-t Azure CLI-vel hozza létre. Helyette kövesd [az Azure portálos utat](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-portal?tabs=azure-cli) a következő általános beállításokkal:
 
@@ -191,7 +191,7 @@ A *Node Pool* fülön kell méreteznünk a klasztert. Ez hallgatói előfizetés
 A system node pool méretezésekor érdemes a *Choose a size* opció által feldobott felületen a pontosan 2 magos (lehet rá szűrni), legalább 4 GB memóriájú kiméretek közül próbálkozni. Elsősorban a *D* betűvel kezdődő kódú kiméreteket (pl. D2as_v4, D2s_v4) válasszuk: ezek folyamatosan teljes CPU teljesítményt adnak és 8 GB memóriájúak. Ha ezekhez nincs kvótánk, tartalékként a B sorozat v2 generációjának 4 GB-os tagjai (B2als_v2, B2ls_v2) is megfelelnek. Ezek olcsóbbak (kb. 30 EUR/VM havonta), de ún. burstable kiméretek: tartós terhelés alatt a CPU teljesítményük visszafogásra kerül, ami a terheléses mérések eredményeit torzíthatja, és a 4 GB memória is szűkös lehet. A felület mutatja a havi költséget is (*Cost/month*): B sorozatnál a 30-40 EUR/VM, D sorozatnál a 60-90 EUR/VM költség már jónak számít.
 
 !!! warning "System node pool szabályok"
-    A kiválasztott kiméretnek az AKS [system node pool-ra vonatkozó minimum feltételeinek](https://learn.microsoft.com/en-us/azure/aks/use-system-pools?tabs=azure-cli#system-and-user-node-pools) is meg kell felelnie - elméletben. A dokumentáció szigorúbb szabályokat ír (min. 4 mag, B sorozat tiltása, min. 2 node), de a 2026 októberi állapot szerint az AKS ARM providere ténylegesen csak azt ellenőrzi, hogy a kiméret legalább 2 magos és legalább 4 GB memóriájú legyen. Így a 2 magos, 4 GB-os B sorozatú kiméretek (pl. *B2als_v2*) is használhatók, és az 1 node-os system node pool is működik. Ennél kisebb kiméret esetén a létrehozás `SystemPoolSkuTooLow` hibával meghiúsul. **Éles** környezetben mindig a dokumentált, támogatott konfigurációt vegyük alapul!
+    A kiválasztott kiméretnek az AKS [system node pool-ra vonatkozó minimum feltételeinek](https://learn.microsoft.com/en-us/azure/aks/use-system-pools?tabs=azure-cli#system-and-user-node-pools) is meg kell felelnie - elméletben. A dokumentáció szigorúbb szabályokat ír (min. 4 mag, B sorozat tiltása, min. 2 node), de a 2026. októberi állapot szerint az AKS ARM providere ténylegesen csak azt ellenőrzi, hogy a kiméret legalább 2 magos és legalább 4 GB memóriájú legyen. Így a 2 magos, 4 GB-os B sorozatú kiméretek (pl. *B2als_v2*) is használhatók, és az 1 node-os system node pool is működik. Ennél kisebb kiméret esetén a létrehozás `SystemPoolSkuTooLow` hibával meghiúsul. **Éles** környezetben mindig a dokumentált, támogatott konfigurációt vegyük alapul!
 
 A VM kiméret választás után a *Node Pool* fülre visszatérve az Azure ellenőrzi a legtöbb szabályt. Ha nem látunk hibaüzenetet, akkor jó esélyeink vannak.
 
@@ -238,7 +238,7 @@ A hivatalos útmutató [ötödik része](https://learn.microsoft.com/en-us/azure
 
 ## 2. Feladat
 
-Az _AKS store demo_ teljesebb változatát - hasonlót ahhoz, ami a k8s háziban is szerepelt, telepítsük ugyanebbe az AKS-be, egy külön [kubernetes névtérbe](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/).
+Az _AKS store demo_ teljesebb változatát - hasonlót ahhoz, ami a k8s háziban is szerepelt -, telepítsük ugyanebbe az AKS-be, egy külön [kubernetes névtérbe](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/).
 
 ### 2.1 Névtér létrehozása
 
@@ -325,7 +325,7 @@ A Traefik proxy támogatja a hostname alapú routing-ot is, ezért ismét Traefi
 
 ### 2.5 Gateway API
 
-A korábbi háziban Ingress API-t használtunk, itt most kipróbáljuk az utódját, a Gateway API-t. Ez egy modernebb, szerepkörökre bontott (role-oriented) megközelítést kínál: külön erőforrások definiálják a klaszter belépési pontját (_Gateway_), az útválasztási szabályokat (_HTTPRoute_), és a hálózati házirendeket. A Traefik natívan támogatja a Gateway API-t, így ezt használjuk a hosztnév alapú routinghoz.
+A korábbi háziban Ingress API-t használtunk, itt most kipróbáljuk az utódját, a Gateway API-t. Ez egy modernebb, szerepkörökre bontott (role-oriented) megközelítést kínál: külön erőforrások definiálják a klaszter belépési pontját (_Gateway_), az útválasztási szabályokat (_HTTPRoute_) és a hálózati házirendeket. A Traefik natívan támogatja a Gateway API-t, így ezt használjuk a hosztnév alapú routinghoz.
 
 A Gateway API használatához először telepítenünk kell a [Gateway API CRD-ket](https://gateway-api.sigs.k8s.io/guides/#installing-gateway-api) a klaszterbe, mert azok alapértelmezetten nincsenek telepítve:
 
@@ -345,7 +345,7 @@ A Traefik automatikusan létrehoz egy `traefik` nevű _GatewayClass_ erőforrás
 kubectl get gatewayclass
 ```
 
-A helm chart ezen kívül egy alapértelmezett _Gateway_ erőforrást is létrehoz `traefik-gateway` néven, a Traefik telepítési névterében (`fullstore-neptun`) - a chart `gateway.enabled` alapértelmezett `true` beállítása miatt. Ez a _Gateway_ a Traefik alapértelmezett `web` entrypointjának megfelelő listenert definiál: `web` néven, HTTP protokollal, a 8000-es porton. (A Gateway API-ban a listener portja a Traefik podon belüli entrypoint portjára utal; a `traefik` _LoadBalancer_ szolgáltatás a külső, szabványos 80-as portot képezi le erre a belső portra.) Ellenőrizzük ezt is:
+A helm chart ezen kívül egy alapértelmezett _Gateway_ erőforrást is létrehoz `traefik-gateway` néven, a Traefik telepítési névterében - a chart `gateway.enabled` alapértelmezett `true` beállítása miatt. Ez a _Gateway_ a Traefik alapértelmezett `web` entrypointjának megfelelő listenert definiál: `web` néven, HTTP protokollal, a 8000-es porton. (A Gateway API-ban a listener portja a Traefik podon belüli entrypoint portjára utal; a `traefik` _LoadBalancer_ szolgáltatás a külső, szabványos 80-as portot képezi le erre a belső portra.) Ellenőrizzük ezt is:
 
 ```bash
 kubectl get gateway traefik-gateway -n "fullstore-$neptun" -o yaml
@@ -385,7 +385,7 @@ kubectl get gateway traefik-gateway -n "fullstore-$neptun" -o yaml
 
 3. Adjunk hozzá a YAML fájlhoz egy további _HTTPRoute_ erőforrást a fenti mintájára, ami a *store-admin* szolgáltatás felé irányít (domain prefix: store-admin).
 
-4. Telepítsünk, alkalmazzuk a YAML leírót. Mivel a leíró nem hivatkozik k8s névtérre, ezért azt az `apply` parancsban be tudjuk állítani, így minden erőforrás a megadott névtérbe kerül.
+4. Telepítsünk, azaz alkalmazzuk a YAML leírót. Mivel a leíró nem hivatkozik k8s névtérre, ezért azt az `apply` parancsban be tudjuk állítani, így minden erőforrás a megadott névtérbe kerül.
 
     ```bash
     kubectl apply -f aks-store-all-in-one.yaml -n "fullstore-$neptun"
@@ -407,7 +407,7 @@ kubectl get gateway traefik-gateway -n "fullstore-$neptun" -o yaml
     Készíts az alábbi tesztesetekről képernyőképeket, és commitold be a házi feladat repó gyökerébe:
 
     - Publikus oldal        
-        - A *Proceed to checkout* gombra kattintva egy 1-10 db. közötti véletlen mennyiségű, *neptun kódosra módosított nevű* termékre vonatkozó rendelés beküldésre került (sikeres üzenet). (`f2.1.1.png`)
+        - A *Proceed to checkout* gombra kattintva egy 1-10 db közötti véletlen mennyiségű, *neptun kódosra módosított nevű* termékre vonatkozó rendelés beküldésre került (sikeres üzenet). (`f2.1.1.png`)
     - Admin felület
         - A fenti rendelésen a *Complete Order* gombra kattintva az állapotmódosítás sikeres, a rendelés állapota *Completed*-re változik. (`f2.1.2.png`)        
 
@@ -415,7 +415,7 @@ kubectl get gateway traefik-gateway -n "fullstore-$neptun" -o yaml
     
     Készíts egy másik képernyőképet (`f2.3.png`) és commitold be ezt is a házi feladat repó gyökerébe, ahol a végállapotban látszanak parancssorban az új névtér k8s *deployment* erőforrásai a lemezképek azonosítóival együtt (`kubectl get deployment -n fullstore-neptun -o wide`)
 
-    Készíts egy másik képernyőképet (`f2.4.png`) és commitold be ezt is a házi feladat repó gyökerébe, ahol a Traefik dashboard _HTTP Routers_ listája látható (pl.: http://localhost:8080/dashboard/#/http/routers). 
+    Készíts egy másik képernyőképet (`f2.4.png`) és commitold be ezt is a házi feladat repó gyökerébe, ahol a Traefik dashboard _HTTP Routers_ listája látható (pl. http://localhost:8080/dashboard/#/http/routers). 
 
     Commitold be a végleges *aks-store-all-in-one.yaml*-t is.
 
