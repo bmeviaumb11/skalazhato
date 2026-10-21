@@ -245,7 +245,7 @@ Az _AKS store demo_ teljesebb változatát - hasonlót ahhoz, ami a k8s háziban
 Ez egyszerű:
 
 ```bash
-kubectl create namespace fullstore-neptun
+kubectl create namespace "fullstore-$neptun"
 ```
 
 ### 2.2 Extra lemezképek
@@ -317,7 +317,7 @@ A Traefik proxy támogatja a hostname alapú routing-ot is, ezért ismét Traefi
 
     ```bash
     az acr login --name $ACRNAME --expose-token --output tsv --query accessToken | helm registry login "$ACRNAME.azurecr.io" --username "00000000-0000-0000-0000-000000000000" --password-stdin
-    helm install traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.1 --namespace fullstore-neptun -f traefik-values.yaml
+    helm install traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.1 --namespace "fullstore-$neptun" -f traefik-values.yaml
     ```
 
     !!! warning "kubectl context"
@@ -326,7 +326,7 @@ A Traefik proxy támogatja a hostname alapú routing-ot is, ezért ismét Traefi
 4. Ellenőrizzük, hogy megjelent-e a _traefik_ nevű k8s service, és jegyezzük meg a publikus IP címét (_EXTERNAL-IP_) - a következő alfejezetben a hosztnevek képzéséhez lesz rá szükség.
 
     ```bash
-    kubectl get service traefik -n fullstore-neptun
+    kubectl get service traefik -n "fullstore-$neptun"
     ```
 
 ### 2.5 Gateway API
@@ -353,7 +353,7 @@ providers:
 Frissítsük a Traefik telepítést az új beállításokkal:
 
 ```bash
-helm upgrade traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.1 --namespace fullstore-neptun -f traefik-values.yaml
+helm upgrade traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.1 --namespace "fullstore-$neptun" -f traefik-values.yaml
 ```
 
 A Traefik automatikusan létrehoz egy `traefik` nevű _GatewayClass_ erőforrást, ami a Traefik kontrollerhez tartozó belépési pontokat definiálja. Ellenőrizzük:
@@ -365,7 +365,7 @@ kubectl get gatewayclass
 A helm chart ezen kívül egy alapértelmezett _Gateway_ erőforrást is létrehoz `traefik-gateway` néven, a Traefik telepítési névterében (`fullstore-neptun`) - a chart `gateway.enabled` alapértelmezett `true` beállítása miatt. Ez a _Gateway_ a Traefik alapértelmezett `web` entrypointjának megfelelő listenert definiál: `web` néven, HTTP protokollal, a 8000-es porton. (A Gateway API-ban a listener portja a Traefik podon belüli entrypoint portjára utal; a `traefik` _LoadBalancer_ szolgáltatás a külső, szabványos 80-as portot képezi le erre a belső portra.) Ellenőrizzük ezt is:
 
 ```bash
-kubectl get gateway traefik-gateway -n fullstore-neptun -o yaml
+kubectl get gateway traefik-gateway -n "fullstore-$neptun" -o yaml
 ```
 
 1. Állítsuk az *aks-store-all-in-one.yaml*-ben minden k8s service típusát `ClusterIP`-re. Csak a Traefik szolgáltatás lesz kívülről elérhető (_LoadBalancer_ típus), de az nem ebben a YAML-ben van definiálva, hanem a Traefik helm chart kezeli.
@@ -382,7 +382,7 @@ kubectl get gateway traefik-gateway -n fullstore-neptun -o yaml
       name: store-front-route
     spec:
       parentRefs:
-        # A fenti `kubectl get gateway traefik-gateway -n fullstore-neptun -o yaml`
+        # A fenti `kubectl get gateway traefik-gateway`
         # parancs kimenetében szereplő Gateway neve (metadata.name)
         - name: traefik-gateway
           # A Gateway `web` nevű listenerére hivatkozik (listeners[].name),
@@ -405,13 +405,13 @@ kubectl get gateway traefik-gateway -n fullstore-neptun -o yaml
 4. Telepítsünk, alkalmazzuk a YAML leírót. Mivel a leíró nem hivatkozik k8s névtérre, ezért azt az `apply` parancsban be tudjuk állítani, így minden erőforrás a megadott névtérbe kerül.
 
     ```bash
-    kubectl apply -f aks-store-all-in-one.yaml -n fullstore-neptun
+    kubectl apply -f aks-store-all-in-one.yaml -n "fullstore-$neptun"
     ```
 
 5. Ellenőrizzük az Azure portálon vagy `kubectl` parancsokkal, hogy minden k8s objektum rendben elindult-e. Ellenőrizzük a Gateway API objektumokat is:
 
     ```bash
-    kubectl get gateway,httproute -n fullstore-neptun
+    kubectl get gateway,httproute -n "fullstore-$neptun"
     ```
 
     Ellenőrizzük, hogy a weboldalak a tervezett hosztneveken elérhetőek-e (például `http://store-front-20-30-40-50.nip.io` és `http://store-admin-20-30-40-50.nip.io`, a saját publikus IP címmel).
@@ -434,7 +434,7 @@ kubectl get gateway traefik-gateway -n fullstore-neptun -o yaml
 
     Készíts egy másik képernyőképet (`f2.4.png`) és commitold be ezt is a házi feladat repó gyökerébe, ahol a Traefik dashboard _HTTP Routers_ listája látható (pl.: http://localhost:8080/dashboard/#/http/routers). 
 
-    Commitold be a végleges aks-store-all-in-one.yaml-t is.
+    Commitold be a végleges *aks-store-all-in-one.yaml*-t is.
 
 ## 3. Feladat - talán a legfontosabb
 
