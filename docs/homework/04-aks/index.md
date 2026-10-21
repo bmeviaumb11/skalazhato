@@ -300,7 +300,7 @@ A Traefik proxy támogatja a hostname alapú routing-ot is, ezért ismét Traefi
 1. Importáljuk a Traefik-et az ACR-be
 
     ```bash
-    az acr import --name $ACRNAME --source ghcr.io/traefik/helm/traefik:42.1.1 --image helm/traefik:42.1.1
+    az acr import --name $ACRNAME --source ghcr.io/traefik/helm/traefik:42.1.2 --image helm/traefik:42.1.2
     ```
 
 2. A [telepítési beállításokat](https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md) most közvetlenül a parancssorban, `--set` kapcsolókkal adjuk meg, külön values fájl nélkül. Egyetlen beállítást módosítunk: engedélyezzük a Traefik dashboard-ot (`ingressRoute.dashboard.enabled=true`).
@@ -311,7 +311,7 @@ A Traefik proxy támogatja a hostname alapú routing-ot is, ezért ismét Traefi
 
     ```bash
     az acr login --name $ACRNAME --expose-token --output tsv --query accessToken | helm registry login "$ACRNAME.azurecr.io" --username "00000000-0000-0000-0000-000000000000" --password-stdin
-    helm install traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.1 --namespace "fullstore-$neptun" --set ingressRoute.dashboard.enabled=true
+    helm install traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.2 --namespace "fullstore-$neptun" --set ingressRoute.dashboard.enabled=true
     ```
 
     !!! warning "kubectl context"
@@ -336,7 +336,7 @@ A korábbi háziban Ingress API-t használtunk, itt most kipróbáljuk az utódj
 2. Ezután engedélyezzük a Traefik számára a Gateway API erőforrások figyelését (`providers.kubernetesGateway.enabled=true`). Frissítsük a Traefik telepítést az új beállítással:
 
     ```bash
-    helm upgrade traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.1 --namespace "fullstore-$neptun" --set ingressRoute.dashboard.enabled=true --set providers.kubernetesGateway.enabled=true
+    helm upgrade traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.2 --namespace "fullstore-$neptun" --set ingressRoute.dashboard.enabled=true --set providers.kubernetesGateway.enabled=true
     ```
 
     A Traefik automatikusan létrehoz egy `traefik` nevű _GatewayClass_ erőforrást, ami a Traefik kontrollerhez tartozó belépési pontokat definiálja. Ellenőrizzük:
