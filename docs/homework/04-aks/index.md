@@ -129,9 +129,9 @@ A hivatalos útmutató [második része](https://learn.microsoft.com/en-us/azure
 1. Tag-eljük meg az alábbi három *aks-store-demo* lemezképet. Az $ACRNAME helyére helyettesítsük be az ACR-ünk nevét (*acr+neptun kód*).
 
     ```bash
-    docker tag aks-store-demo-product-service $ACRNAME.azurecr.io/aks-store-demo/product-service:2.2.0
-    docker tag aks-store-demo-store-front $ACRNAME.azurecr.io/aks-store-demo/store-front:2.2.0
-    docker tag aks-store-demo-order-service $ACRNAME.azurecr.io/aks-store-demo/order-service:2.2.0
+    docker tag aks-store-demo-product-service "$ACRNAME.azurecr.io/aks-store-demo/product-service:2.2.0"
+    docker tag aks-store-demo-store-front "$ACRNAME.azurecr.io/aks-store-demo/store-front:2.2.0"
+    docker tag aks-store-demo-order-service "$ACRNAME.azurecr.io/aks-store-demo/order-service:2.2.0"
     ```
 
     !!! warning "Lemezkép verziók"
@@ -140,9 +140,9 @@ A hivatalos útmutató [második része](https://learn.microsoft.com/en-us/azure
 2. Töltsük fel a képeket.
 
     ```bash
-    docker push $ACRNAME.azurecr.io/aks-store-demo/store-front:2.2.0
-    docker push $ACRNAME.azurecr.io/aks-store-demo/order-service:2.2.0
-    docker push $ACRNAME.azurecr.io/aks-store-demo/product-service:2.2.0
+    docker push "$ACRNAME.azurecr.io/aks-store-demo/store-front:2.2.0"
+    docker push "$ACRNAME.azurecr.io/aks-store-demo/order-service:2.2.0"
+    docker push "$ACRNAME.azurecr.io/aks-store-demo/product-service:2.2.0"
     ```
    
     !!! tip "ACR által használt tárhely"
@@ -263,11 +263,14 @@ Ezeket is megépíti, de még nincsenek feltöltve. Taggeljük megfelelő ACR n�
 - makeline-service
 - store-admin
 
-A külső lemezképek közül még ezekre épít a k8s leíró - importáljuk az eddig nem importáltakat ACR-be:
+A külső lemezképek közül még ezekre épít a k8s leíró - importáljuk az eddig nem importálta(ka)t ACR-be:
 
 - busybox - ez már megvan korábbról
 - rabbitmq - ez is már megvan korábbról
 - documentdb-local - a GHCR-ből (ghcr.io/documentdb/documentdb/documentdb-local:pg17-0.112.0)
+
+!!! warning "GHCR hitelesítés"
+    Importnál ne használjuk a *Docker Hub* felhasználónevet és jelszót, ha az importálandó nem egy Docker Hub-os image, hanem pl. GitHub-os (ghcr.io). Próbáljuk felhasználónév és jelszó nélkül importálni. Végszükség esetén (rate limiting hiba) **GitHub** felhasználónevet és tokent lehet használni.
 
 ### 2.3 Lemezképek hivatkozása
 
@@ -313,8 +316,8 @@ A Traefik proxy támogatja a hostname alapú routing-ot is, ezért ismét Traefi
 3. Telepítsük a Traefik-et ACR-ből. Ehhez előbb a helm-nek azonosítania kell magát az ACR felé. Ez szerencsére nem gond, ha van [Azure CLI-nk](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-helm-repos#authenticate-with-the-registry).
 
     ```bash
-    az acr login --name $ACRNAME --expose-token --output tsv --query accessToken | helm registry login $ACRNAME.azurecr.io --username "00000000-0000-0000-0000-000000000000" --password-stdin
-    helm install traefik oci://$ACRNAME.azurecr.io/helm/traefik --version 42.1.1 --namespace fullstore-neptun -f traefik-values.yaml
+    az acr login --name $ACRNAME --expose-token --output tsv --query accessToken | helm registry login "$ACRNAME.azurecr.io" --username "00000000-0000-0000-0000-000000000000" --password-stdin
+    helm install traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.1 --namespace fullstore-neptun -f traefik-values.yaml
     ```
 
     !!! warning "kubectl context"
@@ -326,51 +329,96 @@ A Traefik proxy támogatja a hostname alapú routing-ot is, ezért ismét Traefi
     kubectl get service traefik -n fullstore-neptun
     ```
 
-### 2.5 Ingress
+### 2.5 Gateway API
 
-A k8s _Ingress_ API a hosztnév alapú routing-ot natívan támogatja: az egyes szabályokban a `host` mezőben megadott hosztnevek alapján történik az irányítás. Mivel mindkét webalkalmazás a szabványos HTTP (80-as) porton érhető el, a Traefik alapértelmezett `web` [entrypoint](https://doc.traefik.io/traefik/reference/install-configuration/entrypoints/)ja is elég, így az _Ingress_ objektumokra nem kell külön Traefik annotációkat rakni.
+A korábbi háziban Ingress API-t használtunk, itt most kipróbáljuk az utódját, a Gateway API-t. Ez egy modernebb, szerepkörökre bontott (role-oriented) megközelítést kínál: külön erőforrások definiálják a klaszter belépési pontját (_Gateway_), az útválasztási szabályokat (_HTTPRoute_), és a hálózati házirendeket. A Traefik natívan támogatja a Gateway API-t, így ezt használjuk a hosztnév alapú routinghoz.
 
-!!! info "alternatív routing konfiguráció"
-    Bár ez egyszerű esetben nem egy rossz megoldás, de kissé suta. Szerencsére nem csak k8s _Ingress_ objektumot használhatunk a routing konfigurációjára, hanem például a Traefik saját alternatív [_IngressRoute_](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/crd/http/ingressroute/) típusát, ami sokkal egyértelműbben tárja elénk a Traefik routing lehetőségeit. Másik alternatíva a k8s _Ingress_ utódjának szánt, annál jóval többet tudó k8s [_Gateway_ API](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/gateway-api/).
+A Gateway API használatához először telepítenünk kell a [Gateway API CRD-ket](https://gateway-api.sigs.k8s.io/guides/#installing-gateway-api) a klaszterbe, mert azok alapértelmezetten nincsenek telepítve:
+
+```bash
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.3/standard-install.yaml
+```
+
+Ezután engedélyezzük a Traefik számára a Gateway API erőforrások figyelését. Adjuk hozzá a `traefik-values.yaml` fájlhoz:
+
+```yaml
+ingressRoute:
+  dashboard:
+    enabled: true
+providers:
+  kubernetesGateway:
+    enabled: true
+```
+
+Frissítsük a Traefik telepítést az új beállításokkal:
+
+```bash
+helm upgrade traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.1 --namespace fullstore-neptun -f traefik-values.yaml
+```
+
+A Traefik automatikusan létrehoz egy `traefik` nevű _GatewayClass_ erőforrást, ami a Traefik kontrollerhez tartozó belépési pontokat definiálja. Ellenőrizzük:
+
+```bash
+kubectl get gatewayclass
+```
+
+A helm chart ezen kívül egy alapértelmezett _Gateway_ erőforrást is létrehoz `traefik-gateway` néven, a Traefik telepítési névterében (`fullstore-neptun`) - a chart `gateway.enabled` alapértelmezett `true` beállítása miatt. Ez a _Gateway_ a Traefik alapértelmezett `web` entrypointjának megfelelő listenert definiál: `web` néven, HTTP protokollal, a 8000-es porton. (A Gateway API-ban a listener portja a Traefik podon belüli entrypoint portjára utal; a `traefik` _LoadBalancer_ szolgáltatás a külső, szabványos 80-as portot képezi le erre a belső portra.) Ellenőrizzük ezt is:
+
+```bash
+kubectl get gateway traefik-gateway -n fullstore-neptun -o yaml
+```
 
 1. Állítsuk az *aks-store-all-in-one.yaml*-ben minden k8s service típusát `ClusterIP`-re. Csak a Traefik szolgáltatás lesz kívülről elérhető (_LoadBalancer_ típus), de az nem ebben a YAML-ben van definiálva, hanem a Traefik helm chart kezeli.
 
-2. Adjunk 1-1 k8s _Ingress_ leírót a YAML fájlhoz a `store-front` és `store-admin` service-ekhez kapcsolva. A szabályokban hosztneveket adunk meg, mégpedig a 2.4-es lépésben megismert zero config DNS szolgáltatás (nip.io / sslip.io) alapján: a Traefik publikus IP címéből képezett hosztneveket használunk. Például ha a publikus IP cím `20.30.40.50`, akkor a két alkalmazáshoz tartozó hosztnevek `store-front-20-30-40-50.nip.io` és `store-admin-20-30-40-50.nip.io` (a pontozott, `store-front.20.30.40.50.nip.io` alak is működik). Példaként itt a `store-admin` _Service_ felé route-oló _Ingress_:
+2. Adjunk hozzá a YAML fájlhoz egy _HTTPRoute_ erőforrást.
+
+    Az alábbi _HTTPRoute_ a hosztnév alapján irányítja a kérést a *store-front* szolgáltatáshoz, a `parentRefs` mezőben a fenti, Traefik által létrehozott `traefik-gateway` _Gateway_-re hivatkozva (a `sectionName` mező a _Gateway_ `web` nevű listenerét választja ki). A hosztneveket a 2.4-es lépésben megismert zero config DNS szolgáltatás (nip.io / sslip.io) alapján képezzük: a Traefik publikus IP címéből. Például ha a publikus IP cím `20.30.40.50`, akkor a két alkalmazáshoz tartozó hosztnevek `store-front-20-30-40-50.nip.io` és `store-admin-20-30-40-50.nip.io`.
 
     ```yaml
-    # Ingress to expose store-admin via Traefik based on hostname (zero config DNS: nip.io / sslip.io)
-    apiVersion: networking.k8s.io/v1
-    kind: Ingress
+    # HTTPRoute a store-front alkalmazáshoz
+    apiVersion: gateway.networking.k8s.io/v1
+    kind: HTTPRoute
     metadata:
-      name: store-admin-ingress
+      name: store-front-route
     spec:
+      parentRefs:
+        # A fenti `kubectl get gateway traefik-gateway -n fullstore-neptun -o yaml`
+        # parancs kimenetében szereplő Gateway neve (metadata.name)
+        - name: traefik-gateway
+          # A Gateway `web` nevű listenerére hivatkozik (listeners[].name),
+          # amely HTTP protokollt használ a 8000-es porton
+          sectionName: web
+      hostnames:
+        # Módosítsd! A Traefik publikus IP címe alapján képzett hosztnév (nip.io zero-config DNS)
+        - "store-front-20-30-40-50.nip.io"
       rules:
-        - host: store-admin-20-30-40-50.nip.io
-          http:
-            paths:
-              - path: /
-                pathType: Prefix
-                backend:
-                  service:
-                    name: store-admin
-                    port:
-                      number: 80
+        - backendRefs:
+            - name: store-front
+              port: 80
     ```
 
-    A másik _Ingress_ esetében a `store-front-20-30-40-50.nip.io` hosztnevet és a store-front _Service_-t kössük össze. Mindkettő a Traefik alapértelmezett `web` nevű [entrypointját](https://doc.traefik.io/traefik/reference/install-configuration/entrypoints/) használja, külön annotáció nélkül.
+    !!! info "Miért nincs _Gateway_ a saját YAML fájlunkban?"
+        A `traefik-gateway` _Gateway_-t a Traefik helm chart hozza létre, ezért azt nem kell a saját YAML fájlunkban definiálnunk. Ha mégis ugyanezzel a névvel definiálnánk, akkor a `kubectl apply` figyelmeztetést írna ki (`resource gateways/traefik-gateway is missing the kubectl.kubernetes.io/last-applied-configuration annotation`), mert a helm által létrehozott erőforrás nem `kubectl apply` által jött létre; ráadásul a helm és a `kubectl apply` ezután egymással ütközne az erőforrás kezelésében.
 
-3. Telepítsünk, alkalmazzuk a YAML leírót. Mivel a leíró nem hivatkozik k8s névtérre, ezért azt az `apply` parancsban be tudjuk állítani, így minden erőforrás a megadott névtérbe kerül.
+3. Adjunk hozzá a YAML fájlhoz egy további _HTTPRoute_ erőforrást a fenti mintájára, ami a *store-admin* szolgáltatás felé irányít (domain prefix: store-admin).
+
+4. Telepítsünk, alkalmazzuk a YAML leírót. Mivel a leíró nem hivatkozik k8s névtérre, ezért azt az `apply` parancsban be tudjuk állítani, így minden erőforrás a megadott névtérbe kerül.
 
     ```bash
     kubectl apply -f aks-store-all-in-one.yaml -n fullstore-neptun
     ```
 
-4. Ellenőrizzük az Azure portálon vagy `kubectl` parancsokkal, hogy minden k8s objektum rendben elindult-e. Ellenőrizzük, hogy a weboldalak a tervezett hosztneveken elérhetőek-e (például `http://store-front-20-30-40-50.nip.io` és `http://store-admin-20-30-40-50.nip.io`, a saját publikus IP címmel).
+5. Ellenőrizzük az Azure portálon vagy `kubectl` parancsokkal, hogy minden k8s objektum rendben elindult-e. Ellenőrizzük a Gateway API objektumokat is:
 
-5. Teszteld le az alkalmazást, vidd végig a k8s házi 3. feladatának beadandójához is szükséges tesztlépéseket (termék átnevezés, rendelés feladás, rendelés teljesítés).
+    ```bash
+    kubectl get gateway,httproute -n fullstore-neptun
+    ```
 
-6. A k8s háziban megismert _port forward_ módszerrel tedd elérhetővé localhost-on a Traefik dashboard-ot.
+    Ellenőrizzük, hogy a weboldalak a tervezett hosztneveken elérhetőek-e (például `http://store-front-20-30-40-50.nip.io` és `http://store-admin-20-30-40-50.nip.io`, a saját publikus IP címmel).
 
+6. Teszteld le az alkalmazást, vidd végig a k8s házi 3. feladatának beadandójához is szükséges tesztlépéseket (termék átnevezés, rendelés feladás, rendelés teljesítés).
+
+7. A k8s háziban megismert _port forward_ módszerrel tedd elérhetővé localhost-on a Traefik dashboard-ot.
 
 !!! example "BEADANDÓ"
     Készíts az alábbi tesztesetekről képernyőképeket, és commitold be a házi feladat repó gyökerébe:
