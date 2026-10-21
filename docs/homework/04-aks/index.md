@@ -135,7 +135,7 @@ A hivatalos útmutató [második része](https://learn.microsoft.com/en-us/azure
     ```
 
     !!! warning "Lemezkép verziók"
-        Ellenőrizd, hogy a lemezkép verziója megegyezik-e a k8s yaml leírókban (aks-store-quickstart.yaml, aks-store-all-in-one.yaml) elvárt verziószámokkal. Ha nem, módosítsd a fenti parancsokban a verzió tag-eket.
+        Ellenőrizd, hogy a lemezkép verziója megegyezik-e a K8s yaml leírókban (aks-store-quickstart.yaml, aks-store-all-in-one.yaml) elvárt verziószámokkal. Ha nem, módosítsd a fenti parancsokban a verzió tag-eket.
 
 2. Töltsük fel a képeket.
 
@@ -219,26 +219,26 @@ Az útmutató negyedik része az AKS-specifikus tárhely konfigurációval fogla
 
 ### Mintaalkalmazás telepítése
 
-A hivatalos útmutató [ötödik része](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-application?tabs=azure-cli) alapján telepítsük a mintaalkalmazást. Az ACR login szerver és a k8s service külső IP címe is megszerezhető az Azure portálról. Az útmutató rész végére érve **ne** töröljük a telepítést.
+A hivatalos útmutató [ötödik része](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-application?tabs=azure-cli) alapján telepítsük a mintaalkalmazást. Az ACR login szerver és a K8s service külső IP címe is megszerezhető az Azure portálról. Az útmutató rész végére érve **ne** töröljük a telepítést.
 
 !!! warning "Lemezkép verziók"
-    A k8s leíróban elvileg csak a lemezkép nevének elejét kell átírni, hogy tartalmazza az ACR-ünk nevét, a verzió tagnek meg kell egyeznie az ACR-be feltöltött lemezkép verziójával. Ha a korábbi feladatban leírtak szerint ezt már közös nevezőre hoztad, akkor itt már nem kell a verziókat átírni.
+    A K8s leíróban elvileg csak a lemezkép nevének elejét kell átírni, hogy tartalmazza az ACR-ünk nevét, a verzió tagnek meg kell egyeznie az ACR-be feltöltött lemezkép verziójával. Ha a korábbi feladatban leírtak szerint ezt már közös nevezőre hoztad, akkor itt már nem kell a verziókat átírni.
 
 !!! warning "K8s erőforráskorlátok"
-    A mintaalkalmazás korábbi verziójában némely konténer [erőforráslimitje](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) nagyon alacsony volt (pl. 10 MB memória), amit igen könnyű volt átlépni és ilyenkor az ütemező folyamatosan ki-kilőtte a podot (hibaüzenet valami hasonló volt: *container init was OOM-killed (memory limit too low?)*), a ráépülő szolgáltatás nem tudott rendben működni. Az aktuális verzióban ezt már [javították](https://github.com/Azure-Samples/aks-store-demo/commit/afe11f4ca94a154f43c3b72187b8684c048e608b#diff-46a7464f533643281cbe9a01070701f8acfc30f993f74ece069958ef3e3c4767R191) a *product-service* konténer esetében. Ha hasonló hibajelenséget észleltek, akár a helyi k8s-ben, akár AKS-ben, nyugodtan állítsátok a hibát jelző konténer limitjét a YAML-ben.
+    A mintaalkalmazás korábbi verziójában némely konténer [erőforráslimitje](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) nagyon alacsony volt (pl. 10 MB memória), amit igen könnyű volt átlépni és ilyenkor az ütemező folyamatosan ki-kilőtte a podot (hibaüzenet valami hasonló volt: *container init was OOM-killed (memory limit too low?)*), a ráépülő szolgáltatás nem tudott rendben működni. Az aktuális verzióban ezt már [javították](https://github.com/Azure-Samples/aks-store-demo/commit/afe11f4ca94a154f43c3b72187b8684c048e608b#diff-46a7464f533643281cbe9a01070701f8acfc30f993f74ece069958ef3e3c4767R191) a *product-service* konténer esetében. Ha hasonló hibajelenséget észleltek, akár a helyi K8s-ben, akár AKS-ben, nyugodtan állítsátok a hibát jelző konténer limitjét a YAML-ben.
 
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet (`f1.png`) és commitold azt be a házi feladat repó gyökerébe, amin látszik:
 
     - a futó alkalmazás böngészőben, böngésző címsorban az alkalmazás (IP) címével
-    - parancssorban a kapcsolódó k8s *service* adatai (`kubectl get service store-front`)
-    - parancssorban az alkalmazás k8s *deployment* erőforrásai a lemezképek azonosítóival együtt (`kubectl get deployment -o wide`).
+    - parancssorban a kapcsolódó K8s *service* adatai (`kubectl get service store-front`)
+    - parancssorban az alkalmazás K8s *deployment* erőforrásai a lemezképek azonosítóival együtt (`kubectl get deployment -o wide`).
 
     Commitold be a végleges aks-store-quickstart.yaml-t is.
 
 ## 2. Feladat
 
-Az _AKS store demo_ teljesebb változatát - hasonlót ahhoz, ami a k8s háziban is szerepelt -, telepítsük ugyanebbe az AKS-be, egy külön [kubernetes névtérbe](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/).
+Az _AKS store demo_ teljesebb változatát - hasonlót ahhoz, ami a K8s háziban is szerepelt -, telepítsük ugyanebbe az AKS-be, egy külön [kubernetes névtérbe](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/).
 
 ### 2.1 Névtér létrehozása
 
@@ -263,7 +263,7 @@ Ezeket is megépíti, de még nincsenek feltöltve. Taggeljük megfelelő ACR n�
 - makeline-service
 - store-admin
 
-A külső lemezképek közül még ezekre épít a k8s leíró - importáljuk az eddig nem importálta(ka)t ACR-be:
+A külső lemezképek közül még ezekre épít a K8s leíró - importáljuk az eddig nem importálta(ka)t ACR-be:
 
 - busybox - ez már megvan korábbról
 - rabbitmq - ez is már megvan korábbról
@@ -274,7 +274,7 @@ A külső lemezképek közül még ezekre épít a k8s leíró - importáljuk az
 
 ### 2.3 Lemezképek hivatkozása
 
-1. Töröljük a `virtual-customer` és `virtual-worker` deployment-eket a k8s leíróból.
+1. Töröljük a `virtual-customer` és `virtual-worker` deployment-eket a K8s leíróból.
 
 2. Nézzük át a megmaradt YAML fájlt, az `image:` sorokat írjuk át, hogy mindenhol a saját ACR-ünkre hivatkozzon - hasonlóan az 1-es feladathoz. Figyeljünk rá, hogy az ACR-en belüli elérési útvonal is megfelelő legyen. Az ACR Azure portálos felületén meg tudjuk nézni az egyes lemezképek teljes nevét (_Artifact reference_ vagy _Docker pull command_), ha kiválasztunk egy lemezkép verziót. A legbiztosabb, ha innen másoljuk ki.
 
@@ -290,7 +290,7 @@ Jobb lenne egy korábban már látott Traefik proxy jellegű megoldás, ahol egy
 - az URL _hostname_ része alapján
 - az URL _port_ része alapján
 
-A k8s háziban egy _path_ alapú megoldást valósítottunk meg, de ehhez előre [fel kellett készíteni](https://vite.dev/guide/build.html#public-base-path) a webalkalmazások kódját (a kiinduló projekt már fel volt készítve). A _hostname_ alapú általában transzparensebb a webalkalmazások szempontjából, egy előre konténerizált webalkalmazást lényegében bármilyen hosztnév alatt elérhetővé tehetünk. Publikus elérés esetén ehhez publikus DNS-be való bejegyzés szükséges. Szerencsére létezik egy úgynevezett _zero config_ DNS szolgáltatás is, a [nip.io / sslip.io](https://nip.io): a nip.io és az sslip.io domain-ek ma már egyazon szolgáltatáshoz tartoznak, felcserélhetők. A szolgáltatás bármely IP címhez konfiguráció nélkül, automatikusan rendel hosztnevet. Például a `20.30.40.50` publikus IP címhez a `store-front.20.30.40.50.nip.io` (vagy az egyenértékű, kötőjeles `store-front-20-30-40-50.nip.io`, vagy ugyanez `.sslip.io` végződéssel) hosztnév tartozik. Így a _hostname_ alapú megoldás lesz a legmegfelelőbb választás: nem kell a webalkalmazások kódját módosítani, és a DNS-sel sem kell foglalkozni. A _port_ alapú megoldás egyetlen publikus IP címen, külön portokon tenné elérhetővé az alkalmazásokat, így spórolna a publikus IP címekkel. Cserébe a felhasználóknak a portszámot is meg kellene adniuk az URL-ben (pl. `http://20.30.40.50:8090`), ami nem túl felhasználóbarát egy megfelelően szép domain névhez képest.
+A K8s háziban egy _path_ alapú megoldást valósítottunk meg, de ehhez előre [fel kellett készíteni](https://vite.dev/guide/build.html#public-base-path) a webalkalmazások kódját (a kiinduló projekt már fel volt készítve). A _hostname_ alapú általában transzparensebb a webalkalmazások szempontjából, egy előre konténerizált webalkalmazást lényegében bármilyen hosztnév alatt elérhetővé tehetünk. Publikus elérés esetén ehhez publikus DNS-be való bejegyzés szükséges. Szerencsére létezik egy úgynevezett _zero config_ DNS szolgáltatás is, a [nip.io / sslip.io](https://nip.io): a nip.io és az sslip.io domain-ek ma már egyazon szolgáltatáshoz tartoznak, felcserélhetők. A szolgáltatás bármely IP címhez konfiguráció nélkül, automatikusan rendel hosztnevet. Például a `20.30.40.50` publikus IP címhez a `store-front.20.30.40.50.nip.io` (vagy az egyenértékű, kötőjeles `store-front-20-30-40-50.nip.io`, vagy ugyanez `.sslip.io` végződéssel) hosztnév tartozik. Így a _hostname_ alapú megoldás lesz a legmegfelelőbb választás: nem kell a webalkalmazások kódját módosítani, és a DNS-sel sem kell foglalkozni. A _port_ alapú megoldás egyetlen publikus IP címen, külön portokon tenné elérhetővé az alkalmazásokat, így spórolna a publikus IP címekkel. Cserébe a felhasználóknak a portszámot is meg kellene adniuk az URL-ben (pl. `http://20.30.40.50:8090`), ami nem túl felhasználóbarát egy megfelelően szép domain névhez képest.
 
 !!! warning "Zero config DNS éles környezetben"
     A nip.io / sslip.io egy ingyenes szolgáltatás, amelyhez nem tartozik rendelkezésre állási garancia (SLA), és amelynek elérhetősége vagy feltételei bármikor változhatnak. Ráadásul a hosztnevek magukba foglalják a publikus IP címet, így annak változásakor (pl. a load balancer újralétrehozása után) a hosztnevek is megváltoznak. Éles (production) környezetben ezért **ne használjunk zero config DNS-t** - ott saját domain és saját DNS zóna (vagy egy megbízható DNS szolgáltató) szükséges.
@@ -317,7 +317,7 @@ A Traefik proxy támogatja a hostname alapú routing-ot is, ezért ismét Traefi
     !!! warning "kubectl context"
         A helm a telepítési célként a kubectl aktív kontextjét használja. Ügyeljünk arra, hogy az AKS-ünk legyen az aktív kontext.
 
-4. Ellenőrizzük, hogy megjelent-e a _traefik_ nevű k8s service, és kérdezzük le a publikus IP címét az előző feladatban megismert módszerrel. Jegyezzük fel a címet, a következő alfejezetben a hosztnevek képzéséhez lesz rá szükség.
+4. Ellenőrizzük, hogy megjelent-e a _traefik_ nevű K8s service, és kérdezzük le a publikus IP címét az előző feladatban megismert módszerrel. Jegyezzük fel a címet, a következő alfejezetben a hosztnevek képzéséhez lesz rá szükség.
 
 ### 2.5 Gateway API
 
@@ -347,7 +347,7 @@ A korábbi háziban Ingress API-t használtunk, itt most kipróbáljuk az utódj
     kubectl get gateway traefik-gateway -n "fullstore-$neptun" -o yaml
     ```
 
-3. Állítsuk az *aks-store-all-in-one.yaml*-ben minden k8s service típusát `ClusterIP`-re. Csak a Traefik szolgáltatás lesz kívülről elérhető (_LoadBalancer_ típus), de az nem ebben a YAML-ben van definiálva, hanem a Traefik helm chart kezeli.
+3. Állítsuk az *aks-store-all-in-one.yaml*-ben minden K8s service típusát `ClusterIP`-re. Csak a Traefik szolgáltatás lesz kívülről elérhető (_LoadBalancer_ típus), de az nem ebben a YAML-ben van definiálva, hanem a Traefik helm chart kezeli.
 
 4. Adjunk hozzá a YAML fájlhoz egy _HTTPRoute_ erőforrást.
 
@@ -381,13 +381,13 @@ A korábbi háziban Ingress API-t használtunk, itt most kipróbáljuk az utódj
 
 5. Adjunk hozzá a YAML fájlhoz egy további _HTTPRoute_ erőforrást a fenti mintájára, ami a *store-admin* szolgáltatás felé irányít (domain prefix: store-admin).
 
-6. Telepítsünk, azaz alkalmazzuk a YAML leírót. Mivel a leíró nem hivatkozik k8s névtérre, ezért azt az `apply` parancsban be tudjuk állítani, így minden erőforrás a megadott névtérbe kerül.
+6. Telepítsünk, azaz alkalmazzuk a YAML leírót. Mivel a leíró nem hivatkozik K8s névtérre, ezért azt az `apply` parancsban be tudjuk állítani, így minden erőforrás a megadott névtérbe kerül.
 
     ```bash
     kubectl apply -f aks-store-all-in-one.yaml -n "fullstore-$neptun"
     ```
 
-7. Ellenőrizzük az Azure portálon vagy `kubectl` parancsokkal, hogy minden k8s objektum rendben elindult-e. Ellenőrizzük a Gateway API objektumokat is:
+7. Ellenőrizzük az Azure portálon vagy `kubectl` parancsokkal, hogy minden K8s objektum rendben elindult-e. Ellenőrizzük a Gateway API objektumokat is:
 
     ```bash
     kubectl get gateway,httproute -n "fullstore-$neptun"
@@ -395,9 +395,9 @@ A korábbi háziban Ingress API-t használtunk, itt most kipróbáljuk az utódj
 
     Ellenőrizzük, hogy a weboldalak a tervezett hosztneveken elérhetőek-e (például `http://store-front-20-30-40-50.nip.io` és `http://store-admin-20-30-40-50.nip.io`, a saját publikus IP címmel).
 
-8. Teszteld le az alkalmazást, vidd végig a k8s házi 3. feladatának beadandójához is szükséges tesztlépéseket (termék átnevezés, rendelés feladás, rendelés teljesítés).
+8. Teszteld le az alkalmazást, vidd végig a K8s házi 3. feladatának beadandójához is szükséges tesztlépéseket (termék átnevezés, rendelés feladás, rendelés teljesítés).
 
-9. A k8s háziban megismert _port forward_ módszerrel tedd elérhetővé localhost-on a Traefik dashboard-ot.
+9. A K8s háziban megismert _port forward_ módszerrel tedd elérhetővé localhost-on a Traefik dashboard-ot.
 
 !!! example "BEADANDÓ"
     Készíts az alábbi tesztesetekről képernyőképeket, és commitold be a házi feladat repó gyökerébe:
@@ -409,7 +409,7 @@ A korábbi háziban Ingress API-t használtunk, itt most kipróbáljuk az utódj
 
     Készíts egy másik képernyőképet (`f2.2.png`) és commitold be ezt is a házi feladat repó gyökerébe, ahol az Azure portálon látszik az AKS infrastruktúra erőforráscsoportjának (MC_ kezdetű) áttekintő nézete (*Overview*). Látszódjon a portálra belépett felhasználó azonosítója a jobb felső sarokban.
     
-    Készíts egy másik képernyőképet (`f2.3.png`) és commitold be ezt is a házi feladat repó gyökerébe, ahol a végállapotban látszanak parancssorban az új névtér k8s *deployment* erőforrásai a lemezképek azonosítóival együtt (`kubectl get deployment -n fullstore-neptun -o wide`)
+    Készíts egy másik képernyőképet (`f2.3.png`) és commitold be ezt is a házi feladat repó gyökerébe, ahol a végállapotban látszanak parancssorban az új névtér K8s *deployment* erőforrásai a lemezképek azonosítóival együtt (`kubectl get deployment -n fullstore-neptun -o wide`)
 
     Készíts egy másik képernyőképet (`f2.4.png`) és commitold be ezt is a házi feladat repó gyökerébe, ahol a Traefik dashboard _HTTP Routers_ listája látható (pl. http://localhost:8080/dashboard/#/http/routers). 
 
@@ -420,6 +420,6 @@ A korábbi háziban Ingress API-t használtunk, itt most kipróbáljuk az utódj
 !!! danger "AKS kikapcsolása, takarítása"
     Beadás után, ha nem egyből folytatod a következő házival, akkor [állítsd le az AKS-t](https://learn.microsoft.com/en-us/azure/aks/start-stop-cluster). Azure Portal-on is lehet, az AKS _Overview_ oldalán is ott a **Stop** gomb.
 
-    A következő házihoz elég a `default` névtérbe telepített alkalmazás (1. feladat). Az ezt követően telepített k8s objektumok (`fullstore-neptun` névtér) törölhetőek.
+    A következő házihoz elég a `default` névtérbe telepített alkalmazás (1. feladat). Az ezt követően telepített K8s objektumok (`fullstore-neptun` névtér) törölhetőek.
     
     Ha egyáltalán nem adod be a következő házit, akkor törölj minden erőforráscsoportot.
