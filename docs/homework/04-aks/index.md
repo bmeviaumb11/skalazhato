@@ -303,13 +303,7 @@ A Traefik proxy támogatja a hostname alapú routing-ot is, ezért ismét Traefi
     az acr import --name $ACRNAME --source ghcr.io/traefik/helm/traefik:42.1.1 --image helm/traefik:42.1.1
     ```
 
-2. A [telepítési beállításokat](https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md) most egy fájlból adjuk meg. Készíts egy új fájlt az AKS store demo repo mappájába traefik-values.yaml néven, az alábbi tartalommal:
-
-    ```yaml
-    ingressRoute:
-      dashboard:
-        enabled: true
-    ```
+2. A [telepítési beállításokat](https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md) most közvetlenül a parancssorban, `--set` kapcsolókkal adjuk meg, külön values fájl nélkül. Egyetlen beállítást módosítunk: engedélyezzük a Traefik dashboard-ot (`ingressRoute.dashboard.enabled=true`).
 
     Itt csak a Traefik dashboard-ot tesszük elérhetővé - [legalábbis kubectl port-forward-on keresztüli elérésre](https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md#access-traefik-dashboard-without-exposing-it). Mivel mindkét webalkalmazás a szabványos 80-as porton, a Traefik alapértelmezett `web` entrypointján keresztül lesz elérhető, külön extra port definiálására nincs szükség.
 
@@ -317,7 +311,7 @@ A Traefik proxy támogatja a hostname alapú routing-ot is, ezért ismét Traefi
 
     ```bash
     az acr login --name $ACRNAME --expose-token --output tsv --query accessToken | helm registry login "$ACRNAME.azurecr.io" --username "00000000-0000-0000-0000-000000000000" --password-stdin
-    helm install traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.1 --namespace "fullstore-$neptun" -f traefik-values.yaml
+    helm install traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.1 --namespace "fullstore-$neptun" --set ingressRoute.dashboard.enabled=true
     ```
 
     !!! warning "kubectl context"
@@ -339,21 +333,10 @@ A Gateway API használatához először telepítenünk kell a [Gateway API CRD-k
 kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.3/standard-install.yaml
 ```
 
-Ezután engedélyezzük a Traefik számára a Gateway API erőforrások figyelését. Adjuk hozzá a `traefik-values.yaml` fájlhoz:
-
-```yaml
-ingressRoute:
-  dashboard:
-    enabled: true
-providers:
-  kubernetesGateway:
-    enabled: true
-```
-
-Frissítsük a Traefik telepítést az új beállításokkal:
+Ezután engedélyezzük a Traefik számára a Gateway API erőforrások figyelését (`providers.kubernetesGateway.enabled=true`). Frissítsük a Traefik telepítést az új beállítással:
 
 ```bash
-helm upgrade traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.1 --namespace "fullstore-$neptun" -f traefik-values.yaml
+helm upgrade traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.1 --namespace "fullstore-$neptun" --set ingressRoute.dashboard.enabled=true --set providers.kubernetesGateway.enabled=true
 ```
 
 A Traefik automatikusan létrehoz egy `traefik` nevű _GatewayClass_ erőforrást, ami a Traefik kontrollerhez tartozó belépési pontokat definiálja. Ellenőrizzük:
