@@ -12,12 +12,12 @@ A labor célja megismerni magát az AKS szolgáltatást és a legfontosabb kapcs
 
 ## Előkövetelmények
 
-A laborleírás cross-platform eszközöket használ. A labor Linuxon (Kubuntu) lett kidolgozva.
+A laborleírás cross-platform eszközöket használ.
 
 - Korábbi laborok infrastruktúrájából: `docker`, `docker compose`, `helm`
     - Windows-on is [linux konténer módban](https://learn.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/set-up-linux-containers#run-your-first-linux-container) 
 - Azure [hallgatói előfizetés](https://azure.microsoft.com/en-us/free/students)
-- [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) v2.61 vagy újabb
+- [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) v2.86 vagy újabb
 - Azure [kubelogin és kubectl](https://azure.github.io/kubelogin/install.html)
     - az `az aks install-cli` felülírhatja a korábban telepített `kubectl` binárist
 - Docker Hub eléréshez Docker Hub fiók és [Personal Access Token](https://docs.docker.com/security/access-tokens/personal-access-tokens/). Elég neki a *Repo Public Read-only* jogosultság (access permission).
@@ -129,17 +129,20 @@ A hivatalos útmutató [második része](https://learn.microsoft.com/en-us/azure
 1. Tag-eljük meg az alábbi három *aks-store-demo* lemezképet. Az $ACRNAME helyére helyettesítsük be az ACR-ünk nevét (*acr+neptun kód*).
 
     ```bash
-    docker tag aks-store-demo-product-service $ACRNAME.azurecr.io/aks-store-demo/product-service
-    docker tag aks-store-demo-store-front $ACRNAME.azurecr.io/aks-store-demo/store-front
-    docker tag aks-store-demo-order-service $ACRNAME.azurecr.io/aks-store-demo/order-service
+    docker tag aks-store-demo-product-service $ACRNAME.azurecr.io/aks-store-demo/product-service:2.2.0
+    docker tag aks-store-demo-store-front $ACRNAME.azurecr.io/aks-store-demo/store-front:2.2.0
+    docker tag aks-store-demo-order-service $ACRNAME.azurecr.io/aks-store-demo/order-service:2.2.0
     ```
+
+    !!! warning "Lemezkép verziók"
+        Ellenőrizd, hogy a lemezkép verziója megegyezik-e az k8s yaml leírókban (aks-store-quickstart.yaml, aks-store-all-in-one.yaml) elvárt verziószámokkal. Ha nem, módosítsd a fenti parancsokban a verzió tag-eket.
 
 2. Töltsük fel a képeket.
 
     ```bash
-    docker push $ACRNAME.azurecr.io/aks-store-demo/store-front
-    docker push $ACRNAME.azurecr.io/aks-store-demo/order-service
-    docker push $ACRNAME.azurecr.io/aks-store-demo/product-service
+    docker push $ACRNAME.azurecr.io/aks-store-demo/store-front:2.2.0
+    docker push $ACRNAME.azurecr.io/aks-store-demo/order-service:2.2.0
+    docker push $ACRNAME.azurecr.io/aks-store-demo/product-service:2.2.0
     ```
    
     !!! tip "ACR által használt tárhely"
@@ -154,7 +157,7 @@ A hivatalos útmutató [második része](https://learn.microsoft.com/en-us/azure
 3. Az ACR képes átemelni külső forrásból lemezképeket, ha hálózatilag eléri és a külső forrás hozzáférésszabályozásán is át tud jutni. A Docker Hub esetében ez nem túl bonyolult, csak egyetlen Azure CLI parancs ([az acr import](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-import-images?tabs=azure-cli#import-container-images-from-docker-hub)). Felhasználónévként a Docker Hub felhasználónevünket adjuk meg, jelszóként pedig a felhasználónkhoz tartozó egyik Personal Access Token-ünket.
 
     ```bash
-    az acr import --name $ACRNAME --source docker.io/library/busybox:latest --image busybox:latest --force --username $DOCKERHUB_USER --password "$DOCKERHUB_TOKEN"
+    az acr import --name $ACRNAME --source docker.io/library/busybox:1.37.0 --image busybox:1.37.0 --force --username $DOCKERHUB_USER --password "$DOCKERHUB_TOKEN"
     ```
 
 4. Másik extra lemezkép a [rabbitmq](https://hub.docker.com/_/rabbitmq) `4.3.2-management-alpine` verziója, ez is a Docker Hub-ról származik. Ezt is importáljuk hasonlóan.
@@ -218,6 +221,9 @@ Az útmutató negyedik része az AKS-specifikus tárhely konfigurációval fogla
 
 A hivatalos útmutató [ötödik része](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-application?tabs=azure-cli) alapján telepítsük a mintaalkalmazást. Az ACR login szerver és a k8s service külső IP címe is megszerezhető az Azure portálról. Az útmutató rész végére érve **ne** töröljük a telepítést.
 
+!!! warning "Lemezkép verziók"
+    A k8s leíróban elvileg csak a lemezkép nevének elejét kell átírni, hogy tartalmazza az ACR-ünk nevét, a verzió tagnek meg kell egyeznie az ACR-be feltöltött lemezkép verziójával. Ha a korábbi feladatban leírtak szerint ezt már közös nevezőre hoztad, akkor itt már nem kell a verziókat átírni.
+
 !!! warning "K8s erőforráskorlátok"
     A mintaalkalmazás korábbi verziójában némely konténer [erőforráslimitje](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) nagyon alacsony volt (pl. 10 MB memória), amit igen könnyű volt átlépni és ilyenkor az ütemező folyamatosan ki-kilőtte a podot (hibaüzenet valami hasonló volt: *container init was OOM-killed (memory limit too low?)*), a ráépülő szolgáltatás nem tudott rendben működni. Az aktuális verzióban ezt már [javították](https://github.com/Azure-Samples/aks-store-demo/commit/afe11f4ca94a154f43c3b72187b8684c048e608b#diff-46a7464f533643281cbe9a01070701f8acfc30f993f74ece069958ef3e3c4767R191) a *product-service* konténer esetében. Ha hasonló hibajelenséget észleltek, akár a helyi k8s-ben, akár AKS-ben, nyugodtan állítsátok a hibát jelző konténer limitjét a YAML-ben.
 
@@ -257,41 +263,10 @@ Ezekre az épített lemezképekre lesz szükségünk, töltsük föl őket ACR-b
 A külső lemezképek közül pedig ezekre - importáljuk az eddig nem importáltakat ACR-be:
 
 - busybox - ez már megvan korábbról
-- rabbitmq 4.3.2-management-alpine - ez is már megvan korábbról
-- mongo 7.0 a Docker Hub-ról (docker.io/library/mongo:7.0)
+- rabbitmq - ez is már megvan korábbról
+- documentdb - a MongoDB utódja (DocumentDB local emulátor), a GHCR-ből (ghcr.io/documentdb/documentdb/documentdb-local)
 
-### 2.3 MongoDB 7.0
-
-Módosítsuk a [aks-store-all-in-one.yaml-t](https://github.com/Azure-Samples/aks-store-demo/blob/main/aks-store-all-in-one.yaml), hogy a 7-es verziós lemezképet használja, adjunk neki kicsivel több erőforrást, illetve a _livenessProbe_-ot is finomítsuk, hogy ha lomhább is az adatbázis, akkor se álljon le a pod. Példa:
-
-```yaml
-containers:
-  - name: mongodb
-    image: mongo:7.0
-    ports:
-      - containerPort: 27017
-        name: mongodb
-    resources:
-      requests:
-        cpu: 100m
-        memory: 512Mi
-      limits:
-        cpu: 500m
-        memory: 2Gi
-    livenessProbe:
-      exec:
-        command:
-          - mongosh
-          - --eval
-          - db.runCommand('ping').ok
-      initialDelaySeconds: 30
-      periodSeconds: 20
-      timeoutSeconds: 10
-      failureThreshold: 6
-      successThreshold: 1
-```
-
-### 2.4 Lemezképek hivatkozása
+### 2.3 Lemezképek hivatkozása
 
 1. Nézzük át a YAML fájlt, az `image:` sorokat írjuk át, hogy mindenhol a saját ACR-ünkre hivatkozzon - hasonlóan az 1-es feladathoz. Figyeljünk rá, hogy az ACR-en belüli elérési útvonal is megfelelő legyen. Az ACR Azure portálos felületén meg tudjuk nézni az egyes lemezképek teljes nevét (_Artifact reference_ vagy _Docker pull command_), ha kiválasztunk egy lemezkép verziót. A legbiztosabb, ha innen másoljuk ki.
 
@@ -299,7 +274,7 @@ containers:
 
 2. Töröljük a `virtual-customer` és `virtual-worker` deployment-eket a leíróból.
 
-### 2.5 Traefik
+### 2.4 Traefik
 
 A YAML leíró _ClusterIP_ és _LoadBalancer_ service típusokat használ, ez utóbbi azt okozza, hogy egy publikus IP címen lesz kívülről is [elérhető](https://learn.microsoft.com/en-us/azure/aks/load-balancer-standard#create-a-load-balancer-service-in-aks) az adott szolgáltatás. Mivel minden szolgáltatás külön IP-t kap, így nagyon gyorsan kifuthatunk a (régiónkénti) [publikus IP cím kvótánkból](https://learn.microsoft.com/en-us/azure/quotas/networking-quota-requests).
 
@@ -350,7 +325,7 @@ A Traefik proxy támogatja a port alapú routing-ot is, ezért ismét Traefik-et
 
 4. Ellenőrizzük, hogy megjelent-e a _traefik_ nevű k8s service és rajta a 8090-es port is.
 
-### 2.6 Ingress
+### 2.5 Ingress
 
 Bár a k8s _Ingress_ API hagyományosan a sztenderd HTTP portokon folyó kommunikációra lett kitalálva, így [nem is foglalkozik port/protokoll konfigurációval](https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress). A Traefik külön annotációkat [definiál](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/ingress/), amiket az _Ingress_ objektumokra rakhatunk, így mégis megadhatjuk, hogy milyen portot használjon. 
 
@@ -418,6 +393,6 @@ Bár a k8s _Ingress_ API hagyományosan a sztenderd HTTP portokon folyó kommuni
 !!! danger "AKS kikapcsolása, takarítása"
     Beadás után, ha nem egyből folytatod a következő házival, akkor [állítsd le az AKS-t](https://learn.microsoft.com/en-us/azure/aks/start-stop-cluster). Azure Portal-on is lehet, az AKS _Overview_ oldalán is ott a **Stop** gomb.
 
-    A következő házihoz elég a `default` névtérbe telepített alkalmazás (1. feladat). Az ezt követően telepített K8S objektumok (`fullstore-neptun` névtér) törölhetőek.
+    A következő házihoz elég a `default` névtérbe telepített alkalmazás (1. feladat). Az ezt követően telepített k8s objektumok (`fullstore-neptun` névtér) törölhetőek.
     
     Ha egyáltalán nem adod be a következő házit, akkor törölj minden erőforráscsoportot.
