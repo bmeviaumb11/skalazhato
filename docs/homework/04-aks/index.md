@@ -252,27 +252,30 @@ kubectl create namespace fullstore-neptun
 
 A teljesebb változatot az [aks-store-all-in-one.yaml](https://github.com/Azure-Samples/aks-store-demo/blob/main/aks-store-all-in-one.yaml) alapján tervezzük telepíteni. Ez hivatkozik pár extra lemezképre, melyek egy részét meg kell építenünk. Erre egyik lehetőség a [nagyobbik Docker Compose file használata](https://github.com/Azure-Samples/aks-store-demo/blob/main/docker-compose.yml), például a `docker compose -f docker-compose.yml build` paranccsal (csak építeni akarunk, nem futtatni).
 
-Ezekre az épített lemezképekre lesz szükségünk, töltsük föl őket ACR-be:
+Ezeket a lemezképeket újraépíti ugyan a `docker compose build`, de már fel vannak töltve ACR-be:
 
 - store-front
 - order-service
 - product-service
+
+Ezeket is megépíti, de még nincsenek feltöltve. Taggeljük megfelelő ACR névvel és verzióval (az aks-store-all-in-one.yaml-nak megfelelően) és töltsük fel ACR-be:
+
 - makeline-service
 - store-admin
 
-A külső lemezképek közül pedig ezekre - importáljuk az eddig nem importáltakat ACR-be:
+A külső lemezképek közül még ezekre épít a k8s leíró - importáljuk az eddig nem importáltakat ACR-be:
 
 - busybox - ez már megvan korábbról
 - rabbitmq - ez is már megvan korábbról
-- documentdb - a MongoDB utódja (DocumentDB local emulátor), a GHCR-ből (ghcr.io/documentdb/documentdb/documentdb-local)
+- documentdb-local - a GHCR-ből (ghcr.io/documentdb/documentdb/documentdb-local:pg17-0.112.0)
 
 ### 2.3 Lemezképek hivatkozása
 
-1. Nézzük át a YAML fájlt, az `image:` sorokat írjuk át, hogy mindenhol a saját ACR-ünkre hivatkozzon - hasonlóan az 1-es feladathoz. Figyeljünk rá, hogy az ACR-en belüli elérési útvonal is megfelelő legyen. Az ACR Azure portálos felületén meg tudjuk nézni az egyes lemezképek teljes nevét (_Artifact reference_ vagy _Docker pull command_), ha kiválasztunk egy lemezkép verziót. A legbiztosabb, ha innen másoljuk ki.
+1. Töröljük a `virtual-customer` és `virtual-worker` deployment-eket a k8s leíróból.
+
+2. Nézzük át a megmaradt YAML fájlt, az `image:` sorokat írjuk át, hogy mindenhol a saját ACR-ünkre hivatkozzon - hasonlóan az 1-es feladathoz. Figyeljünk rá, hogy az ACR-en belüli elérési útvonal is megfelelő legyen. Az ACR Azure portálos felületén meg tudjuk nézni az egyes lemezképek teljes nevét (_Artifact reference_ vagy _Docker pull command_), ha kiválasztunk egy lemezkép verziót. A legbiztosabb, ha innen másoljuk ki.
 
     ![Lemezkép elérési út](images/acr-container-details.png)
-
-2. Töröljük a `virtual-customer` és `virtual-worker` deployment-eket a leíróból.
 
 ### 2.4 Traefik
 
@@ -284,69 +287,66 @@ Jobb lenne egy korábban már látott Traefik proxy jellegű megoldás, ahol egy
 - az URL _hostname_ része alapján
 - az URL _port_ része alapján
 
-A k8s háziban egy _path_ alapú megoldást valósítottunk meg, de ehhez előre [fel kellett készíteni](https://vite.dev/guide/build.html#public-base-path) a webalkalmazások kódját (a kiinduló projekt már fel volt készítve). A _hostname_ alapú általában transzparensebb a webalkalmazások szempontjából, egy előre konténerizált webalkalmazást lényegében bármilyen hosztnév alatt elérhetővé tehetünk. Publikus elérés esetén ehhez publikus DNS-be való bejegyzés szükséges. Bár elérhetők ingyenes publikus DNS-be bejegyző hosztnév szolgáltatások, az extra adminisztráció miatt nem ezt a módszert választjuk. A port alapú megoldás nem annyira szép, mint a domain alapú, de esetünkben ez lesz a legmegfelelőbb: nem kell a webalkalmazások kódját módosítani, és a DNS-sel sem kell foglalkozni.
+A k8s háziban egy _path_ alapú megoldást valósítottunk meg, de ehhez előre [fel kellett készíteni](https://vite.dev/guide/build.html#public-base-path) a webalkalmazások kódját (a kiinduló projekt már fel volt készítve). A _hostname_ alapú általában transzparensebb a webalkalmazások szempontjából, egy előre konténerizált webalkalmazást lényegében bármilyen hosztnév alatt elérhetővé tehetünk. Publikus elérés esetén ehhez publikus DNS-be való bejegyzés szükséges. Szerencsére létezik egy úgynevezett _zero config_ DNS szolgáltatás is, a [nip.io / sslip.io](https://nip.io): a nip.io és az sslip.io domain-ek ma már egyazon szolgáltatáshoz tartoznak, felcserélhetők. A szolgáltatás bármely IP címhez konfiguráció nélkül, automatikusan rendel hosztnevet. Például a `20.30.40.50` publikus IP címhez a `store-front.20.30.40.50.nip.io` (vagy az egyenértékű, kötőjeles `store-front-20-30-40-50.nip.io`, vagy ugyanez `.sslip.io` végződéssel) hosztnév tartozik. Így a _hostname_ alapú megoldás lesz a legmegfelelőbb választás: nem kell a webalkalmazások kódját módosítani, és a DNS-sel sem kell foglalkozni. A _port_ alapú megoldás egyetlen publikus IP címen, külön portokon tenné elérhetővé az alkalmazásokat, így spórolna a publikus IP címekkel. Cserébe a felhasználóknak a portszámot is meg kellene adniuk az URL-ben (pl. `http://20.30.40.50:8090`), ami nem túl felhasználóbarát egy megfelelően szép domain névhez képest.
 
-A Traefik proxy támogatja a port alapú routing-ot is, ezért ismét Traefik-et használunk, csak egy kicsit másként. Telepítsük a Traefik-et is az ACR-ünkből. Cél, hogy a store-front a 80-as, a store-admin a 8090-es porton legyen elérhető, illetve mindkettő ugyanazon az AKS load balancer publikus IP címen.
+!!! warning "Zero config DNS éles környezetben"
+    A nip.io / sslip.io egy ingyenes szolgáltatás, amelyhez nem tartozik rendelkezésre állási garancia (SLA), és amelynek elérhetősége vagy feltételei bármikor változhatnak. Ráadásul a hosztnevek magukba foglalják a publikus IP címet, így annak változásakor (pl. a load balancer újralétrehozása után) a hosztnevek is megváltoznak. Éles (production) környezetben ezért **ne használjunk zero config DNS-t** - ott saját domain és saját DNS zóna (vagy egy megbízható DNS szolgáltató) szükséges.
+
+A Traefik proxy támogatja a hostname alapú routing-ot is, ezért ismét Traefik-et használunk. Telepítsük a Traefik-et is az ACR-ünkből. Cél, hogy a store-front és a store-admin is ugyanazon az AKS load balancer publikus IP címen, a szabványos 80-as (HTTP) porton legyen elérhető, a bejövő kérések hosztneve alapján szétválasztva.
 
 1. Importáljuk a Traefik-et az ACR-be
 
     ```bash
-    az acr import --name $ACRNAME --source ghcr.io/traefik/helm/traefik:37.2.0 --image helm/traefik:37.2.0
+    az acr import --name $ACRNAME --source ghcr.io/traefik/helm/traefik:42.1.1 --image helm/traefik:42.1.1
     ```
 
 2. A [telepítési beállításokat](https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md) most egy fájlból adjuk meg. Készíts egy új fájlt az AKS store demo repo mappájába traefik-values.yaml néven, az alábbi tartalommal:
 
     ```yaml
-    ports:
-      # Additional HTTP entry point on 8090 (for other web apps)
-      web8090:
-        port: 8090
-        expose:
-          default: true
-        exposedPort: 8090
-        protocol: TCP
-
     ingressRoute:
       dashboard:
         enabled: true
     ```
 
-    Ez egyrészt egy új portot definiál, ahol a Traefik-et meg lehet szólítani (a hagyományos 80-as és 443-as port mellett), másrészt elérhetővé tesszük a Traefik dashboard-ot - [legalábbis kubectl port-forward-on keresztüli elérésre](https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md#access-traefik-dashboard-without-exposing-it).
+    Itt csak a Traefik dashboard-ot tesszük elérhetővé - [legalábbis kubectl port-forward-on keresztüli elérésre](https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md#access-traefik-dashboard-without-exposing-it). Mivel mindkét webalkalmazás a szabványos 80-as porton, a Traefik alapértelmezett `web` entrypointján keresztül lesz elérhető, külön extra port definiálására nincs szükség.
 
 3. Telepítsük a Traefik-et ACR-ből. Ehhez előbb a helm-nek azonosítania kell magát az ACR felé. Ez szerencsére nem gond, ha van [Azure CLI-nk](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-helm-repos#authenticate-with-the-registry).
 
     ```bash
     az acr login --name $ACRNAME --expose-token --output tsv --query accessToken | helm registry login $ACRNAME.azurecr.io --username "00000000-0000-0000-0000-000000000000" --password-stdin
-    helm install traefik oci://$ACRNAME.azurecr.io/helm/traefik --version 37.2.0 --namespace fullstore-neptun -f traefik-values.yaml
+    helm install traefik oci://$ACRNAME.azurecr.io/helm/traefik --version 42.1.1 --namespace fullstore-neptun -f traefik-values.yaml
     ```
 
     !!! warning "kubectl context"
         A helm a telepítési célként a kubectl aktív kontextjét használja. Ügyeljünk arra, hogy az AKS-ünk legyen az aktív kontext.
 
-4. Ellenőrizzük, hogy megjelent-e a _traefik_ nevű k8s service és rajta a 8090-es port is.
+4. Ellenőrizzük, hogy megjelent-e a _traefik_ nevű k8s service, és jegyezzük meg a publikus IP címét (_EXTERNAL-IP_) - a következő alfejezetben a hosztnevek képzéséhez lesz rá szükség.
+
+    ```bash
+    kubectl get service traefik -n fullstore-neptun
+    ```
 
 ### 2.5 Ingress
 
-Bár a k8s _Ingress_ API hagyományosan a sztenderd HTTP portokon folyó kommunikációra lett kitalálva, így [nem is foglalkozik port/protokoll konfigurációval](https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress). A Traefik külön annotációkat [definiál](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/ingress/), amiket az _Ingress_ objektumokra rakhatunk, így mégis megadhatjuk, hogy milyen portot használjon. 
+A k8s _Ingress_ API a hosztnév alapú routing-ot natívan támogatja: az egyes szabályokban a `host` mezőben megadott hosztnevek alapján történik az irányítás. Mivel mindkét webalkalmazás a szabványos HTTP (80-as) porton érhető el, a Traefik alapértelmezett `web` [entrypoint](https://doc.traefik.io/traefik/reference/install-configuration/entrypoints/)ja is elég, így az _Ingress_ objektumokra nem kell külön Traefik annotációkat rakni.
 
 !!! info "alternatív routing konfiguráció"
     Bár ez egyszerű esetben nem egy rossz megoldás, de kissé suta. Szerencsére nem csak k8s _Ingress_ objektumot használhatunk a routing konfigurációjára, hanem például a Traefik saját alternatív [_IngressRoute_](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/crd/http/ingressroute/) típusát, ami sokkal egyértelműbben tárja elénk a Traefik routing lehetőségeit. Másik alternatíva a k8s _Ingress_ utódjának szánt, annál jóval többet tudó k8s [_Gateway_ API](https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/gateway-api/).
 
 1. Állítsuk az *aks-store-all-in-one.yaml*-ben minden k8s service típusát `ClusterIP`-re. Csak a Traefik szolgáltatás lesz kívülről elérhető (_LoadBalancer_ típus), de az nem ebben a YAML-ben van definiálva, hanem a Traefik helm chart kezeli.
 
-2. Adjunk 1-1 k8s _Ingress_ leírót a YAML fájlhoz a `store-front` és `store-admin` service-ekhez kapcsolva. Példaként itt a `web8090` portról a `store-admin` _Service_ felé route-oló _Ingress_:
+2. Adjunk 1-1 k8s _Ingress_ leírót a YAML fájlhoz a `store-front` és `store-admin` service-ekhez kapcsolva. A szabályokban hosztneveket adunk meg, mégpedig a 2.4-es lépésben megismert zero config DNS szolgáltatás (nip.io / sslip.io) alapján: a Traefik publikus IP címéből képezett hosztneveket használunk. Például ha a publikus IP cím `20.30.40.50`, akkor a két alkalmazáshoz tartozó hosztnevek `store-front-20-30-40-50.nip.io` és `store-admin-20-30-40-50.nip.io` (a pontozott, `store-front.20.30.40.50.nip.io` alak is működik). Példaként itt a `store-admin` _Service_ felé route-oló _Ingress_:
 
     ```yaml
-    # Ingress to expose store-admin via Traefik entryPoint `web8090` (HTTP 8090)
+    # Ingress to expose store-admin via Traefik based on hostname (zero config DNS: nip.io / sslip.io)
     apiVersion: networking.k8s.io/v1
     kind: Ingress
     metadata:
       name: store-admin-ingress
-      annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: "web8090"
     spec:
       rules:
-        - http:
+        - host: store-admin-20-30-40-50.nip.io
+          http:
             paths:
               - path: /
                 pathType: Prefix
@@ -357,7 +357,7 @@ Bár a k8s _Ingress_ API hagyományosan a sztenderd HTTP portokon folyó kommuni
                       number: 80
     ```
 
-    A másik _Ingress_ esetében a 80-as portot, azaz a `web` nevű [entrypointot](https://doc.traefik.io/traefik/reference/install-configuration/entrypoints/) és a store-front _Service_-t kössük össze.
+    A másik _Ingress_ esetében a `store-front-20-30-40-50.nip.io` hosztnevet és a store-front _Service_-t kössük össze. Mindkettő a Traefik alapértelmezett `web` nevű [entrypointját](https://doc.traefik.io/traefik/reference/install-configuration/entrypoints/) használja, külön annotáció nélkül.
 
 3. Telepítsünk, alkalmazzuk a YAML leírót. Mivel a leíró nem hivatkozik k8s névtérre, ezért azt az `apply` parancsban be tudjuk állítani, így minden erőforrás a megadott névtérbe kerül.
 
@@ -365,7 +365,7 @@ Bár a k8s _Ingress_ API hagyományosan a sztenderd HTTP portokon folyó kommuni
     kubectl apply -f aks-store-all-in-one.yaml -n fullstore-neptun
     ```
 
-4. Ellenőrizzük az Azure portálon vagy `kubectl` parancsokkal, hogy minden k8s objektum rendben elindult-e. Szerezzük be a Traefik _LoadBalancer_ típusú _Service_ publikus IP címét. Ellenőrizzük, hogy a weboldalak a tervezett portokon elérhetőek-e.
+4. Ellenőrizzük az Azure portálon vagy `kubectl` parancsokkal, hogy minden k8s objektum rendben elindult-e. Ellenőrizzük, hogy a weboldalak a tervezett hosztneveken elérhetőek-e (például `http://store-front-20-30-40-50.nip.io` és `http://store-admin-20-30-40-50.nip.io`, a saját publikus IP címmel).
 
 5. Teszteld le az alkalmazást, vidd végig a k8s házi 3. feladatának beadandójához is szükséges tesztlépéseket (termék átnevezés, rendelés feladás, rendelés teljesítés).
 
