@@ -1,39 +1,54 @@
-# Példa nagy házi feladat specifikáció
+# Példa nagyházi-specifikáció
 
-## Követelmény specifikáció
+## Követelményspecifikáció
 
-Egy webáruház rendszert kell megvalósítani, amely lehetővé teszi a vásárlók számára, hogy termékeket rendeljenek, és az üzlet dolgozói számára, hogy kezeljék a rendelések feldolgozását és a termékek kezelését.
+Egy webáruházrendszert kell megvalósítani, amely lehetővé teszi a vásárlók számára, hogy termékeket rendeljenek, és az üzlet dolgozói számára, hogy kezeljék a rendelések feldolgozását és a termékek kezelését.
 
 - A vásárlók böngészhetnek a termékek között
 - A vásárlók termékeket adhatnak a kosarukhoz és leadhatják a rendeléseiket
 - Az üzlet dolgozói megtekinthetik a sorban lévő rendelések listáját
-- Az üzlet dolgozói megtekinthetik a megrendelések részleteit és kezelhetik azok állapotát (Pending, Completed)
+- Az üzlet dolgozói megtekinthetik a rendelések részleteit és kezelhetik azok állapotát (Pending, Processing, Complete)
 - Az üzlet dolgozói CRUD műveleteket végezhetnek a termékeken (létrehozás, megtekintés, módosítás, törlés)
-- A rendszer teszteléséhez virtuális vásárlók és dolgozók szimulálják a rendelés leadását és teljesítését
 
 ## Architektúra és technológiák
 
-A szolgáltatások konténerizált mikroszolgáltatásokként lesznek megvalósítva kubernetes környezetben.
+A rendszer konténerizált mikroszolgáltatásokként lesz megvalósítva, Kubernetes környezetben.
 
-A szolgáltatások vágása elsősorban felhasználói történeteken alapul: ügyfél oldali megrendelési funkciók, adminisztrátori megrendelési funkciók, általános termékekkel kapcsolatos funkciók. A megrendeléseket kezelő szolgáltatások üzenetsoron keresztül kommunikálnak a laza csatolás érdekében.
+A szolgáltatások vágása elsősorban felhasználói történeteken alapul: vásárlói rendelési funkciók, dolgozói rendelési funkciók, általános termékekkel kapcsolatos funkciók. A rendeléseket kezelő szolgáltatások üzenetsoron keresztül kommunikálnak a laza csatolás érdekében.
 
-Az ügyfeleknek és az adminisztrátoroknak külön frontend alkalmazás készül, amelyek API Gateway-en keresztül kommunikálnak a backend szolgáltatásokkal.
+A vásárlóknak és a dolgozóknak külön frontend alkalmazás készül. Mindkettőt egy-egy nginx szolgálja ki, amely reverse proxyként továbbítja az `/api` hívásokat a backend szolgáltatások felé, így a backend szolgáltatások nem publikusak. Az alkalmazás egyetlen publikus belépési pontja egy Traefik alapú API Gateway, amely a Gateway API (_HTTPRoute_) alapján hosztnév szerint route-ol a frontendek felé: mindkét frontend ugyanazon a publikus IP-címen és porton, külön hosztnév alatt érhető el.
 
 A komponensek listája, rövid leírása és technológiái a következők:
 
-| Szolgáltatás        | Technológia | Leírás                                                                                                                         |
-| ------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| store-front         | Vue.js      | Webalkalmazás, amelyen keresztül a vásárlók rendeléseket adhatnak le                                                           |
-| store-admin         | Vue.js      | Webalkalmazás, amelyet az üzlet dolgozói használnak a sorban lévő rendelések megtekintésére és a termékek kezelésére           |
-| product-service     | Rust        | Ez a szolgáltatás a termékek CRUD műveleteit végzi memóriában, perzisztens tár nélkül                                          |
-| order-service       | Javascript  | Ez a szolgáltatás a rendelések leadására szolgál, ami az üzenetsorba küld üzeneteket                                           |
-| makeline-service    | Golang      | Ez a szolgáltatás kezeli a rendelések feldolgozását, perzisztálását üzenetsorból és üzleti műveletekent nyújt a megrendeléshez |
-| megrendelések db    | MongoDB     | NoSQL adatbázis a megrendelések adatainak tárolásához                                                                          |
-| aszinkron üzenetsor | RabbitMQ    | Aszinkron üzenetsor a megrendelések kezelésére                                                                                 |
-| API Gateway         | Traefik     | Az alkalmazás publikus belépési pontjai a frontendek felől                                                                     |
-| virtual-customer    | Rust        | Ütemezetten szimulálja a rendelés létrehozását                                                                                 |
-| virtual-worker      | Rust        | Ütemezetten szimulálja a rendelés teljesítését                                                                                 |
+| Komponens           | Technológia                | Leírás                                                                                                                                              |
+| ------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| store-front         | Vue.js (TypeScript), nginx | Webalkalmazás, amelyen keresztül a vásárlók böngészhetnek a termékek között és rendeléseket adhatnak le                                             |
+| store-admin         | Vue.js (TypeScript), nginx | Webalkalmazás, amelyet az üzlet dolgozói a rendelések megtekintésére és kezelésére, valamint a termékek kezelésére használnak                       |
+| product-service     | Rust (Actix Web)           | Ez a szolgáltatás a termékek CRUD műveleteit végzi memóriában, perzisztens tár nélkül                                                               |
+| order-service       | Node.js (Fastify)          | Ez a szolgáltatás fogadja a leadott rendeléseket, és üzenetként az üzenetsorba küldi őket                                                           |
+| makeline-service    | Go                         | Ez a szolgáltatás kezeli a rendelések feldolgozását: kiolvassa őket az üzenetsorból, perzisztálja őket, és üzleti műveleteket nyújt a rendelésekhez |
+| rendelések db       | DocumentDB (MongoDB API)   | MongoDB-kompatibilis NoSQL adatbázis a rendelések adatainak tárolásához                                                                             |
+| aszinkron üzenetsor | RabbitMQ                   | Aszinkron üzenetsor a rendelések továbbítására az order-service és a makeline-service között                                                        |
+| API Gateway         | Traefik (Gateway API)      | Az alkalmazás egyetlen publikus belépési pontja, hosztnév szerinti routing a frontendek felé                                                        |
 
 A komponensek közötti kapcsolatok az alábbi ábrán láthatók:
 
-![architektúra](images/architecture.drawio.png)
+```mermaid
+flowchart LR
+    customer(["<img src='../images/logos/customer.svg' width='40' height='40'/><br/>Vásárló"]) -- "store-front-*.nip.io" --> traefik
+    employee(["<img src='../images/logos/employee.svg' width='40' height='40'/><br/>Dolgozó"]) -- "store-admin-*.nip.io" --> traefik
+    traefik["<img src='../images/logos/traefikproxy.svg' width='40' height='40'/><br/>Traefik"]
+    traefik --> storefront["<img src='../images/logos/vuejs.svg' width='40' height='40'/> <img src='../images/logos/nginx.svg' width='80' height='20'/><br/>store-front"]
+    traefik --> storeadmin["<img src='../images/logos/vuejs.svg' width='40' height='40'/> <img src='../images/logos/nginx.svg' width='80' height='20'/><br/>store-admin"]
+
+    storefront -- HTTP --> order["<img src='../images/logos/nodejs.svg' width='40' height='40'/><br/>order-service"]
+    storefront -- HTTP --> product["<img src='../images/logos/rust.svg' width='40' height='40'/><br/>product-service"]
+    storeadmin -- HTTP --> product
+    storeadmin -- HTTP --> makeline["<img src='../images/logos/go.svg' width='40' height='40'/><br/>makeline-service"]
+
+    order -- AMQP --> rabbitmq[("<img src='../images/logos/rabbitmq.svg' width='40' height='40'/><br/>RabbitMQ")]
+    rabbitmq -- AMQP --> makeline
+    makeline -- MongoDB API --> db[("<img src='../images/logos/mongodb.svg' width='40' height='40'/><br/>DocumentDB")]
+```
+
+<small>Ikonok: [Devicon](https://devicon.dev/) (MIT licenc), [Material Design Icons](https://pictogrammers.com/library/mdi/) (Apache 2.0 licenc)</small>
