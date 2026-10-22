@@ -18,8 +18,8 @@ A laborleírás cross-platform eszközöket használ.
 - Azure [kubelogin és kubectl](https://azure.github.io/kubelogin/install.html)
     - felülírhatja a korábban telepített `kubectl` binárist 
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) v2.61 vagy újabb
-- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet)
-    - opcionálisan .NET 8 alap fejlesztő környezet (Visual Studio, Visual Studio Code, Rider), ha kell kódkiegészítés, pl. IntelliSense
+- [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet)
+    - opcionálisan .NET alap fejlesztő környezet (Visual Studio, Visual Studio Code, Rider), ha kell kódkiegészítés, pl. IntelliSense
 - JRE v8 vagy későbbi  (pl. [Adoptium](https://adoptium.net/)), `java` parancs legyen a PATH-ban
 
 ## Előkészület
@@ -51,7 +51,7 @@ Miután minden szükséges dolog települt, pár percben érdemes felfedezni a p
 
 - [Monitoring (Insights)](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-analyze#single-cluster-view) - előre elkészített összesítő nézetek. Ez felső szintű menüpont, a többi alább felsorolt a *Monitoring* csoportban található.
 - [Metrics](https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/analyze-metrics) - metrikákat figyelhetünk meg grafikonos nézetben
-- [Logs](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-log-query) - saját lekérdezéseket készíthetünk és az eredményeket grafikonon is megjeleníthetjük. Lényegében minden monitorozott adathoz hozzáférünk és lekérdezéseket írhatunk rájuk. A lekérdezések elmenthetők, megoszthatók másokkal, akik hozzáférnek ehhez a felülethez.
+- [Logs](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-log-query) - saját lekérdezéseket készíthetünk és az eredményeket grafikonon is megjeleníthetjük. Lényegében minden monitorozott adathoz hozzáférünk és lekérdezéseket írhatunk rájuk. A lekérdezések elmenthetők, megoszthatók másokkal, akik hozzáférnek ehhez a felülethez. Beépített AI ágens is segít lekérdezést írni.
 - [Workbooks](https://learn.microsoft.com/en-us/azure/azure-monitor/visualize/workbooks-overview) - ha nem elég jók a beépített nézetek, kimutatások (pl. a Logs menüben összeraktunk egy jó saját lekérdezést), akkor saját dashboardokat, kimutatásokat készíthetünk
 
 !!! warning "Monitor vs. AKS menüpontok"
@@ -160,7 +160,7 @@ az ad sp create-for-rbac -n loadtest_automation_neptun
 !!!warning "Service principal neve"
     Bár lehetséges több technikai felhasználó ugyanazon névvel, a könnyebb kereshetőség miatt jobb, ha a nevek egyedibbek.
 
-A válasz JSON-t mindenképp mentsd el, szükség lesz az adatokra belőle. A benne lévő titok utólag már nem kérdezhető le.
+A válasz JSON-t **mindenképp mentsd el**, szükség lesz az adatokra belőle. A benne lévő titok utólag már nem kérdezhető le.
 
 !!!tip "Service principal parancsok"
     Az `az ad sp` [parancsokkal](https://learn.microsoft.com/en-us/cli/azure/ad/sp) a technikai felhasználókhoz kapcsolódó legtöbb gyakori tevékenység elvégezhető. Például az általunk létrehozott technikai felhasználók listázása: `az ad sp list --show-mine`.
@@ -207,7 +207,7 @@ using static Abstracta.JmeterDsl.JmeterDsl;
 public void LoadTest()
 {
     var stats = TestPlan(
-        ThreadGroup(threads: 100, iterations: 100,
+        ThreadGroup(threads: 100, iterations: 100, // az iterations a terhelés időtartamát, a threads az intenzitását növeli
             HttpSampler(url: "http://48.48.48.48") // cseréld le: mintaalkalmazás főoldalának URL-je
         )
     ).RunIn(new AzureEngine(Environment.GetEnvironmentVariable("AZURE_CREDS"))
