@@ -119,6 +119,9 @@ A hivatalos útmutató [második része](https://learn.microsoft.com/en-us/azure
 
 Azure CLI-vel (`az acr login`) [regisztráljuk is az ACR-t a docker környezetünkbe](https://learn.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest#az-acr-login) tárolóként.
 
+!!! warning "Lejáró bejelentkezés"
+    Az `az acr login` által kapott token [csak 3 óráig érvényes](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-authentication#individual-login-with-microsoft-entra-id). Ha később (pl. a 2. feladatban) a `docker push` `unauthorized: authentication required` vagy hasonló hibával meghiúsul, egyszerűen futtassuk le újra az `az acr login` parancsot.
+
 ### Konténerek feltöltése ACR-be
 
 A hivatalos útmutató [második része](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-acr?tabs=azure-cli) az ACR build szolgáltatását használja, amivel könnyen lehetne a fejlesztői gép erőforrásait kímélve a lemezképeket megépíteni. Az építéshez szükséges kontextust (forráskód, YAML) tölti csak fel, a kiinduló lemezkép és az építési folyamat is az ACR-en belül történik. Sajnos ez a szolgáltatás [jelenleg csak fizetős Azure előfizetésekben érhető el](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-tasks-overview), hallgatóiban nem. Szerencsére az első feladatrész során a lemezképek elkészültek, így [azokat feltölthetjük](https://docs.docker.com/get-started/docker-concepts/building-images/build-tag-and-publish-an-image/).
@@ -299,13 +302,14 @@ A K8s háziban egy _path_ alapú megoldást valósítottunk meg, de ehhez előre
 
 A Traefik proxy támogatja a hostname alapú routing-ot is, ezért ismét Traefik-et használunk. Telepítsük a Traefik-et is az ACR-ünkből. Cél, hogy a store-front és a store-admin is ugyanazon az AKS load balancer publikus IP címen, a szabványos 80-as (HTTP) porton legyen elérhető, a bejövő kérések hosztneve alapján szétválasztva.
 
-1. Importáljuk a Traefik-et az ACR-be
+1. Importáljuk a Traefik helm chart-ot és a Traefik lemezképet is az ACR-be. A helm chart csak a telepítési leírókat tartalmazza, a Traefik lemezkép alapértelmezetten a Docker Hub-ról töltődne le. A lemezkép verziója a chart `appVersion` értékét követi (`helm show chart` paranccsal ellenőrizhető), a 42.1.2-es chart esetén ez `v3.7.16`.
 
     ```bash
     az acr import --name $ACRNAME --source ghcr.io/traefik/helm/traefik:42.1.2 --image helm/traefik:42.1.2
+    az acr import --name $ACRNAME --source docker.io/library/traefik:v3.7.16 --image traefik:v3.7.16 --force --username $DOCKERHUB_USER --password "$DOCKERHUB_TOKEN"
     ```
 
-2. A [telepítési beállításokat](https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md) most közvetlenül a parancssorban, `--set` kapcsolókkal adjuk meg, külön values fájl nélkül. Egyetlen beállítást módosítunk: engedélyezzük a Traefik dashboard-ot (`ingressRoute.dashboard.enabled=true`).
+2. A [telepítési beállításokat](https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md) most közvetlenül a parancssorban, `--set` kapcsolókkal adjuk meg, külön values fájl nélkül. Két beállítást módosítunk: engedélyezzük a Traefik dashboard-ot (`ingressRoute.dashboard.enabled=true`), és a Traefik lemezképet az ACR-ünkből töltetjük le (`image.registry=$ACRNAME.azurecr.io`). A lemezkép neve (`traefik`) és verziója (a chart `appVersion` értéke) megegyezik az importálttal, így ezeket nem kell megadnunk.
 
     Itt csak a Traefik dashboard-ot tesszük elérhetővé - [legalábbis kubectl port-forward-on keresztüli elérésre](https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md#access-traefik-dashboard-without-exposing-it). Mivel mindkét webalkalmazás a szabványos 80-as porton, a Traefik alapértelmezett `web` entrypointján keresztül lesz elérhető, külön extra port definiálására nincs szükség.
 
@@ -313,13 +317,13 @@ A Traefik proxy támogatja a hostname alapú routing-ot is, ezért ismét Traefi
 
     ```bash
     az acr login --name $ACRNAME --expose-token --output tsv --query accessToken | helm registry login "$ACRNAME.azurecr.io" --username "00000000-0000-0000-0000-000000000000" --password-stdin
-    helm install traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.2 --namespace "fullstore-$neptun" --set ingressRoute.dashboard.enabled=true
+    helm install traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.2 --namespace "fullstore-$neptun" --set ingressRoute.dashboard.enabled=true --set image.registry="$ACRNAME.azurecr.io"
     ```
 
     !!! warning "kubectl context"
         A helm a telepítési célként a kubectl aktív kontextjét használja. Ügyeljünk arra, hogy az AKS-ünk legyen az aktív kontext.
 
-4. Ellenőrizzük, hogy megjelent-e a _traefik_ nevű K8s service, és kérdezzük le a publikus IP címét az előző feladatban megismert módszerrel. Jegyezzük fel a címet, a következő alfejezetben a hosztnevek képzéséhez lesz rá szükség.
+4. Ellenőrizzük, hogy megjelent-e a _traefik_ nevű K8s service, és kérdezzük le a publikus IP címét az előző feladatban megismert módszerrel. Jegyezzük fel a címet, a következő alfejezetben a hosztnevek képzéséhez lesz rá szükség. Ellenőrizzük azt is, hogy a Traefik már az ACR-ből származó lemezképet használja (`kubectl get deployment traefik -n "fullstore-$neptun" -o wide`).
 
 ### 2.5 Gateway API
 
@@ -334,8 +338,14 @@ A korábbi háziban Ingress API-t használtunk, itt most kipróbáljuk az utódj
 2. Ezután engedélyezzük a Traefik számára a Gateway API erőforrások figyelését (`providers.kubernetesGateway.enabled=true`). Frissítsük a Traefik telepítést az új beállítással:
 
     ```bash
-    helm upgrade traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.2 --namespace "fullstore-$neptun" --set ingressRoute.dashboard.enabled=true --set providers.kubernetesGateway.enabled=true
+    helm upgrade traefik "oci://$ACRNAME.azurecr.io/helm/traefik" --version 42.1.2 --namespace "fullstore-$neptun" --set ingressRoute.dashboard.enabled=true --set image.registry="$ACRNAME.azurecr.io" --set providers.kubernetesGateway.enabled=true
     ```
+
+    !!! warning "Korábbi beállítások megismétlése"
+        A `helm upgrade` alapértelmezetten **nem** őrzi meg a korábban `--set` kapcsolókkal megadott értékeket: a chart alapértelmezett értékeiből és csak az aktuális parancsban megadott beállításokból indul ki. Ezért a korábbi beállításokat (`ingressRoute.dashboard.enabled`, `image.registry`) is meg kell ismételni, különben visszaállnak az alapértelmezett értékükre: eltűnik a dashboard, és a Traefik lemezkép ismét a Docker Hub-ról töltődik le.
+
+    !!! info "Gateway API CRD verzió figyelmeztetés"
+        A `helm upgrade` kimenetében megjelenhet egy `DEPRECATION WARNING`, ami a Gateway API CRD-k egy régebbi (pl. v1.5.1) verziójának telepítését javasolja. Ezt figyelmen kívül hagyhatjuk: a fentebb telepített újabb (v1.6.3) CRD-k is megfelelnek, a Traefik ezekkel is rendben működik. A figyelmeztetés lényege csak annyi, hogy a chart egy jövőbeli főverziója már nem fogja magával hozni a CRD-ket, azokat - ahogy mi is tettük - külön kell telepíteni.
 
     A Traefik automatikusan létrehoz egy `traefik` nevű _GatewayClass_ erőforrást, ami a Traefik kontrollerhez tartozó belépési pontokat definiálja. Ellenőrizzük:
 
@@ -400,6 +410,9 @@ A korábbi háziban Ingress API-t használtunk, itt most kipróbáljuk az utódj
 8. Teszteld le az alkalmazást, vidd végig a K8s házi 3. feladatának beadandójához is szükséges tesztlépéseket (termék átnevezés, rendelés feladás, rendelés teljesítés).
 
 9. A K8s háziban megismert _port forward_ módszerrel tedd elérhetővé localhost-on a Traefik dashboard-ot.
+
+    !!! warning "Traefik dashboard port"
+        A dashboard alapértelmezésben a pod 8080-as belső portjára kerül; ez a port a `traefik` service-en nincs kivezetve, így a port forward célja a deployment vagy a pod legyen.
 
 !!! example "BEADANDÓ"
     Készíts az alábbi tesztesetekről képernyőképeket, és commitold be a házi feladat repó gyökerébe:
