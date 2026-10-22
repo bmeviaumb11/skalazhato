@@ -188,6 +188,8 @@ A *Node Pool* fülön kell méreteznünk a klasztert. Ez hallgatói előfizetés
 !!! danger "User node pool"
     Semmiképp ne adjunk a klaszterhez **user** node poolt, mert akkor a skálázásra végképp nem marad kvótánk. Csak a system node poolba vegyünk olcsóbb, max. 2 magos virtuális gépeket.
 
+Első körben próbáljuk a portál által felajánlott géptípussal a létrehozást. Ha ezzel sikerül, akkor nézzünk utána a gépcsalád [árazásának](https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/). Ha nem sikerül, akkor az alábbiak szerint próbálkozzunk. Segítségképpen lefuttathatjuk az [aks-sku-check.cs](aks-sku-check.cs) scriptet, ami előszűri a gépcsaládokat az előfizetésünk és az AKS korlátai mentén.
+
 A system node pool méretezésekor érdemes a *Choose a size* opció által feldobott felületen a pontosan 2 magos (lehet rá szűrni), legalább 4 GB memóriájú kiméretek közül próbálkozni. Elsősorban a *D* betűvel kezdődő kódú kiméreteket (pl. D2as_v4, D2s_v4) válasszuk: ezek folyamatosan teljes CPU teljesítményt adnak és 8 GB memóriájúak. Ha ezekhez nincs kvótánk, tartalékként a B sorozat v2 generációjának 4 GB-os tagjai (B2als_v2, B2ls_v2) is megfelelnek. Ezek olcsóbbak (kb. 30 EUR/VM havonta), de ún. burstable kiméretek: tartós terhelés alatt a CPU teljesítményük visszafogásra kerül, ami a terheléses mérések eredményeit torzíthatja, és a 4 GB memória is szűkös lehet. A felület mutatja a havi költséget is (*Cost/month*): B sorozatnál a 30-40 EUR/VM, D sorozatnál a 60-90 EUR/VM költség már jónak számít.
 
 !!! warning "System node pool szabályok"
