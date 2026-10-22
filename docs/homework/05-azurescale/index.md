@@ -12,7 +12,7 @@ A labor célja, hogy megismerjük az AKS skálázási módjait, illetve az Azure
 
 ## Előkövetelmények
 
-A laborleírás cross-platform eszközöket használ, és Linuxon (Kubuntu v24.04) lett kidolgozva.
+A laborleírás cross-platform eszközöket használ.
 
 - Azure [hallgatói előfizetés](https://azure.microsoft.com/en-us/free/students)
 - Azure [kubelogin és kubectl](https://azure.github.io/kubelogin/install.html)
@@ -42,22 +42,25 @@ Ha fut egy működő _store-front_ webalkalmazás az AKS háziból az AKS-edben,
 
 ### 1.1 Container Insights bekapcsolása, replikaszám monitorozása
 
-Kapcsoljuk be a Container Insights szolgáltatást az AKS-ünkön [az útmutató](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/kubernetes-monitoring-enable?tabs=cli#existing-cluster-prometheus-container-insights-and-grafana) szerint. Prometheus és Grafana nem szükséges. A többi beállítás maradhat alapértelmezett. A bekapcsolás létrehoz egy *Log Analytics Workspace*-t (LAWS) és instrumentálja az AKS-t, hogy a monitorozási adatokat a LAWS-ba küldje.
+Kapcsoljuk be a Container Insights szolgáltatást az AKS-ünkön [az útmutató](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/kubernetes-monitoring-enable?tabs=azure-portal#existing-cluster-1) szerint. A portálon ez már nem *Container Insights* néven szerepel: az AKS *Monitoring (Insights)* menüpontjában a *Monitor settings* gombra kattintva az *Infrastructure Monitoring* csoport mindkét opcióját kapcsoljuk be: *Enable metrics via managed Prometheus* és *Enable container logs and Kubernetes events*. Prometheus nélkül a portál az AKS *Monitoring (Insights)* és *Logs* nézeteit nem engedi használni. A managed Grafana és a többi opció nem szükséges, a többi beállítás maradhat alapértelmezett. A bekapcsolás létrehoz egy *Azure Monitor Workspace*-t (AMW) a Prometheus metrikáknak és egy *Log Analytics Workspace*-t (LAWS) a naplóknak, és instrumentálja az AKS-t, hogy a monitorozási adatokat ezekbe küldje.
 
 !!! danger "Monitorozási költségek"
-    Nagyobb klaszterek monitorozási költsége a keletkező monitor adatok mennyisége miatt ijesztő lehet, akár magának a klaszternek az alap működési költségével összemérhető. Hallgató előfizetésen az idő dimenzió is fontos, tehát, hogy csak rövid ideig keletkezzenek monitor adatok. Ezért is, amint lehet, a házi végén töröld az AKS-t! Kevésbé fontos, de a LAWS-t is érdemes, hogy tárolási költséget is csökkentsük. AKS törlésekor a LAWS **nem** törlődik automatikusan. 
+    Nagyobb klaszterek monitorozási költsége a keletkező monitor adatok mennyisége miatt ijesztő lehet, akár magának a klaszternek az alap működési költségével összemérhető. Hallgató előfizetésen az idő dimenzió is fontos, tehát, hogy csak rövid ideig keletkezzenek monitor adatok. Ezért is, amint lehet, a házi végén töröld az AKS-t! Kevésbé fontos, de az AMW-t és a LAWS-t is érdemes, hogy tárolási költséget is csökkentsük. AKS törlésekor ezek **nem** törlődnek automatikusan. Alapértelmezetten a `DefaultRG-<AKS régió>`, illetve a `DefaultResourceGroup-<AKS régió>` erőforráscsoportba kerülnek.
 
 Miután minden szükséges dolog települt, pár percben érdemes felfedezni a portál AKS monitorozással kapcsolatos főbb menüpontjait:
 
-- Insights - előre elkészített összesítő nézetek
-- Metrics - metrikákat figyelhetünk meg grafikonos nézetben
-- Logs - saját lekérdezéseket készíthetünk és az eredményeket grafikonon is megjeleníthetjük. Lényegében minden monitorozott adathoz hozzáférünk és lekérdezéseket írhatunk rájuk. A lekérdezések elmenthetők, megoszthatók másokkal, akik hozzáférnek ehhez a felülethez.
-- Workbooks - ha nem elég jók a beépített nézetek, kimutatások (pl. a Logs menüben összeraktunk egy jó saját lekérdezést), akkor saját dashboardokat, kimutatásokat készíthetünk
+- [Monitoring (Insights)](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-analyze#single-cluster-view) - előre elkészített összesítő nézetek. Ez felső szintű menüpont, a többi alább felsorolt a *Monitoring* csoportban található.
+- [Metrics](https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/analyze-metrics) - metrikákat figyelhetünk meg grafikonos nézetben
+- [Logs](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-log-query) - saját lekérdezéseket készíthetünk és az eredményeket grafikonon is megjeleníthetjük. Lényegében minden monitorozott adathoz hozzáférünk és lekérdezéseket írhatunk rájuk. A lekérdezések elmenthetők, megoszthatók másokkal, akik hozzáférnek ehhez a felülethez.
+- [Workbooks](https://learn.microsoft.com/en-us/azure/azure-monitor/visualize/workbooks-overview) - ha nem elég jók a beépített nézetek, kimutatások (pl. a Logs menüben összeraktunk egy jó saját lekérdezést), akkor saját dashboardokat, kimutatásokat készíthetünk
 
-Készíts saját [KQL nyelvű](https://learn.microsoft.com/en-us/kusto/query) lekérdezést és abból grafikont (a *Results* alfül mellett a *Charts* alfülön) a *Logs* menüpontban, ami a *store-front* deployment (mintaalkalmazás része) replikaszámát mutatja az idő függvényében. Az idő dimenzió felbontása 2-5 perc közötti érték legyen. A [*KubePodInventory*](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/kubepodinventory) táblából érdemes kiindulni. Mentsd el a lekérdezést vagy ne navigálj el a menüpontból.
+!!! warning "Monitor vs. AKS menüpontok"
+    A hivatkozott dokumentációk jellemzően az Azure portál központi *Monitor* felületéből indulnak ki, nem az AKS almenüiből. Az AKS menüpontjai ugyanezen felületek az adott AKS-re szűkített (scope-olt) változatai, ettől eltekintve lényegében megegyeznek.
+
+Készíts saját [KQL nyelvű](https://learn.microsoft.com/en-us/kusto/query) lekérdezést és abból grafikont (a *Results* alfül mellett a *Chart* alfülön) a *Logs* menüpontban, ami a *default* namespace *store-front* deploymentjének (mintaalkalmazás része) replikaszámát mutatja az idő függvényében. Az idő dimenzió felbontása 2-5 perc közötti érték legyen. A [*KubePodInventory*](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/kubepodinventory) táblából érdemes kiindulni. Mentsd el a lekérdezést vagy ne navigálj el a menüpontból.
 
 !!! warning "Névegyezés"
-    Ha olyan K8S erőforrás nevére szűrsz, aminek a neve dinamikusan változik, akkor ne pontos egyezéssel szűrj, hanem részlegessel, pl. `startsWith`.
+    Ha olyan K8S erőforrás nevére szűrsz, aminek a neve dinamikusan változik, akkor ne pontos egyezéssel szűrj, hanem részlegessel, pl. `startswith`.
 
 ### 1.2 Manuális skálázás és HPA kipróbálása
 
