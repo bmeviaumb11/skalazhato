@@ -66,55 +66,55 @@ Készíts saját [KQL nyelvű](https://learn.microsoft.com/en-us/kusto/query) le
 
 A [hivatalos útmutatót](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-scale?tabs=azure-cli) lazán követjük: csak manifestet és `kubectl`-t használunk (az *AKS desktop* lépéseket kihagyjuk), és a node-ok skálázását sem végezzük el. Az alábbi parancsok a *default* namespace-ben futó *store-front* deploymentre vonatkoznak.
 
-Először skálázd fel manuálisan a *store-front* deploymentet 5 replikára, majd ellenőrizd az új podokat.
+1. Skálázd fel manuálisan a *store-front* deploymentet 5 replikára, majd ellenőrizd az új podokat.
 
-```bash
-kubectl scale --replicas=5 deployment.apps/store-front
-kubectl get pods --selector app=store-front
-```
+    ```bash
+    kubectl scale --replicas=5 deployment.apps/store-front
+    kubectl get pods --selector app=store-front
+    ```
 
-Várd meg, amíg a hatás látszik a KQL lekérdezés eredményében. A monitorozási adatok néhány perces késéssel jelennek meg.
+    Várd meg, amíg a hatás látszik a KQL lekérdezés eredményében. A monitorozási adatok néhány perces késéssel jelennek meg.
 
-Ezután a deployment replikaszámát a HPA-ra bízzuk. Ehhez először töröld a *store-front* deployment `replicas` mezőjét a mintaalkalmazás manifestjéből (`aks-store-quickstart.yaml`), különben a manifest későbbi `kubectl apply`-a felülírná a HPA által beállított replikaszámot ([részletek](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#migrating-deployments-and-statefulsets-to-horizontal-autoscaling)).
+1. A deployment replikaszámát a HPA-ra bízzuk. Ehhez töröld a *store-front* deployment `replicas` mezőjét a mintaalkalmazás manifestjéből (`aks-store-quickstart.yaml`), különben a manifest későbbi `kubectl apply`-a felülírná a HPA által beállított replikaszámot ([részletek](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#migrating-deployments-and-statefulsets-to-horizontal-autoscaling)).
 
-Készíts egy `aks-store-quickstart-hpa.yaml` fájlt az alábbi tartalommal:
+1. Készíts egy `aks-store-quickstart-hpa.yaml` fájlt az alábbi tartalommal:
 
-```yaml
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: store-front-hpa
-spec:
-  maxReplicas: 10 # define max replica count
-  minReplicas: 3  # define min replica count
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: store-front
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 50
-```
+    ```yaml
+    apiVersion: autoscaling/v2
+    kind: HorizontalPodAutoscaler
+    metadata:
+      name: store-front-hpa
+    spec:
+      maxReplicas: 10 # define max replica count
+      minReplicas: 3  # define min replica count
+      scaleTargetRef:
+        apiVersion: apps/v1
+        kind: Deployment
+        name: store-front
+      metrics:
+      - type: Resource
+        resource:
+          name: cpu
+          target:
+            type: Utilization
+            averageUtilization: 50
+    ```
 
-Alkalmazd a két manifestet egyszerre, majd kövesd a HPA állapotát:
+1. Alkalmazd a két manifestet egyszerre, majd kövesd a HPA állapotát:
 
-```bash
-kubectl apply -f aks-store-quickstart.yaml -f aks-store-quickstart-hpa.yaml
-kubectl get hpa
-kubectl describe hpa store-front-hpa
-```
+    ```bash
+    kubectl apply -f aks-store-quickstart.yaml -f aks-store-quickstart-hpa.yaml
+    kubectl get hpa
+    kubectl describe hpa store-front-hpa
+    ```
 
-A `kubectl get hpa` röviden mutatja az aktuális terhelést, a célértéket és a replikaszámot. A `kubectl describe hpa` ([leírás](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-horizontalpodautoscaler-in-kubectl)) ezen felül a HPA állapotfeltételeit (*Conditions*) és eseményeit (*Events*) is listázza, utóbbiban minden átskálázás az okával együtt szerepel. Ebből derül ki, hogy mit és miért csinált a HPA.
+    A `kubectl get hpa` röviden mutatja az aktuális terhelést, a célértéket és a replikaszámot. A `kubectl describe hpa` ([leírás](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-horizontalpodautoscaler-in-kubectl)) ezen felül a HPA állapotfeltételeit (*Conditions*) és eseményeit (*Events*) is listázza, utóbbiban minden átskálázás az okával együtt szerepel. Ebből derül ki, hogy mit és miért csinált a HPA.
 
-A `replicas` mező törlése miatt a replikaszám pár másodpercre 1-re eshet, amíg a HPA a minimumra nem állítja. Ez a grafikonon egy rövid letörésként látszódhat.
+    A `replicas` mező törlése miatt a replikaszám pár másodpercre 1-re eshet, amíg a HPA a minimumra nem állítja. Ez a grafikonon egy rövid letörésként látszódhat.
 
-Az útmutató szerint terhelés hiányában a replikaszámnak be kellene állnia háromra (a minimumra), de a mintaalkalmazás alapbeállításaival ez nem következik be: a HPA terhelés nélkül is a maximumig skáláz. A podok terhelését a HPA az igényelt CPU-hoz viszonyítja (0,5 CPU az igényelt és 0,5 CPU-t használ = 100% terhelés). Ha rossz az igényelt CPU érték beállítás, akkor nem a várt viselkedést kaphatjuk. Egyik ilyen anomália, ha a podok már alapállapotban, terhelés nélkül több (vagy annyi) erőforrást fogyasztanak, mint a skálázási határérték. Ilyenkor hiába jönnek létre új podok, már tényleges munkavégzés nélkül túlterheltnek számítanak.
+1. Az útmutató szerint terhelés hiányában a replikaszámnak be kellene állnia háromra (a minimumra), de a mintaalkalmazás alapbeállításaival ez nem következik be: a HPA terhelés nélkül is a maximumig skáláz. A podok terhelését a HPA az igényelt CPU-hoz viszonyítja (0,5 CPU az igényelt és 0,5 CPU-t használ = 100% terhelés). Ha rossz az igényelt CPU érték beállítás, akkor nem a várt viselkedést kaphatjuk. Egyik ilyen anomália, ha a podok már alapállapotban, terhelés nélkül több (vagy annyi) erőforrást fogyasztanak, mint a skálázási határérték. Ilyenkor hiába jönnek létre új podok, már tényleges munkavégzés nélkül túlterheltnek számítanak.
 
-Ellenőrizd [a store-front által igényelt CPU-t](https://github.com/Azure-Samples/aks-store-demo/blob/3c3ba3bd999d0b2d78eece1adac84b712b7d9c4f/aks-store-quickstart.yaml#L244) és ha szükséges, módosítsd, hogy bejövő kérés hiányában a minimum értékre álljon vissza.
+    Ellenőrizd [a store-front által igényelt CPU-t](https://github.com/Azure-Samples/aks-store-demo/blob/3c3ba3bd999d0b2d78eece1adac84b712b7d9c4f/aks-store-quickstart.yaml#L244) és ha szükséges, módosítsd a manifestben, majd alkalmazd újra, hogy bejövő kérés hiányában a minimum értékre álljon vissza.
 
 !!! tip "HPA monitorozása"
     A HPA a lefelé skálázással alapértelmezetten kb. 5 percet vár ([stabilization window](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#stabilization-window)), tehát a replikaszám csökkenése nem azonnali.
@@ -133,7 +133,7 @@ Terheléses tesztet írunk .NET-es tesztprojektként, mely felhős terheléseste
 
 ### 2.1 HPA érzékenyítése
 
-A k8s YAML fájlok átírásával és érvényesítésével (`kubectl apply`) állítsd át a HPA minimum replikaszám értékét 1-re, a store-front CPU igényét pedig egy kis értékre (pl. *10m*), de annyira ne legyen kicsi, hogy terhelés nélkül egynél több replika kelljen. A replikaszám grafikonon validáld, hogy a replikaszám terhelés nélkül beáll-e egyre.
+A K8s YAML fájlok átírásával és érvényesítésével (`kubectl apply`) állítsd át a HPA minimum replikaszám értékét 1-re. Ha az 1.2-ben még nem tetted meg, a store-front CPU igényét is állítsd egy kis értékre (pl. *10m*), de annyira ne legyen kicsi, hogy terhelés nélkül egynél több replika kelljen. A podok terhelés nélküli CPU használatát a `kubectl top pods -l app=store-front` paranccsal nézheted meg: az igényelt CPU-nak ennek legalább kétszeresének kell lennie, hogy egy pod terhelése 50% (HPA `averageUtilization`) alatt maradjon. A replikaszám grafikonon validáld, hogy a replikaszám terhelés nélkül beáll-e egyre. A HPA stabilizációs késleltetése miatt ez 5-10 percig is eltarthat.
 
 ### 2.2 Azure Load Testing
 
@@ -147,7 +147,7 @@ Hozz létre egy Azure Load Testing erőforrást (például az [útmutatót](http
 - Resource group: az alapértelmezett Azure erőforráscsoport (lásd AKS házi)
 - Location: közös Azure régió (lásd AKS házi), vagy ha az nem lehetséges, akkor valamilyen ahhoz közeli EU régió
 
-Tesztet nem kell létrehozni és jogokat sem kell még most osztani rá, csak az erőforrás legyen meg.
+Tesztet nem kell létrehozni és jogokat sem kell most még osztani rá, csak az erőforrás legyen meg.
 
 ### 2.3 Service Principal
 
@@ -182,7 +182,7 @@ Lépjünk be a klónozott kiinduló repó *azloadtest* könyvtárába, majd hozz
 
 ```bash
 dotnet new nunit
-dotnet add package Abstracta.JmeterDsl.Azure --version 0.8
+dotnet add package Abstracta.JmeterDsl.Azure --version 0.9
 ```
 
 !!!tip "Abstracta.JmeterDsl"
@@ -248,4 +248,4 @@ A tesztnek automatikusan létre kell jönnie az Azure Load Testing szolgáltatá
 ## 3. Feladat - talán a legfontosabb
 
 !!! danger "Erőforrások törlése"
-    Beadás után [törölj minden szolgáltatást](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/delete-resource-group?tabs=azure-portal#delete-resource), kivéve az Azure Load Testing erőforrást. Érdemes a törlést az AKS-sel kezdeni, annak törlése törli az AKS infrastruktúra erőforráscsoportot. Töröld a technikai felhasználót is az Entra-ból az [`az ad sp delete`](https://learn.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az-ad-sp-delete) paranccsal.
+    Beadás után [törölj minden szolgáltatást](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/delete-resource-group?tabs=azure-portal#delete-resource), kivéve az Azure Load Testing erőforrást. Érdemes a törlést az AKS-sel kezdeni, annak törlése törli az AKS infrastruktúra erőforráscsoportot. Töröld a technikai felhasználót is az Entra-ból az [`az ad app delete --id <appId>`](https://learn.microsoft.com/en-us/cli/azure/ad/app?view=azure-cli-latest#az-ad-app-delete) paranccsal (az *appId* a 2.3-ban elmentett JSON-ban található). Az `az ad sp create-for-rbac` egy alkalmazásregisztrációt és egy hozzá tartozó service principalt is létrehozott; az alkalmazásregisztráció törlése mindkettőt eltávolítja, míg az `az ad sp delete` csak a service principalt törölné.
