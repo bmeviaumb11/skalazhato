@@ -127,6 +127,8 @@ A [hivatalos útmutatót](https://learn.microsoft.com/en-us/azure/aks/tutorial-k
     
     Készíts egy képernyőképet (`f1.2.png`) és commitold azt be a házi feladat repó gyökerébe, amin `kubectl describe hpa` paranccsal igazolod, hogy a HPA (és nem például manuális skálázás) csökkentette minimumra a replikaszámot.
 
+    Commitold be a házi feladat repó gyökerébe a módosított *aks-store-quickstart.yaml*-t és az *aks-store-quickstart-hpa.yaml*-t is.
+
 ## 2. Feladat
 
 Terheléses tesztet írunk .NET-es tesztprojektként, mely felhős terhelésesteszt-motorokat (load test engine) használ a szükséges terhelés előállítására. 
@@ -241,6 +243,8 @@ A tesztnek automatikusan létre kell jönnie az Azure Load Testing szolgáltatá
     Készíts egy képernyőképet (`f2.2.png`) és commitold azt be a házi feladat repó gyökerébe, amin `kubectl describe hpa` paranccsal szemlélteted a HPA skálázási eseményeit.
 
     Készíts egy képernyőképet (`f2.3.png`) és commitold azt be a házi feladat repó gyökerébe, amin az Azure portálon látszik a tesztlefutások (*Test Runs*) listája. A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarkában a terhelés teszt neve.
+
+    Commitold be a végleges (2.1 szerint módosított) *aks-store-quickstart.yaml*-t és *aks-store-quickstart-hpa.yaml*-t is.
 
 !!!tip "Kitekintés - egyéb skálázási lehetőségek"
     Érdemes lett volna kipróbálni a  [klaszter skálázást](https://learn.microsoft.com/en-us/azure/aks/cluster-autoscaler?tabs=azure-cli), de a hallgatói előfizetés szigorú vCPU korlátai miatt ez nagyon nehézkes lett volna. Alternatívaként a [*virtual nodes* opciót](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes) még így is használhatnánk, amivel a Azure Container Instances szolgáltatás virtuális K8S node-ként jelennének meg. Azonban ez a mód számos [dokumentált](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes#limitations) és nem annyira jól dokumentált korlátozással rendelkezik, így a házi keretében szintén nehézkes lenne a használata, de egy kis példán [kipróbálható](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes-portal).
