@@ -244,6 +244,8 @@ A tesztnek automatikusan létre kell jönnie az Azure Load Testing szolgáltatá
 
     Commitold be a végleges (2.1 szerint módosított) *aks-store-quickstart.yaml*-t és *aks-store-quickstart-hpa.yaml*-t is.
 
+    Commitold be az *azloadtest* könyvtárban lévő terhelésteszt projektet is. A *bin* és *obj* könyvtárak ne kerüljenek be, ezeket a repó *.gitignore* fájlja alapból kiszűri. Az `AZURE_CREDS` értéke ne szerepeljen a kommitolt fájlokban.
+
 !!!tip "Kitekintés - egyéb skálázási lehetőségek"
     Érdemes lett volna kipróbálni a  [klaszter skálázást](https://learn.microsoft.com/en-us/azure/aks/cluster-autoscaler?tabs=azure-cli), de a hallgatói előfizetés szigorú vCPU korlátai miatt ez nagyon nehézkes lett volna. Alternatívaként a [*virtual nodes* opciót](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes) még így is használhatnánk, amivel a Azure Container Instances szolgáltatás virtuális K8S node-ként jelennének meg. Azonban ez a mód számos [dokumentált](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes#limitations) és nem annyira jól dokumentált korlátozással rendelkezik, így a házi keretében szintén nehézkes lenne a használata, de egy kis példán [kipróbálható](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes-portal).
 
