@@ -27,9 +27,6 @@ A laborleírás cross-platform eszközöket használ.
 
 A feladatok megoldása során ne felejtsd el követni a [beadási folyamatot](../../information/GitHub.md).
 
-!!! danger "PR név"
-    :exclamation: A beadásnál a pull request neve legyen: *hf4* :exclamation:
-
 !!! danger "NEPTUN"
     :exclamation: A feladatokban a `neptun` kifejezés helyett a saját neptunkódunkat helyettesítsük be minden esetben :exclamation:
 
