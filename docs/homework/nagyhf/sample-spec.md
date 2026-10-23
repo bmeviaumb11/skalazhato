@@ -1,5 +1,12 @@
 # Példa nagyházi-specifikáció
 
+<!--
+A példa az AKS Store Demo (https://github.com/Azure-Samples/aks-store-demo) architektúrájára épül.
+Az eredeti mintából kihagytuk a terhelést szimuláló virtual-* szolgáltatásokat (virtual-customer, virtual-worker),
+és kiegészítettük egy MS SQL Server adatbázissal, amelyben a product-service a termékeket tárolja.
+Ez utóbbi eltér az eredeti mintától, ahol a product-service csak memóriában tartja a termékeket.
+-->
+
 ## Követelményspecifikáció
 
 Egy webáruházrendszert kell megvalósítani, amely lehetővé teszi a vásárlók számára, hogy termékeket rendeljenek, és az üzlet dolgozói számára, hogy kezeljék a rendelések feldolgozását és a termékek kezelését.
@@ -24,9 +31,10 @@ A komponensek listája, rövid leírása és technológiái a következők:
 | ------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | store-front         | Vue.js (TypeScript), nginx | Webalkalmazás, amelyen keresztül a vásárlók böngészhetnek a termékek között és rendeléseket adhatnak le                                             |
 | store-admin         | Vue.js (TypeScript), nginx | Webalkalmazás, amelyet az üzlet dolgozói a rendelések megtekintésére és kezelésére, valamint a termékek kezelésére használnak                       |
-| product-service     | Rust (Actix Web)           | Ez a szolgáltatás a termékek CRUD műveleteit végzi memóriában, perzisztens tár nélkül                                                               |
+| product-service     | Rust (Actix Web)           | Ez a szolgáltatás a termékek CRUD műveleteit végzi, a termékeket relációs adatbázisban perzisztálja                                                 |
 | order-service       | Node.js (Fastify)          | Ez a szolgáltatás fogadja a leadott rendeléseket, és üzenetként az üzenetsorba küldi őket                                                           |
 | makeline-service    | Go                         | Ez a szolgáltatás kezeli a rendelések feldolgozását: kiolvassa őket az üzenetsorból, perzisztálja őket, és üzleti műveleteket nyújt a rendelésekhez |
+| termékek db         | Microsoft SQL Server       | Relációs adatbázis a termékek adatainak tárolásához                                                                                                 |
 | rendelések db       | DocumentDB (MongoDB API)   | MongoDB-kompatibilis NoSQL adatbázis a rendelések adatainak tárolásához                                                                             |
 | aszinkron üzenetsor | RabbitMQ                   | Aszinkron üzenetsor a rendelések továbbítására az order-service és a makeline-service között                                                        |
 | API Gateway         | Traefik (Gateway API)      | Az alkalmazás egyetlen publikus belépési pontja, hosztnév szerinti routing a frontendek felé                                                        |
@@ -45,6 +53,8 @@ flowchart LR
     storefront -- HTTP --> product["<img src='../images/logos/rust.svg' width='40' height='40'/><br/>product-service"]
     storeadmin -- HTTP --> product
     storeadmin -- HTTP --> makeline["<img src='../images/logos/go.svg' width='40' height='40'/><br/>makeline-service"]
+
+    product -- TDS --> sqldb[("<img src='../images/logos/mssql.svg' width='40' height='40'/><br/>SQL Server")]
 
     order -- AMQP --> rabbitmq[("<img src='../images/logos/rabbitmq.svg' width='40' height='40'/><br/>RabbitMQ")]
     rabbitmq -- AMQP --> makeline
