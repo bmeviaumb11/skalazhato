@@ -127,8 +127,6 @@ A [hivatalos útmutatót](https://learn.microsoft.com/en-us/azure/aks/tutorial-k
     
     Készíts egy képernyőképet (`f1.2.png`) és commitold azt be a házi feladat repó gyökerébe, amin `kubectl describe hpa` paranccsal igazolod, hogy a HPA (és nem például manuális skálázás) csökkentette minimumra a replikaszámot.
 
-    Commitold be a házi feladat repó gyökerébe a módosított *aks-store-quickstart.yaml*-t és az *aks-store-quickstart-hpa.yaml*-t is.
-
 ## 2. Feladat
 
 Terheléses tesztet írunk .NET-es tesztprojektként, mely felhős terhelésesteszt-motorokat (load test engine) használ a szükséges terhelés előállítására. 
