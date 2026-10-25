@@ -1364,11 +1364,10 @@
 
 
 <h1 id="05-skalazas-azure-ban">05 - Skálázás Azure-ban<a class="headerlink" href="#05-skalazas-azure-ban" title="Permanent link">¶</a></h1>
-<p><em>Nincs frissítve 2026. őszi félévre!</em></p>
 <h2 id="cel">Cél<a class="headerlink" href="#cel" title="Permanent link">¶</a></h2>
 <p>A labor célja, hogy megismerjük az AKS skálázási módjait, illetve az Azure Load Testing szolgáltatással teszteljük az automatikus skálázás működését.</p>
 <h2 id="elokovetelmenyek">Előkövetelmények<a class="headerlink" href="#elokovetelmenyek" title="Permanent link">¶</a></h2>
-<p>A laborleírás cross-platform eszközöket használ, és Linuxon (Kubuntu v24.04) lett kidolgozva.</p>
+<p>A laborleírás cross-platform eszközöket használ.</p>
 <ul>
 <li>Azure <a href="https://azure.microsoft.com/en-us/free/students">hallgatói előfizetés</a></li>
 <li>Azure <a href="https://azure.github.io/kubelogin/install.html">kubelogin és kubectl</a><ul>
@@ -1376,18 +1375,14 @@
 </ul>
 </li>
 <li><a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli">Azure CLI</a> v2.61 vagy újabb</li>
-<li><a href="https://dotnet.microsoft.com/en-us/download/dotnet">.NET 8 SDK</a><ul>
-<li>opcionálisan .NET 8 alap fejlesztő környezet (Visual Studio, Visual Studio Code, Rider), ha kell kódkiegészítés, pl. IntelliSense</li>
+<li><a href="https://dotnet.microsoft.com/en-us/download/dotnet">.NET 10 SDK</a><ul>
+<li>opcionálisan .NET alap fejlesztő környezet (Visual Studio, Visual Studio Code, Rider), ha kell kódkiegészítés, pl. IntelliSense</li>
 </ul>
 </li>
 <li>JRE v8 vagy későbbi  (pl. <a href="https://adoptium.net/">Adoptium</a>), <code>java</code> parancs legyen a PATH-ban</li>
 </ul>
 <h2 id="elokeszulet">Előkészület<a class="headerlink" href="#elokeszulet" title="Permanent link">¶</a></h2>
 <p>A feladatok megoldása során ne felejtsd el követni a feladat beadás <a href="../../information/GitHub/">folyamatát</a>.</p>
-<div class="admonition danger">
-<p class="admonition-title">PR név</p>
-<p><img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2757.svg" title=":exclamation:"> Beadásnál a pull request neve legyen: <em>hf5</em> <img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2757.svg" title=":exclamation:"></p>
-</div>
 <div class="admonition danger">
 <p class="admonition-title">NEPTUN</p>
 <p><img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2757.svg" title=":exclamation:"> A feladatokban a <code>neptun</code> kifejezés helyett a saját neptunkódunkat helyettesítsük be minden esetben <img alt="❗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2757.svg" title=":exclamation:"></p>
@@ -1397,30 +1392,80 @@
 <p>Ha fut egy működő <em>store-front</em> webalkalmazás az AKS háziból az AKS-edben, akkor nincs teendő. Egyébként az <strong>AKS házi 1. feladata alapján</strong> hozz létre és telepítsd a  mintaalkalmazást.</p>
 <h2 id="1-feladat">1. Feladat<a class="headerlink" href="#1-feladat" title="Permanent link">¶</a></h2>
 <h3 id="11-container-insights-bekapcsolasa-replikaszam-monitorozasa">1.1 Container Insights bekapcsolása, replikaszám monitorozása<a class="headerlink" href="#11-container-insights-bekapcsolasa-replikaszam-monitorozasa" title="Permanent link">¶</a></h3>
-<p>Kapcsoljuk be a Container Insights szolgáltatást az AKS-ünkön <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/containers/kubernetes-monitoring-enable?tabs=cli#existing-cluster-prometheus-container-insights-and-grafana">az útmutató</a> szerint. Prometheus és Grafana nem szükséges. A többi beállítás maradhat alapértelmezett. A bekapcsolás létrehoz egy <em>Log Analytics Workspace</em>-t (LAWS) és instrumentálja az AKS-t, hogy a monitorozási adatokat a LAWS-ba küldje.</p>
+<p>Kapcsoljuk be a Container Insights szolgáltatást az AKS-ünkön <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/containers/kubernetes-monitoring-enable?tabs=azure-portal#existing-cluster-1">az útmutató</a> szerint. A portálon ez már nem <em>Container Insights</em> néven szerepel: az AKS <em>Monitoring (Insights)</em> menüpontjában a <em>Monitor settings</em> gombra kattintva az <em>Infrastructure Monitoring</em> csoport mindkét opcióját kapcsoljuk be: <em>Enable metrics via managed Prometheus</em> és <em>Enable container logs and Kubernetes events</em>. Prometheus nélkül a portál az AKS <em>Monitoring (Insights)</em> és <em>Logs</em> nézeteit nem engedi használni. A managed Grafana és a többi opció nem szükséges, a többi beállítás maradhat alapértelmezett. A bekapcsolás létrehoz egy <em>Azure Monitor Workspace</em>-t (AMW) a Prometheus metrikáknak és egy <em>Log Analytics Workspace</em>-t (LAWS) a naplóknak, és instrumentálja az AKS-t, hogy a monitorozási adatokat ezekbe küldje.</p>
 <div class="admonition danger">
 <p class="admonition-title">Monitorozási költségek</p>
-<p>Nagyobb klaszterek monitorozási költsége a keletkező monitor adatok mennyisége miatt ijesztő lehet, akár magának a klaszternek az alap működési költségével összemérhető. Hallgató előfizetésen az idő dimenzió is fontos, tehát, hogy csak rövid ideig keletkezzenek monitor adatok. Ezért is, amint lehet, a házi végén töröld az AKS-t! Kevésbé fontos, de a LAWS-t is érdemes, hogy tárolási költséget is csökkentsük. AKS törlésekor a LAWS <strong>nem</strong> törlődik automatikusan. </p>
+<p>Nagyobb klaszterek monitorozási költsége a keletkező monitor adatok mennyisége miatt ijesztő lehet, akár magának a klaszternek az alap működési költségével összemérhető. Hallgató előfizetésen az idő dimenzió is fontos, tehát, hogy csak rövid ideig keletkezzenek monitor adatok. Ezért is, amint lehet, a házi végén töröld az AKS-t! Kevésbé fontos, de az AMW-t és a LAWS-t is érdemes, hogy tárolási költséget is csökkentsük. AKS törlésekor ezek <strong>nem</strong> törlődnek automatikusan. Alapértelmezetten mindkettő a <code>DefaultResourceGroup-&lt;AKS régió kódja&gt;</code> (pl. <code>defaultresourcegroup-eus</code>) erőforráscsoportba kerül.</p>
 </div>
 <p>Miután minden szükséges dolog települt, pár percben érdemes felfedezni a portál AKS monitorozással kapcsolatos főbb menüpontjait:</p>
 <ul>
-<li>Insights - előre elkészített összesítő nézetek</li>
-<li>Metrics - metrikákat figyelhetünk meg grafikonos nézetben</li>
-<li>Logs - saját lekérdezéseket készíthetünk és az eredményeket grafikonon is megjeleníthetjük. Lényegében minden monitorozott adathoz hozzáférünk és lekérdezéseket írhatunk rájuk. A lekérdezések elmenthetők, megoszthatók másokkal, akik hozzáférnek ehhez a felülethez.</li>
-<li>Workbooks - ha nem elég jók a beépített nézetek, kimutatások (pl. a Logs menüben összeraktunk egy jó saját lekérdezést), akkor saját dashboardokat, kimutatásokat készíthetünk</li>
+<li><a href="https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-analyze#single-cluster-view">Monitoring (Insights)</a> - előre elkészített összesítő nézetek. Ez felső szintű menüpont, a többi alább felsorolt a <em>Monitoring</em> csoportban található.</li>
+<li><a href="https://learn.microsoft.com/en-us/azure/azure-monitor/metrics/analyze-metrics">Metrics</a> - metrikákat figyelhetünk meg grafikonos nézetben</li>
+<li><a href="https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-log-query">Logs</a> - saját lekérdezéseket készíthetünk és az eredményeket grafikonon is megjeleníthetjük. Lényegében minden monitorozott adathoz hozzáférünk és lekérdezéseket írhatunk rájuk. A lekérdezések elmenthetők, megoszthatók másokkal, akik hozzáférnek ehhez a felülethez. Beépített AI ágens is segít lekérdezést írni.</li>
+<li><a href="https://learn.microsoft.com/en-us/azure/azure-monitor/visualize/workbooks-overview">Workbooks</a> - ha nem elég jók a beépített nézetek, kimutatások (pl. a Logs menüben összeraktunk egy jó saját lekérdezést), akkor saját dashboardokat, kimutatásokat készíthetünk</li>
 </ul>
-<p>Készíts saját <a href="https://learn.microsoft.com/en-us/kusto/query">KQL nyelvű</a> lekérdezést és abból grafikont (a <em>Results</em> alfül mellett a <em>Charts</em> alfülön) a <em>Logs</em> menüpontban, ami a <em>store-front</em> deployment (mintaalkalmazás része) replikaszámát mutatja az idő függvényében. Az idő dimenzió felbontása 2-5 perc közötti érték legyen. A <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/kubepodinventory"><em>KubePodInventory</em></a> táblából érdemes kiindulni. Mentsd el a lekérdezést vagy ne navigálj el a menüpontból.</p>
+<div class="admonition warning">
+<p class="admonition-title">Monitor vs. AKS menüpontok</p>
+<p>A hivatkozott dokumentációk jellemzően az Azure portál központi <em>Monitor</em> felületéből indulnak ki, nem az AKS almenüiből. Az AKS menüpontjai ugyanezen felületek az adott AKS-re szűkített (scope-olt) változatai, ettől eltekintve lényegében megegyeznek.</p>
+</div>
+<p>Készíts saját <a href="https://learn.microsoft.com/en-us/kusto/query">KQL nyelvű</a> lekérdezést és abból grafikont (a <em>Results</em> alfül mellett a <em>Chart</em> alfülön) a <em>Logs</em> menüpontban, ami a <em>default</em> namespace <em>store-front</em> deploymentjének (mintaalkalmazás része) replikaszámát mutatja az idő függvényében. Az idő dimenzió felbontása 2-5 perc közötti érték legyen. A <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/kubepodinventory"><em>KubePodInventory</em></a> táblából érdemes kiindulni. Mentsd el a lekérdezést vagy ne navigálj el a menüpontból.</p>
 <div class="admonition warning">
 <p class="admonition-title">Névegyezés</p>
-<p>Ha olyan K8S erőforrás nevére szűrsz, aminek a neve dinamikusan változik, akkor ne pontos egyezéssel szűrj, hanem részlegessel, pl. <code>startsWith</code>.</p>
+<p>Ha olyan K8S erőforrás nevére szűrsz, aminek a neve dinamikusan változik, akkor ne pontos egyezéssel szűrj, hanem részlegessel, pl. <code>startswith</code>.</p>
 </div>
 <h3 id="12-manualis-skalazas-es-hpa-kiprobalasa">1.2 Manuális skálázás és HPA kipróbálása<a class="headerlink" href="#12-manualis-skalazas-es-hpa-kiprobalasa" title="Permanent link">¶</a></h3>
-<p>Skálázd a store-front deploymentet HPA-val a <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-scale?tabs=azure-cli#autoscale-pods">hivatalos útmutatót</a> követve. Várd meg amíg a hatás látszik a lekérdezés eredményében.</p>
-<p>Az útmutató szerint a replikaszámnak vissza kellene állnia háromra, de ez az AKS-be választott VM CPU erősségétől függően nem biztos, hogy bekövetkezik. A podok terhelését a HPA az igényelt CPU-hoz viszonyítja (0,5 CPU az igényelt és 0,5 CPU-t használ = 100% terhelés). Ha rossz az igényelt CPU érték beállítás, akkor nem a várt viselkedést kaphatjuk. Egyik ilyen anomália, ha a podok már alapállapotban, terhelés nélkül több (vagy annyi) erőforrást fogyasztanak, mint a skálázási határérték. Ilyenkor hiába jönnek létre új podok, már tényleges munkavégzés nélkül túlterheltnek számítanak.</p>
-<p>Ellenőrizd <a href="https://github.com/Azure-Samples/aks-store-demo/blob/abc38d094c09d421f6bb6ec6b900651992a7da14/aks-store-quickstart.yaml#L249">a store-front által igényelt CPU-t</a> és ha szükséges, módosítsd, hogy bejövő kérés hiányában a minimum értékre álljon vissza.</p>
+<p>A <a href="https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-scale?tabs=azure-cli">hivatalos útmutatót</a> lazán követjük: csak manifestet és <code>kubectl</code>-t használunk (az <em>AKS desktop</em> lépéseket kihagyjuk), és a node-ok skálázását sem végezzük el. Az alábbi parancsok a <em>default</em> namespace-ben futó <em>store-front</em> deploymentre vonatkoznak.</p>
+<ol>
+<li>
+<p>Skálázd fel manuálisan a <em>store-front</em> deploymentet 5 replikára, majd ellenőrizd az új podokat.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>scale<span class="w"> </span>--replicas<span class="o">=</span><span class="m">5</span><span class="w"> </span>deployment.apps/store-front
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--selector<span class="w"> </span><span class="nv">app</span><span class="o">=</span>store-front
+</code></pre></div>
+<p>Várd meg, amíg a hatás látszik a KQL lekérdezés eredményében. A monitorozási adatok néhány perces késéssel jelennek meg.</p>
+</li>
+<li>
+<p>A deployment replikaszámát a HPA-ra bízzuk. Ehhez töröld a <em>store-front</em> deployment <code>replicas</code> mezőjét a mintaalkalmazás manifestjéből (<code>aks-store-quickstart.yaml</code>), különben a manifest későbbi <code>kubectl apply</code>-a felülírná a HPA által beállított replikaszámot (<a href="https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#migrating-deployments-and-statefulsets-to-horizontal-autoscaling">részletek</a>).</p>
+</li>
+<li>
+<p>Készíts egy <code>aks-store-quickstart-hpa.yaml</code> fájlt az alábbi tartalommal:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">autoscaling/v2</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HorizontalPodAutoscaler</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">store-front-hpa</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">maxReplicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"> </span><span class="c1"># define max replica count</span>
+<span class="w">  </span><span class="nt">minReplicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">  </span><span class="c1"># define min replica count</span>
+<span class="w">  </span><span class="nt">scaleTargetRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">store-front</span>
+<span class="w">  </span><span class="nt">metrics</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Resource</span>
+<span class="w">    </span><span class="nt">resource</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cpu</span>
+<span class="w">      </span><span class="nt">target</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Utilization</span>
+<span class="w">        </span><span class="nt">averageUtilization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+</code></pre></div>
+</li>
+<li>
+<p>Alkalmazd a két manifestet egyszerre, majd kövesd a HPA állapotát:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>aks-store-quickstart.yaml<span class="w"> </span>-f<span class="w"> </span>aks-store-quickstart-hpa.yaml
+kubectl<span class="w"> </span>get<span class="w"> </span>hpa
+kubectl<span class="w"> </span>describe<span class="w"> </span>hpa<span class="w"> </span>store-front-hpa
+</code></pre></div>
+<p>A <code>kubectl get hpa</code> röviden mutatja az aktuális terhelést, a célértéket és a replikaszámot. A <code>kubectl describe hpa</code> (<a href="https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-horizontalpodautoscaler-in-kubectl">leírás</a>) ezen felül a HPA állapotfeltételeit (<em>Conditions</em>) és eseményeit (<em>Events</em>) is listázza, utóbbiban minden átskálázás az okával együtt szerepel. Ebből derül ki, hogy mit és miért csinált a HPA.</p>
+<p>A <code>replicas</code> mező törlése miatt a replikaszám pár másodpercre 1-re eshet, amíg a HPA a minimumra nem állítja. Ez a grafikonon egy rövid letörésként látszódhat.</p>
+</li>
+<li>
+<p>Az útmutató szerint terhelés hiányában a replikaszámnak be kellene állnia háromra (a minimumra), de a mintaalkalmazás alapbeállításaival ez nem következik be: a HPA terhelés nélkül is a maximumig skáláz. A podok terhelését a HPA az igényelt CPU-hoz viszonyítja (0,5 CPU az igényelt és 0,5 CPU-t használ = 100% terhelés). Ha rossz az igényelt CPU érték beállítás, akkor nem a várt viselkedést kaphatjuk. Egyik ilyen anomália, ha a podok már alapállapotban, terhelés nélkül több (vagy annyi) erőforrást fogyasztanak, mint a skálázási határérték. Ilyenkor hiába jönnek létre új podok, már tényleges munkavégzés nélkül túlterheltnek számítanak.</p>
+<p>Ellenőrizd <a href="https://github.com/Azure-Samples/aks-store-demo/blob/3c3ba3bd999d0b2d78eece1adac84b712b7d9c4f/aks-store-quickstart.yaml#L244">a store-front által igényelt CPU-t</a> és ha szükséges, módosítsd a manifestben, majd alkalmazd újra, hogy bejövő kérés hiányában a minimum értékre álljon vissza.</p>
+</li>
+</ol>
 <div class="admonition tip">
 <p class="admonition-title">HPA monitorozása</p>
-<p>Egyszerűen monitorozhatjuk a HPA tevékenységét a <code>kubectl describe hpa $hpa_name</code> <a href="https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-horizontalpodautoscaler-in-kubectl">paranccsal</a>.</p>
+<p>A HPA a lefelé skálázással alapértelmezetten kb. 5 percet vár (<a href="https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#stabilization-window">stabilization window</a>), tehát a replikaszám csökkenése nem azonnali.</p>
+<p>A deployment módosítása utáni rollout alatt a <code>kubectl describe hpa</code> kimenetében megjelenhetnek <code>FailedGetResourceMetric</code> figyelmeztetések, mert az új podokhoz még nincs metrika. Ezek a rollout végeztével megszűnnek, nyugodtan figyelmen kívül hagyhatók.</p>
 </div>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ</p>
@@ -1430,7 +1475,7 @@
 <h2 id="2-feladat">2. Feladat<a class="headerlink" href="#2-feladat" title="Permanent link">¶</a></h2>
 <p>Terheléses tesztet írunk .NET-es tesztprojektként, mely felhős terhelésesteszt-motorokat (load test engine) használ a szükséges terhelés előállítására. </p>
 <h3 id="21-hpa-erzekenyitese">2.1 HPA érzékenyítése<a class="headerlink" href="#21-hpa-erzekenyitese" title="Permanent link">¶</a></h3>
-<p>A k8s YAML fájlok átírásával és érvényesítésével (<code>kubectl apply</code>) állítsd át a HPA minimum replikaszám értékét 1-re, a store-front CPU igényét pedig egy kis értékre (pl. <em>10m</em>), de annyira ne legyen kicsi, hogy terhelés nélkül egynél több replika kelljen. A replikaszám grafikonon validáld, hogy a replikaszám terhelés nélkül beáll-e egyre.</p>
+<p>A K8s YAML fájlok átírásával és érvényesítésével (<code>kubectl apply</code>) állítsd át a HPA minimum replikaszám értékét 1-re. Ha az 1.2-ben még nem tetted meg, a store-front CPU igényét is állítsd egy kis értékre (pl. <em>10m</em>), de annyira ne legyen kicsi, hogy terhelés nélkül egynél több replika kelljen. A podok terhelés nélküli CPU használatát a <code>kubectl top pods -l app=store-front</code> paranccsal nézheted meg: az igényelt CPU-nak ennek legalább kétszeresének kell lennie, hogy egy pod terhelése 50% (HPA <code>averageUtilization</code>) alatt maradjon. A replikaszám grafikonon validáld, hogy a replikaszám terhelés nélkül beáll-e egyre. A HPA stabilizációs késleltetése miatt ez 5-10 percig is eltarthat.</p>
 <h3 id="22-azure-load-testing">2.2 Azure Load Testing<a class="headerlink" href="#22-azure-load-testing" title="Permanent link">¶</a></h3>
 <div class="admonition info">
 <p class="admonition-title">Azure App Testing vs Azure Load Testing</p>
@@ -1440,9 +1485,9 @@
 <ul>
 <li>Name: <em>lt</em> előtag + neptun kód (pl. <em>npt123</em> neptun kód esetén <em>ltnpt123</em>)</li>
 <li>Resource group: az alapértelmezett Azure erőforráscsoport (lásd AKS házi)</li>
-<li>Location: közös Azure régió (lásd AKS házi)</li>
+<li>Location: közös Azure régió (lásd AKS házi), vagy ha az nem lehetséges, akkor valamilyen ahhoz közeli EU régió</li>
 </ul>
-<p>Tesztet nem kell létrehozni, csak az erőforrás legyen meg.</p>
+<p>Tesztet nem kell létrehozni és jogokat sem kell most még osztani rá, csak az erőforrás legyen meg.</p>
 <h3 id="23-service-principal">2.3 Service Principal<a class="headerlink" href="#23-service-principal" title="Permanent link">¶</a></h3>
 <p>A tesztet programból fogjuk létrehozni és indítani, ehhez kell egy Entra technikai felhasználó, akit a programunk megszemélyesít és ennek a felhasználónak a nevében jön létre és fut le a teszt. Technikai felhasználó létrehozása több lépéses folyamat általában, de az alapesetre van egy egysoros kényelmi <a href="https://learn.microsoft.com/en-us/cli/azure/azure-cli-sp-tutorial-1?tabs=bash#create-a-service-principal">Azure CLI parancs</a>. Helyettesítsd be a neptun kódodat:</p>
 <div class="highlight"><pre><span></span><code>az<span class="w"> </span>ad<span class="w"> </span>sp<span class="w"> </span>create-for-rbac<span class="w"> </span>-n<span class="w"> </span>loadtest_automation_neptun
@@ -1451,7 +1496,7 @@
 <p class="admonition-title">Service principal neve</p>
 <p>Bár lehetséges több technikai felhasználó ugyanazon névvel, a könnyebb kereshetőség miatt jobb, ha a nevek egyedibbek.</p>
 </div>
-<p>A válasz JSON-t mindenképp mentsd el, szükség lesz az adatokra belőle. A benne lévő titok utólag már nem kérdezhető le.</p>
+<p>A válasz JSON-t <strong>mindenképp mentsd el</strong>, szükség lesz az adatokra belőle. A benne lévő titok utólag már nem kérdezhető le.</p>
 <div class="admonition tip">
 <p class="admonition-title">Service principal parancsok</p>
 <p>Az <code>az ad sp</code> <a href="https://learn.microsoft.com/en-us/cli/azure/ad/sp">parancsokkal</a> a technikai felhasználókhoz kapcsolódó legtöbb gyakori tevékenység elvégezhető. Például az általunk létrehozott technikai felhasználók listázása: <code>az ad sp list --show-mine</code>.</p>
@@ -1472,7 +1517,7 @@
 <h3 id="24-terhelesteszt-nunit-unit-teszt-projektkent">2.4 Terhelésteszt NUnit unit teszt projektként<a class="headerlink" href="#24-terhelesteszt-nunit-unit-teszt-projektkent" title="Permanent link">¶</a></h3>
 <p>Lépjünk be a klónozott kiinduló repó <em>azloadtest</em> könyvtárába, majd hozzunk létre egy <a href="https://nunit.org/">NUnit</a> projektet a .NET CLI segítségével. Adjuk hozzá az Azure Load Test automatizálását megvalósító <a href="https://github.com/abstracta/jmeter-dotnet-dsl">.NET könyvtárat</a> is.</p>
 <div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>new<span class="w"> </span>nunit
-dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w"> </span>Abstracta.JmeterDsl.Azure<span class="w"> </span>--version<span class="w"> </span><span class="m">0</span>.8
+dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w"> </span>Abstracta.JmeterDsl.Azure<span class="w"> </span>--version<span class="w"> </span><span class="m">0</span>.9
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Abstracta.JmeterDsl</p>
@@ -1497,7 +1542,7 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
 <span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">LoadTest</span><span class="p">()</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">stats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TestPlan</span><span class="p">(</span>
-<span class="w">        </span><span class="n">ThreadGroup</span><span class="p">(</span><span class="n">threads</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="n">iterations</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">        </span><span class="n">ThreadGroup</span><span class="p">(</span><span class="n">threads</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="n">iterations</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="c1">// az iterations a terhelés időtartamát, a threads az intenzitását növeli</span>
 <span class="w">            </span><span class="n">HttpSampler</span><span class="p">(</span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">"http://48.48.48.48"</span><span class="p">)</span><span class="w"> </span><span class="c1">// cseréld le: mintaalkalmazás főoldalának URL-je</span>
 <span class="w">        </span><span class="p">)</span>
 <span class="w">    </span><span class="p">).</span><span class="n">RunIn</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">AzureEngine</span><span class="p">(</span><span class="n">Environment</span><span class="p">.</span><span class="n">GetEnvironmentVariable</span><span class="p">(</span><span class="s">"AZURE_CREDS"</span><span class="p">))</span>
@@ -1527,6 +1572,8 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
 <p>Készíts egy képernyőképet az Azure portálról (<code>f2.1.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin látszik a replikaszámos vonalgrafikon (Chart Type: Line) és a HPA hatása, ahogy a terhelésteszt miatt <strong>megnöveli</strong>, majd <strong>visszacsökkenti</strong> a replikaszámot a minimum értékre. A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarka környékén az AKS neve. Ha a hatás nem elég látványos, növeld a terhelést a <code>ThreadGroup</code> <code>threads</code> és <code>iterations</code> paramétereivel.</p>
 <p>Készíts egy képernyőképet (<code>f2.2.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin <code>kubectl describe hpa</code> paranccsal szemlélteted a HPA skálázási eseményeit.</p>
 <p>Készíts egy képernyőképet (<code>f2.3.png</code>) és commitold azt be a házi feladat repó gyökerébe, amin az Azure portálon látszik a tesztlefutások (<em>Test Runs</em>) listája. A kép jobb felső sarkában látszódjon a belépett felhasználó, a bal felső sarkában a terhelés teszt neve.</p>
+<p>Commitold be a végleges (2.1 szerint módosított) <em>aks-store-quickstart.yaml</em>-t és <em>aks-store-quickstart-hpa.yaml</em>-t is.</p>
+<p>Commitold be az <em>azloadtest</em> könyvtárban lévő terhelésteszt projektet is. A <em>bin</em> és <em>obj</em> könyvtárak ne kerüljenek be, ezeket a kiinduló repó <em>.gitignore</em> fájlja alapból kiszűri. Az <code>AZURE_CREDS</code> értéke ne szerepeljen a kommitolt fájlokban.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Kitekintés - egyéb skálázási lehetőségek</p>
@@ -1535,7 +1582,7 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
 <h2 id="3-feladat-talan-a-legfontosabb">3. Feladat - talán a legfontosabb<a class="headerlink" href="#3-feladat-talan-a-legfontosabb" title="Permanent link">¶</a></h2>
 <div class="admonition danger">
 <p class="admonition-title">Erőforrások törlése</p>
-<p>Beadás után <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/delete-resource-group?tabs=azure-portal#delete-resource">törölj minden szolgáltatást</a>, kivéve az Azure Load Testing erőforrást. Érdemes a törlést az AKS-sel kezdeni, annak törlése törli az AKS infrastruktúra erőforráscsoportot. Töröld a technikai felhasználót is az Entra-ból az <a href="https://learn.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest#az-ad-sp-delete"><code>az ad sp delete</code></a> paranccsal.</p>
+<p>Beadás után <a href="https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/delete-resource-group?tabs=azure-portal#delete-resource">törölj minden szolgáltatást</a>, kivéve az Azure Load Testing erőforrást. Érdemes a törlést az AKS-sel kezdeni, annak törlése törli az AKS infrastruktúra erőforráscsoportot. Töröld a technikai felhasználót is az Entra-ból az <a href="https://learn.microsoft.com/en-us/cli/azure/ad/app?view=azure-cli-latest#az-ad-app-delete"><code>az ad app delete --id &lt;appId&gt;</code></a> paranccsal (az <em>appId</em> a 2.3-ban elmentett JSON-ban található). Az <code>az ad sp create-for-rbac</code> egy alkalmazásregisztrációt és egy hozzá tartozó service principalt is létrehozott; az alkalmazásregisztráció törlése mindkettőt eltávolítja, míg az <code>az ad sp delete</code> csak a service principalt törölné.</p>
 </div>
   <hr>
   <div class="md-source-file">
@@ -1544,8 +1591,8 @@ dotnet<span class="w"> </span>add<span class="w"> </span>package<span class="w">
           </path>
         </svg>
       </span>
-      <span title="2026. augusztus 28. 13:07:06">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. augusztus 28. 13:07:06 CEST"><span class="timeago" datetime="2026-08-28T13:07:06+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. augusztus 28. 13:07:06 CEST">2026-08-28</span>
+      <span title="2026. október 25. 20:06:31">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. október 25. 20:06:31 CET"><span class="timeago" datetime="2026-10-25T20:06:31+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. október 25. 20:06:31 CET">2026-10-25</span>
       </span>
     </span>
 
