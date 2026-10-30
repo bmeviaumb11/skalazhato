@@ -34,9 +34,9 @@ A komponensek listája, rövid leírása és technológiái a következők:
 | product-service     | Rust (Actix Web)           | Ez a szolgáltatás a termékek CRUD műveleteit végzi, a termékeket relációs adatbázisban perzisztálja                                                 |
 | order-service       | Node.js (Fastify)          | Ez a szolgáltatás fogadja a leadott rendeléseket, és üzenetként az üzenetsorba küldi őket                                                           |
 | makeline-service    | Go                         | Ez a szolgáltatás kezeli a rendelések feldolgozását: kiolvassa őket az üzenetsorból, perzisztálja őket, és üzleti műveleteket nyújt a rendelésekhez |
-| termékek db         | Microsoft SQL Server       | Relációs adatbázis a termékek adatainak tárolásához                                                                                                 |
-| rendelések db       | DocumentDB (MongoDB API)   | MongoDB-kompatibilis NoSQL adatbázis a rendelések adatainak tárolásához                                                                             |
-| aszinkron üzenetsor | RabbitMQ                   | Aszinkron üzenetsor a rendelések továbbítására az order-service és a makeline-service között                                                        |
+| product DB          | Microsoft SQL Server       | Relációs adatbázis a termékek adatainak tárolásához                                                                                                 |
+| order DB            | DocumentDB (MongoDB API)   | MongoDB-kompatibilis NoSQL adatbázis a rendelések adatainak tárolásához                                                                             |
+| message queue       | RabbitMQ                   | Aszinkron üzenetsor a rendelések továbbítására az order-service és a makeline-service között                                                        |
 | API Gateway         | Traefik (Gateway API)      | Az alkalmazás egyetlen publikus belépési pontja, hosztnév szerinti routing a frontendek felé                                                        |
 
 A komponensek közötti kapcsolatok az alábbi ábrán láthatók:
