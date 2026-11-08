@@ -200,6 +200,7 @@ További szabályok:
     - Azure Functions esetén [deployment slot](https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal)-ok használatával (Premium vagy Dedicated csomagban; Flex Consumption csomagban nem érhető el): **3** pont
     - Azure Functions esetén külön *Function App* példány használatával (pl. Flex Consumption csomagban): **3** pont
     - *Azure Container Apps* esetén külön *Container Apps* példány használatával: **3** pont
+    - *Azure Container Apps* esetén [több aktív revízió](https://learn.microsoft.com/en-us/azure/container-apps/revisions) (multiple revision mode) használatával, a forgalom revíziók közötti elosztásával vagy revíziócímkékkel: **3** pont
 
 - **{CICD}** CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója felépül és kitelepül: **10-15** pont
 
