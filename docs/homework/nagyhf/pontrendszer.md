@@ -313,6 +313,8 @@ Minősítésekből összesen **25** pont szerezhető. A megszerzett minősítés
 
 - **{AZ200}** [Microsoft Certified: Azure Developer Associate](https://learn.microsoft.com/en-us/credentials/certifications/azure-developer) minősítés megszerzése: **25** pont
 
+- **{AI200}** [Microsoft Certified: Azure AI Cloud Developer Associate](https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-cloud-developer-associate/) (AI-200 vizsga) minősítés megszerzése: **25** pont
+
 ### Egyéb
 
 - **{BASE}** A minimum elvárásokat teljesítő rendszer: **30** pont
