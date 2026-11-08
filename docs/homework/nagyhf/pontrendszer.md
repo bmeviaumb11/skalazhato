@@ -266,10 +266,10 @@ További szabályok:
 
 - **{AZACA}** Azure Container Apps skálázása szabály alapján: **2** pont
 
-- **{AKSMON}** AKS monitorozása, különféle telemetriatípusok (strukturált naplók, metrikák, elosztott nyomkövetés) gyűjtése és megjelenítése Azure Monitor szolgáltatásban Azure Monitor agent-tel vagy agent nélkül, Azure Monitor OpenTelemetry disztribúcióval **2-5** pont
+- **{AKSMON}** AKS monitorozása Azure Monitor agent-tel (pl. Container Insights): strukturált naplók és/vagy metrikák gyűjtése és megjelenítése Azure Monitor szolgáltatásban: **2** pont
 
-    - strukturált naplók és/vagy metrikák gyűjtése: **2** pont
-    - alkalmazásszintű OpenTelemetry telemetriák küldése közvetlenül (agent nélkül) Azure Monitor-ba az Azure Monitor OpenTelemetry disztribúcióval: **+3** pont
+    !!! tip
+        Az alkalmazásszintű OpenTelemetry telemetriák közvetlen (agent nélküli) küldése Azure Monitor-ba külön jogcím, lásd {OTAZURE}.
 
 - **{OTAZURE}** AKS/ACA/AZF platformon futó alkalmazásból alkalmazásszintű OpenTelemetry telemetriák küldése közvetlenül (agent nélkül) Azure Monitor-ba [Azure Monitor OpenTelemetry disztribúcióval](https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-enable): **5** pont
 
