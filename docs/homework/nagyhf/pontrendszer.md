@@ -138,8 +138,8 @@ További szabályok:
 - **{ASYNCCOMM}** Aszinkron, üzenetsor alapú kommunikáció mikroszolgáltatások között saját telepítésű (pl. RabbitMQ konténer) üzenetsor, üzenetkezelő (messaging) szolgáltatással: **5-13** pont
 
     - Integrációs esemény eventual consistency adatkezeléshez: **5** pont
-    - Transactional Outbox pattern alkalmazása: **5** pont
-    - Idempotens megvalósítás pl. deduplikációs elven: **3** pont
+    - Transactional Outbox pattern alkalmazása: **+5** pont
+    - Idempotens megvalósítás pl. deduplikációs elven: **+3** pont
 
 - **{SAGA}** Saga minta implementálása legalább egy folyamat esetén, hibakezeléssel és kompenzáció megvalósításával: **20** pont
 
