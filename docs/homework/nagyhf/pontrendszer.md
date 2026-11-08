@@ -194,7 +194,12 @@ További szabályok:
         A VPA és HPA együttes használata nagy körültekintést igényel, nem ajánlott, hogy ugyanazt a metrikát (vCPU, RAM) figyelje a két Autoscaler.
 
 
-- **{K8SNS}** Több példány (verzió) telepítése ugyanabba a környezetbe K8S namespace-ek vagy Azure Function [deployment slot](https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal)-ok használatával. *Azure Container Apps* platform esetén külön *Container Apps* példány használható: **5** pont
+- **{K8SNS}** Több példány (verzió) telepítése ugyanabba a környezetbe: **3-5** pont
+
+    - K8S / AKS esetén namespace-ek használatával: **5** pont
+    - Azure Functions esetén [deployment slot](https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal)-ok használatával (Premium vagy Dedicated csomagban; Flex Consumption csomagban nem érhető el): **3** pont
+    - Azure Functions esetén külön *Function App* példány használatával (pl. Flex Consumption csomagban): **3** pont
+    - *Azure Container Apps* esetén külön *Container Apps* példány használatával: **3** pont
 
 - **{CICD}** CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója felépül és kitelepül: **10-15** pont
 
