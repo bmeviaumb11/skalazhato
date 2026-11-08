@@ -222,9 +222,7 @@ További szabályok:
     - Azure Container Registry autentikációval pl. image pull secret-tel: **3** pont
     - Egyéb container registry autentikációval pl. image pull secret-tel: **2** pont
 
-- **{OPARC}** On-premise Kubernetes bekötése Azure Arc-ba: **3-18** pont
-    - A szolgáltatás bekötése **3** pont
-    - A szolgáltatás on-premise [Azure Function engine](https://learn.microsoft.com/en-us/azure/app-service/overview-arc-integration)-en fut (**preview!**) **+15** pont
+- **{OPARC}** On-premise Kubernetes bekötése Azure Arc-ba: **3** pont
 
 - **{OPSTR}** Tartós tár, pl. lokális mappa csatolása klaszterbe. **2** pont
 
@@ -247,7 +245,10 @@ További szabályok:
 
 - **{AZING}** Gateway/Ingress Azure szolgáltatásra (kivéve Azure API Management) vagy AKS kiterjesztésre építve. **2-7** pont
 
-    - AKS esetén az [application routing bővítmény](https://learn.microsoft.com/en-us/azure/aks/app-routing): **2** pont
+    - AKS esetén az [application routing bővítmény Gateway API módban](https://learn.microsoft.com/en-us/azure/aks/app-routing-gateway-api): **2** pont
+
+    !!! warning "Managed NGINX"
+        Az application routing bővítmény NGINX alapú (Ingress API-s) módja 2026 novemberében kivezetésre kerül, így ezért a módért nem jár pont.
     - AKS esetén egyéb [hivatalosan támogatott AKS ingress opció](https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options) (pl. Application Gateway for Containers): **7** pont
     - Egyéb Azure szolgáltatás (pl. Azure App Gateway; kivéve Azure API Management): **7** pont
   
