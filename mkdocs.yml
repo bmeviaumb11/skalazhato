@@ -38,6 +38,9 @@ theme:
   logo: logo-bme-aut.png
   favicon: favicon.ico
 
+extra_javascript:
+  - javascripts/mermaid-lightbox.js
+
 extra_css:
   - extra-material-theme.css
 
