@@ -425,7 +425,7 @@ További szabályok:
 
     !!! tip "Ismert, jól dokumentált megoldások"
         - Globális terheléselosztó:
-            - [Azure Front Door](https://learn.microsoft.com/en-us/azure/frontdoor/front-door-overview): mindkét opcióhoz ajánlott. Gyors átállás; Standard szinten kb. 35 USD/hó alapdíj, de óránként, csak a profil létezésének idejére számlázva.
+            - [Azure Front Door](https://learn.microsoft.com/en-us/azure/frontdoor/front-door-overview): mindkét opcióhoz ajánlott. Gyors váltás. Standard szinten kb. 35 USD/hó alapdíj, de óránként, csak a profil létezésének idejére számlázva.
             - [Azure Traffic Manager](https://learn.microsoft.com/en-us/azure/traffic-manager/traffic-manager-overview): csak a két Azure régiós opcióhoz. DNS alapú, olcsó, de a DNS gyorsítótárazás miatt lassabb átállás.
         - Azure oldali platform: AKS, Azure Container Apps vagy Azure Functions
         - On-premise végpont publikussá tétele:
