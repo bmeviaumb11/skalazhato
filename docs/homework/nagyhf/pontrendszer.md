@@ -359,7 +359,7 @@ Minősítésekből összesen **25** pont szerezhető. A megszerzett minősítés
 - **{AZ200}** [Microsoft Certified: Azure Developer Associate](https://learn.microsoft.com/en-us/credentials/certifications/azure-developer) minősítés megszerzése: **25** pont
 
     !!! warning
-        Az AZ-204 vizsga 2026. július 31-én [kivezetésre került](https://learn.microsoft.com/en-us/credentials/retired-certification-exams), utódja az AI-200 (lásd {AI200}). Az {AZ200} jogcím csak a korábban megszerzett, még le nem járt minősítéssel számolható el.
+        Az AZ-204 vizsga 2026. július 31-én [kivezetésre került](https://learn.microsoft.com/en-us/credentials/retired-certification-exams), utódja az AI-200 (lásd {AI200}). Az {AZ200} jogcím korábban megszerzett minősítéssel elszámolható.
 
 - **{AI200}** [Microsoft Certified: Azure AI Cloud Developer Associate](https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-cloud-developer-associate/) (AI-200 vizsga) minősítés megszerzése: **25** pont
 
