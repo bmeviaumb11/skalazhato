@@ -58,6 +58,21 @@
 
     
     
+  
+  <script>
+    // Material renders Mermaid diagrams into closed shadow roots. Force them
+    // open so mermaid-lightbox.js can copy the rendered SVG into its overlay.
+    (function () {
+      var attach = Element.prototype.attachShadow;
+      Element.prototype.attachShadow = function (init) {
+        if (this.classList && this.classList.contains("mermaid")) {
+          init = Object.assign({}, init, { mode: "open" });
+        }
+        return attach.call(this, init);
+      };
+    })();
+  </script>
+
   <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
@@ -1061,6 +1076,8 @@
         <script src="js/timeago.min.js"></script>
       
         <script src="js/timeago_mkdocs_material.js"></script>
+      
+        <script src="javascripts/mermaid-lightbox.js"></script>
       
         <script src="js/open_in_new_tab.js"></script>
       

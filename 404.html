@@ -57,6 +57,21 @@
 
     
     
+  
+  <script>
+    // Material renders Mermaid diagrams into closed shadow roots. Force them
+    // open so mermaid-lightbox.js can copy the rendered SVG into its overlay.
+    (function () {
+      var attach = Element.prototype.attachShadow;
+      Element.prototype.attachShadow = function (init) {
+        if (this.classList && this.classList.contains("mermaid")) {
+          init = Object.assign({}, init, { mode: "open" });
+        }
+        return attach.call(this, init);
+      };
+    })();
+  </script>
+
   </head>
   
   
@@ -976,6 +991,8 @@
         <script src="/skalazhato/js/timeago.min.js"></script>
       
         <script src="/skalazhato/js/timeago_mkdocs_material.js"></script>
+      
+        <script src="/skalazhato/javascripts/mermaid-lightbox.js"></script>
       
         <script src="/skalazhato/js/open_in_new_tab.js"></script>
       
