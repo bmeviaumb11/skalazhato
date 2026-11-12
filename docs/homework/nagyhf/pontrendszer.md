@@ -251,6 +251,11 @@ További szabályok:
     !!! warning
         Ugyanazon a klaszteren a {CHAOS} és az {AZCS} Chaos Mesh alapú hibája közül csak az egyik számít be.
 
+- **{LOADTEST}** Terheléses teszt készítése és futtatása a saját rendszer ellen, legalább egy forgatókönyvvel (pl. [Azure Load Testing](https://learn.microsoft.com/en-us/azure/load-testing/overview-what-is-azure-load-testing), [k6](https://grafana.com/docs/k6/latest/), [JMeter](https://jmeter.apache.org/), [Locust](https://locust.io/)). Védésen a teszt futtatását és az eredmények (pl. válaszidők, hibaarány) értelmezését be kell mutatni: **3** pont
+
+    !!! tip
+        A terheléses teszt jól használható a skálázási jogcímek ({HSC}, {AZACA}, {AZCAS}) demonstrálásához is.
+
 - **{EXTAPI}** Külső online (SaaS) szolgáltatás (pl. Azure AI, Twitter, Facebook, Google Maps, Bing Maps, stb.) integrálása API-n keresztül, autentikációt végrehajtva: **3-7** pont
 
     - egyszerű REST-jellegű webes API, SDK használat nélkül, egyszerű API-kulcsalapú autentikáció: **3** pont
