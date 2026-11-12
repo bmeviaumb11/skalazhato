@@ -123,10 +123,15 @@ További szabályok:
     !!! danger
         Saját mintaimplementációért nem jár pont. Ha az (API/App) gateway valósítja meg, szintén nem jár pont. A keretrendszer vagy projektsablon által alapértelmezetten bekapcsolt, változtatás nélkül használt hibatűrésért (pl. a .NET Aspire ServiceDefaults `AddStandardResilienceHandler()` hívása) szintén nem jár pont.
 
-- **{APIGW+AUTH}** A szolgáltatás autentikációjának kiszervezése (API/App) gateway-be forward autentikáció használatával: **5-15** pont
+- **{APIGW+AUTH}** A szolgáltatás autentikációjának kiszervezése (API/App) gateway-be: **5-15** pont
 
-    - OAuth proxy vagy self-hosted/felhőben futó [Azure API Management gateway](https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad) használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (pl. Keycloak, Entra) felé továbbítva: **15** pont
-    - Egyéb egyszerű saját dummy autentikációs szolgáltatás felé továbbítva: **5** pont
+    - Egyszerű saját dummy autentikációs szolgáltatás felé továbbítva, forward autentikációval: **5** pont
+    - Self-hosted vagy felhőben futó [Azure API Management gateway](https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad) használatával, token validációs policy-vel (pl. `validate-jwt`, `validate-azure-ad-token`): a tokent a kliens szerzi be valamilyen elterjedt OAuth/OIDC IDP-től (pl. Entra, Keycloak), a gateway csak ellenőrzi: **7** pont
+    - OAuth proxy (pl. oauth2-proxy) használatával, forward autentikációval: a bejelentkezési folyamatot (authorization code flow) a gateway kezeli, valamilyen elterjedt OAuth/OIDC IDP (pl. Entra, Keycloak) felé továbbítva: **10** pont
+    - Az OAuth/OIDC IDP saját telepítésű (pl. Keycloak konténer), nem külső szolgáltatás (pl. Entra): **+5** pont
+
+    !!! warning
+        Az {AZAPIMGMT} jogcímhez szükséges policy nem lehet az autentikációt megvalósító policy.
 
 - **{AZAPIMGMT}** *Azure API Management* használata. A kliensről jövő minden API kérés áthalad az API Management gateway-en mielőtt eljutna a klaszterbe vagy az [Azure Function-ökhöz](https://azure.microsoft.com/en-us/blog/benefits-of-using-azure-api-management-with-microservices/). Legalább egy [policy-t](https://learn.microsoft.com/en-us/azure/api-management/api-management-policies) érvényesít: **7-16** pont
 
