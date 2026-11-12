@@ -229,7 +229,7 @@ További szabályok:
     !!! tip
         Saját gépen futó (on-premise) klaszterre a felhőben futó GitHub Actions / Azure DevOps ágensek nem tudnak közvetlenül telepíteni. Ehhez saját gépen futó ágens ([self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners)) vagy pull alapú, GitOps telepítés (pl. Flux vagy Argo CD, lásd {GITOPS}) szükséges.
 
-- **{GITOPS}** Az alkalmazás telepítése pull alapú, GitOps megközelítéssel (pl. [Flux](https://fluxcd.io/), [Argo CD](https://argo-cd.readthedocs.io/), vagy az AKS / Azure Arc Flux bővítménye): a repository-ban lévő Helm chart vagy K8S leírók módosítása után a klaszter állapota automatikusan frissül. Védésen demonstrálni kell: **5** pont
+- **{GITOPS}** Az alkalmazás telepítése pull alapú, GitOps megközelítéssel (pl. [Flux](https://fluxcd.io/), [Argo CD](https://argo-cd.readthedocs.io/), vagy az AKS / Azure Arc Flux bővítménye): a repository-ban lévő Helm chart vagy K8S leírók módosítása után a klaszter állapota automatikusan frissül - védésen ezt demonstrálni kell: **5** pont
 
 - **{CHAOS}** Chaos engineering eszköz alkalmazása (pl. [chaos mesh](https://chaos-mesh.org/docs/)). Védésen szemléltetés káoszteszt futtatással: **5** pont
 
