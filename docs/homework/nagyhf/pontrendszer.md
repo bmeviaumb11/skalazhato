@@ -226,6 +226,9 @@ További szabályok:
     - egy platformra telepít: **10** pont
     - két platformra telepít: **15** pont
 
+    !!! tip
+        Saját gépen futó (on-premise) klaszterre a felhőben futó GitHub Actions / Azure DevOps ágensek nem tudnak közvetlenül telepíteni. Ehhez saját gépen futó ágens ([self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners)) vagy pull alapú, GitOps telepítés (pl. Flux vagy Argo CD, akár az {OPARC} jogcímnél leírt Arc Flux bővítménnyel) szükséges.
+
 - **{CHAOS}** Chaos engineering eszköz alkalmazása (pl. [chaos mesh](https://chaos-mesh.org/docs/)). Védésen szemléltetés káoszteszt futtatással: **5** pont
 
     !!! warning
