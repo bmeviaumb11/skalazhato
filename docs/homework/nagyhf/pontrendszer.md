@@ -339,7 +339,10 @@ További szabályok:
 
 - **{AZFDF}** [*Durable Functions*](https://learn.microsoft.com/en-us/azure/durable-task/durable-functions/durable-functions-overview) használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: **7** pont
 
-- **{AZACI}** Legalább egy pod/szolgáltatás futtatása Azure Container Instance szolgáltatáson az AKS [virtual node](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes) képességére építve: **7** pont
+- **{AZACI}** Legalább egy pod/szolgáltatás futtatása Azure Container Instance szolgáltatáson az AKS virtual node képességére építve, a [bővítmény (add-on) alapú](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes) vagy a [Helm-alapú Virtual Nodes v2](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes-v2) (előzetes verzió) megoldással: **7** pont
+
+    !!! warning
+        A virtual node csak Azure CNI hálózati beépülővel létrehozott klaszteren működik (kubenet és Azure CNI Overlay nem támogatott). Az új AKS klaszterek alapértelmezése az Overlay, ezért a klaszter létrehozásakor ezt külön be kell állítani.
   
 - **{AZCAS}** AKS node szintű skálázás cluster autoscaler-rel. Védésen a (vissza)skálázást demonstrálni kell: **3** pont
 
