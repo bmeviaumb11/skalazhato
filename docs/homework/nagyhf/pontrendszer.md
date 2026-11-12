@@ -107,7 +107,7 @@ További szabályok:
 
 ### Általános és cross-technológia
 
-<!-- A {PLAT2} pontszáma szándékosan magasabb a ráfordított időnél (kb. 12 óra), mert az Azure-os telepítést ösztönözni szeretnénk. -->
+<!-- A {PLAT2} pontszáma szándékosan magasabb a ráfordított időnél (kb. 12 óra), mert az Azure-os telepítés nehézségeit honorálni szeretnénk. -->
 
 - **{PLAT2}** A szolgáltatás két különféle orkesztrációs platformon fut, egymástól függetlenül, tehát a teljes szolgáltatás két egymástól független telepítéssel rendelkezik (pl. on-premise K8S és AKS). Nem kell, hogy minden nem-üzleti funkció (pl. autentikáció) ugyanolyan komplex legyen a két telepítésben, csak az üzleti funkciók képességei egyezzenek. Legalább az egyik platformnak Azure-ban kell futnia: **20** pont
 
