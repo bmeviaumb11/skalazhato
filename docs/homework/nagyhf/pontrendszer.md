@@ -182,7 +182,7 @@ További szabályok:
 
 - **{K8SSECRET}** Kubernetes Secret objektum használata titok tárolására. *Azure Container Apps* esetén [Container Apps secret](https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets) is elfogadott. Az {AKV2K8S} által létrehozott Secret objektumokért nem jár külön pont: **2** pont
 
-- **{AKV2K8S}** Azure Key Vault (AKV) titkok leképezése K8S Secret objektumokba vagy podok környezeti változóira [akv2k8s könyvtárral](https://akv2k8s.io/) vagy [Azure Key Vault provider for Secrets Store CSI Driver-rel](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-driver) (AKVSSCSID): **5** pont
+- **{AKV2K8S}** Azure Key Vault (AKV) titkok leképezése K8S Secret objektumokba vagy podok környezeti változóira [akv2k8s könyvtárral](https://akv2k8s.io/) vagy [Azure Key Vault provider for Secrets Store CSI Driver-rel](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-driver) (AKVSSCSID), workload identity-vel vagy a kubelet identitásával: **5** pont
 
     !!! tip
         AKS-en a workload identity beállításáért az {AKSWI} jogcím is megszerezhető.
