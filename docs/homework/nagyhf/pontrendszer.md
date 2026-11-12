@@ -177,7 +177,10 @@ További szabályok:
     !!! warning
         A {CACHE} és az {AZRED} közül csak az egyik számít be.
 
-- **{DBHA}** Saját telepítésű, állapottartó komponens (adatbázis vagy üzenetkezelő) magas rendelkezésre állású, többpéldányos klaszterként, automatikus failoverrel (pl. PostgreSQL [CloudNativePG](https://cloudnative-pg.io/)-vel, MongoDB replica set, RabbitMQ klaszter quorum queue-kkal). Védésen a primary példány leállítását és az alkalmazás további működését demonstrálni kell: **7** pont
+- **{DBHA}** Kubernetes klaszterben futó, saját telepítésű, állapottartó komponens (adatbázis vagy üzenetkezelő) magas rendelkezésre állású, többpéldányos klaszterként, automatikus failoverrel. Védésen a primary példány leállítását és az alkalmazás további működését demonstrálni kell: **7** pont
+
+    !!! tip
+        Ismert, jól dokumentált megoldások: PostgreSQL [CloudNativePG](https://cloudnative-pg.io/)-vel, MongoDB replica set a [MongoDB Controllers for Kubernetes](https://github.com/mongodb/mongodb-kubernetes) operátorral, RabbitMQ klaszter quorum queue-kkal a [RabbitMQ Cluster Operator](https://www.rabbitmq.com/kubernetes/operator/operator-overview)-ral. Más technológia is elfogadható, de a pontszám a fenti megoldások ráfordításához igazodik.
 
 - **{HELM}** A szolgáltatás Kubernetesen belül futó része Helm chart-on keresztül telepíthető. Szükséges demonstrálni a rendszer frissítését a chart segítségével: **10** pont
 
