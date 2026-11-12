@@ -140,6 +140,9 @@ További szabályok:
     - Több API verzió támogatása API Management szolgáltatás segítségével: **+2** pont
     - Mock válaszok legalább egy API művelethez, API Management szolgáltatás segítségével: **+2** pont
 
+    !!! warning
+        A policy-követelményt nem teljesíti az {APIGW+AUTH} jogcímhez használt autentikációs policy (pl. `validate-jwt`).
+
 - **{ASYNCCOMM}** Aszinkron, üzenetsor alapú kommunikáció mikroszolgáltatások között saját telepítésű (pl. RabbitMQ konténer) üzenetsor, üzenetkezelő (messaging) szolgáltatással: **5-13** pont
 
     - Integrációs esemény eventual consistency adatkezeléshez: **5** pont
@@ -178,6 +181,9 @@ További szabályok:
 
 - **{AKV2K8S}** Azure Key Vault (AKV) titkok leképezése K8S Secret objektumokba vagy podok környezeti változóira [akv2k8s könyvtárral](https://akv2k8s.io/) vagy [Azure Key Vault provider for Secrets Store CSI Driver-rel](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-driver) (AKVSSCSID): **7** pont
 
+    !!! warning
+        Az {AKV2K8S} által létrehozott Secret objektumokért a {K8SSECRET} jogcímen nem jár külön pont.
+
 - **{OT}** OpenTelemetry alkalmazása különféle célokra: strukturált naplózásra, metrikák monitorozására, elosztott nyomkövetésre. [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/) komponens és valamilyen aggregátor felület használata kötelező a klaszteren belül (pl. Jaeger, Grafana, Azure Monitor), amin védéskor a naplókat, metrikákat, elosztott nyomkövetést be kell tudni mutatni: **5-13** pont
 
     - egyfajta célra: **5** pont
@@ -200,7 +206,6 @@ További szabályok:
 
     !!! warning "VPA és HPA együtt"
         A VPA és HPA együttes használata nagy körültekintést igényel, nem ajánlott, hogy ugyanazt a metrikát (vCPU, RAM) figyelje a két Autoscaler.
-
 
 - **{K8SNS}** Több példány (verzió) telepítése ugyanabba a környezetbe: **3-5** pont
 
