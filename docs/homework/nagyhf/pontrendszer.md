@@ -186,6 +186,34 @@ További szabályok:
 
         Más technológia is elfogadható, de a pontszám a fenti megoldások ráfordításához igazodik.
 
+    !!! warning
+        Ugyanazon adatbázis-technológia esetén a {DBHA} és a {DBGEOREPL} saját telepítésű opciója közül csak az egyik számít be.
+
+<!-- Félévente ellenőrizendő hallgatói (Azure for Students) előfizetésen: létrehozható-e Azure SQL geo-replika (Basic szinten), Cosmos DB második régióval és PostgreSQL Flexible Server logikai replikációval (Burstable szinten), és mennyibe kerül. -->
+
+- **{DBGEOREPL}** Adatbázis replikálása másik Azure régióba vagy másik klaszterbe. Védésen a replika használatát (pl. olvasás a replikáról) vagy a manuális failovert demonstrálni kell: **5-12** pont
+
+    - Menedzselt Azure adatbázis geo-replikációjával: **5** pont
+    - Hibrid replikációval menedzselt Azure adatbázis és saját telepítésű adatbázis között: **7** pont
+    - Saját telepítésű adatbázis két Kubernetes klaszter közötti replikációjával: **12** pont
+
+    !!! tip "Ismert, jól dokumentált megoldások"
+        - Menedzselt:
+            - Azure SQL geo-replikáció vagy failover group
+            - Cosmos DB több régióval
+        - Hibrid:
+            - PostgreSQL logikai replikáció Azure Database for PostgreSQL Flexible Server és on-premise PostgreSQL között
+        - Saját telepítésű:
+            - PostgreSQL [CloudNativePG](https://cloudnative-pg.io/) replica cluster on-premise és AKS klaszter között
+
+        Más technológia is elfogadható, de a pontszám a fenti megoldások ráfordításához igazodik.
+
+    !!! tip
+        Saját gépen futó, NAT mögötti klaszter replikaként (subscriberként) vehet részt, mert ilyenkor ő kapcsolódik a primary példányhoz. A primary végpontját IP-korlátozással és TLS-sel kell védeni.
+
+    !!! warning
+        Ugyanazon adatbázis-technológia esetén a {DBHA} és a {DBGEOREPL} saját telepítésű opciója közül csak az egyik számít be.
+
 - **{HELM}** A szolgáltatás Kubernetesen belül futó része Helm chart-on keresztül telepíthető. Szükséges demonstrálni a rendszer frissítését a chart segítségével: **10** pont
 
 <!-- Félévente ellenőrizendő hallgatói (Azure for Students) előfizetésen: elérhetők-e az ACR Tasks (`az acr build`, `az acr task`). Ha igen, az alábbi figyelmeztetés törölhető. -->
