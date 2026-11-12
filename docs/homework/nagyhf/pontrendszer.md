@@ -227,7 +227,9 @@ További szabályok:
     - két platformra telepít: **15** pont
 
     !!! tip
-        Saját gépen futó (on-premise) klaszterre a felhőben futó GitHub Actions / Azure DevOps ágensek nem tudnak közvetlenül telepíteni. Ehhez saját gépen futó ágens ([self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners)) vagy pull alapú, GitOps telepítés (pl. Flux vagy Argo CD, akár az {OPARC} jogcímnél leírt Arc Flux bővítménnyel) szükséges.
+        Saját gépen futó (on-premise) klaszterre a felhőben futó GitHub Actions / Azure DevOps ágensek nem tudnak közvetlenül telepíteni. Ehhez saját gépen futó ágens ([self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners)) vagy pull alapú, GitOps telepítés (pl. Flux vagy Argo CD, lásd {GITOPS}) szükséges.
+
+- **{GITOPS}** Az alkalmazás telepítése pull alapú, GitOps megközelítéssel (pl. [Flux](https://fluxcd.io/), [Argo CD](https://argo-cd.readthedocs.io/), vagy az AKS / Azure Arc Flux bővítménye): a repository-ban lévő Helm chart vagy K8S leírók módosítása után a klaszter állapota automatikusan frissül. Védésen demonstrálni kell: **5** pont
 
 - **{CHAOS}** Chaos engineering eszköz alkalmazása (pl. [chaos mesh](https://chaos-mesh.org/docs/)). Védésen szemléltetés káoszteszt futtatással: **5** pont
 
@@ -253,11 +255,13 @@ További szabályok:
     - Azure Container Registry autentikációval pl. image pull secret-tel: **3** pont
     - Egyéb container registry autentikációval pl. image pull secret-tel: **2** pont
 
-- **{OPARC}** On-premise Kubernetes bekötése Azure Arc-ba: **3-10** pont
+- **{OPARC}** On-premise Kubernetes bekötése Azure Arc-ba: **3-5** pont
 
     - A klaszter bekötése Azure Arc-ba: **3** pont
-    - Az alkalmazás telepítése GitOps alapon, az Arc [Flux bővítményével](https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2) (pl. a repository-ban lévő Helm chart vagy K8S leírók alapján): **+5** pont
     - [Container Insights monitorozás](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/kubernetes-monitoring-enable-arc) az Arc-ba kötött klaszteren: **+2** pont
+
+    !!! tip
+        Az Arc [Flux bővítményével](https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2) megvalósított GitOps telepítés a {GITOPS} jogcímnél számolható el.
 
 - **{OPSTR}** Tartós tár, pl. lokális mappa csatolása klaszterbe: **2** pont
 
