@@ -222,6 +222,9 @@ További szabályok:
 
 - **{CHAOS}** Chaos engineering eszköz alkalmazása (pl. [chaos mesh](https://chaos-mesh.org/docs/)). Védésen szemléltetés káoszteszt futtatással: **5** pont
 
+    !!! warning
+        Ugyanazon a klaszteren a {CHAOS} és az {AZCS} Chaos Mesh alapú hibája közül csak az egyik számít be.
+
 - **{EXTAPI}** Külső online (SaaS) szolgáltatás (pl. Azure AI, Twitter, Facebook, Google Maps, Bing Maps, stb.) integrálása API-n keresztül, autentikációt végrehajtva: **3-7** pont
 
     - egyszerű REST-jellegű webes API, SDK használat nélkül, egyszerű API-kulcsalapú autentikáció: **3** pont
@@ -302,7 +305,13 @@ További szabályok:
     !!! danger
         Platformonként csak egy, OpenTelemetry telemetriákat Azure Monitor-ba juttató módszerért jár pont: az {OT} jogcím Azure Monitor exportja, az {OTAZURE}, az {ACAMON} és az {AZFMON} közül egy platformon csak az egyik számít be.
 
-- **{AZCS}** [*Azure Chaos Studio*](https://learn.microsoft.com/en-us/azure/chaos-studio/) használata káoszteszt futtatására: **7** pont
+- **{AZCS}** [*Azure Chaos Studio*](https://learn.microsoft.com/en-us/azure/chaos-studio/) használata káoszteszt futtatására. Védésen szemléltetés káoszteszt futtatással: **5-7** pont
+
+    - Chaos Mesh nélküli, közvetlenül Azure szolgáltatásra ható hibával (pl. NSG szabály, Cosmos DB failover, Key Vault hozzáférés tiltása): **5** pont
+    - AKS klaszteren Chaos Mesh alapú hibával: **7** pont
+
+    !!! warning
+        Ugyanazon a klaszteren a {CHAOS} és az {AZCS} Chaos Mesh alapú hibája közül csak az egyik számít be.
 
 - **{AZSTR}** Tartós tár, például Azure Disk, Azure Files csatolása AKS-, ACA-klaszterbe vagy [Azure Function-be](https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares): **2** pont
 
