@@ -182,7 +182,10 @@ További szabályok:
 
 - **{K8SSECRET}** Kubernetes Secret objektum használata titok tárolására. *Azure Container Apps* esetén [Container Apps secret](https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets) is elfogadott. Az {AKV2K8S} által létrehozott Secret objektumokért nem jár külön pont: **2** pont
 
-- **{AKV2K8S}** Azure Key Vault (AKV) titkok leképezése K8S Secret objektumokba vagy podok környezeti változóira [akv2k8s könyvtárral](https://akv2k8s.io/) vagy [Azure Key Vault provider for Secrets Store CSI Driver-rel](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-driver) (AKVSSCSID): **7** pont
+- **{AKV2K8S}** Azure Key Vault (AKV) titkok leképezése K8S Secret objektumokba vagy podok környezeti változóira [akv2k8s könyvtárral](https://akv2k8s.io/) vagy [Azure Key Vault provider for Secrets Store CSI Driver-rel](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-driver) (AKVSSCSID): **5** pont
+
+    !!! tip
+        AKS-en a workload identity beállításáért az {AKSWI} jogcím is megszerezhető.
 
     !!! warning
         Az {AKV2K8S} által létrehozott Secret objektumokért a {K8SSECRET} jogcímen nem jár külön pont.
@@ -282,9 +285,17 @@ További szabályok:
   
 - **{AZACR}** Konténerek vagy Helm chart(ok) letöltése Azure-beli klaszterbe vagy *Azure Function*-be saját *Azure Container Registry*-ből ACR admin felhasználó nevében vagy managed identity alapú hozzáféréssel: **2** pont
 
-- **{AZKVAU}** Titkok lekérése saját *Azure Key Vault*-ból passwordless hozzáféréssel (workload identity): **7** pont
+- **{AKSWI}** [Workload identity](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview) (Microsoft Entra Workload ID) használata AKS-en: legalább egy pod federált identitással, passwordless módon ér el Azure erőforrást (pl. az {AZKVAU}, {AZMSG}, {AZBLOB} vagy {AKV2K8S} jogcím megvalósítása során): **5** pont
 
-- **{AZMSG}** A mikroszolgáltatások közötti kommunikáció kiszervezése valamely [Azure üzenetkezelő szolgáltatásba](https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services) (pl. Service Bus, de [Azure Storage Queue](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-azure-and-service-bus-queues-compared-contrasted?source=recommendations) is elfogadott) managed identity alapú hozzáféréssel: **7** pont
+- **{AZKVAU}** Titkok lekérése az alkalmazásból saját *Azure Key Vault*-ból passwordless hozzáféréssel (managed identity, AKS-en workload identity): **2** pont
+
+    !!! tip
+        AKS-en a workload identity beállításáért az {AKSWI} jogcím is megszerezhető.
+
+- **{AZMSG}** A mikroszolgáltatások közötti kommunikáció kiszervezése valamely [Azure üzenetkezelő szolgáltatásba](https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services) (pl. Service Bus, de [Azure Storage Queue](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-azure-and-service-bus-queues-compared-contrasted?source=recommendations) is elfogadott) managed identity alapú (AKS-en workload identity alapú) hozzáféréssel: **3** pont
+
+    !!! tip
+        AKS-en a workload identity beállításáért az {AKSWI} jogcím is megszerezhető.
 
 - **{AZACA}** Azure Container Apps skálázása szabály alapján: **2** pont
 
@@ -321,7 +332,10 @@ További szabályok:
 
 - **{AZSTR}** Tartós tár, például Azure Disk, Azure Files csatolása AKS-, ACA-klaszterbe vagy [Azure Function-be](https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares): **2** pont
 
-- **{AZBLOB}** Azure Storage Blob integrálása [managed identity használatával](https://learn.microsoft.com/en-us/azure/storage/blobs/authorize-access-azure-active-directory): **5** pont
+- **{AZBLOB}** Azure Storage Blob integrálása [managed identity használatával](https://learn.microsoft.com/en-us/azure/storage/blobs/authorize-access-azure-active-directory) (AKS-en workload identity alapú hozzáféréssel): **3** pont
+
+    !!! tip
+        AKS-en a workload identity beállításáért az {AKSWI} jogcím is megszerezhető.
 
 - **{AZFDF}** [*Durable Functions*](https://learn.microsoft.com/en-us/azure/durable-task/durable-functions/durable-functions-overview) használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: **7** pont
 
