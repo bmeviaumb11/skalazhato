@@ -161,6 +161,9 @@ További szabályok:
 
 - **{CACHE}** Saját telepítésű cache (pl. Redis konténer) használata kifejezetten gyorsítótárazásra legalább egy művelet esetén: **3** pont
 
+    !!! warning
+        A {CACHE} és az {AZRED} közül csak az egyik számít be.
+
 - **{HELM}** A szolgáltatás Kubernetesen belül futó része Helm chart-on keresztül telepíthető. Szükséges demonstrálni a rendszer frissítését a chart segítségével: **10** pont
 
 - **{ACRBUILD}** Legalább egy saját konténer build-elése Azure Container Registry-ben: **2-3** pont
@@ -263,7 +266,10 @@ További szabályok:
     !!! tip
         30 napig ingyenes (többször is aktiválható!) [Cosmos DB](https://cosmos.azure.com/try/) - ideiglenesen nem működik :pensive: (2026. november)
 
-- **{AZRED}** [Azure Redis](https://azure.microsoft.com/en-us/products/cache) szolgáltatás használata kifejezetten gyorsítótárazásra saját telepítésű cache helyett, legalább egy művelet esetén: **2** pont
+- **{AZRED}** [Azure Redis](https://azure.microsoft.com/en-us/products/cache) szolgáltatás (Azure Managed Redis vagy Azure Cache for Redis) használata kifejezetten gyorsítótárazásra legalább egy művelet esetén: **5** pont
+
+    !!! warning
+        A {CACHE} és az {AZRED} közül csak az egyik számít be.
 
 - **{AZING}** Gateway/Ingress Azure szolgáltatásra (kivéve Azure API Management) vagy AKS kiterjesztésre építve: **2-7** pont
 
