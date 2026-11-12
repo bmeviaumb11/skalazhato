@@ -125,6 +125,17 @@ További szabályok:
     !!! danger
         Saját mintaimplementációért nem jár pont. Ha az (API/App) gateway valósítja meg, szintén nem jár pont. A keretrendszer vagy projektsablon által alapértelmezetten bekapcsolt, változtatás nélkül használt hibatűrésért (pl. a .NET Aspire ServiceDefaults `AddStandardResilienceHandler()` hívása) szintén nem jár pont.
 
+- **{GW}** Saját telepítésű (API/App) gateway használata on-premise vagy AKS klaszterben. Kivéve self-hosted Azure API Management: **2-5** pont
+
+    - Traefik használata útvonalválasztásra: **2** pont
+    - Más, saját telepítésű (API/App) gateway használata: **5** pont
+
+    !!! danger
+        Saját gateway implementációért nem jár pont.
+
+    !!! warning
+        Ugyanazon a klaszteren a {GW} és az {AZING} közül csak az egyik számít be.
+
 - **{APIGW+AUTH}** A szolgáltatás autentikációjának kiszervezése (API/App) gateway-be: **5-15** pont
 
     - Egyszerű saját dummy autentikációs szolgáltatás felé továbbítva, forward autentikációval: **5** pont
@@ -269,14 +280,6 @@ További szabályok:
 
 - **{OPSTR}** Tartós tár, pl. lokális mappa csatolása klaszterbe: **2** pont
 
-- **{GW}** Saját telepítésű (API/App) gateway használata. Kivéve self-hosted Azure API Management: **2-5** pont
-
-    - Traefik használata útvonalválasztásra: **2** pont
-    - Más, saját telepítésű (API/App) gateway használata: **5** pont
-
-    !!! danger
-        Saját gateway implementációért nem jár pont.
-
 ### Azure alapon futó rendszerekhez
 
 - **{AZDB2}** Legalább kétfajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, Cosmos DB, Azure Table Storage). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: **7** pont
@@ -297,6 +300,9 @@ További szabályok:
 
     !!! warning "Managed NGINX"
         Az application routing bővítmény NGINX alapú (Ingress API-s) módja 2026 novemberében kivezetésre kerül, így ezért a módért nem jár pont.
+
+    !!! warning
+        Ugyanazon a klaszteren a {GW} és az {AZING} közül csak az egyik számít be.
   
 - **{AZACR}** Konténerek vagy Helm chart(ok) letöltése Azure-beli klaszterbe vagy *Azure Function*-be saját *Azure Container Registry*-ből ACR admin felhasználó nevében vagy managed identity alapú hozzáféréssel: **2** pont
 
