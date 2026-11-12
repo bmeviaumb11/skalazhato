@@ -177,6 +177,8 @@ További szabályok:
     !!! warning
         A {CACHE} és az {AZRED} közül csak az egyik számít be.
 
+- **{DBHA}** Saját telepítésű, állapottartó komponens (adatbázis vagy üzenetkezelő) magas rendelkezésre állású, többpéldányos klaszterként, automatikus failoverrel (pl. PostgreSQL [CloudNativePG](https://cloudnative-pg.io/)-vel, MongoDB replica set, RabbitMQ klaszter quorum queue-kkal). Védésen a primary példány leállítását és az alkalmazás további működését demonstrálni kell: **7** pont
+
 - **{HELM}** A szolgáltatás Kubernetesen belül futó része Helm chart-on keresztül telepíthető. Szükséges demonstrálni a rendszer frissítését a chart segítségével: **10** pont
 
 <!-- Félévente ellenőrizendő hallgatói (Azure for Students) előfizetésen: elérhetők-e az ACR Tasks (`az acr build`, `az acr task`). Ha igen, az alábbi figyelmeztetés törölhető. -->
