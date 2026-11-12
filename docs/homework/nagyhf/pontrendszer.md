@@ -416,6 +416,33 @@ További szabályok:
     !!! warning
         Jelenleg hallgatói előfizetéssel ez a pont valószínűleg nem megszerezhető, mert a szükséges vCPU kvóták az ilyen típusú előfizetéseken túl alacsonyak.
 
+<!-- Félévente ellenőrizendő hallgatói (Azure for Students) előfizetésen: engedélyezett-e több régió használata, belefér-e a kvótába két kis klaszter / környezet két régióban, létrehozható-e Traffic Manager, Front Door és Azure Relay, és mennyibe kerülnek. -->
+
+- **{MULTISITE}** Helyszínek közötti failover: a szolgáltatás üzleti funkciói két helyszínen, egymástól függetlenül futnak, előttük globális terheléselosztóval, amely állapotellenőrzés (health probe) alapján az egyik helyszín kiesésekor a másikra irányítja a forgalmat. Védésen a failovert (pl. az egyik helyszín leállításával) demonstrálni kell: **10-12** pont
+
+    - Két Azure régió között: **10** pont
+    - Egy Azure régió és egy on-premise klaszter között, az on-premise végpont publikusan elérhetővé tételével: **12** pont
+
+    !!! tip "Ismert, jól dokumentált megoldások"
+        - Globális terheléselosztó:
+            - [Azure Front Door](https://learn.microsoft.com/en-us/azure/frontdoor/front-door-overview) (gyors átállás, havi alapdíjas; on-premise végponthoz ez ajánlott, mert az origin felé a Host fejlécet át tudja írni)
+            - [Azure Traffic Manager](https://learn.microsoft.com/en-us/azure/traffic-manager/traffic-manager-overview) (DNS alapú, olcsó, a DNS gyorsítótárazás miatt lassabb átállás; tunnel mögötti on-premise végponttal a Host fejléc miatt nehézkes)
+        - Azure oldali platform: AKS, Azure Container Apps vagy Azure Functions
+        - On-premise végpont publikussá tétele:
+            - tunnel szolgáltatás (pl. Cloudflare Tunnel, ngrok)
+            - [Azure Relay Hybrid Connections](https://learn.microsoft.com/en-us/azure/azure-relay/relay-hybrid-connections-protocol) (Azure-natív, de az on-premise oldalon Relay SDK vagy bridge, pl. azbridge szükséges)
+
+        Más technológia is elfogadható, de a pontszám a fenti megoldások ráfordításához igazodik.
+
+    !!! tip
+        Az adatréteg replikálása nem feltétele ennek a jogcímnek (az adatréteg maradhat egy helyszínen), de külön elszámolható, lásd {DBGEOREPL}. Az Azure oldali helyszín felépítéséhez és lebontásához érdemes IaC-t használni, lásd {IaC}.
+
+    !!! warning
+        Két helyszín párhuzamos futtatása és a globális terheléselosztó növeli a költségeket. A hallgatói előfizetés kreditjének kímélése érdekében a második helyszínt és a terheléselosztót csak a fejlesztés és a védés idejére érdemes felépíteni.
+
+    !!! warning
+        Az on-premise végpont internetre kitétele biztonsági kockázat: csak a szükséges végpontot tedd elérhetővé, és a védés után szüntesd meg.
+
 ### Microsoft minősítések
 
 Minősítésekből összesen **25** pont szerezhető. A megszerzett minősítések felkészülési anyagainak elsajátítása után [pont](mslearning.md) nem kapható. A minősítéseket listázó [oldalra](https://learn.microsoft.com) belépve kell igazolni a minősítés megszerzését.
