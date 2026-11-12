@@ -166,6 +166,8 @@ További szabályok:
 
 - **{HELM}** A szolgáltatás Kubernetesen belül futó része Helm chart-on keresztül telepíthető. Szükséges demonstrálni a rendszer frissítését a chart segítségével: **10** pont
 
+<!-- Félévente ellenőrizendő hallgatói (Azure for Students) előfizetésen: elérhetők-e az ACR Tasks (`az acr build`, `az acr task`). Ha igen, az alábbi figyelmeztetés törölhető. -->
+
 - **{ACRBUILD}** Legalább egy saját konténer build-elése Azure Container Registry-ben: **2-3** pont
 
     - ad-hoc build saját gépről feltöltött context alapján: **2** pont
@@ -350,11 +352,15 @@ További szabályok:
 
 - **{AZFDF}** [*Durable Functions*](https://learn.microsoft.com/en-us/azure/durable-task/durable-functions/durable-functions-overview) használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: **7** pont
 
+<!-- Félévente ellenőrizendő hallgatói (Azure for Students) előfizetésen: létrehozható-e Azure Container Instance, és működik-e az AKS virtual node. Ha nem, "nem szerezhető meg" figyelmeztetés kell. -->
+
 - **{AZACI}** Legalább egy pod/szolgáltatás futtatása Azure Container Instance szolgáltatáson az AKS virtual node képességére építve, a [bővítmény (add-on) alapú](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes) vagy a [Helm-alapú Virtual Nodes v2](https://learn.microsoft.com/en-us/azure/aks/virtual-nodes-v2) (előzetes verzió) megoldással: **7** pont
 
     !!! warning
         A virtual node csak Azure CNI hálózati beépülővel létrehozott klaszteren működik (kubenet és Azure CNI Overlay nem támogatott). Az új AKS klaszterek alapértelmezése az Overlay, ezért a klaszter létrehozásakor ezt külön be kell állítani.
   
+<!-- Félévente ellenőrizendő hallgatói (Azure for Students) előfizetésen: a vCPU kvóta engedi-e a cluster autoscaler demóhoz szükséges skálázást (pl. 1 -> 2 kis node). Ha igen, az alábbi figyelmeztetés törölhető. -->
+
 - **{AZCAS}** AKS node szintű skálázás cluster autoscaler-rel. Védésen a (vissza)skálázást demonstrálni kell: **3** pont
 
     !!! warning
