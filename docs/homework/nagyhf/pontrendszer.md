@@ -109,7 +109,7 @@ További szabályok:
 
 - **{PLAT2}** A szolgáltatás két különféle orkesztrációs platformon fut, egymástól függetlenül, tehát a teljes szolgáltatás két egymástól független telepítéssel rendelkezik (pl. on-premise K8S és AKS). Nem kell, hogy minden nem-üzleti funkció (pl. autentikáció) ugyanolyan komplex legyen a két telepítésben, csak az üzleti funkciók képességei egyezzenek. Legalább az egyik platformnak Azure-ban kell futnia: **12** pont
 
-- **{IaC}** IaC (terraform, Bicep - *ez Azure-only!*, stb.) eszközzel legalább az üzleti funkciókat futtató architektúrarész (K8S / AKS / Azure Function App platform) felépítése és lebontása. A visszaépítés végén az alkalmazásnak működnie kell, nem elég például egy üres AKS-t visszaépíteni. Védésen nem kell demózni (sokáig tartana), de platformonként egy felépítésről és egy lebontásról egy-egy kimeneti naplót be kell tudni mutatni. Nem kell a teljes felépítés-lebontás folyamatot az IaC eszközzel megvalósítani, ki lehet egészíteni egyéb automatizációval, szkripttel. On-premise platform esetén csak akkor jár pont, ha maga a klaszter is IaC eszközzel épül fel és bomlik le (pl. kind/k3d klaszter Terraform/OpenTofu-val, k3s virtuális gépeken Vagrant/Ansible segítségével). Meglévő klaszterre (pl. Docker Desktop beépített K8S) alkalmazott K8S YAML leírók, Kustomize, Helm chartok vagy Docker Compose fájlok önmagukban nem számítanak IaC-nek ennél a jogcímnél: **10-12** pont
+- **{IaC}** IaC (terraform, Bicep - *ez Azure-only!*, stb.) eszközzel legalább az üzleti funkciókat futtató architektúrarész (K8S / AKS / Azure Function App / Azure Container Apps platform) felépítése és lebontása. A visszaépítés végén az alkalmazásnak működnie kell, nem elég például egy üres AKS-t visszaépíteni. Védésen nem kell demózni (sokáig tartana), de platformonként egy felépítésről és egy lebontásról egy-egy kimeneti naplót be kell tudni mutatni. Nem kell a teljes felépítés-lebontás folyamatot az IaC eszközzel megvalósítani, ki lehet egészíteni egyéb automatizációval, szkripttel. On-premise platform esetén csak akkor jár pont, ha maga a klaszter is IaC eszközzel épül fel és bomlik le (pl. kind/k3d klaszter Terraform/OpenTofu-val, k3s virtuális gépeken Vagrant/Ansible segítségével). Meglévő klaszterre (pl. Docker Desktop beépített K8S) alkalmazott K8S YAML leírók, Kustomize, Helm chartok vagy Docker Compose fájlok önmagukban nem számítanak IaC-nek ennél a jogcímnél: **10-12** pont
 
     - egyik platform telepítés (pl. Azure-os) felépítése-lebontása: **10** pont
     - mindkét platform felépítése-lebontása: **12** pont
@@ -357,6 +357,9 @@ Minősítésekből összesen **25** pont szerezhető. A megszerzett minősítés
 - **{AZ100}** [Microsoft Certified: Azure Administrator Associate](https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator) minősítés megszerzése: **20** pont
 
 - **{AZ200}** [Microsoft Certified: Azure Developer Associate](https://learn.microsoft.com/en-us/credentials/certifications/azure-developer) minősítés megszerzése: **25** pont
+
+    !!! warning
+        Az AZ-204 vizsga 2026. július 31-én [kivezetésre került](https://learn.microsoft.com/en-us/credentials/retired-certification-exams), utódja az AI-200 (lásd {AI200}). Az {AZ200} jogcím csak a korábban megszerzett, még le nem járt minősítéssel számolható el.
 
 - **{AI200}** [Microsoft Certified: Azure AI Cloud Developer Associate](https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-cloud-developer-associate/) (AI-200 vizsga) minősítés megszerzése: **25** pont
 
