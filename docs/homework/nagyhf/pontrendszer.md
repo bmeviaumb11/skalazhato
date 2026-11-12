@@ -185,6 +185,9 @@ További szabályok:
     - mindhárom célra: **10** pont
     - [exportálás *Azure Monitor-ba*](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/azuremonitorexporter/README.md): **+3** pont
     
+    !!! danger
+        Platformonként csak egy, OpenTelemetry telemetriákat Azure Monitor-ba juttató módszerért jár pont: az {OT} jogcím Azure Monitor exportja, az {OTAZURE}, az {ACAMON} és az {AZFMON} közül egy platformon csak az egyik számít be.
+
     !!! warning "OpenTelemetry Collector vs Azure alapú környezetek"
         Az OpenTelemetry Collector nem támogatott AZF környezetben. AKS és ACA környezetekbe elvileg telepíthető, de ez most még jelentős munka ([a jövőben talán egyszerűbb lesz?](https://techcommunity.microsoft.com/blog/azureobservabilityblog/making-azure-the-best-place-to-observe-your-apps-with-opentelemetry/3995896)). Ajánlott módszer: saját gépen futó klaszterben OpenTelemetry Collector alapú megoldás, opcionálisan a monitoradatokat exportálva Azure Monitor-ba, míg Azure platformok esetében a specifikusan Azure-os jogcímek között leírt módszerek.
 
@@ -283,10 +286,16 @@ További szabályok:
 
 - **{ACAMON}** ACA [monitorozása OpenTelemetry agent-tel](https://learn.microsoft.com/en-us/azure/container-apps/opentelemetry-agents?tabs=arm). Naplók és elosztott nyomkövetési adatok gyűjtése és megjelenítése Azure Monitor-ban (App Insights): **5** pont
 
+    !!! danger
+        Platformonként csak egy, OpenTelemetry telemetriákat Azure Monitor-ba juttató módszerért jár pont: az {OT} jogcím Azure Monitor exportja, az {OTAZURE}, az {ACAMON} és az {AZFMON} közül egy platformon csak az egyik számít be.
+
 - **{AZFMON}** AZF [monitorozása beépített OpenTelemetry integrációval](https://learn.microsoft.com/en-us/azure/azure-functions/opentelemetry-howto). Naplók és elosztott nyomkövetési adatok gyűjtése és megjelenítése Azure Monitor-ban (App Insights): **5** pont
 
     !!! warning "Előzetes verzió"
         Az AZF beépített OpenTelemetry integrációja még csak előzetes verziós.
+
+    !!! danger
+        Platformonként csak egy, OpenTelemetry telemetriákat Azure Monitor-ba juttató módszerért jár pont: az {OT} jogcím Azure Monitor exportja, az {OTAZURE}, az {ACAMON} és az {AZFMON} közül egy platformon csak az egyik számít be.
 
 - **{AZCS}** [*Azure Chaos Studio*](https://learn.microsoft.com/en-us/azure/chaos-studio/) használata káoszteszt futtatására: **7** pont
 
