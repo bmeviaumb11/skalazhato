@@ -250,7 +250,11 @@ További szabályok:
     - Azure Container Registry autentikációval pl. image pull secret-tel: **3** pont
     - Egyéb container registry autentikációval pl. image pull secret-tel: **2** pont
 
-- **{OPARC}** On-premise Kubernetes bekötése Azure Arc-ba: **3** pont
+- **{OPARC}** On-premise Kubernetes bekötése Azure Arc-ba: **3-10** pont
+
+    - A klaszter bekötése Azure Arc-ba: **3** pont
+    - Az alkalmazás telepítése GitOps alapon, az Arc [Flux bővítményével](https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2) (pl. a repository-ban lévő Helm chart vagy K8S leírók alapján): **+5** pont
+    - [Container Insights monitorozás](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/kubernetes-monitoring-enable-arc) az Arc-ba kötött klaszteren: **+2** pont
 
 - **{OPSTR}** Tartós tár, pl. lokális mappa csatolása klaszterbe: **2** pont
 
