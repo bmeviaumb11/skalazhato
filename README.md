@@ -32,3 +32,14 @@ A repository tartalmaz egy Dockerfile-t, mely az MKDocs keretrendszer és függ�
 
 3. <http://localhost:8000> vagy a codespace átirányított címének megnyitása böngészőből.
 4. Markdown szerkesztése és mentése után automatikusan frissül a weboldal.
+
+## MKDocs tesztelése Docker nélkül (Python venv)
+
+Linuxon, macOS-en, WSL-ben, Codespaces-ben vagy sandbox környezetben (pl. Azure Container Apps Sandbox) Docker nélkül is futtatható. Ehhez Python 3 kell. A [`.sandbox/setup.sh`](.sandbox/setup.sh) ugyanazokat a csomagokat telepíti egy `.venv` virtuális környezetbe, mint a Dockerfile. A pluginok listája a [`requirements.txt`](requirements.txt)-ben van, az `mkdocs-material` verzióját pedig a Dockerfile `FROM` sorából veszi.
+
+```sh
+.sandbox/setup.sh
+.venv/bin/mkdocs serve --dev-addr 0.0.0.0:8000
+```
+
+VS Code-ban ugyanez a *Run MkDocs (venv, no Docker)* taskkal indítható. Új plugint a `requirements.txt`-be kell felvenni, a Dockerfile és a venv is innen telepít.

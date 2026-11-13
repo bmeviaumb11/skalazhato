@@ -1,16 +1,13 @@
 FROM squidfunk/mkdocs-material:9.7.7
 
-# required for mkdocs-git-committers-plugin-2
+# Plugins are listed in requirements.txt (shared with .sandbox/setup.sh for Docker-less setups).
+# Build deps are only needed to compile lxml (required for mkdocs-git-committers-plugin-2).
+COPY requirements.txt /tmp/requirements.txt
 RUN apk add --no-cache --virtual .build-deps gcc libc-dev libxslt-dev && \
     apk add --no-cache libxslt && \
-    pip install --no-cache-dir lxml>=3.5.0 && \
-    apk del .build-deps
-
-RUN pip install --no-cache-dir \
-  mkdocs-git-revision-date-localized-plugin \
-  git+https://github.com/tibitoth/mkdocs-git-committers-plugin-2.git@master \
-  mkdocs-glightbox \
-  mkdocs-open-in-new-tab
+    pip install --no-cache-dir -r /tmp/requirements.txt && \
+    apk del .build-deps && \
+    rm /tmp/requirements.txt
 
 RUN git config --global --add safe.directory /github/workspace
 

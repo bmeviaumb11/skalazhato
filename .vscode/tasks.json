@@ -24,6 +24,30 @@
       "dependsOn": [
         "Build MkDocs in Docker"
       ]
+    },
+    {
+      "label": "Setup MkDocs (venv, no Docker)",
+      "type": "shell",
+      "command": "bash .sandbox/setup.sh",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Run MkDocs (venv, no Docker)",
+      "type": "shell",
+      "command": ".venv/bin/mkdocs serve --dev-addr=0.0.0.0:8000",
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "dependsOn": [
+        "Setup MkDocs (venv, no Docker)"
+      ]
     }
   ]
 }
