@@ -1,0 +1,8 @@
+# MkDocs plugins used by mkdocs.yml. Shared by the Dockerfile and .sandbox/setup.sh.
+# mkdocs-material itself is NOT listed here: its version comes from the Dockerfile's
+# FROM squidfunk/mkdocs-material:<version> tag (bumped by Dependabot), so it is defined once.
+lxml>=3.5.0  # required for mkdocs-git-committers-plugin-2
+mkdocs-git-revision-date-localized-plugin
+mkdocs-git-committers-plugin-2 @ git+https://github.com/tibitoth/mkdocs-git-committers-plugin-2.git@master
+mkdocs-glightbox
+mkdocs-open-in-new-tab
