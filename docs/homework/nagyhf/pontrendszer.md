@@ -123,20 +123,20 @@ További szabályok:
 - **{NOERR}** Hibatűrést növelő kommunikációs minták alkalmazása külső komponensek segítségével (pl. [Polly](https://www.pollydocs.org/), [Resilience4j](https://github.com/resilience4j/resilience4j), [Tenacity](https://github.com/jd/tenacity)). A mintákat a használati esetnek megfelelően kell konfigurálni (pl. újrapróbálkozások száma, időtúllépés, circuit breaker küszöbértékei). Védésen hibainjektálással (pl. a hívott szolgáltatás leállításával, késleltetésével vagy hibás válaszokkal) be kell mutatni a minta működését, pl. a naplókban vagy az elosztott nyomkövetésben látható újrapróbálkozásokkal: **3** pont
 
     !!! danger
-        Saját mintaimplementációért nem jár pont. Ha egy kész (API/App) gateway termék valósítja meg (pl. konfigurációval), szintén nem jár pont. Saját gateway implementáció (pl. YARP-ra épülő saját gateway) esetén viszont elfogadott, ha a hibatűrést abban külső komponenssel (pl. Polly) valósítod meg. A keretrendszer vagy projektsablon által alapértelmezetten bekapcsolt, változtatás nélkül használt hibatűrésért (pl. a .NET Aspire ServiceDefaults `AddStandardResilienceHandler()` hívása) szintén nem jár pont.
+        Saját mintaimplementációért nem jár pont. Ha (API/App) gateway valósítja meg, csak akkor jár pont, ha a gateway megfelel a {GW} jogcím feltételeinek, gateway keretrendszerre épül, és a hibatűrést a használati esetnek megfelelően konfigurálod benne. Kész gateway termék (pl. Traefik, Kong) konfigurációjával megvalósított hibatűrésért nem jár pont. A keretrendszer vagy projektsablon által alapértelmezetten bekapcsolt, változtatás nélkül használt hibatűrésért (pl. a .NET Aspire ServiceDefaults `AddStandardResilienceHandler()` hívása) szintén nem jár pont.
 
 - **{GW}** Saját telepítésű (API/App) gateway használata on-premise vagy AKS klaszterben. Kivéve self-hosted Azure API Management: **2-5** pont
 
     - Traefik használata útvonalválasztásra: **2** pont
-    - Más, saját telepítésű (API/App) gateway használata: **5** pont
+    - Más, saját telepítésű (API/App) gateway használata, akár kész termékként (pl. Kong, NGINX, Envoy), akár gateway keretrendszerre (pl. YARP, Ocelot, Spring Cloud Gateway) építve: **5** pont
 
     !!! danger
-        Saját gateway implementációért nem jár pont.
+        Gateway keretrendszer nélkül, alap keretrendszerre (pl. ASP.NET Core, Spring Boot) épülő saját gateway implementációért nem jár pont.
 
     !!! warning
         Ugyanazon a klaszteren a {GW} és az {AZING} közül csak az egyik számít be.
 
-- **{APIGW+AUTH}** A szolgáltatás autentikációjának kiszervezése (API/App) gateway-be: **5-15** pont
+- **{APIGW+AUTH}** A szolgáltatás autentikációjának kiszervezése (API/App) gateway-be. A gateway-nek meg kell felelnie a {GW}, az {AZING} vagy az {AZAPIMGMT} jogcím feltételeinek: **5-15** pont
 
     - Egyszerű saját dummy autentikációs szolgáltatás felé továbbítva, forward autentikációval: **5** pont
     - Self-hosted vagy felhőben futó [Azure API Management gateway](https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad) használatával, token validációs policy-vel (pl. `validate-jwt`, `validate-azure-ad-token`): a tokent a kliens szerzi be valamilyen elterjedt OAuth/OIDC IDP-től (pl. Entra, Keycloak), a gateway csak ellenőrzi: **7** pont
