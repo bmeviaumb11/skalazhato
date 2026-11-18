@@ -123,7 +123,7 @@ További szabályok:
 - **{NOERR}** Hibatűrést növelő kommunikációs minták alkalmazása külső komponensek segítségével (pl. [Polly](https://www.pollydocs.org/), [Resilience4j](https://github.com/resilience4j/resilience4j), [Tenacity](https://github.com/jd/tenacity)). A mintákat a használati esetnek megfelelően kell konfigurálni (pl. újrapróbálkozások száma, időtúllépés, circuit breaker küszöbértékei). Védésen hibainjektálással (pl. a hívott szolgáltatás leállításával, késleltetésével vagy hibás válaszokkal) be kell mutatni a minta működését, pl. a naplókban vagy az elosztott nyomkövetésben látható újrapróbálkozásokkal: **3** pont
 
     !!! danger
-        Saját mintaimplementációért nem jár pont. Ha az (API/App) gateway valósítja meg, szintén nem jár pont. A keretrendszer vagy projektsablon által alapértelmezetten bekapcsolt, változtatás nélkül használt hibatűrésért (pl. a .NET Aspire ServiceDefaults `AddStandardResilienceHandler()` hívása) szintén nem jár pont.
+        Saját mintaimplementációért nem jár pont. Ha egy kész (API/App) gateway termék valósítja meg (pl. konfigurációval), szintén nem jár pont. Saját gateway implementáció (pl. YARP-ra épülő saját gateway) esetén viszont elfogadott, ha a hibatűrést abban külső komponenssel (pl. Polly) valósítod meg. A keretrendszer vagy projektsablon által alapértelmezetten bekapcsolt, változtatás nélkül használt hibatűrésért (pl. a .NET Aspire ServiceDefaults `AddStandardResilienceHandler()` hívása) szintén nem jár pont.
 
 - **{GW}** Saját telepítésű (API/App) gateway használata on-premise vagy AKS klaszterben. Kivéve self-hosted Azure API Management: **2-5** pont
 
