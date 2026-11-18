@@ -1,4 +1,4 @@
-FROM squidfunk/mkdocs-material:9.7.7
+FROM squidfunk/mkdocs-material:9.8.1
 
 # Plugins are listed in requirements.txt (shared with .sandbox/setup.sh for Docker-less setups).
 # Build deps are only needed to compile lxml (required for mkdocs-git-committers-plugin-2).
