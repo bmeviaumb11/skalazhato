@@ -1344,7 +1344,7 @@
 <li>
 <p>felhasználói felület (kliens) készítése nem elvárás, de enélkül is tudni kell demonstrálni a működést, például Postman klienssel hívva a REST API-t. Az esetleges felületet, klienst nem értékeljük, nem pontozzuk.</p>
 </li>
-<li>a minimum elvárásokat teljesítő rendszer <strong>24</strong> pontot ér.</li>
+<li>a minimum elvárásokat teljesítő rendszer <strong>30</strong> pontot ér.</li>
 <li>a minimum elvárásokat teljesítő rendszer szükséges, de nem elégséges feltétele a jegyzerzésnek - lásd alább a <em>Pontrendszer</em> részt.</li>
 </ul>
 <div class="admonition tip">
@@ -1368,10 +1368,10 @@
 </li>
 <li>
 <p><code>points.csv</code>: <a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> a megszerzendő jogcímekről, a pontszámukról és azok összegéről. Elég a jogcímek rövidített neve. Példa:</p>
-<div class="highlight"><pre><span></span><code>MIN;24
+<div class="highlight"><pre><span></span><code>BASE;30
 IaC;10
 ...
-Sum;82
+Sum;88
 </code></pre></div>
 </li>
 <li>
@@ -1442,75 +1442,163 @@ AZ-400: Development for enterprise DevOps;405
 <p><strong>{PLAT2}</strong> A szolgáltatás két különféle orkesztrációs platformon fut, egymástól függetlenül, tehát a teljes szolgáltatás két egymástól független telepítéssel rendelkezik (pl. on-premise K8S és AKS). Nem kell, hogy minden nem-üzleti funkció (pl. autentikáció) ugyanolyan komplex legyen a két telepítésben, csak az üzleti funkciók képességei egyezzenek. Legalább az egyik platformnak Azure-ban kell futnia: <strong>20</strong> pont</p>
 </li>
 <li>
-<p><strong>{IaC}</strong> IaC (terraform, Bicep - <em>ez Azure-only!</em>, stb.) eszközzel legalább az üzleti funkciókat futtató architektúrarész (K8S / AKS / Azure Function App platform) felépítése és lebontása. A visszaépítés végén az alkalmazásnak működnie kell, nem elég például egy üres AKS-t visszaépíteni. Védésen nem kell demózni (sokáig tartana), de platformonként egy felépítésről és egy lebontásról egy-egy kimeneti naplót be kell tudni mutatni. Nem kell a teljes felépítés-lebontás folyamatot az IaC eszközzel megvalósítani, ki lehet egészíteni egyéb automatizációval, szkripttel. <strong>7</strong>-<strong>10</strong> pont</p>
+<p><strong>{IaC}</strong> IaC (terraform, Bicep - <em>ez Azure-only!</em>, stb.) eszközzel legalább az üzleti funkciókat futtató architektúrarész (K8S / AKS / Azure Function App / Azure Container Apps platform) felépítése és lebontása. A visszaépítés végén az alkalmazásnak működnie kell, nem elég például egy üres AKS-t visszaépíteni. Védésen nem kell demózni (sokáig tartana), de platformonként egy felépítésről és egy lebontásról egy-egy kimeneti naplót be kell tudni mutatni. Nem kell a teljes felépítés-lebontás folyamatot az IaC eszközzel megvalósítani, ki lehet egészíteni egyéb automatizációval, szkripttel. On-premise platform esetén csak akkor jár pont, ha maga a klaszter is IaC eszközzel épül fel és bomlik le (pl. kind/k3d klaszter Terraform/OpenTofu-val, k3s virtuális gépeken Vagrant/Ansible segítségével). Meglévő klaszterre (pl. Docker Desktop beépített K8S) alkalmazott K8S YAML leírók, Kustomize, Helm chartok vagy Docker Compose fájlok önmagukban nem számítanak IaC-nek ennél a jogcímnél: <strong>10-12</strong> pont</p>
 <ul>
-<li>egyik platform telepítés (pl. Azure-os) felépítése-lebontása <strong>7</strong> pont</li>
-<li>mindkét platform felépítése-lebontása <strong>10</strong> pont</li>
+<li>egyik platform telepítés (pl. Azure-os) felépítése-lebontása: <strong>10</strong> pont</li>
+<li>mindkét platform felépítése-lebontása: <strong>12</strong> pont</li>
 </ul>
 </li>
 <li>
-<p><strong>{LANG2}</strong> Több programozási nyelv használata. A backend szolgáltatások legalább két különböző programozási nyelven készültek. (A frontend ebbe nem számít bele!): <strong>5</strong> pont</p>
+<p><strong>{LANG2}</strong> Több programozási nyelv használata. A backend szolgáltatások legalább két különböző programozási nyelven készültek. (A frontend ebbe nem számít bele!): <strong>7</strong> pont</p>
 </li>
 <li>
 <p><strong>{GRPC}</strong> gRPC alapú kommunikáció használata legalább egy mikroszolgáltatás esetében: <strong>7</strong> pont</p>
 </li>
 <li>
-<p><strong>{NOERR}</strong> Hibatűrést növelő kommunikációs minták alkalmazása külső komponensek segítségével (pl. <a href="https://www.pollydocs.org/">Polly</a>, <a href="https://github.com/resilience4j/resilience4j">Resilience4j</a>, <a href="https://github.com/jd/tenacity">Tenacity</a>). <strong>5</strong> pont</p>
+<p><strong>{NOERR}</strong> Hibatűrést növelő kommunikációs minták alkalmazása külső komponensek segítségével (pl. <a href="https://www.pollydocs.org/">Polly</a>, <a href="https://github.com/resilience4j/resilience4j">Resilience4j</a>, <a href="https://github.com/jd/tenacity">Tenacity</a>). A mintákat a használati esetnek megfelelően kell konfigurálni (pl. újrapróbálkozások száma, időtúllépés, circuit breaker küszöbértékei). Védésen hibainjektálással (pl. a hívott szolgáltatás leállításával, késleltetésével vagy hibás válaszokkal) be kell mutatni a minta működését, pl. a naplókban vagy az elosztott nyomkövetésben látható újrapróbálkozásokkal: <strong>3</strong> pont</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Saját mintaimplementációért nem jár pont. Ha az (API/App) gateway valósítja meg, szintén nem jár pont.</p>
+<p>Saját mintaimplementációért nem jár pont. Ha (API/App) gateway valósítja meg, csak akkor jár pont, ha a gateway megfelel a {GW} jogcím feltételeinek, gateway keretrendszerre épül, és a hibatűrést a használati esetnek megfelelően konfigurálod benne. Kész gateway termék (pl. Traefik, Kong) konfigurációjával megvalósított hibatűrésért nem jár pont. A keretrendszer vagy projektsablon által alapértelmezetten bekapcsolt, változtatás nélkül használt hibatűrésért (pl. a .NET Aspire ServiceDefaults <code>AddStandardResilienceHandler()</code> hívása) szintén nem jár pont.</p>
 </div>
 </li>
 <li>
-<p><strong>{APIGW+AUTH}</strong> A szolgáltatás autentikációjának kiszervezése (API/App) gateway-be forward autentikáció használatával: <strong>7-12</strong> pont</p>
+<p><strong>{GW}</strong> Saját telepítésű (API/App) gateway használata on-premise vagy AKS klaszterben. Kivéve self-hosted Azure API Management: <strong>2-5</strong> pont</p>
 <ul>
-<li>OAuth proxy vagy self-hosted/felhőben futó <a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad">Azure API Management gateway</a> használatával valamilyen elterjedt, külső vagy saját telepítésű OAuth IDP (pl. Keycloak, Entra) felé továbbítva: <strong>12</strong> pont</li>
-<li>Egyéb egyszerű saját dummy autentikációs szolgáltatás felé továbbítva: <strong>7</strong> pont</li>
+<li>Traefik használata útvonalválasztásra: <strong>2</strong> pont</li>
+<li>Más, saját telepítésű (API/App) gateway használata, akár kész termékként (pl. Kong, NGINX, Envoy), akár gateway keretrendszerre (pl. YARP, Ocelot, Spring Cloud Gateway) építve: <strong>5</strong> pont</li>
 </ul>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Gateway keretrendszer nélkül, alap keretrendszerre (pl. ASP.NET Core, Spring Boot) épülő saját gateway implementációért nem jár pont.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Ugyanazon a klaszteren a {GW} és az {AZING} közül csak az egyik számít be.</p>
+</div>
 </li>
 <li>
-<p><strong>{AZAPIMGMT}</strong> <em>Azure API Management</em> használata. A kliensről jövő minden API kérés áthalad az API Management gateway-en mielőtt eljutna a klaszterbe vagy az <a href="https://azure.microsoft.com/en-us/blog/benefits-of-using-azure-api-management-with-microservices/">Azure Function-ökhöz</a>. Legalább egy <a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-policies">policy-t</a> érvényesít. <strong>7-17</strong> pont</p>
+<p><strong>{APIGW+AUTH}</strong> A szolgáltatás autentikációjának kiszervezése (API/App) gateway-be. A gateway-nek meg kell felelnie a {GW}, az {AZING} vagy az {AZAPIMGMT} jogcím feltételeinek: <strong>5-15</strong> pont</p>
+<ul>
+<li>Egyszerű saját dummy autentikációs szolgáltatás felé továbbítva, forward autentikációval: <strong>5</strong> pont</li>
+<li>Self-hosted vagy felhőben futó <a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad">Azure API Management gateway</a> használatával, token validációs policy-vel (pl. <code>validate-jwt</code>, <code>validate-azure-ad-token</code>): a tokent a kliens szerzi be valamilyen elterjedt OAuth/OIDC IDP-től (pl. Entra, Keycloak), a gateway csak ellenőrzi: <strong>7</strong> pont</li>
+<li>OAuth proxy (pl. oauth2-proxy) használatával, forward autentikációval: a bejelentkezési folyamatot (authorization code flow) a gateway kezeli, valamilyen elterjedt OAuth/OIDC IDP (pl. Entra, Keycloak) felé továbbítva: <strong>10</strong> pont</li>
+<li>Az OAuth/OIDC IDP saját telepítésű (pl. Keycloak konténer), nem külső szolgáltatás (pl. Entra): <strong>+5</strong> pont</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Az {AZAPIMGMT} jogcímhez szükséges policy nem lehet az autentikációt megvalósító policy.</p>
+</div>
+</li>
+<li>
+<p><strong>{AZAPIMGMT}</strong> <em>Azure API Management</em> használata. A kliensről jövő minden API kérés áthalad az API Management gateway-en mielőtt eljutna a klaszterbe vagy az <a href="https://azure.microsoft.com/en-us/blog/benefits-of-using-azure-api-management-with-microservices/">Azure Function-ökhöz</a>. Legalább egy <a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-policies">policy-t</a> érvényesít: <strong>7-16</strong> pont</p>
 <ul>
 <li>Egy platformon: <strong>7</strong> pont</li>
-<li>Két platformon, ebből az egyik on-premise (self-hosted mód) <strong>+5</strong> pont</li>
-<li>Több API verzió támogatása API Management szolgáltatás segítségével <strong>+3</strong> pont</li>
-<li>Mock válaszok legalább egy API művelethez, API Management szolgáltatás segítségével <strong>+2</strong> pont</li>
+<li>Két platformon, ebből az egyik on-premise (self-hosted mód): <strong>+5</strong> pont</li>
+<li>Több API verzió támogatása API Management szolgáltatás segítségével: <strong>+2</strong> pont</li>
+<li>Mock válaszok legalább egy API művelethez, API Management szolgáltatás segítségével: <strong>+2</strong> pont</li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>A policy-követelményt nem teljesíti az {APIGW+AUTH} jogcímhez használt autentikációs policy (pl. <code>validate-jwt</code>).</p>
+</div>
 </li>
 <li>
-<p><strong>{ASYNCCOMM}</strong> Aszinkron, üzenetsor alapú kommunikáció mikroszolgáltatások között saját telepítésű (pl. RabbitMQ konténer) üzenetsor, üzenetkezelő (messaging) szolgáltatással: <strong>5-15</strong> pont</p>
+<p><strong>{ASYNCCOMM}</strong> Aszinkron, üzenetsor alapú kommunikáció mikroszolgáltatások között saját telepítésű (pl. RabbitMQ konténer) üzenetsor, üzenetkezelő (messaging) szolgáltatással: <strong>5-13</strong> pont</p>
 <ul>
 <li>Integrációs esemény eventual consistency adatkezeléshez: <strong>5</strong> pont</li>
-<li>Transactional Outbox pattern alkalmazása: <strong>5</strong> pont</li>
-<li>Idempotens megvalósítás pl. deduplikációs elven: <strong>5</strong> pont</li>
+<li>Transactional Outbox pattern alkalmazása: <strong>+5</strong> pont</li>
+<li>Idempotens megvalósítás pl. deduplikációs elven: <strong>+3</strong> pont</li>
 </ul>
 </li>
 <li>
-<p><strong>{SAGA}</strong> Saga minta implementálása legalább egy folyamat esetén, hibakezeléssel és kompenzáció megvalósításával <strong>15</strong> pont</p>
+<p><strong>{SAGA}</strong> Saga minta implementálása legalább egy folyamat esetén, hibakezeléssel és kompenzáció megvalósításával: <strong>20</strong> pont</p>
 </li>
 <li>
-<p><strong>{EVENTSOURCING}</strong> Event Sourcing minta alkalmazása <strong>15</strong> pont</p>
+<p><strong>{EVENTSOURCING}</strong> Event Sourcing minta alkalmazása: <strong>12</strong> pont</p>
 </li>
 <li>
-<p><strong>{CQRS}</strong> CQRS és mediátor minta alkalmazása legalább egy szolgáltatás megvalósítása során. <strong>5</strong> pont</p>
+<p><strong>{CQRS}</strong> CQRS és mediátor minta alkalmazása legalább egy szolgáltatás megvalósítása során: <strong>5</strong> pont</p>
 </li>
 <li>
 <p><strong>{DDD}</strong> DDD tervezési elvek demonstrálása Event Storming alapú üzleti folyamattervezéssel. A pontot extra ábra(k) elkészítésével szükséges demonstrálni, amin az Event Storming során megtervezett folyamat kerül dokumentálásra. A védésen bemutatni szükséges a tervek hatását az architektúrára, implementációra: <strong>5</strong> pont</p>
 </li>
 <li>
-<p><strong>{ACTOR}</strong> Aktor minta alkalmazása legalább egy állapottal rendelkező szolgáltatás esetében magas szintű keretrendszerek segítségével pl.: Akka, Microsoft Orleans, Akka.NET: <strong>15</strong> pont</p>
+<p><strong>{ACTOR}</strong> Aktor minta alkalmazása legalább egy állapottal rendelkező szolgáltatás esetében magas szintű keretrendszerek segítségével pl.: Akka, Microsoft Orleans, Akka.NET: <strong>20</strong> pont</p>
 </li>
 <li>
-<p><strong>{CACHE}</strong> Saját telepítésű cache (pl. Redis konténer) használata kifejezetten gyorsítótárazásra legalább egy művelet esetén: <strong>5</strong> pont</p>
+<p><strong>{CACHE}</strong> Saját telepítésű cache (pl. Redis konténer) használata kifejezetten gyorsítótárazásra legalább egy művelet esetén: <strong>3</strong> pont</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>A {CACHE} és az {AZRED} közül csak az egyik számít be.</p>
+</div>
+</li>
+<li>
+<p><strong>{DBHA}</strong> Kubernetes klaszterben futó, saját telepítésű, állapottartó komponens (adatbázis vagy üzenetkezelő) magas rendelkezésre állású, többpéldányos klaszterként, automatikus failoverrel. Védésen a primary példány leállítását és az alkalmazás további működését demonstrálni kell: <strong>7</strong> pont</p>
+<div class="admonition tip">
+<p class="admonition-title">Ismert, jól dokumentált megoldások</p>
+<ul>
+<li>PostgreSQL <a href="https://cloudnative-pg.io/">CloudNativePG</a>-vel</li>
+<li>MongoDB replica set a <a href="https://github.com/mongodb/mongodb-kubernetes">MongoDB Controllers for Kubernetes</a> operátorral</li>
+<li>RabbitMQ klaszter quorum queue-kkal a <a href="https://www.rabbitmq.com/kubernetes/operator/operator-overview">RabbitMQ Cluster Operator</a>-ral</li>
+</ul>
+<p>Más technológia is elfogadható, de a pontszám a fenti megoldások ráfordításához igazodik.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Ugyanazon adatbázis-technológia esetén a {DBHA} és a {DBGEOREPL} saját telepítésű opciója közül csak az egyik számít be.</p>
+</div>
+</li>
+</ul>
+<ul>
+<li>
+<p><strong>{DBGEOREPL}</strong> Adatbázis replikálása másik Azure régióba vagy másik klaszterbe. Védésen a replika használatát (pl. olvasás a replikáról) vagy a manuális failovert demonstrálni kell: <strong>5-12</strong> pont</p>
+<ul>
+<li>Menedzselt Azure adatbázis geo-replikációjával: <strong>5</strong> pont</li>
+<li>Hibrid replikációval menedzselt Azure adatbázis és saját telepítésű adatbázis között: <strong>7</strong> pont</li>
+<li>Saját telepítésű adatbázis két Kubernetes klaszter közötti replikációjával: <strong>12</strong> pont</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>A manuális failovert védésen nem kell <strong>élőben</strong> demózni, ha be tudod mutatni egy korábbi failover nyomait, pl. az Azure Activity Log-ban vagy az adatbázis (operátor) naplóiban.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Ismert, jól dokumentált megoldások</p>
+<ul>
+<li>Menedzselt:<ul>
+<li>Azure SQL geo-replikáció vagy failover group</li>
+<li>Cosmos DB több régióval</li>
+</ul>
+</li>
+<li>Hibrid:<ul>
+<li>PostgreSQL logikai replikáció Azure Database for PostgreSQL Flexible Server és on-premise PostgreSQL között</li>
+</ul>
+</li>
+<li>Saját telepítésű:<ul>
+<li>PostgreSQL <a href="https://cloudnative-pg.io/">CloudNativePG</a> replica cluster on-premise és AKS klaszter között</li>
+</ul>
+</li>
+</ul>
+<p>Más technológia is elfogadható, de a pontszám a fenti megoldások ráfordításához igazodik.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Saját gépen futó, NAT mögötti klaszter replikaként (subscriberként) vehet részt, mert ilyenkor ő kapcsolódik a primary példányhoz. A primary végpontját IP-korlátozással és TLS-sel kell védeni.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Ugyanazon adatbázis-technológia esetén a {DBHA} és a {DBGEOREPL} saját telepítésű opciója közül csak az egyik számít be.</p>
+</div>
 </li>
 <li>
 <p><strong>{HELM}</strong> A szolgáltatás Kubernetesen belül futó része Helm chart-on keresztül telepíthető. Szükséges demonstrálni a rendszer frissítését a chart segítségével: <strong>10</strong> pont</p>
 </li>
-<li>
-<p><strong>{ACRBUILD}</strong> Legalább egy saját konténer build-elése Azure Container Registry-ben: <strong>7-12</strong> pont</p>
+</ul>
 <ul>
-<li>ad-hoc build saját gépről feltöltött context alapján: <strong>7</strong> pont</li>
-<li>build valamilyen triggerre (pl. commit egy adott git ágra): <strong>12</strong> pont</li>
+<li>
+<p><strong>{ACRBUILD}</strong> Legalább egy saját konténer build-elése Azure Container Registry-ben: <strong>2-3</strong> pont</p>
+<ul>
+<li>ad-hoc build saját gépről feltöltött context alapján: <strong>2</strong> pont</li>
+<li>build valamilyen triggerre (pl. commit egy adott git ágra): <strong>3</strong> pont</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1518,53 +1606,72 @@ AZ-400: Development for enterprise DevOps;405
 </div>
 </li>
 <li>
-<p><strong>{K8SJOB}</strong> Kubernetes Job objektum használata, lefuttatása védéskor: <strong>5</strong> pont</p>
+<p><strong>{K8SJOB}</strong> Kubernetes Job objektum használata, lefuttatása védéskor. <em>Azure Container Apps</em> esetén manuálisan vagy eseményre indított <a href="https://learn.microsoft.com/en-us/azure/container-apps/jobs">Container Apps Job</a> is elfogadott: <strong>2</strong> pont</p>
 </li>
 <li>
-<p><strong>{K8SCRONJOB}</strong> Kubernetes CronJob objektum használata, korábbi lefutás demonstrálása védéskor: <strong>5</strong> pont</p>
+<p><strong>{K8SCRONJOB}</strong> Kubernetes CronJob objektum használata, korábbi lefutás demonstrálása védéskor. <em>Azure Container Apps</em> esetén ütemezett <a href="https://learn.microsoft.com/en-us/azure/container-apps/jobs">Container Apps Job</a> is elfogadott: <strong>2</strong> pont</p>
 </li>
 <li>
-<p><strong>{K8SCMAP}</strong> Kubernetes ConfigMap objektum használata valamely konfigurációs beállítás tárolására: <strong>5</strong> pont</p>
+<p><strong>{K8SCMAP}</strong> Kubernetes ConfigMap objektum használata valamely konfigurációs beállítás tárolására: <strong>2</strong> pont</p>
 </li>
 <li>
-<p><strong>{K8SSECRET}</strong> Kubernetes Secret objektum használata titok tárolására: <strong>3</strong> pont</p>
+<p><strong>{K8SSECRET}</strong> Kubernetes Secret objektum használata titok tárolására. <em>Azure Container Apps</em> esetén <a href="https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets">Container Apps secret</a> is elfogadott. Az {AKV2K8S} által létrehozott Secret objektumokért nem jár külön pont: <strong>2</strong> pont</p>
 </li>
 <li>
-<p><strong>{AKV2K8S}</strong> Azure Key Vault (AKV) titkok leképezése K8S Secret objektumokba vagy podok környezeti változóira <a href="https://akv2k8s.io/">akv2k8s könyvtárral</a> vagy <a href="https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-driver">Azure Key Vault provider for Secrets Store CSI Driver-rel</a> (AKVSSCSID) <strong>5-7</strong> pont</p>
+<p><strong>{AKV2K8S}</strong> Azure Key Vault (AKV) titkok leképezése K8S Secret objektumokba, podok környezeti változóira vagy csatolt kötetre (volume). Használható eszközök: <a href="https://akv2k8s.io/">akv2k8s</a> vagy <a href="https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-driver">Azure Key Vault provider for Secrets Store CSI Driver</a> (AKVSSCSID). A Key Vault eléréséhez az eszköz által támogatott bármely identitás (pl. workload identity, kubelet identitás) elfogadott: <strong>5</strong> pont</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>AKS-en a workload identity beállításáért az {AKSWI} jogcím is megszerezhető.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Az {AKV2K8S} által létrehozott Secret objektumokért a {K8SSECRET} jogcímen nem jár külön pont.</p>
+</div>
+</li>
+<li>
+<p><strong>{OT}</strong> OpenTelemetry alkalmazása különféle célokra: strukturált naplózásra, metrikák monitorozására, elosztott nyomkövetésre. <a href="https://opentelemetry.io/docs/collector/">OpenTelemetry Collector</a> komponens és valamilyen aggregátor felület használata kötelező a klaszteren belül (pl. Jaeger, Grafana, Azure Monitor), amin védéskor a naplókat, metrikákat, elosztott nyomkövetést be kell tudni mutatni: <strong>5-13</strong> pont</p>
 <ul>
-<li>alapműködés: AKV -&gt; K8S Secret (akv2k8s), AKV -&gt; secret volume (AKVSSCSID): <strong>5</strong> pont</li>
-<li>extra funkciók kihasználása: AKV -&gt; környezeti változó (akv2k8s), AKV -&gt; K8S Secret (AKVSSCSID): <strong>7</strong> pont</li>
+<li>egyfajta célra: <strong>5</strong> pont</li>
+<li>kétfajta célra: <strong>7</strong> pont</li>
+<li>mindhárom célra: <strong>10</strong> pont</li>
+<li><a href="https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/azuremonitorexporter/README.md">exportálás <em>Azure Monitor-ba</em></a>: <strong>+3</strong> pont</li>
 </ul>
-</li>
-<li>
-<p><strong>{OT}</strong> OpenTelemetry alkalmazása különféle célokra: strukturált naplózásra, metrikák monitorozására, elosztott nyomkövetésre. <a href="https://opentelemetry.io/docs/collector/">OpenTelemetry Collector</a> komponens és valamilyen aggregátor felület használata kötelező a klaszteren belül (pl. Jaeger, Grafana, Azure Monitor), amin védéskor a naplókat, metrikákat, elosztott nyomkövetést be kell tudni mutatni: <strong>5-15</strong> pont</p>
-<ul>
-<li>egyfajta célra <strong>5</strong> pont</li>
-<li>kétfajta célra <strong>7</strong> pont</li>
-<li>mindhárom célra <strong>10</strong> pont</li>
-<li><a href="https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/azuremonitorexporter/README.md">exportálás <em>Azure Monitor-ba</em></a> <strong>+5</strong> pont</li>
-</ul>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Platformonként csak egy, OpenTelemetry telemetriákat Azure Monitor-ba juttató módszerért jár pont: az {OT} jogcím Azure Monitor exportja, az {OTAZURE}, az {ACAMON} és az {AZFMON} közül egy platformon csak az egyik számít be.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">OpenTelemetry Collector vs Azure alapú környezetek</p>
 <p>Az OpenTelemetry Collector nem támogatott AZF környezetben. AKS és ACA környezetekbe elvileg telepíthető, de ez most még jelentős munka (<a href="https://techcommunity.microsoft.com/blog/azureobservabilityblog/making-azure-the-best-place-to-observe-your-apps-with-opentelemetry/3995896">a jövőben talán egyszerűbb lesz?</a>). Ajánlott módszer: saját gépen futó klaszterben OpenTelemetry Collector alapú megoldás, opcionálisan a monitoradatokat exportálva Azure Monitor-ba, míg Azure platformok esetében a specifikusan Azure-os jogcímek között leírt módszerek.</p>
 </div>
 </li>
 <li>
-<p><strong>{HSC}</strong> Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell. <strong>5-10</strong> pont</p>
+<p><strong>{HSC}</strong> Horizontális skálázás podok szintjén. Védésen a (vissza)skálázást demonstrálni kell: <strong>3-7</strong> pont</p>
 <ul>
-<li>Horizontal Pod Autoscaler alapú: <strong>5</strong> pont</li>
-<li><a href="https://keda.sh/">KEDA</a> alapú, valamilyen adat, esemény alapján: <strong>10</strong> pont</li>
+<li>Horizontal Pod Autoscaler alapú: <strong>3</strong> pont</li>
+<li><a href="https://keda.sh/">KEDA</a> alapú, valamilyen adat, esemény alapján: <strong>7</strong> pont</li>
 </ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>A (vissza)skálázást védésen nem kell <strong>élőben</strong> demózni (a visszaskálázás az alapértelmezett stabilizációs idő miatt legalább 5 percig tartana), ha be tudod mutatni egy korábbi futásból, pl. a replikaszám metrikán (Grafana, Azure Monitor) vagy elmentett <code>kubectl describe hpa</code> kimenettel.</p>
+</div>
 </li>
 <li>
-<p><strong>{VSC}</strong> Vertikális skálázás podok szintjén (pod requests rightsizing) Vertical Pod Autoscaler (VPA) alapon: <strong>7</strong> pont</p>
+<p><strong>{VSC}</strong> Vertikális skálázás podok szintjén (pod requests rightsizing) Vertical Pod Autoscaler (VPA) alapon: <strong>5</strong> pont</p>
 <div class="admonition warning">
 <p class="admonition-title">VPA és HPA együtt</p>
 <p>A VPA és HPA együttes használata nagy körültekintést igényel, nem ajánlott, hogy ugyanazt a metrikát (vCPU, RAM) figyelje a két Autoscaler.</p>
 </div>
 </li>
 <li>
-<p><strong>{K8SNS}</strong> Több példány (verzió) telepítése ugyanabba a környezetbe K8S namespace-ek vagy Azure Function <a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal">deployment slot</a>-ok használatával. <em>Azure Container Apps</em> platform esetén külön <em>Container Apps</em> példány használható: <strong>7</strong> pont</p>
+<p><strong>{K8SNS}</strong> Több példány (verzió) telepítése ugyanabba a környezetbe: <strong>3-5</strong> pont</p>
+<ul>
+<li>K8S / AKS esetén namespace-ek használatával: <strong>5</strong> pont</li>
+<li>Azure Functions esetén <a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-slots?tabs=azure-portal">deployment slot</a>-ok használatával (Premium vagy Dedicated csomagban; Flex Consumption csomagban nem érhető el): <strong>3</strong> pont</li>
+<li>Azure Functions esetén külön <em>Function App</em> példány használatával (pl. Flex Consumption csomagban): <strong>3</strong> pont</li>
+<li><em>Azure Container Apps</em> esetén külön <em>Container Apps</em> példány használatával: <strong>3</strong> pont</li>
+<li><em>Azure Container Apps</em> esetén <a href="https://learn.microsoft.com/en-us/azure/container-apps/revisions">több aktív revízió</a> (multiple revision mode) használatával, a forgalom revíziók közötti elosztásával vagy revíziócímkékkel: <strong>3</strong> pont</li>
+</ul>
 </li>
 <li>
 <p><strong>{CICD}</strong> CI/CD folyamat implementálása valamely elterjedt DevOps eszközre építve (GitHub Actions, Azure DevOps). Git push-ra a backend új verziója felépül és kitelepül: <strong>10-15</strong> pont</p>
@@ -1572,19 +1679,45 @@ AZ-400: Development for enterprise DevOps;405
 <li>egy platformra telepít: <strong>10</strong> pont</li>
 <li>két platformra telepít: <strong>15</strong> pont</li>
 </ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Saját gépen futó (on-premise) klaszterre a felhőben futó GitHub Actions / Azure DevOps ágensek nem tudnak közvetlenül telepíteni. Ehhez saját gépen futó ágens (<a href="https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners">self-hosted runner</a>) vagy pull alapú, GitOps telepítés (pl. Flux vagy Argo CD, lásd {GITOPS}) szükséges.</p>
+</div>
 </li>
 <li>
-<p><strong>{CHAOS}</strong> Chaos engineering eszköz alkalmazása (pl. <a href="https://chaos-mesh.org/docs/">chaos mesh</a>). Védésen szemléltetés káoszteszt futtatással: <strong>7</strong> pont</p>
+<p><strong>{GITOPS}</strong> Az alkalmazás telepítése pull alapú, GitOps megközelítéssel (pl. <a href="https://fluxcd.io/">Flux</a>, <a href="https://argo-cd.readthedocs.io/">Argo CD</a>, vagy az AKS / Azure Arc Flux bővítménye): a repository-ban lévő Helm chart vagy K8S leírók módosítása után a klaszter állapota automatikusan frissül - védésen ezt demonstrálni kell: <strong>5</strong> pont</p>
 </li>
 <li>
-<p><strong>{EXTAPI}</strong> Külső online (SaaS) szolgáltatás (pl. Azure AI, Twitter, Facebook, Google Maps, Bing Maps, stb.) integrálása API-n keresztül, autentikációt végrehajtva <strong>5-7</strong> pont</p>
+<p><strong>{CHAOS}</strong> Chaos engineering eszköz alkalmazása (pl. <a href="https://chaos-mesh.org/docs/">chaos mesh</a>). Védésen szemléltetés káoszteszt futtatással: <strong>5</strong> pont</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Védésen nem kell <strong>élőben</strong> káoszkísérletet futtatni, ha be tudod mutatni egy korábbi futását és annak hatását, pl. a Chaos Mesh dashboard előzményeiben és a hatást mutató metrikákon (pl. Grafana).</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Ugyanazon a klaszteren a {CHAOS} és az {AZCS} Chaos Mesh alapú hibája közül csak az egyik számít be.</p>
+</div>
+</li>
+<li>
+<p><strong>{LOADTEST}</strong> Terheléses teszt készítése és futtatása, legalább egy forgatókönyvvel (pl. <a href="https://learn.microsoft.com/en-us/azure/load-testing/overview-what-is-azure-load-testing">Azure Load Testing</a>, <a href="https://grafana.com/docs/k6/latest/">k6</a>, <a href="https://jmeter.apache.org/">JMeter</a>, <a href="https://locust.io/">Locust</a>). Védésen a teszt futtatását és az eredmények (pl. válaszidők, hibaarány) értelmezését be kell mutatni: <strong>3</strong> pont</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Védésen nem kell <strong>élőben</strong> futtatni a tesztet, ha be tudod mutatni egy korábbi futás riportját (pl. Azure Load Testing eredményoldal, k6 / Locust HTML riport).</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>A terheléses teszt jól használható a skálázási jogcímek ({HSC}, {AZACA}, {AZCAS}) demonstrálásához is.</p>
+</div>
+</li>
+<li>
+<p><strong>{EXTAPI}</strong> Külső online (SaaS) szolgáltatás (pl. Azure AI, Twitter, Facebook, Google Maps, Bing Maps, stb.) integrálása API-n keresztül, autentikációt végrehajtva: <strong>3-7</strong> pont</p>
 <ul>
-<li>egyszerű REST-jellegű webes API, SDK használat nélkül, egyszerű API-kulcsalapú autentikáció <strong>5</strong> pont</li>
-<li>SDK-val / REST API-val, iparilag elfogadott, elterjedt autentikációs protokollt (pl. OIDC) végrehajtva <strong>7</strong> pont</li>
+<li>egyszerű REST-jellegű webes API, SDK használat nélkül, egyszerű API-kulcsalapú autentikáció: <strong>3</strong> pont</li>
+<li>SDK-val / REST API-val, iparilag elfogadott, elterjedt autentikációs protokollt (pl. OIDC) végrehajtva: <strong>7</strong> pont</li>
 </ul>
 </li>
 <li>
-<p><strong>{INOUTPROC}</strong> Konfigurálható, hogy az adott mikroszolgáltatás külön szolgáltatásként (külön processz / pod) települjön-e, vagy a hívóval együtt egy folyamatba (in-process); a hívás a konfigurációnak megfelelően vagy szolgáltatáshívás vagy közvetlen (függvény)hívás. Bemutatáskor példát kell mutatni mindkét esetre. <strong>10</strong> pont</p>
+<p><strong>{INOUTPROC}</strong> Konfigurálható, hogy az adott mikroszolgáltatás külön szolgáltatásként (külön processz / pod) települjön-e, vagy a hívóval együtt egy folyamatba (in-process); a hívás a konfigurációnak megfelelően vagy szolgáltatáshívás vagy közvetlen (függvény)hívás. Bemutatáskor példát kell mutatni mindkét esetre: <strong>10</strong> pont</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Ha ugyanezt futási időben is szeretnénk, azaz, hogy a szolgáltatások közötti kommunikáció dinamikusan változhasson lokális és távoli jellegű hívás között, akkor érdemes az <em>aktor</em> modell alapú megoldások felé elmozdulni. A legtöbb <em>aktor</em> modell implementáció biztosítja az ilyesfajta transzparenciát a futási hely tekintetében. Lásd még az aktor mintás jogcímet.</p>
@@ -1594,143 +1727,232 @@ AZ-400: Development for enterprise DevOps;405
 <h3 id="on-premise-futo-rendszerekhez">On-premise futó rendszerekhez<a class="headerlink" href="#on-premise-futo-rendszerekhez" title="Permanent link">¶</a></h3>
 <ul>
 <li>
-<p><strong>{OPDB2}</strong> Legalább kétfajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: <strong>10</strong> pont</p>
+<p><strong>{OPDB2}</strong> Legalább kétfajta on-premise adatbázis használata. Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Redis) nem számít be: <strong>5</strong> pont</p>
 </li>
 <li>
-<p><strong>{OPEXTCR}</strong> Konténerek vagy Helm chart(ok) letöltése on-premise klaszterbe külső container registry-ből, autentikációval: <strong>7-10</strong> pont</p>
+<p><strong>{OPEXTCR}</strong> Konténerek vagy Helm chart(ok) letöltése on-premise klaszterbe külső container registry-ből, autentikációval: <strong>2-3</strong> pont</p>
 <ul>
-<li>Azure Container Registry autentikációval pl. image pull secret-tel: <strong>10</strong> pont</li>
-<li>Egyéb container registry autentikációval pl. image pull secret-tel: <strong>7</strong> pont</li>
+<li>Azure Container Registry autentikációval pl. image pull secret-tel: <strong>3</strong> pont</li>
+<li>Egyéb container registry autentikációval pl. image pull secret-tel: <strong>2</strong> pont</li>
 </ul>
 </li>
 <li>
-<p><strong>{OPARC}</strong> On-premise Kubernetes bekötése Azure Arc-ba: <strong>5-15</strong> pont</p>
+<p><strong>{OPARC}</strong> On-premise Kubernetes bekötése Azure Arc-ba: <strong>3-5</strong> pont</p>
 <ul>
-<li>A szolgáltatás bekötése <strong>5</strong> pont</li>
-<li>A szolgáltatás on-premise <a href="https://learn.microsoft.com/en-us/azure/app-service/overview-arc-integration">Azure Function engine</a>-en fut (<strong>preview!</strong>) <strong>+10</strong> pont</li>
+<li>A klaszter bekötése Azure Arc-ba: <strong>3</strong> pont</li>
+<li><a href="https://learn.microsoft.com/en-us/azure/azure-monitor/containers/kubernetes-monitoring-enable-arc">Container Insights monitorozás</a> az Arc-ba kötött klaszteren: <strong>+2</strong> pont</li>
 </ul>
-</li>
-<li>
-<p><strong>{OPSTR}</strong> Tartós tár, pl. lokális mappa csatolása klaszterbe. <strong>3</strong> pont</p>
-</li>
-<li>
-<p><strong>{GW}</strong> Saját telepítésű (API/App) gateway használata. Kivéve self-hosted Azure API Management. <strong>5-10</strong> pont</p>
-<ul>
-<li>Traefik használata útvonalválasztásra: <strong>5</strong> pont</li>
-<li>Más, saját telepítésű (API/App) gateway használata: <strong>10</strong> pont</li>
-</ul>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>Saját gateway implementációért nem jár pont.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Az Arc <a href="https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-flux2">Flux bővítményével</a> megvalósított GitOps telepítés a {GITOPS} jogcímnél számolható el.</p>
 </div>
+</li>
+<li>
+<p><strong>{OPSTR}</strong> Tartós tár, pl. lokális mappa csatolása klaszterbe: <strong>2</strong> pont</p>
 </li>
 </ul>
 <h3 id="azure-alapon-futo-rendszerekhez">Azure alapon futó rendszerekhez<a class="headerlink" href="#azure-alapon-futo-rendszerekhez" title="Permanent link">¶</a></h3>
 <ul>
 <li>
-<p><strong>{AZDB2}</strong> Legalább kétfajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, Cosmos DB, Azure Table Storage). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: <strong>10</strong> pont</p>
+<p><strong>{AZDB2}</strong> Legalább kétfajta Azure-os adatbázisplatform használata (Azure SQL, Azure Database for PostgreSQL - Flexible Server, Cosmos DB, Azure Table Storage). Két eltérő technológiájú adatbázis használata perzisztenciára. Memória adatbázis, cache adatbázis (Azure Redis) nem számít be, egyéb NoSQL igen: <strong>7</strong> pont</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>30 napig ingyenes (többször is aktiválható!) <a href="https://cosmos.azure.com/try/">Cosmos DB</a> - ideiglenesen nem működik <img alt="😔" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f614.svg" title=":pensive:"> (2026. november)</p>
 </div>
 </li>
 <li>
-<p><strong>{AZRED}</strong> <a href="https://azure.microsoft.com/en-us/products/cache">Azure Redis</a> szolgáltatás használata kifejezetten gyorsítótárazásra saját telepítésű cache helyett, legalább egy művelet esetén: <strong>5</strong> pont</p>
-</li>
-<li>
-<p><strong>{AZING}</strong> Gateway/Ingress Azure szolgáltatásra (kivéve Azure API Management) vagy AKS kiterjesztésre építve. <strong>7-10</strong> pont</p>
-<ul>
-<li>AKS esetén valamely <a href="https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options">hivatalosan támogatott AKS ingress opció</a>: <strong>10</strong> pont</li>
-<li>Egyéb Azure szolgáltatás (pl. Azure App Gateway; kivéve Azure API Management): <strong>7</strong> pont</li>
-</ul>
-</li>
-<li>
-<p><strong>{AZACR}</strong> Konténerek vagy Helm chart(ok) letöltése Azure-beli klaszterbe vagy <em>Azure Function</em>-be saját <em>Azure Container Registry</em>-ből: <strong>3-7</strong> pont</p>
-<ul>
-<li>ACR admin felhasználó nevében: <strong>3</strong> pont</li>
-<li>managed identity alapú hozzáféréssel: <strong>7</strong> pont</li>
-</ul>
-</li>
-<li>
-<p><strong>{AZKVAU}</strong> Titkok lekérése saját <em>Azure Key Vault</em>-ból passwordless hozzáféréssel (workload identity): <strong>3</strong> pont</p>
-</li>
-<li>
-<p><strong>{AZMSG}</strong> A mikroszolgáltatások közötti kommunikáció kiszervezése valamely <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services">Azure üzenetkezelő szolgáltatásba</a> (pl. Service Bus, de <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-azure-and-service-bus-queues-compared-contrasted?source=recommendations">Azure Storage Queue</a> is elfogadott) managed identity alapú hozzáféréssel: <strong>5</strong> pont</p>
-</li>
-<li>
-<p><strong>{AZACA}</strong> Azure Container Apps skálázása szabály alapján: <strong>5</strong> pont</p>
-</li>
-<li>
-<p><strong>{AKSMON}</strong> AKS monitorozása, különféle telemetriatípusok (strukturált naplók, metrikák, elosztott nyomkövetés) gyűjtése és megjelenítése Azure Monitor szolgáltatásban Azure Monitor agent-tel vagy agent nélkül, Azure Monitor OpenTelemetry disztribúcióval <strong>3-10</strong> pont</p>
-<ul>
-<li>strukturált naplók vagy metrikák gyűjtése: <strong>3</strong> pont</li>
-<li>strukturált naplók és metrikák gyűjtése: <strong>5</strong> pont</li>
-<li>alkalmazásszintű OpenTelemetry telemetriák küldése közvetlenül (agent nélkül) Azure Monitor-ba az Azure Monitor OpenTelemetry disztribúcióval: <strong>+5</strong> pont</li>
-</ul>
-</li>
-<li>
-<p><strong>{OTAZURE}</strong> AKS/ACA/AZF platformon futó alkalmazásból alkalmazásszintű OpenTelemetry telemetriák küldése közvetlenül (agent nélkül) Azure Monitor-ba <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-enable">Azure Monitor OpenTelemetry disztribúcióval</a>: <strong>10</strong> pont</p>
-</li>
-<li>
-<p><strong>{ACAMON}</strong> ACA <a href="https://learn.microsoft.com/en-us/azure/container-apps/opentelemetry-agents?tabs=arm">monitorozása OpenTelemetry agent-tel</a>. Naplók és elosztott nyomkövetési adatok gyűjtése és megjelenítése Azure Monitor-ban (App Insights): <strong>10</strong> pont</p>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>Platformonként csak egy OpenTelemetry integrációs módszerért (vagy agent alapú vagy közvetlen) jár pont.</p>
+<p><strong>{AZRED}</strong> <a href="https://azure.microsoft.com/en-us/products/cache">Azure Redis</a> szolgáltatás (Azure Managed Redis vagy Azure Cache for Redis) használata kifejezetten gyorsítótárazásra legalább egy művelet esetén: <strong>5</strong> pont</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>A {CACHE} és az {AZRED} közül csak az egyik számít be.</p>
 </div>
 </li>
 <li>
-<p><strong>{AZFMON}</strong> AZF <a href="https://learn.microsoft.com/en-us/azure/azure-functions/opentelemetry-howto">monitorozása beépített OpenTelemetry integrációval</a>. Naplók és elosztott nyomkövetési adatok gyűjtése és megjelenítése Azure Monitor-ban (App Insights): <strong>10</strong> pont</p>
+<p><strong>{AZING}</strong> Gateway/Ingress Azure szolgáltatásra (kivéve Azure API Management) vagy AKS kiterjesztésre építve: <strong>2-7</strong> pont</p>
+<ul>
+<li>AKS esetén az <a href="https://learn.microsoft.com/en-us/azure/aks/app-routing-gateway-api">application routing bővítmény Gateway API módban</a>: <strong>2</strong> pont</li>
+<li>AKS esetén egyéb <a href="https://learn.microsoft.com/en-us/azure/aks/concepts-network-ingress#compare-ingress-options">hivatalosan támogatott AKS ingress opció</a> (pl. Application Gateway for Containers): <strong>7</strong> pont</li>
+<li>Egyéb Azure szolgáltatás (pl. Azure App Gateway; kivéve Azure API Management): <strong>7</strong> pont</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Managed NGINX</p>
+<p>Az application routing bővítmény NGINX alapú (Ingress API-s) módja 2026 novemberében kivezetésre kerül, így ezért a módért nem jár pont.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Ugyanazon a klaszteren a {GW} és az {AZING} közül csak az egyik számít be.</p>
+</div>
+</li>
+<li>
+<p><strong>{AZACR}</strong> Konténerek vagy Helm chart(ok) letöltése Azure-beli klaszterbe vagy <em>Azure Function</em>-be saját <em>Azure Container Registry</em>-ből ACR admin felhasználó nevében vagy managed identity alapú hozzáféréssel: <strong>2</strong> pont</p>
+</li>
+<li>
+<p><strong>{AKSWI}</strong> <a href="https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview">Workload identity</a> (Microsoft Entra Workload ID) használata AKS-en: legalább egy pod federált identitással, passwordless módon ér el Azure erőforrást (pl. az {AZKVAU}, {AZMSG}, {AZBLOB} vagy {AKV2K8S} jogcím megvalósítása során): <strong>5</strong> pont</p>
+</li>
+<li>
+<p><strong>{AZKVAU}</strong> Titkok lekérése az alkalmazásból saját <em>Azure Key Vault</em>-ból passwordless hozzáféréssel (managed identity, AKS-en workload identity): <strong>2</strong> pont</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>AKS-en a workload identity beállításáért az {AKSWI} jogcím is megszerezhető.</p>
+</div>
+</li>
+<li>
+<p><strong>{AZMSG}</strong> A mikroszolgáltatások közötti kommunikáció kiszervezése valamely <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/compare-messaging-services#comparison-of-services">Azure üzenetkezelő szolgáltatásba</a> (pl. Service Bus, de <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-azure-and-service-bus-queues-compared-contrasted?source=recommendations">Azure Storage Queue</a> is elfogadott) managed identity alapú (AKS-en workload identity alapú) hozzáféréssel: <strong>3</strong> pont</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>AKS-en a workload identity beállításáért az {AKSWI} jogcím is megszerezhető.</p>
+</div>
+</li>
+<li>
+<p><strong>{AZACA}</strong> Azure Container Apps skálázása szabály alapján: <strong>2</strong> pont</p>
+</li>
+<li>
+<p><strong>{AKSMON}</strong> AKS monitorozása Azure Monitor agent-tel (pl. Container Insights): strukturált naplók és/vagy metrikák gyűjtése és megjelenítése Azure Monitor szolgáltatásban: <strong>2</strong> pont</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Az alkalmazásszintű OpenTelemetry telemetriák közvetlen (agent nélküli) küldése Azure Monitor-ba külön jogcím, lásd {OTAZURE}.</p>
+</div>
+</li>
+<li>
+<p><strong>{OTAZURE}</strong> AKS/ACA/AZF platformon futó alkalmazásból alkalmazásszintű OpenTelemetry telemetriák küldése közvetlenül (agent nélkül) Azure Monitor-ba <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-enable">Azure Monitor OpenTelemetry disztribúcióval</a>: <strong>5</strong> pont</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Platformonként csak egy, OpenTelemetry telemetriákat Azure Monitor-ba juttató módszerért jár pont: az {OT} jogcím Azure Monitor exportja, az {OTAZURE}, az {ACAMON} és az {AZFMON} közül egy platformon csak az egyik számít be.</p>
+</div>
+</li>
+<li>
+<p><strong>{ACAMON}</strong> ACA <a href="https://learn.microsoft.com/en-us/azure/container-apps/opentelemetry-agents?tabs=arm">monitorozása OpenTelemetry agent-tel</a>. Naplók és elosztott nyomkövetési adatok gyűjtése és megjelenítése Azure Monitor-ban (App Insights): <strong>5</strong> pont</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Platformonként csak egy, OpenTelemetry telemetriákat Azure Monitor-ba juttató módszerért jár pont: az {OT} jogcím Azure Monitor exportja, az {OTAZURE}, az {ACAMON} és az {AZFMON} közül egy platformon csak az egyik számít be.</p>
+</div>
+</li>
+<li>
+<p><strong>{AZFMON}</strong> AZF <a href="https://learn.microsoft.com/en-us/azure/azure-functions/opentelemetry-howto">monitorozása beépített OpenTelemetry integrációval</a>. Naplók és elosztott nyomkövetési adatok gyűjtése és megjelenítése Azure Monitor-ban (App Insights): <strong>5</strong> pont</p>
 <div class="admonition warning">
 <p class="admonition-title">Előzetes verzió</p>
 <p>Az AZF beépített OpenTelemetry integrációja még csak előzetes verziós.</p>
 </div>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>Platformonként csak egy OpenTelemetry integrációs módszerért (vagy beépített vagy közvetlen) jár pont.</p>
+<p>Platformonként csak egy, OpenTelemetry telemetriákat Azure Monitor-ba juttató módszerért jár pont: az {OT} jogcím Azure Monitor exportja, az {OTAZURE}, az {ACAMON} és az {AZFMON} közül egy platformon csak az egyik számít be.</p>
 </div>
 </li>
 <li>
-<p><strong>{AZCS}</strong> <a href="https://learn.microsoft.com/en-us/azure/chaos-studio/"><em>Azure Chaos Studio</em></a> használata káoszteszt futtatására: <strong>7</strong> pont</p>
+<p><strong>{AZCS}</strong> <a href="https://learn.microsoft.com/en-us/azure/chaos-studio/"><em>Azure Chaos Studio</em></a> használata káoszteszt futtatására. Védésen szemléltetés káoszteszt futtatással: <strong>5-7</strong> pont</p>
+<ul>
+<li>Chaos Mesh nélküli, közvetlenül Azure szolgáltatásra ható hibával (pl. NSG szabály, Cosmos DB failover, Key Vault hozzáférés tiltása): <strong>5</strong> pont</li>
+<li>AKS klaszteren Chaos Mesh alapú hibával: <strong>7</strong> pont</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Védésen nem kell <strong>élőben</strong> káoszkísérletet futtatni, ha be tudod mutatni egy korábbi futását és annak hatását, pl. a Chaos Studio kísérletfuttatási előzményeiben és Azure Monitor-ban.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Ugyanazon a klaszteren a {CHAOS} és az {AZCS} Chaos Mesh alapú hibája közül csak az egyik számít be.</p>
+</div>
 </li>
 <li>
-<p><strong>{AZSTR}</strong> Tartós tár, például Azure Disk, Azure Files csatolása AKS-, ACA-klaszterbe vagy <a href="https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares">Azure Function-be</a>: <strong>5</strong> pont</p>
+<p><strong>{AZSTR}</strong> Tartós tár, például Azure Disk, Azure Files csatolása AKS-, ACA-klaszterbe vagy <a href="https://learn.microsoft.com/en-us/azure/azure-functions/storage-considerations?tabs=azure-cli#mount-file-shares">Azure Function-be</a>: <strong>2</strong> pont</p>
 </li>
 <li>
-<p><strong>{AZBLOB}</strong> Azure Storage Blob integrálása <a href="https://learn.microsoft.com/en-us/azure/storage/blobs/authorize-access-azure-active-directory">managed identity használatával</a>: <strong>5</strong> pont</p>
+<p><strong>{AZBLOB}</strong> Azure Storage Blob integrálása <a href="https://learn.microsoft.com/en-us/azure/storage/blobs/authorize-access-azure-active-directory">managed identity használatával</a> (AKS-en workload identity alapú hozzáféréssel): <strong>3</strong> pont</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>AKS-en a workload identity beállításáért az {AKSWI} jogcím is megszerezhető.</p>
+</div>
 </li>
 <li>
-<p><strong>{AZFDF}</strong> <a href="https://learn.microsoft.com/en-us/azure/durable-task/durable-functions/durable-functions-overview"><em>Durable Functions</em></a> használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: <strong>5</strong> pont</p>
+<p><strong>{AZFDF}</strong> <a href="https://learn.microsoft.com/en-us/azure/durable-task/durable-functions/durable-functions-overview"><em>Durable Functions</em></a> használata mikroszolgáltatások orkesztrációjára Azure Functions platformon: <strong>7</strong> pont</p>
 </li>
+</ul>
+<ul>
 <li>
-<p><strong>{AZACI}</strong> Legalább egy pod/szolgáltatás futtatása Azure Container Instance szolgáltatáson az AKS <a href="https://learn.microsoft.com/en-us/azure/aks/virtual-nodes">virtual node</a> képességére építve. <strong>7</strong> pont</p>
+<p><strong>{AZACI}</strong> Legalább egy pod/szolgáltatás futtatása Azure Container Instance szolgáltatáson az AKS virtual node képességére építve, a <a href="https://learn.microsoft.com/en-us/azure/aks/virtual-nodes">bővítmény (add-on) alapú</a> vagy a <a href="https://learn.microsoft.com/en-us/azure/aks/virtual-nodes-v2">Helm-alapú Virtual Nodes v2</a> (előzetes verzió) megoldással: <strong>7</strong> pont</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>A virtual node csak Azure CNI hálózati beépülővel létrehozott klaszteren működik (kubenet és Azure CNI Overlay nem támogatott). Az új AKS klaszterek alapértelmezése az Overlay, ezért a klaszter létrehozásakor ezt külön be kell állítani.</p>
+</div>
 </li>
+</ul>
+<ul>
 <li>
-<p><strong>{AZCAS}</strong> AKS node szintű skálázás cluster autoscaler-rel. Védésen a (vissza)skálázást demonstrálni kell. <strong>7</strong> pont</p>
+<p><strong>{AZCAS}</strong> AKS node szintű skálázás cluster autoscaler-rel. Védésen a (vissza)skálázást demonstrálni kell: <strong>3</strong> pont</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Védésen nem kell <strong>élőben</strong> demózni (a node-ok létrehozása és visszaskálázása akár 20 percnél is tovább tartana), ha be tudod mutatni egy korábbi (vissza)skálázást, pl. Azure Monitor-ban a node-szám metrikán vagy a cluster autoscaler naplóiban.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Jelenleg hallgatói előfizetéssel ez a pont valószínűleg nem megszerezhető, mert a szükséges vCPU kvóták az ilyen típusú előfizetéseken túl alacsonyak.</p>
 </div>
 </li>
 </ul>
+<ul>
+<li>
+<p><strong>{MULTISITE}</strong> Helyszínek közötti failover: a szolgáltatás üzleti funkciói két helyszínen, egymástól függetlenül futnak, előttük globális terheléselosztóval, amely állapotellenőrzés (health probe) alapján az egyik helyszín kiesésekor a másikra irányítja a forgalmat. Védésen a failovert (pl. az egyik helyszín leállításával) demonstrálni kell: <strong>10-12</strong> pont</p>
+<ul>
+<li>Két Azure régió között: <strong>10</strong> pont</li>
+<li>Egy Azure régió és egy on-premise klaszter között, az on-premise végpont publikusan elérhetővé tételével: <strong>12</strong> pont</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Ismert, jól dokumentált megoldások</p>
+<ul>
+<li>Globális terheléselosztó:<ul>
+<li><a href="https://learn.microsoft.com/en-us/azure/frontdoor/front-door-overview">Azure Front Door</a>: mindkét opcióhoz ajánlott. Gyors váltás. Standard szinten kb. 35 USD/hó alapdíj, de óránként, csak a profil létezésének idejére számlázva.</li>
+<li><a href="https://learn.microsoft.com/en-us/azure/traffic-manager/traffic-manager-overview">Azure Traffic Manager</a>: csak a két Azure régiós opcióhoz. DNS alapú, olcsó, de a DNS gyorsítótárazás miatt lassabb átállás.</li>
+</ul>
+</li>
+<li>Azure oldali platform: AKS, Azure Container Apps vagy Azure Functions</li>
+<li>On-premise végpont publikussá tétele:<ul>
+<li>tunnel szolgáltatás (pl. Cloudflare Tunnel, ngrok)</li>
+<li><a href="https://learn.microsoft.com/en-us/azure/azure-relay/relay-hybrid-connections-protocol">Azure Relay Hybrid Connections</a> (Azure-natív, de az on-premise oldalon Relay SDK vagy bridge, pl. azbridge szükséges)</li>
+</ul>
+</li>
+</ul>
+<p>Más technológia is elfogadható, de a pontszám a fenti megoldások ráfordításához igazodik.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Az adatréteg replikálása nem feltétele ennek a jogcímnek (az adatréteg maradhat egy helyszínen), de külön elszámolható, lásd {DBGEOREPL}. Az Azure oldali helyszín felépítéséhez és lebontásához érdemes IaC-t használni, lásd {IaC}.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Két helyszín párhuzamos futtatása és a globális terheléselosztó növeli a költségeket. A hallgatói előfizetés kreditjének kímélése érdekében a második helyszínt és a terheléselosztót csak a fejlesztés és a védés idejére érdemes felépíteni.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Az on-premise végpont internetre kitétele biztonsági kockázat: csak a szükséges végpontot tedd elérhetővé, és a védés után szüntesd meg.</p>
+</div>
+</li>
+</ul>
 <h3 id="microsoft-minositesek">Microsoft minősítések<a class="headerlink" href="#microsoft-minositesek" title="Permanent link">¶</a></h3>
 <p>Minősítésekből összesen <strong>25</strong> pont szerezhető. A megszerzett minősítések felkészülési anyagainak elsajátítása után <a href="../mslearning/">pont</a> nem kapható. A minősítéseket listázó <a href="https://learn.microsoft.com">oldalra</a> belépve kell igazolni a minősítés megszerzését.</p>
 <ul>
+<li><strong>{AZ900}</strong> <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals">Microsoft Certified: Azure Fundamentals</a> minősítés megszerzése: <strong>15</strong> pont</li>
+</ul>
+<ul>
 <li>
-<p><strong>{AZ900}</strong> <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals">Microsoft Certified: Azure Fundamentals</a> minősítés megszerzése <strong>15</strong> pont</p>
+<p><strong>{AZ100}</strong> <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator">Microsoft Certified: Azure Administrator Associate</a> minősítés megszerzése: <strong>20</strong> pont</p>
 </li>
 <li>
-<p><strong>{AZ100}</strong> <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator">Microsoft Certified: Azure Administrator Associate</a> minősítés megszerzése <strong>20</strong> pont</p>
+<p><strong>{AZ200}</strong> <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-developer">Microsoft Certified: Azure Developer Associate</a> minősítés megszerzése: <strong>25</strong> pont</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Az AZ-204 vizsga 2026. július 31-én <a href="https://learn.microsoft.com/en-us/credentials/retired-certification-exams">kivezetésre került</a>, utódja az AI-200 (lásd {AI200}). Az {AZ200} jogcím korábban megszerzett minősítéssel elszámolható.</p>
+</div>
 </li>
 <li>
-<p><strong>{AZ200}</strong> <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-developer">Microsoft Certified: Azure Developer Associate</a> minősítés megszerzése <strong>25</strong> pont</p>
+<p><strong>{AI200}</strong> <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-cloud-developer-associate/">Microsoft Certified: Azure AI Cloud Developer Associate</a> (AI-200 vizsga) minősítés megszerzése: <strong>25</strong> pont</p>
 </li>
 </ul>
 <h3 id="egyeb">Egyéb<a class="headerlink" href="#egyeb" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>{BASE}</strong> A minimum elvárásokat teljesítő rendszer: <strong>24</strong> pont</li>
+<li><strong>{BASE}</strong> A minimum elvárásokat teljesítő rendszer: <strong>30</strong> pont</li>
 <li><strong>{ALLHF}</strong> Minden félévközi házi feladat (6 db.) teljesítése. Nem arányosítható - csak akkor adható, ha <em>minden</em> házi teljesített: <strong>6</strong> pont</li>
 <li><strong>{MSLEARN}</strong> Azure tananyagok elsajátítása, kizárólag a <a href="../mslearning/">külön leírt követelmények</a> szerint: max. <strong>24</strong> pont</li>
-<li><strong>{CONTRIB}</strong> Visszacsatolás. A véglegesített pontrendszer vagy tananyag javítása, bővítése, módosítása pull request-tel. Helyesírási hiba is lehet, de az oktatók döntenek, hogy pontot ér-e a módosítás. Többször is megszerezhető. <strong>0-2</strong> pont, összesen max. <strong>6</strong> pont.</li>
+<li><strong>{CONTRIB}</strong> Visszacsatolás. A véglegesített pontrendszer vagy tananyag javítása, bővítése, módosítása pull request-tel. Helyesírási hiba is lehet, de az oktatók döntenek, hogy pontot ér-e a módosítás. Többször is megszerezhető: <strong>0-2</strong> pont, összesen max. <strong>6</strong> pont.</li>
 </ul>
 <h2 id="a-szabalyrendszer-valtozasa">A szabályrendszer változása<a class="headerlink" href="#a-szabalyrendszer-valtozasa" title="Permanent link">¶</a></h2>
 <p>Véglegesítés után is fenntartjuk a jogot</p>
@@ -1749,8 +1971,8 @@ AZ-400: Development for enterprise DevOps;405
           </path>
         </svg>
       </span>
-      <span title="2026. november 8. 19:49:49">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. november 8. 19:49:49 CET"><span class="timeago" datetime="2026-11-08T19:49:49+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. november 8. 19:49:49 CET">2026-11-08</span>
+      <span title="2026. november 18. 14:12:05">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. november 18. 14:12:05 CET"><span class="timeago" datetime="2026-11-18T14:12:05+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. november 18. 14:12:05 CET">2026-11-18</span>
       </span>
     </span>
 
