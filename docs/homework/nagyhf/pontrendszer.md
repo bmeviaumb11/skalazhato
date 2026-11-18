@@ -197,6 +197,9 @@ További szabályok:
     - Hibrid replikációval menedzselt Azure adatbázis és saját telepítésű adatbázis között: **7** pont
     - Saját telepítésű adatbázis két Kubernetes klaszter közötti replikációjával: **12** pont
 
+    !!! tip
+        A manuális failovert védésen nem kell **élőben** demózni, ha be tudod mutatni egy korábbi failover nyomait, pl. az Azure Activity Log-ban vagy az adatbázis (operátor) naplóiban.
+
     !!! tip "Ismert, jól dokumentált megoldások"
         - Menedzselt:
             - Azure SQL geo-replikáció vagy failover group
@@ -260,6 +263,9 @@ További szabályok:
     - Horizontal Pod Autoscaler alapú: **3** pont
     - [KEDA](https://keda.sh/) alapú, valamilyen adat, esemény alapján: **7** pont
 
+    !!! tip
+        A (vissza)skálázást védésen nem kell **élőben** demózni (a visszaskálázás az alapértelmezett stabilizációs idő miatt legalább 5 percig tartana), ha be tudod mutatni egy korábbi futásból, pl. a replikaszám metrikán (Grafana, Azure Monitor) vagy elmentett `kubectl describe hpa` kimenettel.
+
 - **{VSC}** Vertikális skálázás podok szintjén (pod requests rightsizing) Vertical Pod Autoscaler (VPA) alapon: **5** pont
 
     !!! warning "VPA és HPA együtt"
@@ -285,10 +291,16 @@ További szabályok:
 
 - **{CHAOS}** Chaos engineering eszköz alkalmazása (pl. [chaos mesh](https://chaos-mesh.org/docs/)). Védésen szemléltetés káoszteszt futtatással: **5** pont
 
+    !!! tip
+        Védésen nem kell **élőben** káoszkísérletet futtatni, ha be tudod mutatni egy korábbi futását és annak hatását, pl. a Chaos Mesh dashboard előzményeiben és a hatást mutató metrikákon (pl. Grafana).
+
     !!! warning
         Ugyanazon a klaszteren a {CHAOS} és az {AZCS} Chaos Mesh alapú hibája közül csak az egyik számít be.
 
 - **{LOADTEST}** Terheléses teszt készítése és futtatása, legalább egy forgatókönyvvel (pl. [Azure Load Testing](https://learn.microsoft.com/en-us/azure/load-testing/overview-what-is-azure-load-testing), [k6](https://grafana.com/docs/k6/latest/), [JMeter](https://jmeter.apache.org/), [Locust](https://locust.io/)). Védésen a teszt futtatását és az eredmények (pl. válaszidők, hibaarány) értelmezését be kell mutatni: **3** pont
+
+    !!! tip
+        Védésen nem kell **élőben** futtatni a tesztet, ha be tudod mutatni egy korábbi futás riportját (pl. Azure Load Testing eredményoldal, k6 / Locust HTML riport).
 
     !!! tip
         A terheléses teszt jól használható a skálázási jogcímek ({HSC}, {AZACA}, {AZCAS}) demonstrálásához is.
@@ -390,6 +402,9 @@ További szabályok:
     - Chaos Mesh nélküli, közvetlenül Azure szolgáltatásra ható hibával (pl. NSG szabály, Cosmos DB failover, Key Vault hozzáférés tiltása): **5** pont
     - AKS klaszteren Chaos Mesh alapú hibával: **7** pont
 
+    !!! tip
+        Védésen nem kell **élőben** káoszkísérletet futtatni, ha be tudod mutatni egy korábbi futását és annak hatását, pl. a Chaos Studio kísérletfuttatási előzményeiben és Azure Monitor-ban.
+
     !!! warning
         Ugyanazon a klaszteren a {CHAOS} és az {AZCS} Chaos Mesh alapú hibája közül csak az egyik számít be.
 
@@ -412,6 +427,9 @@ További szabályok:
 <!-- Félévente ellenőrizendő hallgatói (Azure for Students) előfizetésen: a vCPU kvóta engedi-e a cluster autoscaler demóhoz szükséges skálázást (pl. 1 -> 2 kis node). Ha igen, az alábbi figyelmeztetés törölhető. -->
 
 - **{AZCAS}** AKS node szintű skálázás cluster autoscaler-rel. Védésen a (vissza)skálázást demonstrálni kell: **3** pont
+
+    !!! tip
+        Védésen nem kell **élőben** demózni (a node-ok létrehozása és visszaskálázása akár 20 percnél is tovább tartana), ha be tudod mutatni egy korábbi (vissza)skálázást, pl. Azure Monitor-ban a node-szám metrikán vagy a cluster autoscaler naplóiban.
 
     !!! warning
         Jelenleg hallgatói előfizetéssel ez a pont valószínűleg nem megszerezhető, mert a szükséges vCPU kvóták az ilyen típusú előfizetéseken túl alacsonyak.
