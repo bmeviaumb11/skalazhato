@@ -68,7 +68,7 @@ A régiós elérhetőség változhat (2026. novemberi állapot).
 Ha nincs meg az előző háziból a terhelésteszt (Azure Load Testing) erőforrás, hozd létre (újra) az előző házi leírása alapján. Csak az erőforrás kell, nem kell bele teszt(eset).
 
 !!! tip "Load Testing erőforrás régiója"
-    Új Azure Load Testing erőforrás létrehozásakor a Function App régióját válaszd, ha az az 1.1-es feladat régiólistájában ⭐⭐⭐⭐⭐ értékelésű. Egyébként válassz egy engedélyezett, a Function App-hoz földrajzilag közeli ⭐⭐⭐⭐⭐ régiót (pl. *Poland Central* :flag_pl: Function App esetén *Germany West Central* :flag_de: vagy *Sweden Central* :flag_se:).
+    Új Azure Load Testing erőforrás létrehozásakor a Function App régióját válaszd, ha az az 1.1-es feladat régiólistájában ⭐⭐⭐⭐⭐ értékelésű. Egyébként válassz egy engedélyezett, a Function App-hoz földrajzilag közeli ⭐⭐⭐⭐⭐ régiót. Hogy a te előfizetéseden melyek az engedélyezett ⭐⭐⭐⭐⭐ régiók, azt a [function-region-check.sh](function-region-check.sh) script kiírja (pl. ha egy hallgatói előfizetésen csak *Italy North* :flag_it: az, akkor egy *Poland Central* :flag_pl: Function App mellé is ott hozd létre).
 
 Az Azure portálon keresd ki és nyisd meg az előző feladatban létrehozott *Function App*-ot. A *Load Testing* menüpont segítségével [hozz létre és futtass](https://learn.microsoft.com/en-us/azure/app-testing/load-testing/how-to-create-load-test-function-app) egy kiugrást (spike) szimuláló terheléstesztet.
 
