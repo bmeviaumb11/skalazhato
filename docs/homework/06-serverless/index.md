@@ -54,7 +54,7 @@ A régiós elérhetőség változhat (2026. novemberi állapot).
     - a *Logs* nézet alapértelmezetten egyszerű (*Simple*) módban nyílik meg, ahol nem lehet lekérdezést írni. A `requests | order by timestamp desc` lekérdezés beírásához előbb válts *KQL mode*-ra.
 
 !!! warning "Hagyd meg"
-    A *Clean up resources* egységet **hagyd ki**: az törölné az erőforráscsoportot, de a Function App-ra a következő feladatban szükség lesz.
+    A *Clean up resources* egységet **ne hajtsd végre**: az törölné az erőforráscsoportot, de a Function App-ra a következő feladatban szükség lesz.
 
 !!! example "BEADANDÓ"
     Készíts egy képernyőképet a Microsoft Learn portálról (`f1.1.png`) és commitold azt be a házi feladat repó gyökerébe, amin a tananyag elvégzéséről készült oklevél nyomtatási képe látható (angol portál esetében: jobb felső sarok ➡️ *Profile* ➡️ a bal oldali menüben *Achievements* ➡️ átváltás a *Modules* alfülre ➡️ tananyag kikeresése ➡️ a tananyag kártyáján a nyomtató ikon). Közvetlen [modul link](https://learn.microsoft.com/en-us/users/me/achievements?tab=tab-modules). Nem kell ténylegesen kinyomtatni, de a teljes oldal látszódjon, jobb felül a belépett felhasználó monogramjával. Alternatívaként a tananyag kártyáján a megosztás ikonnal egy linket generálhatunk; ezt a linket is be lehet adni ([példa](https://learn.microsoft.com/en-us/users/kszicsillag/achievements/uzhtj8u3)). Link esetén próbáld ki, hogy publikusan elérhető-e az oklevél, illetve ilyenkor a [privát mód](https://learn.microsoft.com/en-us/credentials/certifications/cred-share-validate#sharing-and-privacy-setting) ne legyen bekapcsolva.
