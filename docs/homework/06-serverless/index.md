@@ -30,8 +30,22 @@ Az Azure erőforrások létrehozásakor kövesd (amennyire lehetséges) az eddig
 
 - Function App név: *azfun* előtag + neptun kód (pl. *npt123* neptun kód esetén *azfunnpt123*)
 - *Secure unique default hostname*: ha a varázsló nem kínálja fel ezt az opciót, hagyd figyelmen kívül ezt a lépést.
-- régió: a hallgatói előfizetésen engedélyezett régiók egyike (az engedélyezett régiók listázását lásd az [AKS házi](../04-aks/index.md) *Közös Azure régió* részében). Ha a közös régióban elérhető a Flex Consumption, válaszd azt.
 - erőforráscsoport: használhatod a tananyagban megadott nevet, de adhatsz saját nevet is
+- régió: a hallgatói előfizetésen engedélyezett régiók egyike (az engedélyezett régiók listázását lásd az [AKS házi](../04-aks/index.md) *Közös Azure régió* részében). Ha van korábbról Load Testing erőforrásod, elsőként annak a régióját érdemes megvizsgálni. Sajnos az AKS-hez hasonlóan megint további szempontokat is figyelembe kell venni, ezekhez lásd a lenti "Régióválasztási szempontok" részt. Az engedélyezett régiók közül minél több csillagos régiót válassz:
+    - ⭐⭐⭐⭐⭐ Flex Consumption, teszt-összerendelés és Azure Load Testing erőforrás is elérhető: *France Central* :flag_fr:, *Germany West Central* :flag_de:, *Italy North* :flag_it:, *North Europe* :flag_ie:, *Sweden Central* :flag_se:, *Switzerland North* :flag_ch:, *UK South* :flag_gb:, *West Europe* :flag_nl:
+    - ⭐⭐⭐⭐ Flex Consumption és teszt-összerendelés elérhető, Azure Load Testing erőforrás nem: *Norway East* :flag_no:, *Poland Central* :flag_pl:, *UK West* :flag_gb:
+    - ⭐⭐⭐ csak Flex Consumption érhető el: *Austria East* :flag_at:, *Belgium Central* :flag_be:, *France South* :flag_fr:, *Germany North* :flag_de:, *Norway West* :flag_no:, *Spain Central* :flag_es:, *Switzerland West* :flag_ch:
+
+A régiós elérhetőség változhat (2026. novemberi állapot).
+
+!!! info "Régióválasztási szempontok"
+    A szempontok fontossági sorrendben:
+
+    1. **Engedélyezett régió**: a hallgatói előfizetés házirendje (policy) más régióban nem engedi létrehozni az erőforrást.
+    2. **Flex Consumption**: a tananyag és a 2.3-as feladat költségszámítása erre a hosting plan-re épül.
+    3. **Teszt-összerendelés**: a 2.1-es feladatban a Function App *Load testing* menüpontjából hozzuk majd létre a terheléstesztet. Ez a Function App régiójában egy összerendelést (`loadTestMappings`) is létrehoz, ami alapján a menüpont listázza a Function App-hoz tartozó teszteket. Ahol az ehhez szükséges API nem elérhető, a teszt ugyanúgy létrejön (bár hibaüzenetet kapunk a létrehozáskor, mert az összerendelés már nem tud létrejönni) és lefuttatható, de a Function App *Load testing* menüje üres marad.
+    4. **Azure Load Testing erőforrás ugyanabban a régióban**: a 2.1-es feladat terheléstesztje az Azure Load Testing erőforrás régiójából hívja a függvényt. Nem kötelező, hogy a kettő egy régióban legyen.
+
 
 !!! tip "Naplók megtekintése"
     A tananyag [*Exercise - Test endpoint and review logs*](https://learn.microsoft.com/en-us/training/modules/guided-project-build-basic-website-endpoint-with-functions/4-exercise-test-endpoint-logs) egységének *Task 6: Review invocation logs* lépésében:
@@ -52,6 +66,9 @@ Az Azure erőforrások létrehozásakor kövesd (amennyire lehetséges) az eddig
 ### 2.1 Terhelésteszt - spike
 
 Ha nincs meg az előző háziból a terhelésteszt (Azure Load Testing) erőforrás, hozd létre (újra) az előző házi leírása alapján. Csak az erőforrás kell, nem kell bele teszt(eset).
+
+!!! tip "Load Testing erőforrás régiója"
+    Új Azure Load Testing erőforrás létrehozásakor a Function App régióját válaszd, ha az az 1.1-es feladat régiólistájában ⭐⭐⭐⭐⭐ értékelésű. Egyébként válassz egy engedélyezett, a Function App-hoz földrajzilag közeli ⭐⭐⭐⭐⭐ régiót (pl. *Poland Central* :flag_pl: Function App esetén *Germany West Central* :flag_de: vagy *Sweden Central* :flag_se:).
 
 Az Azure portálon keresd ki és nyisd meg az előző feladatban létrehozott *Function App*-ot. A *Load Testing* menüpont segítségével [hozz létre és futtass](https://learn.microsoft.com/en-us/azure/app-testing/load-testing/how-to-create-load-test-function-app) egy kiugrást (spike) szimuláló terheléstesztet.
 
@@ -85,6 +102,9 @@ Ellenőrzés és létrehozás (*Review + create*):
 - Run test after creation: bekapcsolni
 
 A *Run test after creation* opció bekapcsolása miatt a teszt elkészülte után le is fog futni, nem kell külön elindítani. Várjuk meg, amíg a teszt lefut (az Azure Load Testing erőforrásunk *Tests* menüpontjában tudjuk követni).
+
+!!! warning "Teszt-összerendelés nélküli régiók"
+    Ha a Function App az 1.1-es feladat régiólistájában ⭐⭐⭐ értékelésű régióban van (pl. *Austria East* :flag_at:, *Belgium Central* :flag_be:, *Spain Central* :flag_es:), a teszt létrehozásakor hibaüzenetet kapsz, mert a Function App és a teszt közti összerendelés nem jön létre. A teszt ilyenkor is létrejön, de a *Run test after creation* beállítás ellenére nem indul el, és a Function App *Load testing* menüje is üres marad. A tesztet az Azure Load Testing erőforrás *Tests* menüpontjában keresd meg, és onnan indítsd el (*Run*); a futását is itt tudod követni.
 
 ### 2.2 Terhelésteszt monitorozás Azure Function oldalról
 
