@@ -85,6 +85,15 @@ Tesztterv (*Test Plan*) / HTTP kérések (*Requests*):
 - HTTP method: *GET* (automatikusan kitöltődik)
 - Opcionális header, query paraméter, stb. értékek: nem kell kitölteni.
 
+!!! warning "Létrehozás nem a Function App-ból"
+    A fenti automatikus kitöltések csak akkor működnek, ha a tesztet a Function App *Load testing* menüpontjából hozod létre. Ha a tesztet máshonnan (pl. közvetlenül az Azure Load Testing erőforrásban) hozod létre, ezeket kézzel kell megadnod:
+
+    - URL: a függvény teljes URL-je (*Function App* ➡️ *GetStatus* függvény ➡️ *Get function URL*)
+    - HTTP method: *GET*
+    - kulcs: query paraméterként (név: `code`, érték: a függvény kulcsa), különben a kérések 401-es hibát kapnak
+
+    Ilyenkor a Function App *Load testing* menüje sem fogja listázni a tesztet.
+
 Terhelés (*Load*):
 
 - Engine instances: *1*
