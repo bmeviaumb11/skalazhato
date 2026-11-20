@@ -43,7 +43,7 @@ A régiós elérhetőség változhat (2026. novemberi állapot).
 
     1. **Engedélyezett régió**: a hallgatói előfizetés házirendje (policy) más régióban nem engedi létrehozni az erőforrást.
     2. **Flex Consumption**: a tananyag és a 2.3-as feladat költségszámítása erre a hosting plan-re épül.
-    3. **Teszt-összerendelés**: a 2.1-es feladatban a Function App *Load testing* menüpontjából hozzuk majd létre a terheléstesztet. Ez a Function App régiójában egy összerendelést (`loadTestMappings`) is létrehoz, ami alapján a menüpont listázza a Function App-hoz tartozó teszteket. Ahol az ehhez szükséges API nem elérhető, a teszt ugyanúgy létrejön (bár hibaüzenetet kapunk a létrehozáskor, mert az összerendelés már nem tud létrejönni) és lefuttatható, de a Function App *Load testing* menüje üres marad.
+    3. **Teszt-összerendelés**: a 2.1-es feladatban a Function App *Load testing* menüpontjából hozzuk majd létre a terheléstesztet. Ez a Function App régiójában egy összerendelést (`loadTestMappings`) is létrehoz, ami alapján a menüpont listázza a Function App-hoz tartozó teszteket. Ahol az ehhez szükséges API nem elérhető, a teszt ugyanúgy létrejön (bár hibaüzenetet kapunk a létrehozáskor, mert a teszt után az összerendelés már nem tud létrejönni) és lefuttatható, de a Function App *Load testing* menüje üres marad.
     4. **Azure Load Testing erőforrás ugyanabban a régióban**: a 2.1-es feladat terheléstesztje az Azure Load Testing erőforrás régiójából hívja a függvényt. Nem kötelező, hogy a kettő egy régióban legyen.
 
 
@@ -81,10 +81,9 @@ Tesztterv (*Test Plan*) / HTTP kérések (*Requests*):
 
 - Request name: mi adjuk meg, pl. *GetStatusRequest*
 - Function name: *GetStatus* (egy van - automatikusan kitöltődik)
-- Key: maradhat az automatikusan kitöltött érték; a kulcsot query paraméterként adjuk át (lásd lent)
+- Key: a függvény kulcsa (automatikusan kitöltődik; a varázsló ez alapján hitelesíti a kéréseket, így nem kapunk 401-es hibát)
 - HTTP method: *GET* (automatikusan kitöltődik)
-- Query parameters: név: `code`, érték: a *GetStatus* függvény kulcsa, amit az első feladatban is kellett használnunk, hogy ne kapjunk 401-es hibát
-- Egyéb opcionális értékek (header, body stb.): nem kell kitölteni.
+- Opcionális header, query paraméter, stb. értékek: nem kell kitölteni.
 
 Terhelés (*Load*):
 
