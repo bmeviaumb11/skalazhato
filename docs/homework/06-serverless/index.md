@@ -8,10 +8,10 @@ A labor célja megismerni az Azure elsődleges serverless technológiáját, az 
 
 ## Előkövetelmények
 
-A laborleírás cross-platform eszközöket használ. A labor Linuxon (Kubuntu v24.04) lett kidolgozva.
+A feladatok az Azure portálon és az Azure Cloud Shell-ben végezhetők el, helyi eszközök telepítése nem szükséges.
 
 - Azure [hallgatói előfizetés](https://azure.microsoft.com/en-us/free/students)
-- A többit lásd [itt](https://learn.microsoft.com/en-us/training/modules/develop-azure-functions/5-create-function-visual-studio-code)
+- böngésző
 
 ## Előkészület
 
@@ -22,29 +22,30 @@ A feladatok megoldása során ne felejtsd el követni a feladat beadásának fol
 
 ## 1. Feladat
 
-### 1.1 Azure Functions bevezető anyag
+### 1.1 Azure Functions Hello World
 
-Végezd el az [*AZ-204: Implement Azure Functions*](https://learn.microsoft.com/en-us/training/paths/implement-azure-functions/) tananyagot (2 modul, összesen 53 percben). Az [*Exercise: Create an Azure Function by using Visual Studio Code*](https://learn.microsoft.com/en-us/training/modules/develop-azure-functions/5-create-function-visual-studio-code) rész kapcsán lásd a következő alfeladatot.
+Végezd el a [*Guided project: Build a simple website endpoint with Azure Functions*](https://learn.microsoft.com/en-us/training/modules/guided-project-build-basic-website-endpoint-with-functions/) tananyagot (8 egység, kb. 36 perc). A tananyag végig az Azure portált és a Cloud Shell-t használja; a Function App [Flex Consumption](https://learn.microsoft.com/en-us/azure/azure-functions/flex-consumption-plan) hosting plan-re kerül, egy HTTP-triggerelt *GetStatus* függvénnyel.
 
-### 1.2 Azure Functions Hello World
+Az Azure erőforrások létrehozásakor kövesd (amennyire lehetséges) az eddigi konvenciókat:
 
-Az [*Exercise: Create an Azure Function by using Visual Studio Code*](https://learn.microsoft.com/en-us/training/modules/develop-azure-functions/5-create-function-visual-studio-code) részben az Azure erőforrások létrehozásakor kövesd (amennyire lehetséges) az eddigi konvenciókat:
+- Function App név: *azfun* előtag + neptun kód (pl. *npt123* neptun kód esetén *azfunnpt123*)
+- *Secure unique default hostname*: ha a varázsló nem kínálja fel ezt az opciót, hagyd figyelmen kívül ezt a lépést.
+- régió: a hallgatói előfizetésen engedélyezett régiók egyike (az engedélyezett régiók listázását lásd az [AKS házi](../04-aks/index.md) *Közös Azure régió* részében). Ha a közös régióban elérhető a Flex Consumption, válaszd azt.
+- erőforráscsoport: használhatod a tananyagban megadott nevet, de adhatsz saját nevet is
 
-- név: *azfun* előtag + neptun kód (pl.*npt123* neptun kód esetén *azfunnpt123*)
-- régió: közös Azure régió (lásd AKS házi)
- - erőforráscsoport: alapértelmezésben egy új erőforráscsoport jön létre ugyanolyan névvel, mint amit névként megadtunk a *Function App*-nak. Ha ez nem tetszik, indítsd el a [komplexebb (advanced) varázslót].
+!!! tip "Naplók megtekintése"
+    A tananyag [*Exercise - Test endpoint and review logs*](https://learn.microsoft.com/en-us/training/modules/guided-project-build-basic-website-endpoint-with-functions/4-exercise-test-endpoint-logs) egységének *Task 6: Review invocation logs* lépésében:
 
-
-!!! info "Azure Function hosting"
-    Alapértelmezés szerint [Flex Consumption](https://learn.microsoft.com/en-us/azure/azure-functions/flex-consumption-plan) típusú lesz a létrejövő Function App hosting plan-je.
+    - a *Transaction search* menüpont az Application Insights erőforrás *Investigate* szekciójában már *Search* néven szerepel. A találatokat szűrd *Event types* = *Request*-re, így csak a függvényhívások látszanak (a naplóbejegyzések, függőségek stb. nem).
+    - a *Logs* nézet alapértelmezetten egyszerű (*Simple*) módban nyílik meg, ahol nem lehet lekérdezést írni. A `requests | order by timestamp desc` lekérdezés beírásához előbb válts *KQL mode*-ra.
 
 !!! warning "Hagyd meg"
-    A tananyag elvégzése után ne töröld a Function-t, a következő feladatban szükség lesz rá.
+    A *Clean up resources* egységet **hagyd ki**: az törölné az erőforráscsoportot, de a Function App-ra a következő feladatban szükség lesz.
 
 !!! example "BEADANDÓ"
-    Készíts egy képernyőképet a Microsoft Learn portálról (`f1.1.png`) és commitold azt be a házi feladat repó gyökerébe, amin a tananyag elvégzéséről készült oklevél nyomtatási képe látható (angol portál esetében: jobb felső sarok ➡️ *Profile* ➡️ a bal oldali menüben *Achievements* ➡️ átváltás a *Learning Path* alfülre ➡️ tananyag kikeresése ➡️ a tananyag kártyáján a nyomtató ikon). Közvetlen [learning path link](https://learn.microsoft.com/en-us/users/me/achievements?tab=tab-learning-paths). Nem kell ténylegesen kinyomtatni, de a teljes oldal látszódjon, jobb felül a belépett felhasználó monogramjával. Alternatívaként a tananyag kártyáján a megosztás ikonnal egy linket generálhatunk; ezt a linket is be lehet adni ([példa](https://learn.microsoft.com/api/achievements/share/en-us/kszicsillag/JL4MHR2T?sharingId=C9ECDF4DA28799DD)). Link esetén próbáld ki, hogy publikusan elérhető-e az oklevél, illetve ilyenkor a [privát mód](https://learn.microsoft.com/en-us/credentials/certifications/cred-share-validate#sharing-and-privacy-setting) ne legyen bekapcsolva.
+    Készíts egy képernyőképet a Microsoft Learn portálról (`f1.1.png`) és commitold azt be a házi feladat repó gyökerébe, amin a tananyag elvégzéséről készült oklevél nyomtatási képe látható (angol portál esetében: jobb felső sarok ➡️ *Profile* ➡️ a bal oldali menüben *Achievements* ➡️ átváltás a *Modules* alfülre ➡️ tananyag kikeresése ➡️ a tananyag kártyáján a nyomtató ikon). Közvetlen [modul link](https://learn.microsoft.com/en-us/users/me/achievements?tab=tab-modules). Nem kell ténylegesen kinyomtatni, de a teljes oldal látszódjon, jobb felül a belépett felhasználó monogramjával. Alternatívaként a tananyag kártyáján a megosztás ikonnal egy linket generálhatunk; ezt a linket is be lehet adni ([példa](https://learn.microsoft.com/api/achievements/share/en-us/kszicsillag/JL4MHR2T?sharingId=C9ECDF4DA28799DD)). Link esetén próbáld ki, hogy publikusan elérhető-e az oklevél, illetve ilyenkor a [privát mód](https://learn.microsoft.com/en-us/credentials/certifications/cred-share-validate#sharing-and-privacy-setting) ne legyen bekapcsolva.
     
-    Készíts egy képernyőképet (`f1.2.png`) és commitold azt be a házi feladat repó gyökerébe, amin a Visual Studio Code Azure erőforrásokat mutató ablakában az erőforrásfa ki van bontva úgy, hogy látszódjon az 1.2-es feladat Azure Function-je. Illetve látszódjon a sikeres válasz pop-up-ja is. 
+    Készíts egy képernyőképet (`f1.2.png`) és commitold azt be a házi feladat repó gyökerébe, amin az Azure portálon a Function App áttekintő (*Overview*) nézete látszik a *GetStatus* függvénnyel, mellette pedig egy böngészőfülön a végpont kulccsal (`?code=<kulcs>`) történő hívásának sikeres válasza. A kulcsot a címsorban kitakarhatod. A kép jobb felső sarkában látszódjon a portálra belépett felhasználó.
 
 ## 2. Feladat
 
@@ -61,11 +62,15 @@ Tesztterv (*Test Plan*):
 
 Tesztterv (*Test Plan*) / HTTP kérések (*Requests*):
 
-- Request name: mi adjuk meg, pl. *HttpExampleRequest* 
-- Function name: *HttpExample* (egy van - automatikusan kitöltődik)
-- Key: *anonymous (no auth)* (automatikusan kitöltődik)
+- Request name: mi adjuk meg, pl. *GetStatusRequest* 
+- Function name: *GetStatus* (egy van - automatikusan kitöltődik)
+- Key: maradhat az automatikusan kitöltött érték; a kulcsot query paraméterként adjuk át (lásd lent)
 - HTTP method: *GET* (automatikusan kitöltődik)
-- Opcionális header, query paraméter, stb. értékek: nem kell kitölteni.
+- Query parameters: név: `code`, érték: a *GetStatus* függvény kulcsa, amit az első feladatban is kellett használnunk, hogy ne kapjunk 401-es hibát
+- Egyéb opcionális értékek (header, body stb.): nem kell kitölteni.
+
+!!! warning "Hibás kulcs"
+    Kulcs nélkül vagy hibás kulccsal a kérések *401 Unauthorized* választ kapnak. Ezeket a platform még a függvény meghívása előtt elutasítja, így a 2.2-es és 2.3-as feladat metrikáiban nem jelennek meg, a kiugrás nem lesz látható. A teszt lefutása után a teszteredményekben ellenőrizd, hogy a kérések nem hibáztak (*Errors* ≈ 0).
 
 Terhelés (*Load*):
 
@@ -74,13 +79,13 @@ Terhelés (*Load*):
 - Concurrent users per engine: *50*
 - Test duration (minutes): *5*
 - Spike load multiplier : *5*
-- Spike hold time (minutes) : *3*
+- Spike hold time (minutes) : *1*
 - Load distribution: elég az alapértelmezett 1 db
 - Test traffic mode: *public*
 
 Ellenőrzés és létrehozás (*Review + create*):
 
-- Run test after creation: bepipálni
+- Run test after creation: bekapcsolni
 
 A *Run test after creation* opció bekapcsolása miatt a teszt elkészülte után le is fog futni, nem kell külön elindítani. Várjuk meg, amíg a teszt lefut (az Azure Load Testing erőforrásunk Tests menüpontjában tudjuk követni).
 
