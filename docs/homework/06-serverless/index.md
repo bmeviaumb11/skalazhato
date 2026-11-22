@@ -68,7 +68,7 @@ A régiós elérhetőség változhat (2026. novemberi állapot).
 Ha nincs meg az előző háziból a terhelésteszt (Azure Load Testing) erőforrás, hozd létre (újra) az előző házi leírása alapján. Csak az erőforrás kell, nem kell bele teszt(eset).
 
 !!! tip "Load Testing erőforrás régiója"
-    Új Azure Load Testing erőforrás létrehozásakor a Function App régióját válaszd, ha az az 1.1-es feladat régiólistájában ⭐⭐⭐⭐⭐ értékelésű. Egyébként válassz egy engedélyezett, a Function App-hoz földrajzilag közeli ⭐⭐⭐⭐⭐ régiót. Hogy a te előfizetéseden melyek az engedélyezett ⭐⭐⭐⭐⭐ régiók, azt a [function-region-check.sh](function-region-check.sh) script kiírja (pl. ha egy hallgatói előfizetésen csak *Italy North* :flag_it: az, akkor egy *Poland Central* :flag_pl: Function App mellé is ott hozd létre).
+    Új Azure Load Testing erőforrás létrehozásakor a Function App régióját válaszd, ha az az 1.1-es feladat régiólistájában ⭐⭐⭐⭐⭐ értékelésű. Egyébként válassz egy az előfizetéseden engedélyezett, a Function App-hoz földrajzilag közeli ⭐⭐⭐⭐⭐ régiót.
 
 Az Azure portálon keresd ki és nyisd meg az előző feladatban létrehozott *Function App*-ot. A *Load Testing* menüpont segítségével [hozz létre és futtass](https://learn.microsoft.com/en-us/azure/app-testing/load-testing/how-to-create-load-test-function-app) egy kiugrást (spike) szimuláló terheléstesztet.
 
@@ -112,7 +112,7 @@ Ellenőrzés és létrehozás (*Review + create*):
 A *Run test after creation* opció bekapcsolása miatt a teszt elkészülte után le is fog futni, nem kell külön elindítani. Várjuk meg, amíg a teszt lefut (az Azure Load Testing erőforrásunk *Tests* menüpontjában tudjuk követni).
 
 !!! warning "Teszt-összerendelés nélküli régiók"
-    Ha a Function App az 1.1-es feladat régiólistájában ⭐⭐⭐ értékelésű régióban van (pl. *Austria East* :flag_at:, *Belgium Central* :flag_be:, *Spain Central* :flag_es:), a teszt létrehozásakor hibaüzenetet kapsz, mert a Function App és a teszt közti összerendelés nem jön létre. A teszt ilyenkor is létrejön, de a *Run test after creation* beállítás ellenére nem indul el, és a Function App *Load testing* menüje is üres marad. A tesztet az Azure Load Testing erőforrás *Tests* menüpontjában keresd meg, és onnan indítsd el (*Run*); a futását is itt tudod követni.
+    Ha a Function App az 1.1-es feladat régiólistájában ⭐⭐⭐ értékelésű régióban van (pl. *Austria East* :flag_at:, *Belgium Central* :flag_be:, *Spain Central* :flag_es:), a teszt létrehozásakor hibaüzenetet kapsz, mert a Function App és a teszt közti összerendelés nem tud létrejönni. A teszt maga viszont ilyenkor is létrejön, de a *Run test after creation* beállítás ellenére nem indul el, és a Function App *Load testing* menüje is üres marad. A tesztet az Azure Load Testing erőforrás *Tests* menüpontjában keresd meg, és onnan indítsd el (*Run*); a futását is itt tudod követni.
 
 ### 2.2 Terhelésteszt monitorozás Azure Function oldalról
 
