@@ -12,7 +12,6 @@ A feladatok az Azure portálon és az Azure Cloud Shell-ben végezhetők el, hel
 
 - Azure [hallgatói előfizetés](https://azure.microsoft.com/en-us/free/students)
 - [Azure Cloud Shell](https://learn.microsoft.com/en-us/azure/cloud-shell/get-started/new-storage?tabs=azurecli), Bash környezettel. Az első indításkor a tárhely beállítását is kéri.
-- böngésző
 
 ## Előkészület
 
