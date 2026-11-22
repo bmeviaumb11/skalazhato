@@ -157,4 +157,4 @@ Számold ki a terhelésteszt költségét a végrehajtási szám és a végrehaj
 ## 3. Feladat - talán a legfontosabb
 
 !!! danger "Erőforrások törlése"
-    Beadás után törölj minden erőforráscsoportot az előfizetéseden belül. (Kivéve esetleg ami nem a kisházikhoz kellett.)
+    Miután elfogadták a házidat, törölj minden erőforráscsoportot az előfizetéseden belül. (Kivéve esetleg ami nem a kisházikhoz kellett.)
