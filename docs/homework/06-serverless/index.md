@@ -1,6 +1,6 @@
 # 06 - Serverless
 
-*Nincs frissítve 2026. őszi félévre!*
+<!-- *Nincs frissítve 2026. őszi félévre!* -->
 
 ## Cél
 
