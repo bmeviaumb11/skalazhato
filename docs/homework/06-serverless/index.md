@@ -17,8 +17,8 @@ A feladatok az Azure portálon és az Azure Cloud Shell-ben végezhetők el, hel
 
 A feladatok megoldása során ne felejtsd el követni a feladat beadásának folyamatát a [GitHub](../../information/GitHub.md) oldalon.
 
-!!! danger "PR név"
-    :exclamation: A beadásnál a pull request neve legyen: *hf6* :exclamation:
+!!! danger "NEPTUN"
+    :exclamation: A feladatokban a `neptun` kifejezés helyett a saját neptunkódunkat helyettesítsük be minden esetben :exclamation:
 
 ## 1. Feladat
 
